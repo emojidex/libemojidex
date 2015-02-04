@@ -1,15 +1,20 @@
-#ifndef _EMOJIDEX_CLIENT_SEARCH_H_
-#define _EMOJIDEX_CLIENT_SEARCH_H_
+#ifndef EMOJIDEX_SEARCH_CLIENT_H
+#define EMOJIDEX_SEARCH_CLIENT_H
 
 #include <string>
+
+#include "comm.h"
 
 namespace Emojidex {
 	class SearchClient
 	{
+
 		public:
+		unsigned int current_page;
+
 		SearchClient();
 		std::string term(std::string term);
 	};
 }
 
-#endif // _EMOJIDEX_CLIENT_SEARCH_H_
+#endif // EMOJIDEX_SEARCH_CLIENT_H

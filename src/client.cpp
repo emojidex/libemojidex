@@ -6,7 +6,7 @@ Emojidex::Client::Client()
 	this->search = new Emojidex::SearchClient();
 }
 
-std::string Emojidex::Client::version()
+char Emojidex::Client::apiVersion()
 {
-	return EMOJIDEX_VERSION;
+	return 1;
 }
