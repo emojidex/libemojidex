@@ -1,23 +1,24 @@
 #include <client.h>
-#include <client/comm.h>
+#include <client/search.h>
+#include <client/transactor.h>
 
 #define BOOST_TEST_DYN_LINK 
 #define BOOST_TEST_MODULE emojidex_test
 #include <boost/test/unit_test.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
-// Raw Comm tests
+// Transactor tests
 ///////////////////////////////////////////////////////////////////////////////
-BOOST_AUTO_TEST_SUITE(comm_suite)
+BOOST_AUTO_TEST_SUITE(transactor_suite)
 
 // Check that defaults are accurate
-BOOST_AUTO_TEST_CASE(comm_info_defaults) {
-	Emojidex::Comm *comm = new Emojidex::Comm();
-	BOOST_CHECK_EQUAL(comm->info.api_url, "www.emojidex.com/api/v1/");
-	BOOST_CHECK_EQUAL(comm->info.api_protocol, "https");
-	BOOST_CHECK_EQUAL(comm->info.cdn_url, "cdn.emojidex.com/");
-	BOOST_CHECK_EQUAL(comm->info.cdn_protocol, "http");
-	BOOST_CHECK_EQUAL(comm->info.closed_net, false);
+BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
+	Emojidex::Transactor transactor;
+	BOOST_CHECK_EQUAL(transactor.info.api_url, "www.emojidex.com/api/v1/");
+	BOOST_CHECK_EQUAL(transactor.info.api_protocol, "https");
+	BOOST_CHECK_EQUAL(transactor.info.cdn_url, "cdn.emojidex.com/");
+	BOOST_CHECK_EQUAL(transactor.info.cdn_protocol, "http");
+	BOOST_CHECK_EQUAL(transactor.info.closed_net, false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -40,11 +41,11 @@ BOOST_AUTO_TEST_SUITE_END()
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(search_client_suite)
 
-Emojidex::SearchClient *searchClient = new Emojidex::SearchClient();
+Emojidex::SearchClient search;
 
 // Empty search provides empty results
 BOOST_AUTO_TEST_CASE(term) {
-	BOOST_CHECK_EQUAL(searchClient->term(""), "");
+	BOOST_CHECK_EQUAL(search.term("").size(), 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

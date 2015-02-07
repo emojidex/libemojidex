@@ -14,11 +14,15 @@ if(UNIX)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
 endif()
 
+# Get/build curlcpp first
+ADD_SUBDIRECTORY(ext/curlcpp)
+INCLUDE_DIRECTORIES(${CURLCPP_SOURCE_DIR}/include)
+
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src)
 
 ADD_LIBRARY(emojidex SHARED
 	${PROJECT_SOURCE_DIR}/src/client.cpp
-	${PROJECT_SOURCE_DIR}/src/client/comm.cpp
+	${PROJECT_SOURCE_DIR}/src/client/transactor.cpp
 	${PROJECT_SOURCE_DIR}/src/client/search.cpp
 	)
 

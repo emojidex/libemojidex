@@ -3,7 +3,8 @@
 
 Emojidex::Client::Client()
 {
-	this->search = new Emojidex::SearchClient();
+	this->Search = new Emojidex::SearchClient();
+	//this->transactor = new Emojidex::Transactor();
 }
 
 char Emojidex::Client::apiVersion()

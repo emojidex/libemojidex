@@ -1,19 +1,21 @@
 #ifndef EMOJIDEX_SEARCH_CLIENT_H
 #define EMOJIDEX_SEARCH_CLIENT_H
 
-#include <string>
+#include "transactor.h"
+#include "../emoji.h"
 
-#include "comm.h"
+#include <string>
+#include <vector>
+using namespace std;
 
 namespace Emojidex {
 	class SearchClient
 	{
-
-		public:
+	public:
 		unsigned int current_page;
 
 		SearchClient();
-		std::string term(std::string term);
+		vector<Emojidex::Emoji> term(string term);
 	};
 }
 
