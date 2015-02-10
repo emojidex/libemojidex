@@ -3,9 +3,11 @@
 
 #include <curl/curl.h>
 #include <string>
+#include <iostream>
 using namespace std;
 
 #include "curl_easy.h"
+#include "curl_writer.h"
 using curl::curl_easy;
 
 namespace Emojidex {
@@ -13,7 +15,6 @@ namespace Emojidex {
 	class Transactor
 	{
 	private:
-		curl_easy *easy;
 	public:
 		typedef struct {
 			string api_url;
@@ -25,6 +26,11 @@ namespace Emojidex {
 			unsigned int limit;
 		} exchange_info;
 
+		typedef struct {
+			string key;
+			string value;
+		} opt;
+
 		exchange_info info;
 
 		Transactor(exchange_info info_set = {"www.emojidex.com/api/v1/",
@@ -35,6 +41,8 @@ namespace Emojidex {
 					false,
 					512
 		});
+
+		string get(string url, string opts = "");
 	};
 }
 

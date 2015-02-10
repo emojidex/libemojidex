@@ -21,6 +21,11 @@ BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
 	BOOST_CHECK_EQUAL(transactor.info.closed_net, false);
 }
 
+BOOST_AUTO_TEST_CASE(transactor_get) {
+	Emojidex::Transactor transactor;
+	BOOST_CHECK(transactor.get("index") != "");
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
