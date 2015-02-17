@@ -1,20 +1,21 @@
 #ifndef EMOJIDEX_TRANSACTOR_H
 #define EMOJIDEX_TRANSACTOR_H
 
-#include <curl/curl.h>
 #include <string>
 #include <iostream>
+#include <istream>
+#include <ostream>
 using namespace std;
-
-#include "curl_easy.h"
-#include "curl_writer.h"
-using curl::curl_easy;
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+using boost::asio::ip::tcp;
 
 namespace Emojidex {
 	// performs transactions with an emojidex API server
 	class Transactor
 	{
 	private:
+		tcp::resolver resolver
 	public:
 		typedef struct {
 			string api_url;
@@ -32,6 +33,7 @@ namespace Emojidex {
 		} opt;
 
 		exchange_info info;
+		string api_addr;
 
 		Transactor(exchange_info info_set = {"www.emojidex.com/api/v1/",
 					"https",
