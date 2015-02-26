@@ -2,8 +2,8 @@ libemojidex
 ===========
 emojidex libraries in C++. 
 Built with portability in mind this library should easily enable back-end integration on desktop, 
-server and mobile platforms. 
-*Java JMI implementation coming soon!*
+server and mobile platforms.  
+*Java JNI implementation coming soon!*
 
 License
 =======
