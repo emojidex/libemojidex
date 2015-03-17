@@ -23,7 +23,8 @@ string Emojidex::Transactor::get(string path, string query)
 	boost::asio::streambuf request;
 	std::ostream request_stream(&request);
 	request_stream 
-		<< "GET " << this->info.api_prefix << path << " HTTP/1.1\r\n\r\n"
+		//<< "GET " << this->info.api_prefix << path << " HTTP/1.1\r\n\r\n"
+		<< "GET /api/v1/popular HTTP/1.1\r\n"
 		<< "Host: " << this->info.api_host << "\r\n"
 		<< "Content-Length: " << query.length() << "\r\n"
 		<< "Connection: Close" << "\r\n"
@@ -39,9 +40,14 @@ string Emojidex::Transactor::get(string path, string query)
 	response_stream >> http_version;
 	unsigned int status_code;
 	response_stream >> status_code;
-	cout << "STATUS CODE: " << status_code;
 
+	string json_string;
 	boost::system::error_code error;
+	while(boost::asio::read(ssl_stream, response, transfer_at_least(1), error))
+		cout << "READING\n";
+		json_string = boost::asio::buffer_cast<const char*>(response.data());
 
-	return "";
+	cout << "RESONSE: " << json_string;
+
+	return json_string;
 }

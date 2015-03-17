@@ -42,7 +42,7 @@ namespace Emojidex {
 					"http",
 					"en",
 					false,
-					512
+					250
 		});
 
 		string get(string path, string query = "");
