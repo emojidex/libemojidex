@@ -7,7 +7,6 @@
 #include <ostream>
 using namespace std;
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
 using namespace boost::asio;
 
 namespace Emojidex {
@@ -17,10 +16,10 @@ namespace Emojidex {
 	private:
 	public:
 		typedef struct {
-			string api_url;
+			string api_host;
 			string api_prefix;
 			string api_protocol;
-			string cdn_url;
+			string cdn_host;
 			string cdn_prefix;
 			string cdn_protocol;
 			string locale;
@@ -46,7 +45,7 @@ namespace Emojidex {
 					512
 		});
 
-		string get(string path, string opts = "");
+		string get(string path, string query = "");
 	};
 }
 

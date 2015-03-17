@@ -14,10 +14,10 @@ BOOST_AUTO_TEST_SUITE(transactor_suite)
 // Check that defaults are accurate
 BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
 	Emojidex::Transactor transactor;
-	BOOST_CHECK_EQUAL(transactor.info.api_url, "www.emojidex.com");
+	BOOST_CHECK_EQUAL(transactor.info.api_host, "www.emojidex.com");
 	BOOST_CHECK_EQUAL(transactor.info.api_prefix, "/api/v1/");
 	BOOST_CHECK_EQUAL(transactor.info.api_protocol, "https");
-	BOOST_CHECK_EQUAL(transactor.info.cdn_url, "cdn.emojidex.com");
+	BOOST_CHECK_EQUAL(transactor.info.cdn_host, "cdn.emojidex.com");
 	BOOST_CHECK_EQUAL(transactor.info.cdn_prefix, "/emoji/");
 	BOOST_CHECK_EQUAL(transactor.info.cdn_protocol, "http");
 	BOOST_CHECK_EQUAL(transactor.info.closed_net, false);
@@ -51,8 +51,8 @@ BOOST_AUTO_TEST_SUITE(search_client_suite)
 Emojidex::SearchClient search;
 
 // Empty search provides empty results
-BOOST_AUTO_TEST_CASE(term) {
-	BOOST_CHECK_EQUAL(search.term("").size(), 0);
-}
+//BOOST_AUTO_TEST_CASE(term) {
+	//BOOST_CHECK_GT(search.term("tears").size(), 0);
+//}
 
 BOOST_AUTO_TEST_SUITE_END()
