@@ -45,7 +45,7 @@ namespace Emojidex {
 					250
 		});
 
-		string get(string path, string query = "");
+		string get(string endpoint, string query = "");
 	};
 }
 

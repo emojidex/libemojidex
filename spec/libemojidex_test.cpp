@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
 
 BOOST_AUTO_TEST_CASE(transactor_get) {
 	Emojidex::Transactor transactor;
-	BOOST_CHECK_NE(transactor.get("index").compare(""), 0);
+	BOOST_CHECK_NE(transactor.get("popular").compare(""), 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
