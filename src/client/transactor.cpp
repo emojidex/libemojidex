@@ -23,11 +23,11 @@ string Emojidex::Transactor::get(string endpoint, string query)
 	boost::asio::streambuf request;
 	std::ostream request_stream(&request);
 	request_stream 
-		<< "GET " << this->info.api_prefix << endpoint << " HTTP/1.1\r\n"
-		//<< "GET /api/v1/popular HTTP/1.1\r\n"
+		<< "GET " << this->info.api_prefix << endpoint << " HTTP/1.0\r\n"
 		<< "Host: " << this->info.api_host << "\r\n"
+		//<< "Accept: application/json; charset=utf-8\r\n"
 		<< "Content-Length: " << query.length() << "\r\n"
-		<< "Connection: Close" << "\r\n"
+		<< "Connection: close" << "\r\n"
 		<< "\r\n"
 		<< query << "\r\n";
 	write(ssl_stream, request);
@@ -40,18 +40,27 @@ string Emojidex::Transactor::get(string endpoint, string query)
 	response_stream >> http_version;
 	unsigned int status_code;
 	response_stream >> status_code;
-
-	string *json_string = new string("");
+	string status_message;
+	getline(response_stream, status_message);
+	// TODO response error handling
+	
+	// response header
+	boost::asio::read_until(ssl_stream, response, "\r\n");
+	string header;
+	while (getline(response_stream, header) && header != "\r");
+	// TODO handle headers line by line
+	
 	boost::system::error_code error;
-	while(boost::asio::read(ssl_stream, response, transfer_at_least(1), error))
-		*json_string = boost::asio::buffer_cast<const char*>(response.data());
+	while (boost::asio::read(ssl_stream, response, transfer_all(), error));
+	string json_string(boost::asio::buffer_cast<const char*>(response.data()));
 
-	std::size_t pos = json_string->find("\r\n\r\n");
+	// cut non-data info
+	std::size_t pos = json_string.find("\r\n\r\n");
 	if (pos != std::string::npos) {
-		*json_string = json_string->substr(pos + 4);
+		json_string = json_string.substr(pos + 4);
 	}
 
-	cout << "RESONSE: " << *json_string;
+	cout << "RESONSE: " << json_string;
 
-	return *json_string;
+	return json_string;
 }
