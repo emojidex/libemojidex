@@ -1,39 +1,57 @@
 #include "transactor.h"
 
 #include <boost/bind.hpp>
-#include <boost/asio/ssl.hpp>
-using namespace boost::asio;
 
-Emojidex::Transactor::Transactor(exchange_info info_set)
+Emojidex::Transactor::Transactor(exchange_info info_set, string api_key)
 {
 	this->info = info_set;
+	setAPIKey(api_key);
 }
 
-string Emojidex::Transactor::get(string endpoint, string query)
+void Emojidex::Transactor::setAPIKey(string api_key)
+{
+	this->key = api_key;
+}
+
+string Emojidex::Transactor::generateQueryString(unordered_map<string, string> *query)
+{
+	
+	return "";
+}
+
+ssl::stream<ip::tcp::socket>* Emojidex::Transactor::getStream()
 {
 	io_service io_service;
 	ssl::context context(io_service, ssl::context::sslv23_client);
-	ssl::stream<ip::tcp::socket> ssl_stream(io_service, context);
-	ssl_stream.lowest_layer().connect(
+	ssl::stream<ip::tcp::socket> *stream = new ssl::stream<ip::tcp::socket>(io_service, context);
+	stream->lowest_layer().connect(
 		*ip::tcp::resolver(io_service).resolve(ip::tcp::resolver::query(this->info.api_host, this->info.api_protocol))
 	);
-	ssl_stream.handshake(ssl::stream_base::client);
+	stream->handshake(ssl::stream_base::client);
 
+	return stream;
+}
 
+string Emojidex::Transactor::get(string endpoint, unordered_map<string, string> *query)
+{
+	ssl::stream<ip::tcp::socket> *stream = getStream();
 	boost::asio::streambuf request;
 	std::ostream request_stream(&request);
+
+	string query_string = generateQueryString(query);
 	request_stream 
 		<< "GET " << this->info.api_prefix << endpoint << " HTTP/1.0\r\n"
 		<< "Host: " << this->info.api_host << "\r\n"
-		//<< "Accept: application/json; charset=utf-8\r\n"
-		<< "Content-Length: " << query.length() << "\r\n"
+		<< "Accept: application/json; charset=utf-8\r\n"
 		<< "Connection: close" << "\r\n"
+		<< "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n"
+		<< "Content-Length: " << query_string.length() << "\r\n"
 		<< "\r\n"
-		<< query << "\r\n";
-	write(ssl_stream, request);
+		<< query_string << "\r\n";
+	write(*stream, request);
 
 	boost::asio::streambuf response;
-	boost::asio::read_until(ssl_stream, response, "\r\n");
+	boost::asio::read_until(*stream, response, "\r\n");
 
 	std::istream response_stream(&response);
 	std::string http_version;
@@ -45,13 +63,13 @@ string Emojidex::Transactor::get(string endpoint, string query)
 	// TODO response error handling
 	
 	// response header
-	boost::asio::read_until(ssl_stream, response, "\r\n");
+	boost::asio::read_until(*stream, response, "\r\n");
 	string header;
 	while (getline(response_stream, header) && header != "\r");
 	// TODO handle headers line by line
 	
 	boost::system::error_code error;
-	while (boost::asio::read(ssl_stream, response, transfer_all(), error));
+	while (boost::asio::read(*stream, response, transfer_all(), error));
 	string json_string(boost::asio::buffer_cast<const char*>(response.data()));
 
 	// cut non-data info

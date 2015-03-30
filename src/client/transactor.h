@@ -5,8 +5,10 @@
 #include <iostream>
 #include <istream>
 #include <ostream>
+#include <unordered_map>
 using namespace std;
 #include <boost/asio.hpp>
+#include <boost/asio/ssl.hpp>
 using namespace boost::asio;
 
 namespace Emojidex {
@@ -14,6 +16,11 @@ namespace Emojidex {
 	class Transactor
 	{
 	private:
+		std::string key;
+
+		string generateQueryString(unordered_map<string, string> *query);
+
+		ssl::stream<ip::tcp::socket>* getStream();
 	public:
 		typedef struct {
 			string api_host;
@@ -22,9 +29,7 @@ namespace Emojidex {
 			string cdn_host;
 			string cdn_prefix;
 			string cdn_protocol;
-			string locale;
 			bool closed_net;
-			unsigned int limit;
 		} exchange_info;
 
 		typedef struct {
@@ -40,12 +45,12 @@ namespace Emojidex {
 					"cdn.emojidex.com",
 					"/emoji/",
 					"http",
-					"en",
-					false,
-					250
-		});
+					false
+		}, string api_key = "");
 
-		string get(string endpoint, string query = "");
+		void setAPIKey(string api_key = "");
+
+		string get(string endpoint, unordered_map<string, string> *query = NULL );
 	};
 }
 

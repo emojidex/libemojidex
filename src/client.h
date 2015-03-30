@@ -15,9 +15,6 @@
 #include "client/transactor.h"
 #include "client/search.h"
 
-#include <string>
-using namespace std;
-
 namespace Emojidex {
 	// Core client class (includes all components in a central state-machine client)
 	class Client
