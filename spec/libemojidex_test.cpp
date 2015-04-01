@@ -26,6 +26,13 @@ BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
 BOOST_AUTO_TEST_CASE(transactor_get) {
 	Emojidex::Transactor transactor;
 	BOOST_CHECK_NE(transactor.get("popular").compare(""), 0);
+
+	unordered_map<string, string> q;
+	q["detailed"] = "true";
+	q["page"] = "2";
+	BOOST_CHECK_NE(transactor.get("popular", q).compare(""), 0);
+
+	BOOST_CHECK_NE(transactor.get("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

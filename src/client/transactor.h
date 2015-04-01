@@ -16,9 +16,9 @@ namespace Emojidex {
 	class Transactor
 	{
 	private:
-		std::string key;
+		std::string auth_token;
 
-		string generateQueryString(unordered_map<string, string> *query);
+		string generateQueryString(unordered_map<string, string> query);
 
 		ssl::stream<ip::tcp::socket>* getStream();
 	public:
@@ -46,11 +46,13 @@ namespace Emojidex {
 					"/emoji/",
 					"http",
 					false
-		}, string api_key = "");
+		}, string token = "");
 
-		void setAPIKey(string api_key = "");
+		void setAuthToken(string token = "");
 
-		string get(string endpoint, unordered_map<string, string> *query = NULL );
+		unordered_map<string, string> queryTemplate(bool defaults = true);
+
+		string get(string endpoint, unordered_map<string, string> query = {{"", ""}});
 	};
 }
 
