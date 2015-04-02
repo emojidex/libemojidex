@@ -1,4 +1,4 @@
-%module swigtest
+%module libemojidex
 %{
 #include "cilent.h"
 %}
