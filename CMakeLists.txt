@@ -72,5 +72,5 @@ SET(CMAKE_JNI_TARGET TRUE)
 #INSTALL_JAR(libemojidex_swig_jar ${LIB_INSTALL_DIR}/hoge)
 #INSTALL_JNI_SYMLINK(libemojidex_swig_jar .)
 
-SWIG_ADD_MODULE(libemojidex_swig java "src/libemojidex.i")
-#SWIG_LINK_LIBRARIES(libemojidex_swig emojidex)
+SWIG_ADD_MODULE(emojidex_swig java "src/libemojidex.i")
+SWIG_LINK_LIBRARIES(emojidex_swig emojidex)
