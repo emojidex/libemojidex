@@ -62,15 +62,20 @@ SET(CMAKE_SWIG_OUTDIR "src")
 SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i" PROPERTIES CPLUSPLUS 1)
 SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i" PROPERTIES SWIG_FLAGS "-includeall")
 
-SET(LIBEMOJIDEX_JAVA_FILES "${PROJECT_BINARY_DIR}/src/*.java")
+SET(LIBEMOJIDEX_JAVA_FILES
+	${PROJECT_BINARY_DIR}/src/Client.java
+	${PROJECT_BINARY_DIR}/src/libemojidex.java
+	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__SearchClient.java
+)
 
 SET(CMAKE_JNI_TARGET TRUE)
-#ADD_JAR(libemojidex_swig_jar
-#	SOURCES ${LIBEMOJIDEX_JAVA_FILES}
-#	VERSION ${EMOJIDEX_LIB_VERSION}
-#)
-#INSTALL_JAR(libemojidex_swig_jar ${LIB_INSTALL_DIR}/hoge)
-#INSTALL_JNI_SYMLINK(libemojidex_swig_jar .)
+ADD_JAR(libemojidex_swig_jar
+	SOURCES ${LIBEMOJIDEX_JAVA_FILES}
+	VERSION ${EMOJIDEX_LIB_VERSION}
+)
+INSTALL_JAR(libemojidex_swig_jar ${LIB_INSTALL_DIR}/emojidex)
+INSTALL_JNI_SYMLINK(libemojidex_swig_jar .)
 
 SWIG_ADD_MODULE(emojidex_swig java "src/libemojidex.i")
 SWIG_LINK_LIBRARIES(emojidex_swig emojidex)
