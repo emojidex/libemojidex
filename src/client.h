@@ -12,10 +12,10 @@
 #ifndef EMOJIDEX_CLIENT_H
 #define EMOJIDEX_CLIENT_H
 
-#include "client/transactor.h"
-#include "client/search.h"
-
 namespace Emojidex {
+	class Transactor;
+	class SearchClient;
+
 	// Core client class (includes all components in a central state-machine client)
 	class Client
 	{

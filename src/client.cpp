@@ -1,4 +1,5 @@
 #include "client.h"
+#include "client/transactor.h"
 #include "client/search.h"
 
 Emojidex::Client::Client()
