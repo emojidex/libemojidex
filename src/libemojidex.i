@@ -1,5 +1,5 @@
 %module libemojidex
 %{
-#include "cilent.h"
+#include "client.h"
 %}
 %include "client.h"
