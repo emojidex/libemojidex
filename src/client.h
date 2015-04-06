@@ -12,8 +12,8 @@
 #ifndef EMOJIDEX_CLIENT_H
 #define EMOJIDEX_CLIENT_H
 
-#include "client/transactor.h"
-#include "client/search.h"
+#include "service/indexes.h"
+#include "service/search.h"
 
 namespace Emojidex {
 	// Core client class (includes all components in a central state-machine client)
@@ -22,7 +22,8 @@ namespace Emojidex {
 	private:
 		//Emojidex::Transactor *transactor;
 	public:
-		Emojidex::SearchClient *Search;
+		Emojidex::Service::Search *Search;
+		Emojidex::Service::Search *Indexes;
 
 		Client();
 		char apiVersion();

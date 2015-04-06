@@ -1,11 +1,11 @@
 #include "search.h"
 
-Emojidex::SearchClient::SearchClient()
+Emojidex::Service::Search::Search()
 {
 	this->current_page = 0;
 }
 
-vector<Emojidex::Emoji> Emojidex::SearchClient::term(string term)
+vector<Emojidex::Emoji> Emojidex::Service::Search::term(string term)
 {
 	vector<Emojidex::Emoji> results;
 

@@ -20,8 +20,9 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src)
 
 ADD_LIBRARY(emojidex SHARED
 	${PROJECT_SOURCE_DIR}/src/client.cpp
-	${PROJECT_SOURCE_DIR}/src/client/transactor.cpp
-	${PROJECT_SOURCE_DIR}/src/client/search.cpp
+	${PROJECT_SOURCE_DIR}/src/service/transactor.cpp
+	${PROJECT_SOURCE_DIR}/src/service/indexes.cpp
+	${PROJECT_SOURCE_DIR}/src/service/search.cpp
 	)
 
 FIND_PACKAGE(Boost REQUIRED
@@ -43,7 +44,9 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/spec)
 INSTALL(FILES 
 	${PROJECT_SOURCE_DIR}/src/version.h
 	${PROJECT_SOURCE_DIR}/src/client.h
-	${PROJECT_SOURCE_DIR}/src/client/search.h
+	${PROJECT_SOURCE_DIR}/src/service/indexes.h
+	${PROJECT_SOURCE_DIR}/src/service/search.h
+	${PROJECT_SOURCE_DIR}/src/data/moji_codes.h
 	DESTINATION "include/emojidex"
 	)
 INSTALL(TARGETS emojidex DESTINATION "lib")

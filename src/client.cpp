@@ -1,9 +1,8 @@
 #include "client.h"
-#include "client/search.h"
 
 Emojidex::Client::Client()
 {
-	this->Search = new Emojidex::SearchClient();
+	this->Search = new Emojidex::Service::Search();
 	//this->transactor = new Emojidex::Transactor();
 }
 

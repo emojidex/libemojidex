@@ -2,18 +2,18 @@
 
 #include <boost/bind.hpp>
 
-Emojidex::Transactor::Transactor(exchange_info info_set, string token)
+Emojidex::Service::Transactor::Transactor(exchange_info info_set, string token)
 {
 	this->info = info_set;
 	setAuthToken(token);
 }
 
-void Emojidex::Transactor::setAuthToken(string token)
+void Emojidex::Service::Transactor::setAuthToken(string token)
 {
 	this->auth_token = token;
 }
 
-unordered_map<string, string> Emojidex::Transactor::queryTemplate(bool defaults)
+unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(bool defaults)
 {
 	unordered_map<string, string> q;
 
@@ -25,7 +25,7 @@ unordered_map<string, string> Emojidex::Transactor::queryTemplate(bool defaults)
 	return q;
 }
 
-string Emojidex::Transactor::generateQueryString(unordered_map<string, string> query)
+string Emojidex::Service::Transactor::generateQueryString(unordered_map<string, string> query)
 {
 	stringstream query_ss;
 
@@ -37,7 +37,7 @@ string Emojidex::Transactor::generateQueryString(unordered_map<string, string> q
 	return query_s.substr(0, query_s.size() - 1);
 }
 
-ssl::stream<ip::tcp::socket>* Emojidex::Transactor::getStream()
+ssl::stream<ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
 {
 	io_service io_service;
 	ssl::context context(io_service, ssl::context::sslv23_client);
@@ -50,7 +50,7 @@ ssl::stream<ip::tcp::socket>* Emojidex::Transactor::getStream()
 	return stream;
 }
 
-string Emojidex::Transactor::get(string endpoint, unordered_map<string, string> query)
+string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string, string> query)
 {
 	ssl::stream<ip::tcp::socket> *stream = getStream();
 	boost::asio::streambuf request;
