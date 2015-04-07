@@ -67,6 +67,7 @@ SET(LIBEMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/libemojidex.java
 	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
 	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__SearchClient.java
+	${PROJECT_SOURCE_DIR}/src/java/NativeLibLoader.java
 )
 
 SET(CMAKE_JNI_TARGET TRUE)
