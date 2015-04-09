@@ -19,7 +19,7 @@ Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 	}
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.get(moji_codes, {{"locale", locale}});
+	string response = transactor.get("moji_codes", {{"locale", locale}});
 	this->codes->locale = locale;
 
 	return this->codes;
