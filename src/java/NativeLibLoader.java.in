@@ -14,7 +14,7 @@ public final class NativeLibLoader
    */
   static void load()
   {
-    load("emojidex_swig");
+    load("@SWIG_JAVA_LIB_NAME@");
   }
 
   /**
@@ -39,7 +39,7 @@ public final class NativeLibLoader
   {
     try
     {
-      final String path = "lib" + name + ".so";;
+      final String path = "@SWIG_JAVA_LIB_FILENAME@";
       final InputStream is = NativeLibLoader.class.getClassLoader().getResourceAsStream(path);
 
       final File tmp = File.createTempFile(name, ".tmp");
