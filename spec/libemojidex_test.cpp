@@ -63,6 +63,14 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK_GT(idx.mojiCodes()->moji_array.size(), 0);
 		BOOST_CHECK_GT(idx.mojiCodes()->moji_index.size(), 0);
 		BOOST_CHECK(idx.mojiCodes()->moji_index["🍕"].compare("pizza") == 0);
+		BOOST_CHECK(idx.mojiCodes("ja")->locale.compare("ja") == 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(moji_codes_seed_ja) {
+		BOOST_CHECK(idx.mojiCodes("ja")->locale.compare("ja") == 0);
+		BOOST_CHECK_GT(idx.mojiCodes()->moji_array.size(), 0);
+		BOOST_CHECK_GT(idx.mojiCodes()->moji_index.size(), 0);
+		BOOST_CHECK(idx.mojiCodes()->moji_index["🌢"].compare("雫") == 0);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

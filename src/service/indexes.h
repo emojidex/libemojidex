@@ -14,7 +14,7 @@ namespace Emojidex {
 			Indexes();
 			~Indexes();
 
-			Emojidex::Data::MojiCodes* mojiCodes(string locale = "en");
+			Emojidex::Data::MojiCodes* mojiCodes(string locale = "");
 		};
 	}
 }

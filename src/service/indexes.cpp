@@ -14,9 +14,16 @@ Emojidex::Service::Indexes::~Indexes()
 
 Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 {
-	if (this->codes->locale.compare(locale) == 0) {
-		return this->codes;
+	if (locale.compare("") == 0) { // default arg
+		if (this->codes->locale.compare("") == 0) { // if not already defined 
+			locale = "en"; // default to english
+		} else {
+			locale = this->codes->locale;
+		}
 	}
+
+	if (this->codes->locale.compare(locale) == 0)
+		return this->codes;
 
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.get("moji_codes", {{"locale", locale}});
@@ -39,7 +46,7 @@ Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 	for (rapidjson::Value::ConstMemberIterator item = mi.MemberBegin();
 			item != mi.MemberEnd(); item++)
 		this->codes->moji_index[item->name.GetString()] = item->value.GetString();
-	
+
 	this->codes->locale = locale;
 
 	return this->codes;
