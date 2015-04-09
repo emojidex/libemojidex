@@ -16,6 +16,10 @@ if(UNIX)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
 endif()
 
+# rapidJSON is lib only so only uncomment this if you want to 
+# also run specs on it
+# ADD_SUBDIRECTORY(vendor/rapidjson)
+
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src
 	${PROJECT_SOURCE_DIR}/vendor/rapidjson/include
 	)
@@ -34,7 +38,6 @@ FIND_PACKAGE(Boost REQUIRED
 
 FIND_PACKAGE(OpenSSL)
 
-ADD_SUBDIRECTORY(vendor/rapidjson)
 
 TARGET_LINK_LIBRARIES(emojidex
 	${Boost_FILESYSTEM_LIBRARY}

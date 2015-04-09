@@ -52,11 +52,13 @@ ssl::stream<ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
 
 string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string, string> query)
 {
+	// TODO clean this the fuck up
 	ssl::stream<ip::tcp::socket> *stream = getStream();
 	boost::asio::streambuf request;
 	std::ostream request_stream(&request);
 
 	string query_string = generateQueryString(query);
+	/* TODO HTTP 1.1+ (chunking etc.) */
 	request_stream 
 		<< "GET " << this->info.api_prefix << endpoint << " HTTP/1.0\r\n"
 		<< "Host: " << this->info.api_host << "\r\n"
@@ -78,8 +80,11 @@ string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string,
 	response_stream >> status_code;
 	string status_message;
 	getline(response_stream, status_message);
-	// TODO response error handling
-	
+	if (status_code < 200 || status_code >= 300) {
+		cerr << "[" << status_code << "]:" << status_message << endl;
+		return "";
+	}
+
 	// response header
 	boost::asio::read_until(*stream, response, "\r\n");
 	string header;

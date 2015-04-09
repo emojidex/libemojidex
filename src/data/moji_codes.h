@@ -13,9 +13,9 @@ namespace Emojidex {
 		{
 		public:
 			string locale = "";
-			string mojiString;
-			vector<string> mojiArray;
-			unordered_map<string, string> mojiIndex;
+			string moji_string;
+			vector<string> moji_array;
+			unordered_map<string, string> moji_index;
 		};
 	}
 }

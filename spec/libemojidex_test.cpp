@@ -11,9 +11,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 
+	Emojidex::Service::Transactor transactor;
+
 	// Check that defaults are accurate
 	BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
-		Emojidex::Service::Transactor transactor;
+		BOOST_TEST_MESSAGE("Checking defaults:");
 		BOOST_CHECK_EQUAL(transactor.info.api_host, "www.emojidex.com");
 		BOOST_CHECK_EQUAL(transactor.info.api_prefix, "/api/v1/");
 		BOOST_CHECK_EQUAL(transactor.info.api_protocol, "https");
@@ -23,16 +25,28 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 		BOOST_CHECK_EQUAL(transactor.info.closed_net, false);
 	}
 
-	BOOST_AUTO_TEST_CASE(transactor_get) {
-		Emojidex::Service::Transactor transactor;
+	BOOST_AUTO_TEST_CASE(transactor_get_no_query) {
+		BOOST_TEST_MESSAGE("Checking raw GET:");
 		BOOST_CHECK_NE(transactor.get("popular").compare(""), 0);
+	}
 
+	BOOST_AUTO_TEST_CASE(transactor_get_w_query_map) {
+		BOOST_TEST_MESSAGE("Checking raw GET with a query map");
 		unordered_map<string, string> q;
 		q["detailed"] = "true";
 		q["page"] = "2";
 		BOOST_CHECK_NE(transactor.get("popular", q).compare(""), 0);
+	}
 
+	BOOST_AUTO_TEST_CASE(transactor_get_hash_query) {
+		BOOST_TEST_MESSAGE("Checking raw GET with an instance query map");
 		BOOST_CHECK_NE(transactor.get("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(transactor_get_static_point) {
+		BOOST_TEST_MESSAGE("Checking raw GET against a static endpoint");
+		BOOST_CHECK_NE(transactor.get("moji_codes").compare(""), 0);
+		BOOST_CHECK_NE(transactor.get("moji_codes", {{"locale", "ja"}}).compare(""), 0);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -46,7 +60,9 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed) {
 		BOOST_CHECK(idx.mojiCodes()->locale.compare("en") == 0);
-		BOOST_CHECK_GT(idx.mojiCodes()->mojiArray.size(), 0);
+		BOOST_CHECK_GT(idx.mojiCodes()->moji_array.size(), 0);
+		BOOST_CHECK_GT(idx.mojiCodes()->moji_index.size(), 0);
+		BOOST_CHECK(idx.mojiCodes()->moji_index["🍕"].compare("pizza") == 0);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
