@@ -1,6 +1,3 @@
-[submodule "ext/urdl"]
-	path = ext/urdl
-	url = git@github.com:chriskohlhoff/urdl.git
 [submodule "vendor/rapidjson"]
 	path = vendor/rapidjson
-	url = git@github.com:miloyip/rapidjson.git
+	url = git://github.com/miloyip/rapidjson.git
