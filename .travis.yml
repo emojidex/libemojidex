@@ -2,7 +2,7 @@ language: cpp
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install java
+  - sudo apt-get install openjdk-8-jdk
 
 compiler:
   - gcc
