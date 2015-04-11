@@ -2,6 +2,8 @@
 #define EMOJIDEX_SERVICE_INDEXES_H
 
 #include "../data/moji_codes.h"
+#include "../data/emoji.h"
+#include "../data/collection.h"
 
 namespace Emojidex {
 	namespace Service {
@@ -15,6 +17,9 @@ namespace Emojidex {
 			~Indexes();
 
 			Emojidex::Data::MojiCodes* mojiCodes(string locale = "");
+      Emojidex::Data::Collection utfEmoji(string locale = "");
+      Emojidex::Data::Collection extendedEmoji(string locale = "");
+      
 		};
 	}
 }

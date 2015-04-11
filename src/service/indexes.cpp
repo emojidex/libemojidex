@@ -12,15 +12,20 @@ Emojidex::Service::Indexes::~Indexes()
 	delete this->codes;
 }
 
-Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
+void defaultLocale(string *object_locale, string *locale)
 {
-	if (locale.compare("") == 0) { // default arg
-		if (this->codes->locale.compare("") == 0) { // if not already defined 
-			locale = "en"; // default to english
+	if (locale->compare("") == 0) { // default arg
+		if (object_locale->compare("") == 0) { // if not already defined 
+			*locale = "en"; // default to english
 		} else {
-			locale = this->codes->locale;
+			*locale = *object_locale;
 		}
 	}
+}
+
+Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
+{
+  defaultLocale(&this->codes->locale, &locale);
 
 	if (this->codes->locale.compare(locale) == 0)
 		return this->codes;
@@ -50,4 +55,21 @@ Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 	this->codes->locale = locale;
 
 	return this->codes;
+}
+
+Emojidex::Data::Collection getStaticCollection(string name, string locale)
+{
+  Emojidex::Data::Collection collect;
+  defaultLocale(&collect.locale, &locale);
+  return collect;
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale)
+{
+  return getStaticCollection("utf_emoji", locale);
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string locale)
+{
+  return getStaticCollection("extended_emoji", locale);
 }
