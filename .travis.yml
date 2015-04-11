@@ -2,7 +2,7 @@ language: cpp
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install openjdk-7-jdk swig
+  - sudo apt-get install openjdk-7-jdk swig libboost-dev libboost-filesystem-dev libboost-test-dev
 
 compiler:
   - gcc
