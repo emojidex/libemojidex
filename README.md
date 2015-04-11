@@ -1,5 +1,6 @@
 libemojidex
 ===========
+[![Build Status](https://travis-ci.org/emojidex/libemojidex.svg)](https://travis-ci.org/emojidex/libemojidex)
 emojidex libraries in C++. 
 Built with portability in mind this library should easily enable back-end integration on desktop, 
 server and mobile platforms.
