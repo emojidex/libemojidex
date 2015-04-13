@@ -59,18 +59,25 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	Emojidex::Service::Indexes idx;
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed) {
-		BOOST_CHECK(idx.mojiCodes()->locale.compare("en") == 0);
-		BOOST_CHECK_GT(idx.mojiCodes()->moji_array.size(), 0);
-		BOOST_CHECK_GT(idx.mojiCodes()->moji_index.size(), 0);
-		BOOST_CHECK(idx.mojiCodes()->moji_index["🍕"].compare("pizza") == 0);
-		BOOST_CHECK(idx.mojiCodes("ja")->locale.compare("ja") == 0);
+		BOOST_CHECK(idx.mojiCodes().locale.compare("en") == 0);
+		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
+		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
+		BOOST_CHECK(idx.mojiCodes().moji_index["🍕"].compare("pizza") == 0);
+		BOOST_CHECK(idx.mojiCodes("ja").locale.compare("ja") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed_ja) {
-		BOOST_CHECK(idx.mojiCodes("ja")->locale.compare("ja") == 0);
-		BOOST_CHECK_GT(idx.mojiCodes()->moji_array.size(), 0);
-		BOOST_CHECK_GT(idx.mojiCodes()->moji_index.size(), 0);
-		BOOST_CHECK(idx.mojiCodes()->moji_index["🌢"].compare("雫") == 0);
+		BOOST_CHECK(idx.mojiCodes("ja").locale.compare("ja") == 0);
+		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
+		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
+		BOOST_CHECK(idx.mojiCodes().moji_index["🌢"].compare("雫") == 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
+    Emojidex::Data::Collection utf = idx.utfEmoji("ja");
+		BOOST_CHECK(utf.locale.compare("ja") == 0);
+		BOOST_CHECK_GT(utf.emoji.size(), 0);
+		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

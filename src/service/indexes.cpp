@@ -23,12 +23,12 @@ void defaultLocale(string *object_locale, string *locale)
 	}
 }
 
-Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
+Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
   defaultLocale(&this->codes->locale, &locale);
 
 	if (this->codes->locale.compare(locale) == 0)
-		return this->codes;
+		return *this->codes;
 
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.get("moji_codes", {{"locale", locale}});
@@ -37,14 +37,13 @@ Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 	d.Parse(response.c_str());
 
 	if (d.HasParseError())
-		return this->codes;
+		return *this->codes;
 
 	rapidjson::Value& ms = d["moji_string"];
 	this->codes->moji_string = ms.GetString();
 	
 	const rapidjson::Value& ma = d["moji_array"];
-	rapidjson::SizeType ma_len = ma.Size();
-    for (rapidjson::SizeType i = 0; i < ma_len; i++)
+  for (rapidjson::SizeType i = 0; i < ma.Size(); i++)
 		this->codes->moji_array.push_back(ma[i].GetString());
 
 	const rapidjson::Value& mi = d["moji_index"];
@@ -54,13 +53,35 @@ Emojidex::Data::MojiCodes* Emojidex::Service::Indexes::mojiCodes(string locale)
 
 	this->codes->locale = locale;
 
-	return this->codes;
+	return *this->codes;
 }
 
 Emojidex::Data::Collection getStaticCollection(string name, string locale)
 {
-  Emojidex::Data::Collection collect;
+  Emojidex::Data::Collection collect = Emojidex::Data::Collection();
   defaultLocale(&collect.locale, &locale);
+
+	Emojidex::Service::Transactor transactor;
+	string response = transactor.get(name, {{"locale", locale}});
+
+	rapidjson::Document d;
+	d.Parse(response.c_str());
+
+	if (d.HasParseError())
+    return collect; // return empty collection
+
+
+ /* rapidjson::Value& arr = d[0];
+	for (rapidjson::Value::ConstMemberIterator item = arr.MemberBegin();
+			item != arr.MemberEnd(); item++) {
+    Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
+    //moji.code = item["moji"].getString();
+    cout << "CODE: " << item["moji"].getString() << endl;
+		//collect.emoji[item->code.GetString()] = item->value.GetString();
+  }*/
+
+  collect.locale = locale;
+
   return collect;
 }
 
