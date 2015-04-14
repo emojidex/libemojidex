@@ -13,7 +13,6 @@ SET(CMAKE_SWIG_OUTDIR "src")
 SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i"
 	PROPERTIES
 	CPLUSPLUS 1
-	SWIG_FLAGS "-includeall"
 )
 
 SET(SWIG_JAVA_TARGET java)
@@ -38,7 +37,7 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Client.java
 	${PROJECT_BINARY_DIR}/src/libemojidex.java
 	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__SearchClient.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__Service__Search.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
 
