@@ -37,7 +37,7 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Client.java
 	${PROJECT_BINARY_DIR}/src/libemojidex.java
 	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__SearchClient.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__Service__Search.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
 
