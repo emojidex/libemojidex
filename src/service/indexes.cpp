@@ -70,22 +70,17 @@ Emojidex::Data::Collection getStaticCollection(string name, string locale, bool 
 	if (d.HasParseError())
     return collect; // return empty collection
 
-
-//  rapidjson::Value& arr = d[0];
-//	for (rapidjson::Value::ConstMemberIterator item = arr.MemberBegin();
-//			item != arr.MemberEnd(); item++) {
-//    Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-//    //moji.code = item["moji"].getString();
-//    cout << "CODE: " << item << endl;
-//		//collect.emoji[item->code.GetString()] = item->value.GetString();
-//  }
-
   for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
     Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
     moji.code = d[i]["code"].GetString();
     if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
     if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
     d[i]["category"].IsString()? moji.category = d[i]["category"].GetString() : moji.category = "";
+
+    rapidjson::Value& tags = d[i]["tags"];
+    assert(tags.IsArray());
+    for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+      moji.tags.push_back(tags[tag_i].GetString());
 
     collect.emoji[moji.code] = moji;
   }

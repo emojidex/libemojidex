@@ -80,6 +80,13 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 	}
 
+	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
+    Emojidex::Data::Collection ext = idx.extendedEmoji();
+		BOOST_CHECK(ext.locale.compare("en") == 0);
+		BOOST_CHECK_GT(ext.emoji.size(), 0);
+		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
