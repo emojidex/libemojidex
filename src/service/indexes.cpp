@@ -56,7 +56,7 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 	return *this->codes;
 }
 
-Emojidex::Data::Collection getStaticCollection(string name, string locale)
+Emojidex::Data::Collection getStaticCollection(string name, string locale, bool detailed)
 {
   Emojidex::Data::Collection collect = Emojidex::Data::Collection();
   defaultLocale(&collect.locale, &locale);
@@ -71,26 +71,36 @@ Emojidex::Data::Collection getStaticCollection(string name, string locale)
     return collect; // return empty collection
 
 
- /* rapidjson::Value& arr = d[0];
-	for (rapidjson::Value::ConstMemberIterator item = arr.MemberBegin();
-			item != arr.MemberEnd(); item++) {
+//  rapidjson::Value& arr = d[0];
+//	for (rapidjson::Value::ConstMemberIterator item = arr.MemberBegin();
+//			item != arr.MemberEnd(); item++) {
+//    Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
+//    //moji.code = item["moji"].getString();
+//    cout << "CODE: " << item << endl;
+//		//collect.emoji[item->code.GetString()] = item->value.GetString();
+//  }
+
+  for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
     Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-    //moji.code = item["moji"].getString();
-    cout << "CODE: " << item["moji"].getString() << endl;
-		//collect.emoji[item->code.GetString()] = item->value.GetString();
-  }*/
+    moji.code = d[i]["code"].GetString();
+    if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
+    if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
+    d[i]["category"].IsString()? moji.category = d[i]["category"].GetString() : moji.category = "";
+
+    collect.emoji[moji.code] = moji;
+  }
 
   collect.locale = locale;
 
   return collect;
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale)
+Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale, bool detailed)
 {
-  return getStaticCollection("utf_emoji", locale);
+  return getStaticCollection("utf_emoji", locale, detailed);
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string locale)
+Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string locale, bool detailed)
 {
-  return getStaticCollection("extended_emoji", locale);
+  return getStaticCollection("extended_emoji", locale, detailed);
 }

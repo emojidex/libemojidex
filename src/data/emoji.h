@@ -18,8 +18,8 @@ namespace Emojidex {
 			string category;
 			bool is_wide;
 			vector<string> tags;
-			Emojidex::Data::Emoji *base;
-			vector<Emojidex::Data::Emoji *> variants;
+			string base;
+			vector<string> variants;
 
 			string author;
 			string link;
