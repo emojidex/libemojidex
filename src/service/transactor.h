@@ -9,7 +9,6 @@
 using namespace std;
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
-using namespace boost::asio;
 
 namespace Emojidex {
 	namespace Service {
@@ -21,7 +20,7 @@ namespace Emojidex {
 
 			string generateQueryString(unordered_map<string, string> query);
 
-			ssl::stream<ip::tcp::socket>* getStream();
+			boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
 		public:
 			typedef struct {
 				string api_host;
