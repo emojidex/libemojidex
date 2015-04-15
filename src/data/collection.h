@@ -14,6 +14,7 @@ namespace Emojidex {
 		class Collection
     {
     public:
+      bool detailed;
       string locale;
       unordered_map<string, Emojidex::Data::Emoji> emoji;
     };
