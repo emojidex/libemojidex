@@ -12,7 +12,7 @@ Emojidex::Service::Indexes::~Indexes()
 	delete this->codes;
 }
 
-void defaultLocale(string *object_locale, string *locale)
+void Emojidex::Service::Indexes::defaultLocale(string *object_locale, string *locale)
 {
 	if (locale->compare("") == 0) { // default arg
 		if (object_locale->compare("") == 0) { // if not already defined 
@@ -56,7 +56,7 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 	return *this->codes;
 }
 
-Emojidex::Data::Collection getStaticCollection(string name, string locale, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::Indexes::getStaticCollection(string name, string locale, bool detailed)
 {
   Emojidex::Data::Collection collect = Emojidex::Data::Collection();
   defaultLocale(&collect.locale, &locale);
@@ -98,4 +98,28 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale, b
 Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string locale, bool detailed)
 {
   return getStaticCollection("extended_emoji", locale, detailed);
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::nextPage(Emojidex::Data::Collection collection)
+{
+  Data::Collection collect = Data::Collection();
+  return collect;
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::index(unsigned int limit, 
+    unsigned int page, bool detailed)
+{
+  Data::Collection collect = Data::Collection();
+
+  return collect;
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit, 
+    unsigned int page, bool detailed)
+{
+  Data::Collection collect = Data::Collection();
+  collect.detailed = detailed;
+  collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+
+  return collect;
 }

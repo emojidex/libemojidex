@@ -3,6 +3,7 @@
 
 #include "transactor.h"
 #include "../emoji.h"
+#include "../data/collection.h"
 
 #include <string>
 #include <vector>

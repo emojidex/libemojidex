@@ -87,6 +87,14 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
 	}
 
+	BOOST_AUTO_TEST_CASE(newest_index) {
+    Emojidex::Data::Collection newest = idx.newest();
+    int sz = newest.emoji.size();
+		BOOST_CHECK_GT(sz, 0);
+		BOOST_CHECK(newest.more() == true);
+    BOOST_CHECK_GT(newest.emoji.size(), sz);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
