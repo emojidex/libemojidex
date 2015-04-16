@@ -37,15 +37,15 @@ string Emojidex::Service::Transactor::generateQueryString(unordered_map<string, 
 	return query_s.substr(0, query_s.size() - 1);
 }
 
-ssl::stream<ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
+boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
 {
-	io_service io_service;
-	ssl::context context(io_service, ssl::context::sslv23_client);
-	ssl::stream<ip::tcp::socket> *stream = new ssl::stream<ip::tcp::socket>(io_service, context);
+	boost::asio::io_service io_service;
+	boost::asio::ssl::context context(io_service, boost::asio::ssl::context::sslv23_client);
+	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = new boost::asio::ssl::stream<boost::asio::ip::tcp::socket>(io_service, context);
 	stream->lowest_layer().connect(
-		*ip::tcp::resolver(io_service).resolve(ip::tcp::resolver::query(this->info.api_host, this->info.api_protocol))
+		*boost::asio::ip::tcp::resolver(io_service).resolve(boost::asio::ip::tcp::resolver::query(this->info.api_host, this->info.api_protocol))
 	);
-	stream->handshake(ssl::stream_base::client);
+	stream->handshake(boost::asio::ssl::stream_base::client);
 
 	return stream;
 }
@@ -53,7 +53,7 @@ ssl::stream<ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
 string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string, string> query)
 {
 	// TODO clean this the fuck up
-	ssl::stream<ip::tcp::socket> *stream = getStream();
+	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = getStream();
 	boost::asio::streambuf request;
 	std::ostream request_stream(&request);
 
@@ -92,7 +92,7 @@ string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string,
 	// TODO handle headers line by line
 	
 	boost::system::error_code error;
-	while (boost::asio::read(*stream, response, transfer_all(), error));
+	while (boost::asio::read(*stream, response, boost::asio::transfer_all(), error));
 	string json_string(boost::asio::buffer_cast<const char*>(response.data()));
 
 	// cut non-data info

@@ -35,9 +35,20 @@ SET(SWIG_JAR_NAME libemojidex)
 SET(SWIG_JAR_FILENAME ${SWIG_JAR_NAME}-${EMOJIDEX_LIB_VERSION}.jar)
 SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Client.java
+	${PROJECT_BINARY_DIR}/src/Collection.java
+	${PROJECT_BINARY_DIR}/src/Emoji.java
+	${PROJECT_BINARY_DIR}/src/MojiCodes.java
+	${PROJECT_BINARY_DIR}/src/Indexes.java
+	${PROJECT_BINARY_DIR}/src/Search.java
+	${PROJECT_BINARY_DIR}/src/Transactor.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__Service__Transactor__exchange_info.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_string.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_unordered_mapT_string_Emojidex__Data__Emoji_t.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_unordered_mapT_string_string_t.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_vectorT_Emojidex__Emoji_t.java
+	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_vectorT_string_t.java
 	${PROJECT_BINARY_DIR}/src/libemojidex.java
 	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__Service__Search.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
 
@@ -47,7 +58,7 @@ ELSE(WIN32)
 	SET(SWIG_JAVA_LIB_FILENAME lib${SWIG_JAVA_LIB_NAME}.so)
 ENDIF(WIN32)
 
-CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/src/java/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/src/NativeLibLoader.java @ONLY)
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/src/NativeLibLoader.java @ONLY)
 
 ADD_JAR(${SWIG_JAR_TARGET}
 	SOURCES ${EMOJIDEX_JAVA_FILES}
