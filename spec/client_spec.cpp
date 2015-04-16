@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
     Emojidex::Data::Collection newest = idx.newest();
     int sz = newest.emoji.size();
 		BOOST_CHECK_GT(sz, 0);
-		BOOST_CHECK(newest.more() == true);
+		BOOST_CHECK_GT(newest.more().emoji.size(), 0);
     BOOST_CHECK_GT(newest.emoji.size(), sz);
 	}
 

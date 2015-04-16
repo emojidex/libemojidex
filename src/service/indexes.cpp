@@ -117,7 +117,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::index(unsigned int limit,
 Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit, 
     unsigned int page, bool detailed)
 {
-  Data::Collection collect = Data::Collection();
+  Emojidex::Data::Collection collect = Emojidex::Data::Collection();
   collect.detailed = detailed;
   collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
 
