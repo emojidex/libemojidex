@@ -2,7 +2,6 @@
 #define EMOJIDEX_SERVICE_SEARCH_H
 
 #include "transactor.h"
-#include "../emoji.h"
 #include "../data/collection.h"
 
 #include <string>
@@ -17,7 +16,7 @@ namespace Emojidex {
 			unsigned int current_page;
 
 			Search();
-			vector<Emojidex::Emoji> term(string term);
+			Emojidex::Data::Collection term(string term);
 		};
 	}
 }

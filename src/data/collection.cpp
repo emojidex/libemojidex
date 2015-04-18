@@ -6,6 +6,7 @@ Emojidex::Data::Collection::Collection()
   page = 0;
   limit = 0;
   total_count = 0;
+  endpoint = "";
 }
 
 Emojidex::Data::Collection::~Collection()

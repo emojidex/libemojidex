@@ -17,15 +17,22 @@ namespace Emojidex {
       Collection();
       ~Collection();
 
-      bool detailed;
-      string locale;
       unordered_map<string, Emojidex::Data::Emoji> emoji;
-
 
       // Merge a collection with this collection, overwriting emoji with the same
       // code in this collection. Rerturns this collection after the merge for chaining.
       Emojidex::Data::Collection merge(Emojidex::Data::Collection delta_collection);
       Emojidex::Data::Collection operator<<(Emojidex::Data::Collection delta_collection);
+      
+      //===========================================================================================
+      // Service Info
+      // ============
+      string endpoint;
+      bool detailed;
+      string locale;
+      unsigned int page;
+      unsigned short limit;
+      unsigned int total_count;
 
       // Get more of the collection if the collection is paginated and has remaining pages.
       // Returns true if the next page was sucessfully obtained. Returns false if there are no 
@@ -36,9 +43,6 @@ namespace Emojidex {
       // Results are combined into this collection but a collection with just the new results is 
       // returned.
       Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
-      unsigned int page;
-      unsigned short limit;
-      unsigned int total_count;
       // Sets up collection as a paged collection (with more pages/emoji remaining on the service).
       void setPagination(Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), unsigned int starting_page, unsigned int limit);
     };

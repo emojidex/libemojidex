@@ -5,9 +5,9 @@ Emojidex::Service::Search::Search()
 	this->current_page = 0;
 }
 
-vector<Emojidex::Emoji> Emojidex::Service::Search::term(string term)
+Emojidex::Data::Collection Emojidex::Service::Search::term(string term)
 {
-	vector<Emojidex::Emoji> results;
+	Emojidex::Data::Collection results;
 
 	return results;
 }
