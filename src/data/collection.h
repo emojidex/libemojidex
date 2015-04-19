@@ -19,12 +19,25 @@ namespace Emojidex {
 
 			unordered_map<string, Emojidex::Data::Emoji> emoji;
 
+			//=====================================================================================
 			// Broken out operations on the emoji map (for interfaces or implementations 
 			// without map functionality)
+			// ============
+
+			// Returns a vector array of all emoji in the collection
 			vector<Emojidex::Data::Emoji> all();
+
+			// Adds an emoji to the map
+			Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
+
+			// Finds by moji[character]code (UTF emoji only)
 			Emojidex::Data::Emoji findByMoji(string moji);
+			// Finds by emoji [short] code
 			Emojidex::Data::Emoji findByCode(string code);
+			// Finds by Unicode value
+			// *Unicode value must be lower case
 			Emojidex::Data::Emoji findByUnicode(string unicode);
+
 			//Emojidex::Data::Collection search()
 			Emojidex::Data::Collection category(string category);
 
