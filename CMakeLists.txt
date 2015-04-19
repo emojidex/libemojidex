@@ -36,6 +36,7 @@ FIND_PACKAGE(OpenSSL)
 SET(EMOJIDEX_DYNAMIC_LIB_NAME emojidex)
 SET(EMOJIDEX_CPP_FILES
 	${PROJECT_SOURCE_DIR}/src/client.cpp
+	${PROJECT_SOURCE_DIR}/src/service/settings.cpp
 	${PROJECT_SOURCE_DIR}/src/service/transactor.cpp
 	${PROJECT_SOURCE_DIR}/src/service/indexes.cpp
 	${PROJECT_SOURCE_DIR}/src/service/search.cpp
@@ -59,6 +60,8 @@ ENABLE_TESTING()
 INSTALL(FILES 
 	${PROJECT_SOURCE_DIR}/src/version.h
 	${PROJECT_SOURCE_DIR}/src/client.h
+	${PROJECT_SOURCE_DIR}/src/service/settings.h
+	${PROJECT_SOURCE_DIR}/src/service/transactor.h
 	${PROJECT_SOURCE_DIR}/src/service/indexes.h
 	${PROJECT_SOURCE_DIR}/src/service/search.h
 	${PROJECT_SOURCE_DIR}/src/data/emoji.h

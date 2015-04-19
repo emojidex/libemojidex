@@ -6,24 +6,30 @@
 #define BOOST_TEST_MODULE emojidex_test
 #include <boost/test/unit_test.hpp>
 
+
+///////////////////////////////////////////////////////////////////////////////
+// Settings tests
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(service_settings_suite)
+	// Check that defaults are accurate
+	BOOST_AUTO_TEST_CASE(settings_defaults) {
+		BOOST_TEST_MESSAGE("Checking defaults:");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::api_host, "www.emojidex.com");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::api_prefix, "/api/v1/");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::api_protocol, "https");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::cdn_host, "cdn.emojidex.com");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::cdn_prefix, "/emoji/");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::cdn_protocol, "http");
+		BOOST_CHECK_EQUAL(Emojidex::Service::Settings::closed_net, false);
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
 ///////////////////////////////////////////////////////////////////////////////
 // Transactor tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 
 	Emojidex::Service::Transactor transactor;
-
-	// Check that defaults are accurate
-	BOOST_AUTO_TEST_CASE(transactor_info_defaults) {
-		BOOST_TEST_MESSAGE("Checking defaults:");
-		BOOST_CHECK_EQUAL(transactor.info.api_host, "www.emojidex.com");
-		BOOST_CHECK_EQUAL(transactor.info.api_prefix, "/api/v1/");
-		BOOST_CHECK_EQUAL(transactor.info.api_protocol, "https");
-		BOOST_CHECK_EQUAL(transactor.info.cdn_host, "cdn.emojidex.com");
-		BOOST_CHECK_EQUAL(transactor.info.cdn_prefix, "/emoji/");
-		BOOST_CHECK_EQUAL(transactor.info.cdn_protocol, "http");
-		BOOST_CHECK_EQUAL(transactor.info.closed_net, false);
-	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_no_query) {
 		BOOST_TEST_MESSAGE("Checking raw GET:");

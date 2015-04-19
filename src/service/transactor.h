@@ -10,45 +10,19 @@ using namespace std;
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 
+#include "./settings.h"
+using namespace Emojidex::Service;
+
 namespace Emojidex {
 	namespace Service {
 		// performs transactions with an emojidex API server
 		class Transactor
 		{
 		private:
-			std::string auth_token;
-
 			string generateQueryString(unordered_map<string, string> query);
-
 			boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
 		public:
-			typedef struct {
-				string api_host;
-				string api_prefix;
-				string api_protocol;
-				string cdn_host;
-				string cdn_prefix;
-				string cdn_protocol;
-				bool closed_net;
-			} exchange_info;
-
-			typedef struct {
-				string key;
-				string value;
-			} opt;
-
-			exchange_info info;
-
-			Transactor(exchange_info info_set = {"www.emojidex.com",
-						"/api/v1/",
-						"https",
-						"cdn.emojidex.com",
-						"/emoji/",
-						"http",
-						false
-			}, string token = "");
-
-			void setAuthToken(string token = "");
+			Transactor();
 
 			unordered_map<string, string> queryTemplate(bool defaults = true);
 

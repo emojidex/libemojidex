@@ -2,15 +2,8 @@
 
 #include <boost/bind.hpp>
 
-Emojidex::Service::Transactor::Transactor(exchange_info info_set, string token)
+Emojidex::Service::Transactor::Transactor()
 {
-	this->info = info_set;
-	setAuthToken(token);
-}
-
-void Emojidex::Service::Transactor::setAuthToken(string token)
-{
-	this->auth_token = token;
 }
 
 unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(bool defaults)
@@ -18,8 +11,8 @@ unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(bool 
 	unordered_map<string, string> q;
 
 	if (defaults) {
-		if (this->auth_token != "")
-			q["auth_token"] = this->auth_token;
+		if (Settings::token != "")
+			q["auth_token"] = Settings::token;
 	}
 
 	return q;
@@ -43,7 +36,7 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 	boost::asio::ssl::context context(io_service, boost::asio::ssl::context::sslv23_client);
 	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = new boost::asio::ssl::stream<boost::asio::ip::tcp::socket>(io_service, context);
 	stream->lowest_layer().connect(
-		*boost::asio::ip::tcp::resolver(io_service).resolve(boost::asio::ip::tcp::resolver::query(this->info.api_host, this->info.api_protocol))
+		*boost::asio::ip::tcp::resolver(io_service).resolve(boost::asio::ip::tcp::resolver::query(Settings::api_host, Settings::api_protocol))
 	);
 	stream->handshake(boost::asio::ssl::stream_base::client);
 
@@ -60,8 +53,8 @@ string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string,
 	string query_string = generateQueryString(query);
 	/* TODO HTTP 1.1+ (chunking etc.) */
 	request_stream 
-		<< "GET " << this->info.api_prefix << endpoint << " HTTP/1.0\r\n"
-		<< "Host: " << this->info.api_host << "\r\n"
+		<< "GET " << Settings::api_prefix << endpoint << " HTTP/1.0\r\n"
+		<< "Host: " << Settings::api_host << "\r\n"
 		<< "Accept: application/json; charset=utf-8\r\n"
 		<< "Connection: close" << "\r\n"
 		<< "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n"
