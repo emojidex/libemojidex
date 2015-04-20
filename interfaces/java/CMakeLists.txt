@@ -40,14 +40,12 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/MojiCodes.java
 	${PROJECT_BINARY_DIR}/src/Indexes.java
 	${PROJECT_BINARY_DIR}/src/Search.java
+	${PROJECT_BINARY_DIR}/src/Settings.java
 	${PROJECT_BINARY_DIR}/src/Transactor.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_Emojidex__Service__Transactor__exchange_info.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_string.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_unordered_mapT_string_Emojidex__Data__Emoji_t.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_unordered_mapT_string_string_t.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_vectorT_Emojidex__Emoji_t.java
-	${PROJECT_BINARY_DIR}/src/SWIGTYPE_p_vectorT_string_t.java
+	${PROJECT_BINARY_DIR}/src/EmojiVector.java
+	${PROJECT_BINARY_DIR}/src/StringVector.java
 	${PROJECT_BINARY_DIR}/src/libemojidex.java
+	${PROJECT_BINARY_DIR}/src/libemojidexConstants.java
 	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
