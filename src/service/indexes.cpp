@@ -1,6 +1,5 @@
 #include "indexes.h"
 #include "transactor.h"
-#include "rapidjson/document.h"
 
 Emojidex::Service::Indexes::Indexes()
 {
@@ -21,6 +20,32 @@ void Emojidex::Service::Indexes::defaultLocale(string *object_locale, string *lo
 			*locale = *object_locale;
 		}
 	}
+}
+
+void Emojidex::Service::Indexes::fillEmojiFromJSON(Emojidex::Data::Collection* collect, 
+		rapidjson::Value& d)
+{
+	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
+		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
+		moji.code = d[i]["code"].GetString();
+		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
+		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
+		d[i]["category"].IsString()? 
+			moji.category = d[i]["category"].GetString() : moji.category = "";
+
+		rapidjson::Value& tags = d[i]["tags"];
+		assert(tags.IsArray());
+		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+			moji.tags.push_back(tags[tag_i].GetString());
+
+		collect->emoji[moji.code] = moji;
+	}
+}
+
+void Emojidex::Service::Indexes::fillMetaFromJSON(Emojidex::Data::Collection* collect, 
+		rapidjson::Value& d)
+{
+	collect->total_count = d["total_count"].GetInt();
 }
 
 Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
@@ -97,10 +122,21 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getDynamicCollection(stri
 		unsigned int limit, unsigned int page, bool detailed)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
+	collect.detailed = detailed;
+	collect.endpoint = name;
 
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.get(name, {{"limit", to_string(limit)}, 
 			{"page", to_string(page)}, {"detailed", TF(detailed)}});
+
+	rapidjson::Document d;
+	d.Parse(response.c_str());
+
+	if (d.HasParseError())
+		return collect; // return empty collection
+
+	fillEmojiFromJSON(&collect, d["emoji"]);
+	fillMetaFromJSON(&collect, d["meta"]);
 
 	return collect;
 }
@@ -123,17 +159,16 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::nextPage(
 			collection.detailed);
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::index(unsigned int limit, 
+Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int limit, 
 		unsigned int page, bool detailed)
 {
-	return getDynamicCollection("index", limit, page, detailed);
+	return getDynamicCollection("emoji", limit, page, detailed);
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit, 
 		unsigned int page, bool detailed)
 {
-	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
-	collect.detailed = detailed;
+	Emojidex::Data::Collection collect = getDynamicCollection("newest", limit, page, detailed);
 	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
 
 	return collect;

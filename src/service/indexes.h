@@ -4,6 +4,7 @@
 #include "../data/moji_codes.h"
 #include "../data/emoji.h"
 #include "../data/collection.h"
+#include "rapidjson/document.h"
 
 #define DEFAULT_LOCALE "en"
 #define DEFAULT_PAGE 0
@@ -17,7 +18,10 @@ namespace Emojidex {
 		{
 		private:
 			Emojidex::Data::MojiCodes *codes;
+			// service methods
 			static void defaultLocale(string *object_locale, string *locale);
+			static void fillEmojiFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
+			static void fillMetaFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
 			static Emojidex::Data::Collection getStaticCollection(string name, string locale, 
 					bool detailed);
 			static Emojidex::Data::Collection getDynamicCollection(string name, unsigned int limit, 
@@ -25,6 +29,7 @@ namespace Emojidex {
 		public:
 			Indexes();
 			~Indexes();
+
 
 			/* NOTE: all calls default to locale = "en" and detailed = false */
 
@@ -47,7 +52,7 @@ namespace Emojidex {
 			static Emojidex::Data::Collection nextPage(Emojidex::Data::Collection collection);
 
 			// Get full emoji index by score
-			Emojidex::Data::Collection index(unsigned int limit = DEFAULT_LIMIT, 
+			Emojidex::Data::Collection emoji(unsigned int limit = DEFAULT_LIMIT, 
 					unsigned int page = DEFAULT_PAGE, bool detailed = false);
 			// Get Newest emoji
 			Emojidex::Data::Collection newest(unsigned int limit = DEFAULT_LIMIT, 
