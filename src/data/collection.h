@@ -13,6 +13,11 @@ namespace Emojidex {
 		// emoji base data
 		class Collection
 		{
+		private:
+			// Called when more() is invoked.
+			// Results are combined into this collection but a collection with just the new results 
+			// is returned.
+			Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
 		public:
 			Collection();
 			~Collection();
@@ -61,10 +66,6 @@ namespace Emojidex {
 			// no more pages/emoji to obtain.
 			Emojidex::Data::Collection more();
 
-			// Called when more() is invoked.
-			// Results are combined into this collection but a collection with just the new results 
-			// is returned.
-			Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
 			// Sets up collection as a paged collection (with more pages/emoji remaining on the 
 			// service).
 			void setPagination(

@@ -17,8 +17,7 @@ vector<Emojidex::Data::Emoji> Emojidex::Data::Collection::all()
 {
 	vector<Emojidex::Data::Emoji> eav;
 
-	for (auto em : emoji)
-	{
+	for (auto em : emoji) {
 		eav.push_back(em.second);
 	}
 
@@ -92,4 +91,7 @@ void Emojidex::Data::Collection::setPagination(
 		Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), 
 		unsigned int starting_page, unsigned int limit)
 {
+	this->moreMethod = moreMethod;
+	this->page = starting_page;
+	this->limit = limit;
 }

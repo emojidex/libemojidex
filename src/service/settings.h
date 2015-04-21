@@ -18,7 +18,6 @@ namespace Emojidex {
 			static string cdn_protocol;
 			static bool	  closed_net;
 			static string token;
-			
 		};
 	}
 }
