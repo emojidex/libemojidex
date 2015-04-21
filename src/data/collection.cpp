@@ -67,6 +67,8 @@ Emojidex::Data::Collection Emojidex::Data::Collection::merge(
 	for (auto new_moji : delta_collection.emoji)
 		this->emoji[new_moji.first] = new_moji.second;
 
+	this->page = delta_collection.page;
+
 	return *this;
 }
 

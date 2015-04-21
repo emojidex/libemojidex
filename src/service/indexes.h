@@ -7,7 +7,7 @@
 #include "rapidjson/document.h"
 
 #define DEFAULT_LOCALE "en"
-#define DEFAULT_PAGE 0
+#define DEFAULT_PAGE 1
 #define DEFAULT_LIMIT 50
 #define TF(bv) ((bv)?"true":"false")
 
