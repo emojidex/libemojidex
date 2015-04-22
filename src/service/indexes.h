@@ -59,6 +59,8 @@ namespace Emojidex {
 					unsigned int page = DEFAULT_PAGE, bool detailed = false);
 
 			// Get most Popular emoji
+			Emojidex::Data::Collection popular(unsigned int limit = DEFAULT_LIMIT, 
+					unsigned int page = DEFAULT_PAGE, bool detailed = false);
 		};
 	}
 }

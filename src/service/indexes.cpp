@@ -97,21 +97,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getStaticCollection(strin
 	if (d.HasParseError())
 		return collect; // return empty collection
 
-	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
-		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-		moji.code = d[i]["code"].GetString();
-		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
-		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
-		d[i]["category"].IsString()? 
-			moji.category = d[i]["category"].GetString() : moji.category = "";
-
-		rapidjson::Value& tags = d[i]["tags"];
-		assert(tags.IsArray());
-		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-			moji.tags.push_back(tags[tag_i].GetString());
-
-		collect.emoji[moji.code] = moji;
-	}
+	fillEmojiFromJSON(&collect, d);
 
 	collect.locale = locale;
 
@@ -162,13 +148,25 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::nextPage(
 Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int limit, 
 		unsigned int page, bool detailed)
 {
-	return getDynamicCollection("emoji", limit, page, detailed);
+	Emojidex::Data::Collection collect = getDynamicCollection("emoji", limit, page, detailed);
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+
+	return collect;
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit, 
 		unsigned int page, bool detailed)
 {
 	Emojidex::Data::Collection collect = getDynamicCollection("newest", limit, page, detailed);
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+
+	return collect;
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::popular(unsigned int limit, 
+		unsigned int page, bool detailed)
+{
+	Emojidex::Data::Collection collect = getDynamicCollection("popular", limit, page, detailed);
 	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
 
 	return collect;
