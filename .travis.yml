@@ -4,7 +4,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install openjdk-8-jdk libboost1.55-dev libboost-filesystem1.55-dev libboost-test1.55-dev swig
+  - sudo apt-get install openjdk-8-jdk libboost-dev libboost-filesystem-dev libboost-test-dev swig
 
 compiler:
   - gcc
