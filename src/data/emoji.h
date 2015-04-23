@@ -6,6 +6,8 @@
 #include <unordered_map>
 using namespace std;
 
+#include "./checksums.h"
+
 namespace Emojidex {
 	namespace Data {
 		// emoji base data
@@ -16,13 +18,17 @@ namespace Emojidex {
 			string code;
 			string unicode;
 			string category;
-			bool is_wide;
 			vector<string> tags;
 			string base;
 			vector<string> variants;
-
-			string author;
 			string link;
+			// detailed
+			bool is_wide;
+			bool copyright_lock;
+			int times_used;
+			string attribution;
+			string user_id;
+			Checksums checksums;
 		};
 	}
 }

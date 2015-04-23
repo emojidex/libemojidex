@@ -41,6 +41,7 @@ SET(EMOJIDEX_CPP_FILES
 	${PROJECT_SOURCE_DIR}/src/service/indexes.cpp
 	${PROJECT_SOURCE_DIR}/src/service/search.cpp
 	${PROJECT_SOURCE_DIR}/src/data/collection.cpp
+	${PROJECT_SOURCE_DIR}/src/data/checksums.cpp
 )
 
 SET(EMOJIDEX_LINK_LIBRARIES
@@ -66,6 +67,7 @@ INSTALL(FILES
 	${PROJECT_SOURCE_DIR}/src/service/search.h
 	${PROJECT_SOURCE_DIR}/src/data/emoji.h
 	${PROJECT_SOURCE_DIR}/src/data/collection.h
+	${PROJECT_SOURCE_DIR}/src/data/checksums.h
 	${PROJECT_SOURCE_DIR}/src/data/moji_codes.h
 	DESTINATION "include/emojidex"
 	)

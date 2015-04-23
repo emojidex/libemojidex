@@ -80,25 +80,51 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
-    Emojidex::Data::Collection utf = idx.utfEmoji("ja");
+		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
 		BOOST_CHECK(utf.locale.compare("ja") == 0);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
-    Emojidex::Data::Collection ext = idx.extendedEmoji();
+		Emojidex::Data::Collection ext = idx.extendedEmoji();
 		BOOST_CHECK(ext.locale.compare("en") == 0);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
 	}
 
+	BOOST_AUTO_TEST_CASE(emoji_index) {
+		Emojidex::Data::Collection emoji = idx.emoji();
+		int sz = emoji.emoji.size();
+		BOOST_CHECK_GT(sz, 0);
+		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);
+		BOOST_CHECK_GT(emoji.emoji.size(), sz);
+	}
+
+	BOOST_AUTO_TEST_CASE(emoji_index_detailed) {
+		Emojidex::Data::Collection emoji = idx.emoji(20, 1, true);
+		int sz = emoji.emoji.size();
+		BOOST_CHECK(sz == 20);
+		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);
+		BOOST_CHECK(emoji.emoji.size() == 40);
+		BOOST_CHECK(emoji.emoji[0].checksums.svg.compare("") != 0);
+		BOOST_CHECK(emoji.emoji[0].checksums.png["xhdpi"].compare("") != 0);
+	}
+
 	BOOST_AUTO_TEST_CASE(newest_index) {
-    Emojidex::Data::Collection newest = idx.newest();
-    int sz = newest.emoji.size();
-	BOOST_CHECK_GT(sz, 0);
-	BOOST_CHECK_GT(newest.more().emoji.size(), 0);
-    BOOST_CHECK_GT(newest.emoji.size(), sz);
+		Emojidex::Data::Collection newest = idx.newest();
+		int sz = newest.emoji.size();
+		BOOST_CHECK_GT(sz, 0);
+		BOOST_CHECK_GT(newest.more().emoji.size(), 0);
+		BOOST_CHECK_GT(newest.emoji.size(), sz);
+	}
+
+	BOOST_AUTO_TEST_CASE(popular_index) {
+		Emojidex::Data::Collection popular = idx.popular();
+		int sz = popular.emoji.size();
+		BOOST_CHECK_GT(sz, 0);
+		BOOST_CHECK_GT(popular.more().emoji.size(), 0);
+		BOOST_CHECK_GT(popular.emoji.size(), sz);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
