@@ -32,6 +32,15 @@ void Emojidex::Service::Indexes::fillEmojiFromJSON(Emojidex::Data::Collection* c
 		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
 		d[i]["category"].IsString()? 
 			moji.category = d[i]["category"].GetString() : moji.category = "";
+		if(d[i].HasMember("checksums"))
+		{
+			const rapidjson::Value& checksums = d[i]["checksums"];
+			const rapidjson::Value& svg = checksums["svg"];
+			const rapidjson::Value& png = checksums["png"];
+			if(svg.IsString())	moji.checksums.svg = svg.GetString();
+			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+		}
 
 		rapidjson::Value& tags = d[i]["tags"];
 		assert(tags.IsArray());
