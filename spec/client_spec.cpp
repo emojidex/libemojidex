@@ -107,8 +107,8 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(sz == 20);
 		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);
 		BOOST_CHECK(emoji.emoji.size() == 40);
-		BOOST_CHECK(emoji.emoji[0].checksums.svg.compare("") != 0);
-		BOOST_CHECK(emoji.emoji[0].checksums.png["xhdpi"].compare("") != 0);
+		BOOST_CHECK(emoji.emoji.begin()->second.checksums.svg.compare("") != 0);
+		BOOST_CHECK(emoji.emoji.begin()->second.checksums.png["xhdpi"].compare("") != 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(newest_index) {
