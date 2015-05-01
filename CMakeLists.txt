@@ -90,3 +90,8 @@ OPTION(JAVABUILD "Build Java interfaces")
 IF(JAVABUILD)
   INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
 ENDIF(JAVABUILD)
+
+OPTION(RUBYBUILD "Build Ruby interfaces")
+IF(RUBYBUILD)
+  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/ruby/CMakeLists.txt)
+ENDIF(RUBYBUILD)
