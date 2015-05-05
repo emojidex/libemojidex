@@ -17,15 +17,34 @@ Building
   mkdir build
   cd build
   ```
-4. Run cmake, enabling extensions you want:
+4. Run cmake, enabling the interfaces you want:  
+  Libs only, no interfaces:
   ```
-  #No extensions:
   cmake ..
+  ```
 
-  # Java interfaces
+  Java interfaces:
+  ```
   cmake -DJAVABUILD=true ..
   ```
 5. Build with "make" on \*nix or import into your IDE and build.
+
+Packaged Builds
+===============
+
+Android [NDK] Build
+-------------------
+※Build script is a simple Bash script, so you'll need bash + all build tools required for a normal build
+1. Install the [Android NDK](http://developer.android.com/tools/sdk/ndk/index.html)
+2. Run the build script, prefixing with an "NDK_ROOT" environment variable or setting it in advance:
+  ```
+  cd natives/android
+  NDK_ROOT=$HOME/android-ndk ./build.sh
+  ```
+
+iOS Build
+---------
+* Coming Soon
 
 License
 =======
