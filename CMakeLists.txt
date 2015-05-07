@@ -90,5 +90,10 @@ SET_TARGET_PROPERTIES(${STATIC_LIB_TARGET}
 
 OPTION(JAVABUILD "Build Java interfaces")
 IF(JAVABUILD)
-  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
+	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
 ENDIF(JAVABUILD)
+
+OPTION(ANDROIDBUILD "Build native Android libs (for NDK) and libemojidex JAR.")
+IF(ANDROIDBUILD)
+	INCLUDE(${PROJECT_SOURCE_DIR}/natives/android/CMakeLists.txt)
+ENDIF(ANDROIDBUILD)
