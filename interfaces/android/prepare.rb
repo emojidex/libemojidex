@@ -3,7 +3,7 @@
 require 'git'
 require 'fileutils'
 
-build_dir = Dir.pwd
+build_dir = ARGV[0] || Dir.pwd
 
 puts "== Preparing Android build dependencies"
 
@@ -23,12 +23,12 @@ end
 
 if Dir.exists? "#{build_dir}/Boost-for-Android"
   puts 'Boost for Android directory found. Updating...'
-  git = Git.open('./Boost-for-Android')
+  git = Git.open("#{build_dir}/Boost-for-Android")
   git.pull
   puts 'Updated.'
 else
   puts 'Boost for Android directory not found. Cloning...'
-  git = Git.clone("https://github.com/MysticTreeGames/Boost-for-Android.git", 'Boost-for-Android', build_dir)
+  git = Git.clone("https://github.com/MysticTreeGames/Boost-for-Android.git", "#{build_dir}/Boost-for-Android")
   puts 'Cloned.'
 end
 

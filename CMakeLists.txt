@@ -12,11 +12,20 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/src/version.h.in ${PROJECT_SOURCE_DIR}/src/
 
 # SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# Options and interface builds
+OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
+OPTION(JAVA "Build Java interfaces")
 
 # We're using C++11
 if(UNIX)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
 endif()
+# TODO: can we use C++11 on windows? if so how to enable it here?
+
+# Make this build an android build
+IF(ANDROID)
+	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/android/CMakeLists.txt)
+ENDIF(ANDROID)
 
 # rapidJSON is lib only so only uncomment this if you want to 
 # also run specs on it
@@ -88,12 +97,7 @@ SET_TARGET_PROPERTIES(${STATIC_LIB_TARGET}
 	OUTPUT_NAME ${STATIC_LIB_NAME}
 )
 
-OPTION(JAVA "Build Java interfaces")
+# Java port with SWIG
 IF(JAVA)
 	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
 ENDIF(JAVA)
-
-OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
-IF(ANDROID)
-	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/android/CMakeLists.txt)
-ENDIF(ANDROID)
