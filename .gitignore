@@ -3,6 +3,3 @@
 /build/
 /src/version.h
 *.orig
-/interfaces/android/buildlock
-/interfaces/android/Boost-for-Android
-/interfaces/android/android-cmake

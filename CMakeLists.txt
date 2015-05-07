@@ -88,12 +88,12 @@ SET_TARGET_PROPERTIES(${STATIC_LIB_TARGET}
 	OUTPUT_NAME ${STATIC_LIB_NAME}
 )
 
-OPTION(JAVABUILD "Build Java interfaces")
-IF(JAVABUILD)
+OPTION(JAVA "Build Java interfaces")
+IF(JAVA)
 	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
-ENDIF(JAVABUILD)
+ENDIF(JAVA)
 
-OPTION(ANDROIDBUILD "Build native Android libs (for NDK) and libemojidex JAR.")
-IF(ANDROIDBUILD)
-	INCLUDE(${PROJECT_SOURCE_DIR}/natives/android/CMakeLists.txt)
-ENDIF(ANDROIDBUILD)
+OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
+IF(ANDROID)
+	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/android/CMakeLists.txt)
+ENDIF(ANDROID)

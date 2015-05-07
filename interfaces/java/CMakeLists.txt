@@ -1,4 +1,3 @@
-
 # Generate java sources and library with SWIG
 FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
 FIND_PACKAGE(JNI REQUIRED)

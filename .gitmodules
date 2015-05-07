@@ -1,3 +1,6 @@
 [submodule "vendor/rapidjson"]
 	path = vendor/rapidjson
-	url = git://github.com/miloyip/rapidjson.git
+	url = https://github.com/miloyip/rapidjson.git
+[submodule "interfaces/android/android-cmake"]
+	path = interfaces/android/android-cmake
+	url = https://github.com/taka-no-me/android-cmake.git
