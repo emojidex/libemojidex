@@ -12,6 +12,8 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/src/version.h.in ${PROJECT_SOURCE_DIR}/src/
 
 # SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+SET(BUILD_TESTS true)
+
 # Options and interface builds
 OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
 OPTION(JAVA "Build Java interfaces")
@@ -36,7 +38,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src
 	)
 
 # Generate dynamic library
-FIND_PACKAGE(Boost REQUIRED
+FIND_HOST_PACKAGE(Boost REQUIRED
 	system
 	filesystem
 	)
