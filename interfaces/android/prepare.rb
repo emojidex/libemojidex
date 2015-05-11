@@ -5,7 +5,7 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-build_targets = ["arm", "x86", "x86_64", "mips"]
+@build_targets = ["arm", "x86", "x86_64", "mips"]
 
 puts "== Preparing Android build dependencies"
 
@@ -20,6 +20,13 @@ def prepare_chains()
   `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=x86_64 --install-dir=#{@build_dir}/toolchains/x86_64` unless Dir.exists?("#{@build_dir}/toolchains/x86_64")
   puts "MIPS..."
   `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=mips --install-dir=#{@build_dir}/toolchains/mipsel` unless Dir.exists?("#{@build_dir}/toolchains/mips")
+
+  FileUtils.mkdir_p("#{@build_dir}/natives")
+  @build_targets.each do |target|
+    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}")
+    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}/lib")
+    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}/include")
+  end
 end
 
 
@@ -28,24 +35,33 @@ def build_OpenSSL()
   if Dir.exists? "#{@build_dir}/openssl"
     puts "OpenSSL repository found. Updating..."
     git = Git.open("#{@build_dir}/openssl")
+    git.reset_hard("HEAD")
     git.clean({force: true, d: true, x:true})
-    git.pull
+    git.pull("https://github.com/openssl/openssl.git", "OpenSSL_1_0_2-stable")
     puts 'Updated.'
   else
     puts 'OpenSSL repository not found. Cloning...'
     git = Git.clone("https://github.com/openssl/openssl.git", "#{@build_dir}/openssl")
+    git.checkout("OpenSSL_1_0_2-stable")
     puts 'Cloned.'
   end
 
   puts 'Building OpenSSL'
   Dir.chdir "#{@build_dir}/openssl"
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm`
-  `PATH=#{@build_dir}/toolchains/arm:$PATH make`
-  if $?.exitstatus == 0
-    puts 'Build appears to have succeeded. Continuing.'
-  else
-    exit 2
-  end
+  puts 'ARM'
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/libs/arm/lib/")
+
+ # puts 'x86'
+ # git.clean({force: true, d: true, x:true})
+ # `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 no-asm && make`
+ # FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/libs/x86/")
+ # FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/libs/x86/")
+
+  #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86_64" ./Configure android-armv7 no-asm && make`
+  #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-mips" ./Configure android-armv7 no-asm && make`
+
   Dir.chdir @build_dir
 end
 
@@ -103,7 +119,7 @@ check_lock()
 check_env()
 prepare_chains()
 build_OpenSSL()
-#build_boost()
-#set_lock()
+build_boost()
+set_lock()
 
 exit 0
