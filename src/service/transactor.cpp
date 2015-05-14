@@ -53,7 +53,7 @@ string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string,
 	string query_string = generateQueryString(query);
 	/* TODO HTTP 1.1+ (chunking etc.) */
 	request_stream 
-		<< "GET " << Settings::api_prefix << endpoint << " HTTP/1.0\r\n"
+		<< "GET " << Settings::api_prefix << endpoint << " HTTP/1.1\r\n"
 		<< "Host: " << Settings::api_host << "\r\n"
 		<< "Accept: application/json; charset=utf-8\r\n"
 		<< "Connection: close" << "\r\n"
@@ -92,6 +92,19 @@ string Emojidex::Service::Transactor::get(string endpoint, unordered_map<string,
 	std::size_t pos = json_string.find("\r\n\r\n");
 	if (pos != std::string::npos) {
 		json_string = json_string.substr(pos + 4);
+	}
+
+	// modify for http1.1
+	const std::string line_separator = "\r\n";
+	std::size_t cur = 0;
+	bool is_data = false;
+	while( (pos = json_string.find(line_separator, cur)) != std::string::npos )
+	{
+		if(is_data)
+			cur = pos;
+		is_data = !is_data;
+
+		json_string.erase(cur, (pos - cur) + line_separator.length());
 	}
 
 	return json_string;
