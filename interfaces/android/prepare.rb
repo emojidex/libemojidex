@@ -50,14 +50,15 @@ def build_OpenSSL()
   Dir.chdir "#{@build_dir}/openssl"
   puts 'ARM'
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/libs/arm/lib/")
+  FileUtils.mv("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
+  FileUtils.mv("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/arm/lib/")
+  FileUtils.cp_r("#{@build_dir}/openssl/include", "#{@build_dir}/natives/arm/include")
 
- # puts 'x86'
- # git.clean({force: true, d: true, x:true})
- # `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 no-asm && make`
- # FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/libs/x86/")
- # FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/libs/x86/")
+  puts 'x86'
+  #git.clean({force: true, d: true, x:true})
+  #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 no-asm && make`
+  #FileUtils.mv("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/libs/x86/")
+  #FileUtils.mv("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/libs/x86/")
 
   #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86_64" ./Configure android-armv7 no-asm && make`
   #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-mips" ./Configure android-armv7 no-asm && make`
