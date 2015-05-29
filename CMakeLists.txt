@@ -38,7 +38,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src
 	)
 
 # Generate dynamic library
-FIND_HOST_PACKAGE(Boost REQUIRED
+FIND_PACKAGE(Boost REQUIRED
 	system
 	filesystem
 	)
