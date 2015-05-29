@@ -17,28 +17,6 @@
 #include "client.h"
 %}
 
-// Ignore function pointer.
-%ignore Emojidex::Data::Collection::moreMethod;
-%ignore Emojidex::Data::Collection::setPagination;
-
-// Ignore operator.
-%ignore Emojidex::Data::Collection::operator<<;
-
-// Ignore unordered_map.
-%ignore Emojidex::Data::Collection::emoji;
-%ignore Emojidex::Data::MojiCodes::moji_index;
-%ignore Emojidex::Service::Transactor::queryTemplate;
-%ignore Emojidex::Service::Transactor::get;
-
-// Include header files.
-%include "client.h"
-%include "data/emoji.h"
-%include "data/collection.h"
-%include "data/moji_codes.h"
-%include "service/search.h"
-%include "service/settings.h"
-%include "service/transactor.h"
-
 // Include sub interfaces.
 %include "version.i"
 %include "service/indexes.i"
