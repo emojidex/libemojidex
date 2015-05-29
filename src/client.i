@@ -1,4 +1,4 @@
-%module libemojidex
+%module emojidex
 
 // Include STL header files.
 %include "std_string.i"
@@ -35,10 +35,13 @@
 %include "data/emoji.h"
 %include "data/collection.h"
 %include "data/moji_codes.h"
-%include "service/indexes.h"
 %include "service/search.h"
 %include "service/settings.h"
 %include "service/transactor.h"
+
+// Include sub interfaces.
+%include "version.i"
+%include "service/indexes.i"
 
 // Rename template classes.
 %template(StringVector) std::vector<std::string>;
