@@ -17,6 +17,7 @@ SET(BUILD_TESTS true)
 # Options and interface builds
 OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
 OPTION(JAVA "Build Java interfaces")
+OPTION(RUBY "Build Ruby interfaces")
 
 # We're using C++11
 if(UNIX)
@@ -103,3 +104,7 @@ SET_TARGET_PROPERTIES(${STATIC_LIB_TARGET}
 IF(JAVA)
 	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
 ENDIF(JAVA)
+
+IF(RUBY)
+  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/ruby/CMakeLists.txt)
+ENDIF(RUBYBUILD)
