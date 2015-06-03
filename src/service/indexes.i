@@ -1,4 +1,4 @@
-%module service
+%module ServiceIndexes
 
 %{
 #include "service/indexes.h"
