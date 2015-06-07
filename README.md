@@ -17,17 +17,31 @@ Building
   mkdir build
   cd build
   ```
-4. Run cmake, enabling the interfaces you want:  
-  Libs only, no interfaces:
+4. Run cmake:  
   ```
   cmake ..
   ```
-
-  Java interfaces:
-  ```
-  cmake -DJAVABUILD=true ..
-  ```
 5. Build with "make" on \*nix or import into your IDE and build.
+
+Java Native Interface
+---------------------
+
+1. Follow steps 1 - 3 from normal build.
+2. Run cmake with the JAVA flag set to true:
+  ```
+  cmake -DJAVA=true ..
+  ```
+3. Run "make" or compile on your native environment.
+
+Ruby Native Extension
+---------------------
+
+1. Follow steps 1 - 3 from normal build.
+2. Run cmake with the RUBY flag set to true:
+  ```
+  cmake -DRUBY=true ..
+  ```
+3. Run "make" or compile on your native environment.
 
 Packaged Builds
 ===============
@@ -36,11 +50,12 @@ Android [NDK] Build
 -------------------
 ※Build script is a simple Bash script, so you'll need bash + all build tools required for a normal build
 1. Install the [Android NDK](http://developer.android.com/tools/sdk/ndk/index.html)
-2. Run the build script, prefixing with an "NDK_ROOT" environment variable or setting it in advance:
+2. Follow steps 1 - 3 from normal build.
+3. Run cmake with the ANDROID flag set to true:
   ```
-  cd natives/android
-  NDK_ROOT=$HOME/android-ndk ./build.sh
+  cmake -DANDROID=true ..
   ```
+4. Run "make" or compile on your native environment.
 
 iOS Build
 ---------
