@@ -22,6 +22,7 @@ Building
   cmake ..
   ```
 5. Build with "make" on \*nix or import into your IDE and build.
+6. Simply link against the compiled library to use libemojidex.
 
 Java Native Interface
 ---------------------
@@ -32,6 +33,7 @@ Java Native Interface
   cmake -DJAVA=true ..
   ```
 3. Run "make" or compile on your native environment.
+4. * Coming Soon
 
 Ruby Native Extension
 ---------------------
@@ -42,13 +44,21 @@ Ruby Native Extension
   cmake -DRUBY=true ..
   ```
 3. Run "make" or compile on your native environment.
+4. * Coming Soon
+
+Objective C Native Interface
+----------------------------
+
+**NOTE:** This is for a language level Objective C build, NOT for iOS.
+1. * Coming Soon
 
 Packaged Builds
 ===============
 
 Android [NDK] Build
 -------------------
-※Build script is a simple Bash script, so you'll need bash + all build tools required for a normal build
+**NOTE:** A Ruby script handles compilation of required axiliary libraries and dependencies.  
+	You will need Ruby installed and in your path to perform compilation.
 1. Install the [Android NDK](http://developer.android.com/tools/sdk/ndk/index.html)
 2. Follow steps 1 - 3 from normal build.
 3. Run cmake with the ANDROID flag set to true:
@@ -56,6 +66,7 @@ Android [NDK] Build
   cmake -DANDROID=true ..
   ```
 4. Run "make" or compile on your native environment.
+5. * Coming Soon
 
 iOS Build
 ---------
