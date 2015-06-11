@@ -1,5 +1,9 @@
 %module DataMojiCodes
 
+%include "std_string.i"
+%include "std_vector.i"
+%include "std_unordered_map.i"
+
 %{
 include "data/moji_codes.h"
 %}

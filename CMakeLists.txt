@@ -71,6 +71,7 @@ ENABLE_TESTING()
 
 # Installation
 INSTALL(FILES 
+	${PROJECT_SOURCE_DIR}/src/emojidex.h
 	${PROJECT_SOURCE_DIR}/src/version.h
 	${PROJECT_SOURCE_DIR}/src/client.h
 	${PROJECT_SOURCE_DIR}/src/service/settings.h

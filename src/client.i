@@ -16,18 +16,11 @@
 #include "client.h"
 %}
 
-// Ignore function pointer.
-%ignore Emojidex::Data::Collection::moreMethod;
-%ignore Emojidex::Data::Collection::setPagination;
-
-// Ignore operator.
-%ignore Emojidex::Data::Collection::operator<<;
-
-// Ignore unordered_map.
-%ignore Emojidex::Data::Collection::emoji;
-%ignore Emojidex::Data::MojiCodes::moji_index;
-%ignore Emojidex::Service::Transactor::queryTemplate;
-%ignore Emojidex::Service::Transactor::get;
+// Ignore unordered_map
+// %ignore Emojidex::Data::Collection::emoji;
+// %ignore Emojidex::Data::MojiCodes::moji_index;
+// %ignore Emojidex::Service::Transactor::queryTemplate;
+// %ignore Emojidex::Service::Transactor::get;
 
 namespace Emojidex {
   // Core client class (includes all components in a central state-machine client)
@@ -45,9 +38,6 @@ namespace Emojidex {
 } // Emojidex namespace
 
 
-// Include sub interface files.
-// %include "service/indexes.i"
-
 // Rename template classes.
-%template(StringVector) std::vector<std::string>;
-%template(EmojiVector) std::vector<Emojidex::Data::Emoji>;
+// %template(StringVector) std::vector<std::string>;
+// %template(EmojiVector) std::vector<Emojidex::Data::Emoji>;

@@ -1,5 +1,7 @@
 %module ServiceIndexes
 
+%include "std_string.i"
+
 %{
 #include "service/indexes.h"
 %}

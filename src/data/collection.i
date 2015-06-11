@@ -4,6 +4,13 @@
 #include "data/collection.h"
 %}
 
+// Ignore operator overrides
+%ignore Emojidex::Data::Collection::operator<<;
+
+// Ignore function pointers
+%ignore Emojidex::Data::Collection::moreMethod;
+%ignore Emojidex::Data::Collection::setPagination;
+
 namespace Emojidex {
   namespace Data {
     // emoji base data

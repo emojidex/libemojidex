@@ -1,5 +1,8 @@
 %module DataEmoji
 
+%include "std_string.i"
+%include "std_vector.i"
+
 %{
 #include "data/emoji.h"
 %}
