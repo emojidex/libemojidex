@@ -18,6 +18,7 @@ SET(BUILD_TESTS true)
 OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
 OPTION(JAVA "Build Java interfaces")
 OPTION(RUBY "Build Ruby interfaces")
+OPTION(OBJC "Build Objective-C interfaces")
 
 # We're using C++11
 if(UNIX)
@@ -108,3 +109,7 @@ ENDIF(JAVA)
 IF(RUBY)
   INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/ruby/CMakeLists.txt)
 ENDIF(RUBY)
+
+IF(OBJC)
+  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/objective_c/CMakeLists.txt)
+ENDIF(OBJC)
