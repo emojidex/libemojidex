@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 
 	BOOST_AUTO_TEST_CASE(transactor_get_w_query_map) {
 		BOOST_TEST_MESSAGE("Checking raw GET with a query map");
-		unordered_map<string, string> q;
+		Emojidex::Data::UnorderedMap<string, string> q;
 		q["detailed"] = "true";
 		q["page"] = "2";
 		BOOST_CHECK_NE(transactor.get("popular", q).compare(""), 0);
