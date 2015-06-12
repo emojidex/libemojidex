@@ -1,6 +1,10 @@
 #include "transactor.h"
 
+#include "./settings.h"
+
 #include <boost/bind.hpp>
+
+using namespace std;
 
 Emojidex::Service::Transactor::Transactor()
 {

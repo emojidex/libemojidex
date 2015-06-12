@@ -3,17 +3,16 @@
 
 #include <string>
 #include <unordered_map>
-using namespace std;
 
 namespace Emojidex {
 	namespace Data {
 		class Checksums
 		{
 		public:
-			string svg;
-			unordered_map <string, string> png;
+			std::string svg;
+			std::unordered_map <std::string, std::string> png;
 
-			string sum(string format_code, string size_code);
+			std::string sum(std::string format_code, std::string size_code);
 		};
 	}
 }

@@ -1,5 +1,7 @@
 #include "./checksums.h"
 
+using namespace std;
+
 string Emojidex::Data::Checksums::sum(string format_code, string size_code)
 {
 	if (format_code.compare("svg") == 0)

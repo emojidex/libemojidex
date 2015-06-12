@@ -1,6 +1,8 @@
 #include "indexes.h"
 #include "transactor.h"
 
+using namespace std;
+
 Emojidex::Service::Indexes::Indexes()
 {
 	this->codes = new Emojidex::Data::MojiCodes();

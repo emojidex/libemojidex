@@ -1,6 +1,9 @@
 #include <client.h>
 #include <service/search.h>
 #include <service/transactor.h>
+#include <service/settings.h>
+
+using namespace std;
 
 #define BOOST_TEST_DYN_LINK 
 #define BOOST_TEST_MODULE emojidex_test

@@ -1,5 +1,7 @@
 #include "search.h"
 
+using namespace std;
+
 Emojidex::Service::Search::Search()
 {
 	this->current_page = 0;
