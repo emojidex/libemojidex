@@ -3,9 +3,8 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
-using namespace std;
 
+#include "./unordered_map.h"
 #include "./emoji.h"
 
 namespace Emojidex {
@@ -22,7 +21,7 @@ namespace Emojidex {
 			Collection();
 			~Collection();
 
-			unordered_map<string, Emojidex::Data::Emoji> emoji;
+			Data::UnorderedMap<std::string, Emojidex::Data::Emoji> emoji;
 
 			//=====================================================================================
 			// Broken out operations on the emoji map (for interfaces or implementations 
@@ -30,21 +29,21 @@ namespace Emojidex {
 			// ============
 
 			// Returns a vector array of all emoji in the collection
-			vector<Emojidex::Data::Emoji> all();
+			std::vector<Emojidex::Data::Emoji> all();
 
 			// Adds an emoji to the map
 			Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
 
 			// Finds by moji[character]code (UTF emoji only)
-			Emojidex::Data::Emoji findByMoji(string moji);
+			Emojidex::Data::Emoji findByMoji(std::string moji);
 			// Finds by emoji [short] code
-			Emojidex::Data::Emoji findByCode(string code);
+			Emojidex::Data::Emoji findByCode(std::string code);
 			// Finds by Unicode value
 			// *Unicode value must be lower case
-			Emojidex::Data::Emoji findByUnicode(string unicode);
+			Emojidex::Data::Emoji findByUnicode(std::string unicode);
 
 			//Emojidex::Data::Collection search()
-			Emojidex::Data::Collection category(string category);
+			Emojidex::Data::Collection category(std::string category);
 
 			// Merge a collection with this collection, overwriting emoji with the same
 			// code in this collection. Rerturns this collection after the merge for chaining.
@@ -54,9 +53,9 @@ namespace Emojidex {
 			//=====================================================================================
 			// Service Info
 			// ============
-			string endpoint;
+			std::string endpoint;
 			bool detailed;
-			string locale;
+			std::string locale;
 			unsigned int page;
 			unsigned short limit;
 			unsigned int total_count;

@@ -1,5 +1,7 @@
 #include "collection.h"
 
+using namespace std;
+
 Emojidex::Data::Collection::Collection()
 {
 	moreMethod = NULL;

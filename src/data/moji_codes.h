@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
-using namespace std;
+
+#include "./unordered_map.h"
 
 namespace Emojidex {
 	namespace Data {
@@ -12,10 +12,10 @@ namespace Emojidex {
 		class MojiCodes
 		{
 		public:
-			string locale = "";
-			string moji_string;
-			vector<string> moji_array;
-			unordered_map<string, string> moji_index;
+			std::string locale = "";
+			std::string moji_string;
+			std::vector<std::string> moji_array;
+			Data::UnorderedMap<std::string, std::string> moji_index;
 		};
 	}
 }

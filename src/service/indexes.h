@@ -2,7 +2,6 @@
 #define EMOJIDEX_SERVICE_INDEXES_H
 
 #include "../data/moji_codes.h"
-#include "../data/emoji.h"
 #include "../data/collection.h"
 #include "rapidjson/document.h"
 
@@ -19,12 +18,12 @@ namespace Emojidex {
 		private:
 			Emojidex::Data::MojiCodes *codes;
 			// service methods
-			static void defaultLocale(string *object_locale, string *locale);
+			static void defaultLocale(std::string *object_locale, std::string *locale);
 			static void fillEmojiFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
 			static void fillMetaFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
-			static Emojidex::Data::Collection getStaticCollection(string name, string locale, 
+			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale, 
 					bool detailed);
-			static Emojidex::Data::Collection getDynamicCollection(string name, unsigned int limit, 
+			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int limit, 
 					unsigned int page, bool detailed);
 		public:
 			Indexes();
@@ -38,11 +37,11 @@ namespace Emojidex {
 			// ============
 
 			// Get standard UTF emoji info in 3 compact forms
-			Emojidex::Data::MojiCodes mojiCodes(string locale = "");
+			Emojidex::Data::MojiCodes mojiCodes(std::string locale = "");
 			// Get a collection of all standard UTF emoji
-			Emojidex::Data::Collection utfEmoji(string locale = "", bool detailed = false);
+			Emojidex::Data::Collection utfEmoji(std::string locale = "", bool detailed = false);
 			// Get a collection of all emojidex Extended emoji
-			Emojidex::Data::Collection extendedEmoji(string locale = "", bool detailed = false);
+			Emojidex::Data::Collection extendedEmoji(std::string locale = "", bool detailed = false);
 		  
 			//=====================================================================================
 			// Dynamic Indexes
