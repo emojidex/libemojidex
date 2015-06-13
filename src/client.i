@@ -12,15 +12,7 @@
   }
 %}
 
-%{
-#include "client.h"
-%}
-
-// Ignore unordered_map
-// %ignore Emojidex::Data::Collection::emoji;
-// %ignore Emojidex::Data::MojiCodes::moji_index;
-// %ignore Emojidex::Service::Transactor::queryTemplate;
-// %ignore Emojidex::Service::Transactor::get;
+%include "client.h"
 
 namespace Emojidex {
   // Core client class (includes all components in a central state-machine client)
@@ -36,8 +28,3 @@ namespace Emojidex {
     char apiVersion();
   }; // Client
 } // Emojidex namespace
-
-
-// Rename template classes.
-// %template(StringVector) std::vector<std::string>;
-// %template(EmojiVector) std::vector<Emojidex::Data::Emoji>;

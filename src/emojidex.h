@@ -2,11 +2,11 @@
 #define _EMOJIDEX_H_
 
 #include "./data/emoji.h"
-#include "./data/collection.h"
+//#include "./data/collection.h"
 
-#include "./client.h"
-#include "./service/indexes.h"
-#include "./service/search.h"
+//#include "./client.h"
+//#include "./service/indexes.h"
+//#include "./service/search.h"
 
 namespace Emojidex {
 }

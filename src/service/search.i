@@ -1,4 +1,4 @@
-%module Emojidex_Service_Search
+%module Search
 
 %{
 include "search.h"
