@@ -1,7 +1,7 @@
-%module ServiceSearch
+%module Emojidex_Service_Search
 
 %{
-include "service/search.h"
+include "search.h"
 %}
 
 namespace Emojidex {

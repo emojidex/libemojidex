@@ -5,7 +5,7 @@
 %include "std_unordered_map.i"
 
 %{
-include "data/moji_codes.h"
+include "moji_codes.h"
 %}
 
 namespace Emojidex {
