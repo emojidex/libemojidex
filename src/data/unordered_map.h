@@ -17,7 +17,9 @@ namespace Emojidex {
 
       UnorderedMap(std::initializer_list<value_type> values) : base()
       {
-        // TODO: Initialize from initializer_list.
+        const typename std::initializer_list<value_type>::const_iterator itEnd = values.end();
+        for(typename std::initializer_list<value_type>::const_iterator it = values.begin();  it != itEnd;  ++it)
+          this->insert(*it);
       }
 
       ~UnorderedMap(){ /* nop */ }
