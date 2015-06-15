@@ -1,13 +1,12 @@
 
 #import "test.h"
 #import <Foundation/NSObject.h>
-//#import "../../../src/client.h"
-
-#import <unordered_map>
+#import "../../../src/client.h"
 
 @implementation Hoge
 - (void)foo
 {
-  NSLog(@"hoge\n");
+  Emojidex::Client client;
+  NSLog(@"hoge: %d\n", client.apiVersion());
 }
 @end
