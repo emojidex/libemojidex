@@ -23,8 +23,10 @@ SET(OBJC_SOURCE_FILES
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/checksums.mm
 )
 
-# TODO: Find GNUstep include directory path.
-SET(GNUSTEP_INCLUDE_DIRS "/usr/include/GNUstep" "/usr/local/include/GNUstep")
+FIND_PATH(GNUSTEP_INCLUDE_DIRS
+  NAMES Foundation/Foundation.h
+  PATH_SUFFIXES GNUstep
+)
 
 # Set libraries directory.
 INCLUDE_DIRECTORIES(@EMOJIDEX_INCLUDE_DIRS@ ${GNUSTEP_INCLUDE_DIRS})
