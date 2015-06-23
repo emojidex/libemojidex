@@ -1,0 +1,54 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(LIBEMOJIDEX_OBJC)
+
+# Set parameters.
+SET(OBJC_TARGET @OBJC_TARGET@-impl)
+
+SET(OBJC_HEADER_FILES
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/client.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/search.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/indexes.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/moji_codes.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/collection.h
+)
+
+SET(OBJC_SOURCE_FILES
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/client.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/search.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/indexes.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/moji_codes.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/collection.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/emoji.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/checksums.mm
+)
+
+FIND_PATH(GNUSTEP_INCLUDE_DIRS
+  NAMES Foundation/Foundation.h
+  PATH_SUFFIXES GNUstep
+)
+
+# Set libraries directory.
+INCLUDE_DIRECTORIES(@EMOJIDEX_INCLUDE_DIRS@ ${GNUSTEP_INCLUDE_DIRS})
+LINK_DIRECTORIES(@PROJECT_BINARY_DIR@)
+
+# Set compiler flag.
+SET(CMAKE_CXX_FLAGS "@CMAKE_CXX_FLAGS@ -fconstant-string-class=NSConstantString")
+
+# Set output directory.
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY @PROJECT_BINARY_DIR@)
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY @PROJECT_BINARY_DIR@)
+
+# Generate shared library.
+ADD_LIBRARY(${OBJC_TARGET} SHARED ${OBJC_SOURCE_FILES})
+TARGET_LINK_LIBRARIES(${OBJC_TARGET} "-lobjc" "-lgnustep-base" "@STATIC_LIB_NAME@" @EMOJIDEX_LINK_LIBRARIES@)
+
+SET_TARGET_PROPERTIES(${OBJC_TARGET}
+  PROPERTIES
+  POSITION_INDEPENDENT_CODE TRUE
+  OUTPUT_NAME @OBJC_LIB_NAME@
+)
+
+# Install library.
+INSTALL(FILES ${OBJC_HEADER_FILES} DESTINATION "include/@OBJC_LIB_NAME@")
+INSTALL(TARGETS ${OBJC_TARGET} DESTINATION "lib")

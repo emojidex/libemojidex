@@ -114,5 +114,5 @@ IF(RUBY)
 ENDIF(RUBY)
 
 IF(OBJC)
-  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/objective_c/CMakeLists.txt)
+  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/objc/CMakeLists.txt)
 ENDIF(OBJC)
