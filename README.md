@@ -44,13 +44,22 @@ Ruby Native Extension
   cmake -DRUBY=true ..
   ```
 3. Run "make" or compile on your native environment.
-4. * Coming Soon
+4. Run "make ruby" or build the "ruby" profile.
 
 Objective C Native Interface
 ----------------------------
 
 **NOTE:** This is for a language level Objective C build, NOT for iOS.
-1. * Coming Soon
+
+> Linux Prerequisites: gobjc++ libgnustep-base-dev
+
+1. Follow steps 1 - 3 for normal build.
+2. Run cmake with the OBJC flag set to true:
+  ```
+  cmake -DOBJC=true ..
+  ```
+3. Run "make" or compile on your native environment.
+4. Run "make objc" or build the "objc" profile.
 
 Packaged Builds
 ===============
