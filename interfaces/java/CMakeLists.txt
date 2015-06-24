@@ -34,6 +34,7 @@ SET(SWIG_JAR_NAME libemojidex)
 SET(SWIG_JAR_FILENAME ${SWIG_JAR_NAME}-${EMOJIDEX_LIB_VERSION}.jar)
 SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Client.java
+	${PROJECT_BINARY_DIR}/src/Checksums.java
 	${PROJECT_BINARY_DIR}/src/Collection.java
 	${PROJECT_BINARY_DIR}/src/Emoji.java
 	${PROJECT_BINARY_DIR}/src/MojiCodes.java
@@ -43,9 +44,8 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Transactor.java
 	${PROJECT_BINARY_DIR}/src/EmojiVector.java
 	${PROJECT_BINARY_DIR}/src/StringVector.java
-	${PROJECT_BINARY_DIR}/src/libemojidex.java
-	${PROJECT_BINARY_DIR}/src/libemojidexConstants.java
-	${PROJECT_BINARY_DIR}/src/libemojidexJNI.java
+	${PROJECT_BINARY_DIR}/src/emojidex.java
+	${PROJECT_BINARY_DIR}/src/emojidexJNI.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
 

@@ -15,6 +15,8 @@
 // 
 %{
 #include "client.h"
+#include "service/settings.h"
+#include "service/transactor.h"
 %}
 
 // Ignore function pointer.
@@ -27,10 +29,28 @@
 // Ignore unordered_map.
 %ignore Emojidex::Data::Collection::emoji;
 %ignore Emojidex::Data::MojiCodes::moji_index;
+%ignore Emojidex::Data::Checksums::png;
 %ignore Emojidex::Service::Transactor::queryTemplate;
 %ignore Emojidex::Service::Transactor::get;
 
 // Include header files.
+// Prototype.
+namespace Emojidex {
+  namespace Service {
+    class Indexes;
+    class Search;
+    class Settings;
+    class Transactor;
+  }
+  namespace Data {
+    class Collection;
+    class MojiCodes;
+    class Emoji;
+    class Checksums;
+  }
+  class Client;
+}
+
 // %include "client.h"
 namespace Emojidex {
   // Core client class (includes all components in a central state-machine client)
@@ -54,17 +74,35 @@ namespace Emojidex {
     class Emoji
     {
     public:
-      string moji;
-      string code;
-      string unicode;
-      string category;
+      std::string moji;
+      std::string code;
+      std::string unicode;
+      std::string category;
+      std::vector<std::string> tags;
+      std::string base;
+      std::vector<std::string> variants;
+      std::string link;
+      // detailed
       bool is_wide;
-      vector<string> tags;
-      string base;
-      vector<string> variants;
+      bool copyright_lock;
+      int times_used;
+      std::string attribution;
+      std::string user_id;
+      Checksums checksums;
+    };
+  }
+}
 
-      string author;
-      string link;
+// %include "data/checksums.h"
+namespace Emojidex {
+  namespace Data {
+    class Checksums
+    {
+    public:
+      std::string svg;
+      Data::UnorderedMap <std::string, std::string> png;
+
+      std::string sum(std::string format_code, std::string size_code);
     };
   }
 }
@@ -84,7 +122,7 @@ namespace Emojidex {
       Collection();
       ~Collection();
 
-      unordered_map<string, Emojidex::Data::Emoji> emoji;
+      Data::UnorderedMap<std::string, Emojidex::Data::Emoji> emoji;
 
       //=====================================================================================
       // Broken out operations on the emoji map (for interfaces or implementations 
@@ -92,21 +130,21 @@ namespace Emojidex {
       // ============
 
       // Returns a vector array of all emoji in the collection
-      vector<Emojidex::Data::Emoji> all();
+      std::vector<Emojidex::Data::Emoji> all();
 
       // Adds an emoji to the map
       Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
 
       // Finds by moji[character]code (UTF emoji only)
-      Emojidex::Data::Emoji findByMoji(string moji);
+      Emojidex::Data::Emoji findByMoji(std::string moji);
       // Finds by emoji [short] code
-      Emojidex::Data::Emoji findByCode(string code);
+      Emojidex::Data::Emoji findByCode(std::string code);
       // Finds by Unicode value
       // *Unicode value must be lower case
-      Emojidex::Data::Emoji findByUnicode(string unicode);
+      Emojidex::Data::Emoji findByUnicode(std::string unicode);
 
       //Emojidex::Data::Collection search()
-      Emojidex::Data::Collection category(string category);
+      Emojidex::Data::Collection category(std::string category);
 
       // Merge a collection with this collection, overwriting emoji with the same
       // code in this collection. Rerturns this collection after the merge for chaining.
@@ -116,9 +154,9 @@ namespace Emojidex {
       //=====================================================================================
       // Service Info
       // ============
-      string endpoint;
+      std::string endpoint;
       bool detailed;
-      string locale;
+      std::string locale;
       unsigned int page;
       unsigned short limit;
       unsigned int total_count;
@@ -144,10 +182,10 @@ namespace Emojidex {
     class MojiCodes
     {
     public:
-      string locale = "";
-      string moji_string;
-      vector<string> moji_array;
-      unordered_map<string, string> moji_index;
+      std::string locale = "";
+      std::string moji_string;
+      std::vector<std::string> moji_array;
+      Data::UnorderedMap<std::string, std::string> moji_index;
     };
   }
 }
@@ -161,7 +199,7 @@ namespace Emojidex {
       unsigned int current_page;
 
       Search();
-      Emojidex::Data::Collection term(string term);
+      Emojidex::Data::Collection term(std::string term);
     };
   }
 }
@@ -172,15 +210,15 @@ namespace Emojidex {
     class Settings
     {
     public:
-      static bool initialized;
-      static string api_host;
-      static string api_prefix;
-      static string api_protocol;
-      static string cdn_host;
-      static string cdn_prefix;
-      static string cdn_protocol;
-      static bool   closed_net;
-      static string token;
+      static bool        initialized;
+      static std::string api_host;
+      static std::string api_prefix;
+      static std::string api_protocol;
+      static std::string cdn_host;
+      static std::string cdn_prefix;
+      static std::string cdn_protocol;
+      static bool        closed_net;
+      static std::string token;
     };
   }
 }
@@ -192,14 +230,14 @@ namespace Emojidex {
     class Transactor
     {
     private:
-      string generateQueryString(unordered_map<string, string> query);
+      std::string generateQueryString(Data::UnorderedMap<std::string, std::string> query);
       boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
     public:
       Transactor();
 
-      unordered_map<string, string> queryTemplate(bool defaults = true);
+      Data::UnorderedMap<std::string, std::string> queryTemplate(bool defaults = true);
 
-      string get(string endpoint, unordered_map<string, string> query = {{"", ""}});
+      std::string get(std::string endpoint, Data::UnorderedMap<std::string, std::string> query = {{"", ""}});
     };
   }
 }
