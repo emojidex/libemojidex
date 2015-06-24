@@ -6,6 +6,7 @@
 
 namespace Emojidex {
   namespace Data {
+    // UnorderedMap is a wrapper around std::unordered map for portability
     template<class K, class V>
     class UnorderedMap : public std::unordered_map<K, V>
     {
