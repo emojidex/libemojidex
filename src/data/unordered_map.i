@@ -1,8 +1,7 @@
 %module UnorderedMap
 
 
-%ignore std::unorderd_map;
-%ignore initialzer_list;
+%ignore Emojidex::Data::UnorderedMap::base;
 
 %{
 #include "data/unordered_map.h"

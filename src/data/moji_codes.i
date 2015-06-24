@@ -2,7 +2,7 @@
 
 %include "std_string.i"
 %include "std_vector.i"
-%include "std_unordered_map.i"
+//%include "std_unordered_map.i"
 
 %{
 include "moji_codes.h"

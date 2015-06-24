@@ -11,18 +11,18 @@ IF(BUILD_TESTS)
     ${PROJECT_SOURCE_DIR}../src
   )
 
-  ADD_EXECUTABLE(client_spec
-      ${PROJECT_SOURCE_DIR}/client_spec.cpp
+  ADD_EXECUTABLE(libemojidex_spec
+      ${PROJECT_SOURCE_DIR}/libemojidex_spec.cpp
   )
-  TARGET_LINK_LIBRARIES(client_spec
+  TARGET_LINK_LIBRARIES(libemojidex_spec
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
     emojidex
   )
 
   ENABLE_TESTING()
   ADD_TEST(
-    NAME client_spec
+    NAME libemojidex_spec
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND client_spec
+    COMMAND libemojidex_spec
   )
 endif(BUILD_TESTS)
