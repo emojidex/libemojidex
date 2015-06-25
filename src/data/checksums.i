@@ -1,10 +1,22 @@
 %module Emojidex_Data_Checksums
 
 %include "std_string.i"
-%include "./unordered_map.i"
+%ignore Emojidex::Data::Checksums::png;
 
 %{
 #include "data/checksums.h"
 %}
 
-%include "./checksums.h"
+// %include "data/checksums.h"
+namespace Emojidex {
+  namespace Data {
+    class Checksums
+    {
+    public:
+      std::string svg;
+      Data::UnorderedMap <std::string, std::string> png;
+
+      std::string sum(std::string format_code, std::string size_code);
+    };
+  }
+}

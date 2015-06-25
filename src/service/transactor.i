@@ -4,20 +4,25 @@
 include "service/transactor.h"
 %}
 
+// Ignore unordered_map.
+%ignore Emojidex::Service::Transactor::queryTemplate;
+%ignore Emojidex::Service::Transactor::get;
+
+// %include "service/transactor.h"
 namespace Emojidex {
   namespace Service {
     // performs transactions with an emojidex API server
     class Transactor
     {
     private:
-      string generateQueryString(unordered_map<string, string> query);
+      std::string generateQueryString(Data::UnorderedMap<std::string, std::string> query);
       boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
     public:
       Transactor();
 
-      unordered_map<string, string> queryTemplate(bool defaults = true);
+      Data::UnorderedMap<std::string, std::string> queryTemplate(bool defaults = true);
 
-      string get(string endpoint, unordered_map<string, string> query = {{"", ""}});
+      std::string get(std::string endpoint, Data::UnorderedMap<std::string, std::string> query = {{"", ""}});
     };
   }
 }
