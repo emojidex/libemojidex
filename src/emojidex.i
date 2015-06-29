@@ -17,6 +17,8 @@
 %include "data.i"
 %include "service.i"
 
+%include "client.i"
+
 %{
 #include "emojidex.h"
 %}

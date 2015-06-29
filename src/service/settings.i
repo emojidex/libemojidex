@@ -1,4 +1,4 @@
-%module ServiceSettings
+%module "Emojidex::Service::Settings"
 
 %{
 include "service/settings.h"

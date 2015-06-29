@@ -1,7 +1,5 @@
 %module "Emojidex::Service::Indexes"
 
-%include "std_string.i"
-
 %{
 #include "service/indexes.h"
 %}

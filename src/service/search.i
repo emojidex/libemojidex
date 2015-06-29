@@ -1,7 +1,5 @@
 %module "Emojidex::Service::Search"
 
-%include "std_string.i"
-
 %{
 #include "service/search.h"
 %}

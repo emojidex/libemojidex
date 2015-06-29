@@ -1,4 +1,4 @@
-%module ServiceTransactor
+%module "Emojidex::Service::Transactor"
 
 %{
 include "service/transactor.h"
