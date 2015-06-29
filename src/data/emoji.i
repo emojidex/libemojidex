@@ -1,4 +1,4 @@
-%module Emoji
+%module "Emojidex::Data::Emoji"
 
 %include "std_string.i"
 %include "std_vector.i"

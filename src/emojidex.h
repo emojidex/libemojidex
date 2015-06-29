@@ -1,7 +1,7 @@
 #ifndef _EMOJIDEX_H_
 #define _EMOJIDEX_H_
 
-//#include "./data/emoji.h"
+#include "./data.h"
 //#include "./data/collection.h"
 
 //#include "./client.h"

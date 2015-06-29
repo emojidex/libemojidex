@@ -1,4 +1,4 @@
-%module Emojidex_Data_Checksums
+%module "Emojidex::Data::Checksums"
 
 %include "std_string.i"
 %ignore Emojidex::Data::Checksums::png;

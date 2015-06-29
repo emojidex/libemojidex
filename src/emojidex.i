@@ -14,13 +14,16 @@
 %include "std_string.i"
 %include "std_vector.i"
 
-%include "./data.i"
+%include "data.i"
+%include "service.i"
 
-//%include "./client.i"
-//%include "./service/indexes.i"
-//%include "./service/search.i"
+%{
+#include "emojidex.h"
+%}
 
-%include "emojidex.h"
+//%include "emojidex.h"
+namespace Emojidex {
+}
 
-%template(StringVector) std::vector<std::string>;
-%template(EmojiVector) std::vector<Emojidex::Data::Emoji>;
+//%template(StringVector) std::vector<std::string>;
+//%template(EmojiVector) std::vector<Emojidex::Data::Emoji>;

@@ -1,4 +1,4 @@
-%module ServiceIndexes
+%module "Emojidex::Service::Indexes"
 
 %include "std_string.i"
 

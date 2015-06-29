@@ -1,4 +1,4 @@
-%module DataCollection
+%module "Emojidex::Data::Collection"
 
 %{
 #include "data/collection.h"

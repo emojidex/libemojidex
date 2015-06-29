@@ -1,33 +1,30 @@
-%module Client
+%module "Emojidex::Client"
 
 // Include STL header files.
 %include "std_string.i"
 %include "std_vector.i"
 
-// 
 %{
 #include "client.h"
-#include "service/settings.h"
-#include "service/transactor.h"
 %}
 
 // Include header files.
 // Prototype.
-namespace Emojidex {
-  namespace Service {
-    class Indexes;
-    class Search;
-    class Settings;
-    class Transactor;
-  }
-  namespace Data {
-    class Collection;
-    class MojiCodes;
-    class Emoji;
-    class Checksums;
-  }
-  class Client;
-}
+//namespace Emojidex {
+//  namespace Service {
+//    class Indexes;
+//    class Search;
+//    class Settings;
+//    class Transactor;
+//  }
+//  namespace Data {
+//    class Collection;
+//    class MojiCodes;
+//    class Emoji;
+//    class Checksums;
+//  }
+//  class Client;
+//}
 
 // %include "client.h"
 namespace Emojidex {
