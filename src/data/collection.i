@@ -1,11 +1,13 @@
-%module "Emojidex::Data::Collection"
+%module(package="Emojidex:::Data") "Emojidex::Data::Collection"
+
+%include <std_string.i>
 
 %{
 #include "data/collection.h"
 %}
 
 // Ignore operator overrides
-%ignore Emojidex::Data::Collection::operator<<;
+//%ignore Emojidex::Data::Collection::operator<<;
 
 // Ignore function pointers
 %ignore Emojidex::Data::Collection::moreMethod;
@@ -55,7 +57,7 @@ namespace Emojidex {
       // Merge a collection with this collection, overwriting emoji with the same
       // code in this collection. Rerturns this collection after the merge for chaining.
       Emojidex::Data::Collection merge(Emojidex::Data::Collection delta_collection);
-      Emojidex::Data::Collection operator<<(Emojidex::Data::Collection delta_collection);
+      //Emojidex::Data::Collection operator<<(Emojidex::Data::Collection delta_collection);
       
       //=====================================================================================
       // Service Info

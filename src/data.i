@@ -1,8 +1,7 @@
-%module "Emojidex::Data"
+%module(package="Emojidex") "Emojidex::Data"
 
-%include "data/checksums.i"
-%include "data/emoji.i"
-%include "data/collection.i"
+%import "data/emoji.i"
+%import "data/collection.i"
 
 namespace Emojidex {
     namespace Data {

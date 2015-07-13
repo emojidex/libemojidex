@@ -2,6 +2,7 @@
 #define EMOJIDEX_DATA_CHECKSUMS_H
 
 #include <string>
+using namespace std;
 #include "./unordered_map.h"
 
 namespace Emojidex {

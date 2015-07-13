@@ -8,24 +8,15 @@
   }
 %}
 
-// Rename template classes.
+%import "data.i"
+//%include "service.i"
 
-// pre-declare common standard inclusions
-%include "std_string.i"
-%include "std_vector.i"
+//%include "client.i"
 
-%include "data.i"
-%include "service.i"
-
-%include "client.i"
-
-%{
-#include "emojidex.h"
-%}
+//%{
+//#include "emojidex.h"
+//%}
 
 //%include "emojidex.h"
 namespace Emojidex {
 }
-
-//%template(StringVector) std::vector<std::string>;
-//%template(EmojiVector) std::vector<Emojidex::Data::Emoji>;

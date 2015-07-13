@@ -1,5 +1,6 @@
-%module "Emojidex::Data::Emoji"
+%module(package="Emojidex::Data") "Emojidex::Data::Emoji"
 
+%include <std_string.i>
 %include "data/checksums.i"
 
 %{
