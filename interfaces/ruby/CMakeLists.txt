@@ -7,7 +7,7 @@ INCLUDE(UseSWIG)
 SET(SWIG_RUBY_TARGET ruby)
 SET(SWIG_RUBY_LIB_NAME libemojidex_ruby)
 
-#SET(CMAKE_SWIG_FLAGS "-initname;${SWIG_RUBY_LIB_NAME}")
+SET(CMAKE_SWIG_FLAGS "-initname;Emojidex")
 SET(CMAKE_SWIG_OUTDIR "src")
 SET_SOURCE_FILES_PROPERTIES(
     "${PROJECT_SOURCE_DIR}/src/emojidex.i"
@@ -19,6 +19,8 @@ SET_SOURCE_FILES_PROPERTIES(
     CPLUSPLUS ON)
 
 SWIG_ADD_MODULE(${SWIG_RUBY_TARGET} ruby 
+    "${PROJECT_SOURCE_DIR}/src/emojidex.i"
+    "${PROJECT_SOURCE_DIR}/src/data.i"
     "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
     "${PROJECT_SOURCE_DIR}/src/data/collection.i"
     "${PROJECT_SOURCE_DIR}/src/data/checksums.i"

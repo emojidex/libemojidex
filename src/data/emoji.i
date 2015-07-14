@@ -5,6 +5,7 @@
 
 %{
 #include "data/emoji.h"
+#define Init_Emojidex Init_Emojidex_Data_Emoji
 %}
 
 // %include "data/emoji.h"
