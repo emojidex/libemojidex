@@ -3,7 +3,6 @@
 
 %{
 #include "data/checksums.h"
-#define Init_Emojidex Init_Emojidex_Data_Checksums
 %}
 
 %include <std_string.i>

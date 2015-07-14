@@ -8,6 +8,11 @@
   }
 %}
 
+// For ruby.
+%{
+#define Init_Emojidex Init_libemojidex_ruby
+%}
+
 %import "data.i"
 //%include "service.i"
 
