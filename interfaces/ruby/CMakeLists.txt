@@ -15,6 +15,7 @@ SET_SOURCE_FILES_PROPERTIES(
     "${PROJECT_SOURCE_DIR}/src/data/checksums.i"
     "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
     "${PROJECT_SOURCE_DIR}/src/data/collection.i"
+    PROPERTIES
     CPLUSPLUS ON)
 
 SWIG_ADD_MODULE(${SWIG_RUBY_TARGET} ruby 
