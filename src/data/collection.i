@@ -4,6 +4,7 @@
 
 %{
 #include "data/collection.h"
+#define Init_Emojidex Init_Emojidex_Data_Collection
 %}
 
 // Ignore operator overrides
