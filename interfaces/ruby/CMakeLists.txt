@@ -8,22 +8,21 @@ SET(SWIG_RUBY_TARGET ruby)
 SET(SWIG_RUBY_LIB_NAME libemojidex_ruby)
 
 SET(CMAKE_SWIG_OUTDIR "src")
-SET_SOURCE_FILES_PROPERTIES(
-    "${PROJECT_SOURCE_DIR}/src/emojidex.i"
-    "${PROJECT_SOURCE_DIR}/src/data.i"
-    "${PROJECT_SOURCE_DIR}/src/data/checksums.i"
-    "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
-    "${PROJECT_SOURCE_DIR}/src/data/collection.i"
-    PROPERTIES
-    CPLUSPLUS ON)
 
-SWIG_ADD_MODULE(${SWIG_RUBY_TARGET} ruby 
-    "${PROJECT_SOURCE_DIR}/src/emojidex.i"
-    "${PROJECT_SOURCE_DIR}/src/data.i"
-    "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
-    "${PROJECT_SOURCE_DIR}/src/data/collection.i"
-    "${PROJECT_SOURCE_DIR}/src/data/checksums.i"
-    )
+SET(SWIG_INTERFACE_FILES
+  "${PROJECT_SOURCE_DIR}/src/emojidex.i"
+  "${PROJECT_SOURCE_DIR}/src/data.i"
+  "${PROJECT_SOURCE_DIR}/src/data/checksums.i"
+  "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
+  "${PROJECT_SOURCE_DIR}/src/data/collection.i"
+)
+
+SET_SOURCE_FILES_PROPERTIES(${SWIG_INTERFACE_FILES}
+  PROPERTIES
+  CPLUSPLUS ON
+)
+
+SWIG_ADD_MODULE(${SWIG_RUBY_TARGET} ruby ${SWIG_INTERFACE_FILES})
 SWIG_LINK_LIBRARIES(${SWIG_RUBY_TARGET} ${EMOJIDEX_DYNAMIC_LIB_NAME})
 SET_TARGET_PROPERTIES(${SWIG_RUBY_TARGET}
   PROPERTIES
