@@ -6,6 +6,13 @@
 %include <std_vector.i>
 %include "data/checksums.i"
 
+// For java.
+SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
+SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
+%typemap(javaimports) Emojidex::Data::Emoji %{
+import libemojidex.StringVector;
+%}
+
 %{
 #include "data/emoji.h"
 %}
