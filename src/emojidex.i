@@ -10,18 +10,11 @@
 
 // For ruby.
 %{
+#ifdef SWIGRUBY
 #define Init_Emojidex Init_libemojidex_ruby
+#endif
 %}
 
-%import "data.i"
-//%include "service.i"
-
-//%include "client.i"
-
-//%{
-//#include "emojidex.h"
-//%}
-
-//%include "emojidex.h"
-namespace Emojidex {
-}
+%include "client.i"
+%include "data.i"
+%include "service.i"

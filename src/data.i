@@ -4,10 +4,7 @@
 #include "data.h"
 %}
 
-%import "data/emoji.i"
-%import "data/collection.i"
-
-namespace Emojidex {
-    namespace Data {
-    }
-}
+%include "data/emoji.i"
+%include "data/collection.i"
+%include "data/checksums.i"
+%include "data/moji_codes.i"

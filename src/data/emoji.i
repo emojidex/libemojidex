@@ -1,6 +1,9 @@
 %module(package="Emojidex::Data") "Emojidex::Data::Emoji"
 
+%nspace Emojidex::Data::Emoji;
+
 %include <std_string.i>
+%include <std_vector.i>
 %include "data/checksums.i"
 
 %{
@@ -32,3 +35,6 @@ namespace Emojidex {
     };
   }
 }
+
+// Rename template classes.
+%template(StringVector) std::vector<std::string>;

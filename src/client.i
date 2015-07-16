@@ -1,8 +1,6 @@
-%module "Emojidex::Client"
+%module(package="Emojidex") "Emojidex::Client"
 
-// Include STL header files.
-%include "std_string.i"
-%include "std_vector.i"
+%nspace Emojidex::Client;
 
 %{
 #include "client.h"

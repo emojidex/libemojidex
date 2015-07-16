@@ -1,4 +1,8 @@
-%module "Emojidex::Service::Transactor"
+%module(package="Emojidex::Service") "Emojidex::Service::Transactor"
+
+%nspace Emojidex::Service::Transactor;
+
+%include <std_string.i>
 
 %{
 include "service/transactor.h"

@@ -1,7 +1,11 @@
-%module "Emojidex::Service::Settings"
+%module(package="Emojidex::Service") "Emojidex::Service::Settings"
+
+%nspace Emojidex::Service::Settings;
+
+%include <std_string.i>
 
 %{
-include "service/settings.h"
+#include "service/settings.h"
 %}
 
 namespace Emojidex {
@@ -9,15 +13,15 @@ namespace Emojidex {
     class Settings
     {
     public:
-      static bool initialized;
-      static string api_host;
-      static string api_prefix;
-      static string api_protocol;
-      static string cdn_host;
-      static string cdn_prefix;
-      static string cdn_protocol;
-      static bool   closed_net;
-      static string token;
+      static bool        initialized;
+      static std::string api_host;
+      static std::string api_prefix;
+      static std::string api_protocol;
+      static std::string cdn_host;
+      static std::string cdn_prefix;
+      static std::string cdn_protocol;
+      static bool        closed_net;
+      static std::string token;
     };
   }
 }

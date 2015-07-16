@@ -12,12 +12,12 @@ SET(SWIG_JAVA_LIB_NAME emojidex_java)
 SET(CMAKE_JNI_TARGET TRUE)
 SET(CMAKE_SWIG_FLAGS -package libemojidex)
 SET(CMAKE_SWIG_OUTDIR "src")
-SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/client.i"
+SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/emojidex.i"
 	PROPERTIES
 	CPLUSPLUS 1
 )
 
-SWIG_ADD_MODULE(${SWIG_JAVA_TARGET} java "src/client.i")
+SWIG_ADD_MODULE(${SWIG_JAVA_TARGET} java "${PROJECT_SOURCE_DIR}/src/emojidex.i")
 SWIG_LINK_LIBRARIES(${SWIG_JAVA_TARGET} ${STATIC_LIB_TARGET})
 SET_TARGET_PROPERTIES(${SWIG_JAVA_TARGET}
 	PROPERTIES
@@ -33,19 +33,19 @@ SET(SWIG_JAR_TARGET jar)
 SET(SWIG_JAR_NAME libemojidex)
 SET(SWIG_JAR_FILENAME ${SWIG_JAR_NAME}-${EMOJIDEX_LIB_VERSION}.jar)
 SET(EMOJIDEX_JAVA_FILES
-	${PROJECT_BINARY_DIR}/src/Client.java
-	${PROJECT_BINARY_DIR}/src/Checksums.java
-	${PROJECT_BINARY_DIR}/src/Collection.java
-	${PROJECT_BINARY_DIR}/src/Emoji.java
-	${PROJECT_BINARY_DIR}/src/MojiCodes.java
-	${PROJECT_BINARY_DIR}/src/Indexes.java
-	${PROJECT_BINARY_DIR}/src/Search.java
-	${PROJECT_BINARY_DIR}/src/Settings.java
-	${PROJECT_BINARY_DIR}/src/Transactor.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Client.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Checksums.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Collection.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Emoji.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Data/MojiCodes.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Indexes.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Search.java
+#	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Settings.java
+#	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Transactor.java
 	${PROJECT_BINARY_DIR}/src/EmojiVector.java
 	${PROJECT_BINARY_DIR}/src/StringVector.java
-	${PROJECT_BINARY_DIR}/src/emojidex.java
-	${PROJECT_BINARY_DIR}/src/emojidexJNI.java
+#	${PROJECT_BINARY_DIR}/src/Emojidex.java
+	${PROJECT_BINARY_DIR}/src/EmojidexJNI.java
 	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
 )
 

@@ -1,4 +1,8 @@
-%module "Emojidex::Service::Search"
+%module(package="Emojidex::Service") "Emojidex::Service::Search"
+
+%nspace Emojidex::Service::Search;
+
+%include <std_string.i>
 
 %{
 #include "service/search.h"
@@ -12,7 +16,7 @@ namespace Emojidex {
       unsigned int current_page;
 
       Search();
-      Emojidex::Data::Collection term(string term);
+      Emojidex::Data::Collection term(std::string term);
     };
   }
 }

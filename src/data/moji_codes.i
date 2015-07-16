@@ -1,12 +1,15 @@
-%module "Emojidex::Data::MojiCodes"
+%module(package="Emjidex::Data") "Emojidex::Data::MojiCodes"
 
-%include "std_string.i"
-%include "std_vector.i"
+%nspace Emojidex::Data::MojiCodes;
+
+%include <std_string.i>
+%include <std_vector.i>
 
 %{
-include "moji_codes.h"
+#include "data/moji_codes.h"
 %}
 
+// Ignore unoredered_map.
 %ignore Emojidex::Data::MojiCodes::moji_index;
 
 // %include "data/moji_codes.h"
@@ -23,3 +26,6 @@ namespace Emojidex {
     };
   }
 }
+
+// Rename template classes.
+%template(StringVector) std::vector<std::string>;

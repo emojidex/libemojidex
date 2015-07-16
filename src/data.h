@@ -3,6 +3,8 @@
 
 #include "data/emoji.h"
 #include "data/collection.h"
+#include "data/checksums.h"
+#include "data/moji_codes.h"
 
 namespace Emojidex {
     namespace Data {

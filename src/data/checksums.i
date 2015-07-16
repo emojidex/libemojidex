@@ -1,11 +1,12 @@
 %module(package="Emojidex::Data") "Emojidex::Data::Checksums"
 
+%nspace Emojidex::Data::Checksums;
+
+%include <std_string.i>
 
 %{
 #include "data/checksums.h"
 %}
-
-%include <std_string.i>
 
 // %include "data/checksums.h"
 namespace Emojidex {
