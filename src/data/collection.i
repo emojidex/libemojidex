@@ -93,4 +93,7 @@ namespace Emojidex {
 }
 
 // Rename template classes.
+#ifndef TEMPLATE_EMOJI_VECTOR
+#define TEMPLATE_EMOJI_VECTOR
 %template(EmojiVector) std::vector<Emojidex::Data::Emoji>;
+#endif

@@ -44,4 +44,7 @@ namespace Emojidex {
 }
 
 // Rename template classes.
+#ifndef TEMPLATE_STRING_VECTOR
+#define TEMPLATE_STRING_VECTOR
 %template(StringVector) std::vector<std::string>;
+#endif
