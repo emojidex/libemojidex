@@ -9,11 +9,11 @@
 %}
 
 // For ruby.
-%{
 #ifdef SWIGRUBY
+%{
 #define Init_Emojidex Init_libemojidex_ruby
-#endif
 %}
+#endif
 
 %include "client.i"
 %include "data.i"
