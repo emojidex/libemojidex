@@ -2,6 +2,7 @@
 
 #include "./settings.h"
 
+#include <iostream>
 #include <boost/bind.hpp>
 
 using namespace std;
