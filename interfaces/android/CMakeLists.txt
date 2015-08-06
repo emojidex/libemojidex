@@ -1,3 +1,7 @@
+if (ANDROID)
+  message(STATUS "Android Build Activated. Preparing build chain and deps.")
+endif()
+
 #Get required libs/build chain tools
 EXECUTE_PROCESS(COMMAND ruby interfaces/android/prepare.rb ${CMAKE_BINARY_DIR}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
