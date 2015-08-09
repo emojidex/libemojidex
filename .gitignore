@@ -3,3 +3,4 @@
 /build/
 /src/version.h
 *.orig
+/tmp/
