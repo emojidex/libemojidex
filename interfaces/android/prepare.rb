@@ -67,7 +67,7 @@ def build_OpenSSL()
 end
 
 # Boost for Android
-def build_boost()
+def build_android_boost()
   if Dir.exists? "#{@build_dir}/Boost-for-Android"
     puts 'Boost for Android repository found. Updating...'
     git = Git.open("#{@build_dir}/Boost-for-Android")
@@ -87,6 +87,33 @@ def build_boost()
     puts 'Build appears to have succeeded. Continuing.'
     FileUtils.cp_r("#{@build_dir}/Boost-for-Android/build/include/", "#{@build_dir}/natives/arm/")
     FileUtils.cp_r("#{@build_dir}/Boost-for-Android/build/lib/", "#{@build_dir}/natives/arm/")
+  else
+    exit 2
+  end
+  Dir.chdir @build_dir
+end
+
+# WARNING this doesn't actually work
+def build_boost()
+  if Dir.exists? "#{@build_dir}/boost"
+    puts 'Boost repository found. Updating...'
+    git = Git.open("#{@build_dir}/boost")
+    git.clean({force: true, d: true, x:true})
+    git.pull
+    puts 'Updated.'
+  else
+    puts 'Boost directory not found. Cloning...'
+    git = Git.clone("https://github.com/boostorg/boost.git", "#{@build_dir}/boost")
+    puts 'Cloned.'
+  end
+
+  puts 'Building Boost'
+  Dir.chdir "#{@build_dir}/boost"
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./bootstrap.sh`
+  if $?.exitstatus == 0
+    puts 'Build appears to have succeeded. Continuing.'
+    FileUtils.cp_r("#{@build_dir}/boost/build/include/", "#{@build_dir}/natives/arm/")
+    FileUtils.cp_r("#{@build_dir}/boost/build/lib/", "#{@build_dir}/natives/arm/")
   else
     exit 2
   end
@@ -122,7 +149,7 @@ check_lock()
 check_env()
 prepare_chains()
 build_OpenSSL()
-build_boost()
+build_android_boost()
 set_lock()
 
 exit 0
