@@ -2,6 +2,10 @@ if (ANDROID)
   message(STATUS "Android Build Activated. Preparing build chain and deps.")
 endif()
 
+if(UNIX)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -fno-strict-aliasing")
+endif()
+
 #Set natives build dir
 SET(NATIVES_BUILD_DIR ${CMAKE_BINARY_DIR}/../tmp/build/)
 
@@ -17,7 +21,8 @@ SET(DO_INSTALL false)
 
 SET(CMAKE_PREFIX_PATH ${NATIVES_BUILD_DIR}/natives/arm ${CMAKE_PREFIX_PATH})
 LINK_DIRECTORIES(${NATIVES_BUILD_DIR}/natives/arm/lib/)
-INCLUDE_DIRECTORIES(${NATIVES_BUILD_DIR}/natives/arm/include/)
+INCLUDE_DIRECTORIES(BEFORE $ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/)
+INCLUDE_DIRECTORIES(BEFORE ${NATIVES_BUILD_DIR}/natives/arm/include/)
 LIST(APPEND CMAKE_MODULE_PATH "${NATIVES_BUILD_DIR}/natives/arm/lib/")
 SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 SET(CMAKE_EXE_LINKER_FLAGS "-static")
@@ -38,13 +43,15 @@ SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i"
 SET(BUILD_TESTS false)
 
 # Android Java interface
+#SET(JNI_INCLUDE_DIRS "ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/")
+#SET(JAVA_INCLUDE_PATH "ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/")
 #INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
-#INCLUDE_DIRECTORIES($ENV{ANDROID_NDK}/sources/android/native_app_glue)
-#FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
+INCLUDE_DIRECTORIES($ENV{ANDROID_NDK}/sources/android/native_app_glue)
+FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
 #FIND_PACKAGE(JNI REQUIRED)
 FIND_PACKAGE(SWIG REQUIRED)
-#INCLUDE_DIRECTORIES(${JNI_INCLUDE_DIRS})
-#INCLUDE(UseJava)
+INCLUDE_DIRECTORIES(${JNI_INCLUDE_DIRS})
+INCLUDE(UseJava)
 INCLUDE(UseSWIG)
 
 SET(SWIG_ANDROID_TARGET android)
