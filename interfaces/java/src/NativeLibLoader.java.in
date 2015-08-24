@@ -1,4 +1,4 @@
-package libemojidex;
+package com.emojidex;
 
 import java.io.InputStream;
 import java.io.FileOutputStream;

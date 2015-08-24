@@ -8,7 +8,7 @@
 SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
 SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %typemap(javaimports) Emojidex::Data::Collection %{
-import libemojidex.EmojiVector;
+import com.emojidex.EmojiVector;
 %}
 
 %{
