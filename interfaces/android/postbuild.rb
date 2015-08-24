@@ -11,4 +11,4 @@ FileUtils.mkdir_p(@interface_dir)
 
 puts "== Creating Native Interface sources in #{@build_dir}"
 
-`swig -c++ -java -package com.emojidex -outdir #{@interface_dir} -o #{@source_dir}/src/emojidex.h #{@source_dir}/src/emojidex.i`
+`swig -c++ -java -package com.emojidex -outdir #{@interface_dir} -o #{@build_dir}/emojidex_wrap.cpp #{@source_dir}/src/emojidex.i`

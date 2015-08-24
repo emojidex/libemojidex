@@ -49,20 +49,20 @@ def build_OpenSSL()
   puts 'Building OpenSSL'
   Dir.chdir "#{@build_dir}/openssl"
 
- # puts 'x86'
- # `make clean && make dclean`
- # git.clean({force: true, d: true, x:true})
- # `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 no-asm && make`
- # FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/x86/lib/")
- # FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/x86/lib/")
- # FileUtils.cp_r("#{@build_dir}/openssl/include/", "#{@build_dir}/natives/x86/")
-  
-  puts 'ARM'
+  puts 'x86'
   `make clean && make dclean`
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.cp_r("#{@build_dir}/openssl/include/", "#{@build_dir}/natives/arm/")
+  git.clean({force: true, d: true, x:true})
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/x86/lib/")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/x86/lib/")
+  FileUtils.cp_r("#{@build_dir}/openssl/include/", "#{@build_dir}/natives/x86/")
+  
+  #puts 'ARM'
+  #`make clean && make dclean`
+  #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm && make`
+  #FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
+  #FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/arm/lib/")
+  #FileUtils.cp_r("#{@build_dir}/openssl/include/", "#{@build_dir}/natives/arm/")
 
   #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86_64" ./Configure android-armv7 no-asm && make`
   #`CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-mips" ./Configure android-armv7 no-asm && make`
