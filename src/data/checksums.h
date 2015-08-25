@@ -2,7 +2,7 @@
 #define EMOJIDEX_DATA_CHECKSUMS_H
 
 #include <string>
-#include "./unordered_map.h"
+#include <unordered_map>
 
 namespace Emojidex {
 	namespace Data {
@@ -10,7 +10,7 @@ namespace Emojidex {
 		{
 		public:
 			std::string svg;
-			Data::UnorderedMap <std::string, std::string> png;
+			std::unordered_map <std::string, std::string> png;
 
 			std::string sum(std::string format_code, std::string size_code);
 		};

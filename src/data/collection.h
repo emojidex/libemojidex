@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "./unordered_map.h"
+#include <unordered_map>
 #include "./emoji.h"
 
 namespace Emojidex {
@@ -21,7 +21,7 @@ namespace Emojidex {
 			Collection();
 			~Collection();
 
-			Data::UnorderedMap<std::string, Emojidex::Data::Emoji> emoji;
+			std::unordered_map<std::string, Emojidex::Data::Emoji> emoji;
 
 			//=====================================================================================
 			// Broken out operations on the emoji map (for interfaces or implementations 

@@ -11,9 +11,9 @@ Emojidex::Service::Transactor::Transactor()
 {
 }
 
-Emojidex::Data::UnorderedMap<string, string> Emojidex::Service::Transactor::queryTemplate(bool defaults)
+std::unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(bool defaults)
 {
-	Emojidex::Data::UnorderedMap<string, string> q;
+	std::unordered_map<string, string> q;
 
 	if (defaults) {
 		if (Settings::token != "")
@@ -23,7 +23,7 @@ Emojidex::Data::UnorderedMap<string, string> Emojidex::Service::Transactor::quer
 	return q;
 }
 
-string Emojidex::Service::Transactor::generateQueryString(Emojidex::Data::UnorderedMap<string, string> query)
+string Emojidex::Service::Transactor::generateQueryString(std::unordered_map<string, string> query)
 {
 	stringstream query_ss;
 
@@ -48,7 +48,7 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 	return stream;
 }
 
-string Emojidex::Service::Transactor::get(string endpoint, Emojidex::Data::UnorderedMap<string, string> query)
+string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<string, string> query)
 {
 	// TODO clean this the fuck up
 	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = getStream();

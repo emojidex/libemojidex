@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "./unordered_map.h"
+#include <unordered_map>
 
 namespace Emojidex {
 	namespace Data {
@@ -15,7 +15,7 @@ namespace Emojidex {
 			std::string locale = "";
 			std::string moji_string;
 			std::vector<std::string> moji_array;
-			Data::UnorderedMap<std::string, std::string> moji_index;
+			std::unordered_map<std::string, std::string> moji_index;
 		};
 	}
 }
