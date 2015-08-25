@@ -9,11 +9,11 @@ require 'fileutils'
 
 FileUtils.mkdir_p(@interface_dir)
 
-puts "==Copying NDK build files and modifying variables"
+puts "== Copying NDK build files and modifying variables"
 FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_destination: true})
 # set source path
 txt = File.read("#{@build_dir}/jni/Android.mk")
-txt.gsub!("SOURCE_DIRECTORY", "#{@source_dir}/src/")
+txt.gsub!("SOURCE_DIRECTORY", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/")
 File.open("#{@build_dir}/jni/Android.mk", "w") { |mkfile| mkfile.puts txt }
 
 puts "== Creating Native Interface Java sources"
