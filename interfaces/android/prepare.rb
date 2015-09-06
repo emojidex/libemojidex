@@ -54,7 +54,7 @@ def build_OpenSSL()
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 no-asm && make`
   FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
   FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.cp_r("#{@build_dir}/openssl/include/", "#{@build_dir}/natives/arm/")
+  FileUtils.ln_s("#{@build_dir}/openssl/include/openssl", "#{@build_dir}/natives/arm/include/openssl", { force: true })
 
   #puts 'x86'
   #`make clean && make dclean`
@@ -91,6 +91,7 @@ def build_android_boost()
     puts 'Build appears to have succeeded. Continuing.'
     FileUtils.cp_r("#{@build_dir}/Boost-for-Android/build/include/", "#{@build_dir}/natives/arm/")
     FileUtils.cp_r("#{@build_dir}/Boost-for-Android/build/lib/", "#{@build_dir}/natives/arm/")
+    FileUtils.ln_s("#{@build_dir}/natives/arm/include/boost-1_53/boost", "#{@build_dir}/natives/arm/include/boost", { force: true })
   else
     exit 2
   end

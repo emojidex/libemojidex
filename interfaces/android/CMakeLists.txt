@@ -53,7 +53,7 @@ SET(BUILD_TESTS false)
 # As a temporary fix the actual compilation is commented out and we're using a postbuild script
 # to do the actual SWIG handling; passing SWIG generated interfaces through an android mk project.
 ADD_CUSTOM_TARGET(android
-	ruby interfaces/android/postbuild.rb ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}
+	ruby interfaces/android/postbuild.rb ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${NATIVES_BUILD_DIR}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
