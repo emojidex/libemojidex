@@ -19,12 +19,13 @@ FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_dest
 txt = File.read("#{@build_dir}/jni/Android.mk")
 
 # set source path
-txt.gsub!("#SOURCE_DIRECTORY", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/ #{@natives_dir}/natives/arm/include/")
+txt.gsub!("$(OR_INCLUDE_PATH)", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/ #{@natives_dir}/natives/arm/include/")
+txt.gsub!("$(OR_LIB_PATH)", "#{@natives_dir}/natives/arm/lib/")
 
 cpp_files = Dir.glob("#{@source_dir}/src/**/*.cpp")
 cpp_files_string = ""
 cpp_files.each { |cpp_file| cpp_files_string += "#{cpp_file} " }
-txt.gsub!("#CPP_SOURCES", cpp_files_string )
+txt.gsub!("$(OR_CPP_SOURCES)", cpp_files_string )
 
 File.open("#{@build_dir}/jni/Android.mk", "w") { |mkfile| mkfile.puts txt }
 
