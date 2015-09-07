@@ -1,6 +1,8 @@
 #include "indexes.h"
 #include "transactor.h"
 
+#include <boost/lexical_cast.hpp>
+using namespace boost;
 using namespace std;
 
 Emojidex::Service::Indexes::Indexes()
@@ -123,8 +125,8 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getDynamicCollection(stri
 	collect.endpoint = name;
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.get(name, {{"limit", to_string(limit)}, 
-			{"page", to_string(page)}, {"detailed", TF(detailed)}});
+	string response = transactor.get(name, {{"limit", lexical_cast<string>(limit)}, 
+			{"page", lexical_cast<string>(page)}, {"detailed", TF(detailed)}});
 
 	rapidjson::Document d;
 	d.Parse(response.c_str());
