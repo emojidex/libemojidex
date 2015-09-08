@@ -114,6 +114,7 @@ def build_boost()
   puts 'Building Boost'
   #Dir.chdir "#{@build_dir}/boost"
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./bootstrap.sh --without-libraries=python`
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2 headers`
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2`
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2 install --prefix=#{@build_dir}/natives/arm/`
   if $?.exitstatus == 0
