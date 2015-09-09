@@ -161,7 +161,7 @@ end
 check_lock()
 check_env()
 prepare_chains()
-#build_OpenSSL()
+build_OpenSSL()
 build_boost()
 #build_android_boost()
 set_lock()
