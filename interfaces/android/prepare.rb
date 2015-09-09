@@ -97,22 +97,27 @@ def build_android_boost()
 end
 
 def build_boost()
+  Dir.chdir "#{@build_dir}"
   if Dir.exists? "#{@build_dir}/boost"
-    puts 'Boost repository found. Updating...'
+    puts "Boost repository found. Moving to #{@build_dir}/boost"
+    puts 'Updating...'
     Dir.chdir "#{@build_dir}/boost"
     `git pull`
     `git submodule update --recursive`
     puts 'Updated.'
   else
     puts 'Boost directory not found. Cloning...'
-    `git clone https://github.com/boostorg/boost.git`
-    puts 'Cloned. Obtaining submodules (this will take a long time)...'
+    git = Git.clone("https://github.com/boostorg/boost.git", "#{@build_dir}/boost")
+    puts "Cloned. Moving to #{@build_dir}/boost"
+    puts 'Obtaining submodules (this will take a long time)...'
     Dir.chdir "#{@build_dir}/boost"
-    `git submodule init --recursive`
+    `git submodule init`
+    `git submodule update --recursive`
   end
 
   puts 'Building Boost'
-  #Dir.chdir "#{@build_dir}/boost"
+  Dir.chdir "#{@build_dir}/boost"
+  puts "Moved to #{Dir.getwd}. Running build."
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./bootstrap.sh --without-libraries=python`
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2 headers`
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2`
