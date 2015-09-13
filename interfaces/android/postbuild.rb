@@ -33,4 +33,5 @@ puts "== Creating Native Interface Java sources"
 `swig -c++ -java -package com.emojidex.libemojidex -outdir #{@interface_dir} -o #{@build_dir}/jni/libemojidex_wrap.cpp #{@source_dir}/src/emojidex.i`
 
 puts "== Building JNI bindings"
-`NDK_PROJECT_PATH=#{@build_dir} #{ENV["ANDROID_NDK"]}/ndk-build`
+#`NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
+`$CRYSTAX_NDK/ndk-build`

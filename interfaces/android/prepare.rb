@@ -5,27 +5,33 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_targets = ["arm", "x86", "x86_64", "mips"]
+@build_targets = ["arm", "arm64", "x86", "x86_64", "mips"]
 
 puts "=== Preparing Android build dependencies"
 
 # Buld Chains
 def prepare_chains()
   puts "== Preparing Android NDK Build Chains"
-  puts "= ARM..."
-  `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=arm --install-dir=#{@build_dir}/toolchains/arm` unless Dir.exists?("#{@build_dir}/toolchains/arm")
-  puts "= X86..."
-  `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=x86 --install-dir=#{@build_dir}/toolchains/x86` unless Dir.exists?("#{@build_dir}/toolchains/x86")
-  puts "= X86_64..."
-  `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=x86_64 --install-dir=#{@build_dir}/toolchains/x86_64` unless Dir.exists?("#{@build_dir}/toolchains/x86_64")
-  puts "= MIPS..."
-  `$ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=mips --install-dir=#{@build_dir}/toolchains/mipsel` unless Dir.exists?("#{@build_dir}/toolchains/mips")
+  @build_targets.each do |target|
+    puts "= #{target}..."
+    `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=#{target} --install-dir=#{@build_dir}/toolchains/#{target}` unless Dir.exists?("#{@build_dir}/toolchains/#{target}")
+  end
+#  puts "= ARM..."
+#  `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=arm --install-dir=#{@build_dir}/toolchains/arm` unless Dir.exists?("#{@build_dir}/toolchains/arm")
+#  puts "= ARM..."
+#  `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=arm64 --install-dir=#{@build_dir}/toolchains/arm` unless Dir.exists?("#{@build_dir}/toolchains/arm")
+#  puts "= X86..."
+#  `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=x86 --install-dir=#{@build_dir}/toolchains/x86` unless Dir.exists?("#{@build_dir}/toolchains/x86")
+#  puts "= X86_64..."
+#  `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=x86_64 --install-dir=#{@build_dir}/toolchains/x86_64` unless Dir.exists?("#{@build_dir}/toolchains/x86_64")
+#  puts "= MIPS..."
+#  `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-21 --arch=mips --install-dir=#{@build_dir}/toolchains/mipsel` unless Dir.exists?("#{@build_dir}/toolchains/mips")
 
+  FileUtils.mkdir_p("#{@build_dir}/natives/lib")
+  FileUtils.mkdir_p("#{@build_dir}/natives/include")
   FileUtils.mkdir_p("#{@build_dir}/natives")
   @build_targets.each do |target|
-    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}")
-    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}/lib")
-    FileUtils.mkdir_p("#{@build_dir}/natives/#{target}/include")
+    FileUtils.mkdir_p("#{@build_dir}/natives/lib/#{target}")
   end
 end
 
@@ -49,22 +55,42 @@ def build_OpenSSL()
   puts '== Building OpenSSL'
   Dir.chdir "#{@build_dir}/openssl"
 
-  puts '= Building for ARM'
+  puts '= Building for arm'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/arm/lib/")
-  FileUtils.ln_s("#{@build_dir}/openssl/include/openssl", "#{@build_dir}/natives/arm/include/openssl", { force: true })
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 threads no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/lib/arm")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/lib/arm")
+  FileUtils.ln_s("#{@build_dir}/openssl/include/openssl", "#{@build_dir}/natives/include/openssl", { force: true })
+
+  puts '= Building for arm64'
+  `make clean && make dclean`
+  git.clean({force: true, d: true, x:true})
+  `CC="#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm64" ./Configure android threads no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/lib/arm64")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/lib/arm64")
 
   puts '= Building for x86'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
-  `CC="#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-x86" ./Configure android-x86 threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/x86/lib/")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/x86/lib/")
-  FileUtils.ln_s("#{@build_dir}/openssl/include/openssl", "#{@build_dir}/natives/x86/include/openssl", { force: true })
-  
+  `CC="#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-x86" ./Configure android-x86 threads no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/lib/x86")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/lib/x86")
+
+  puts '= Building for x86_64'
+  `make clean && make dclean`
+  git.clean({force: true, d: true, x:true})
+  `CC="#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-x86_64" ./Configure android-x86 threads no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/lib/x86_64")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/lib/x86_64")
+
+  puts '= Building for mips'
+  `make clean && make dclean`
+  git.clean({force: true, d: true, x:true})
+  `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-mips" ./Configure android-mips threads no-asm && make`
+  FileUtils.cp("#{@build_dir}/openssl/libcrypto.a", "#{@build_dir}/natives/lib/mips")
+  FileUtils.cp("#{@build_dir}/openssl/libssl.a", "#{@build_dir}/natives/lib/mips")
+
   Dir.chdir @build_dir
 end
 
@@ -84,7 +110,7 @@ def build_android_boost()
 
   puts '== Building Boost for Android'
   Dir.chdir "#{@build_dir}/Boost-for-Android"
-  `./build-android.sh #{ENV['ANDROID_NDK']}`
+  `./build-android.sh #{ENV['CRYSTAX_NDK']}`
   if $?.exitstatus == 0
     puts 'Build appears to have succeeded. Continuing.'
     FileUtils.cp_r("#{@build_dir}/Boost-for-Android/build/include/", "#{@build_dir}/natives/arm/")
@@ -118,10 +144,10 @@ def build_boost()
   puts 'Building Boost'
   Dir.chdir "#{@build_dir}/boost"
   puts "Moved to #{Dir.getwd}. Running build."
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./bootstrap.sh --without-libraries=python`
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2 headers`
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2`
-  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$ANDROID_NDK/platforms/android-21/arch-arm" ./b2 install --prefix=#{@build_dir}/natives/arm/`
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./bootstrap.sh --without-libraries=python`
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./b2 headers`
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./b2`
+  `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./b2 install --prefix=#{@build_dir}/natives/arm/`
   if $?.exitstatus == 0
     puts 'Build appears to have succeeded. Continuing.'
     #FileUtils.cp_r("#{@build_dir}/boost/build/include/", "#{@build_dir}/natives/arm/")
@@ -142,10 +168,10 @@ def check_lock()
 end
 
 def check_env()
-  if ENV['ANDROID_NDK'] != nil && ENV['ANDROID_NDK'] != ""
-    puts "ANDROID_NDK is set to: #{ENV['ANDROID_NDK']}"
+  if ENV['CRYSTAX_NDK'] != nil && ENV['CRYSTAX_NDK'] != ""
+    puts "CRYSTAX_NDK is set to: #{ENV['CRYSTAX_NDK']}"
   else
-    puts "ANDROID_NDK is not set! You must set the ANDROID_NDK environment variable."
+    puts "CRYSTAX_NDK is not set! You must set the CRYSTAX_NDK environment variable."
     exit 1
   end
 end
@@ -162,7 +188,7 @@ check_lock()
 check_env()
 prepare_chains()
 build_OpenSSL()
-build_boost()
+#build_boost()
 #build_android_boost()
 set_lock()
 
