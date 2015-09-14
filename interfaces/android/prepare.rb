@@ -59,37 +59,37 @@ def build_OpenSSL()
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
   `CC="#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm" ./Configure android-armv7 shared threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.so*", "#{@build_dir}/natives/lib/arm")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.so*", "#{@build_dir}/natives/lib/arm")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/arm")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/arm")
   FileUtils.ln_s("#{@build_dir}/openssl/include/openssl", "#{@build_dir}/natives/include/openssl", { force: true })
 
   puts '= Building for arm64'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
   `CC="#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-arm64" ./Configure android shared threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.so*", "#{@build_dir}/natives/lib/arm64")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.so*", "#{@build_dir}/natives/lib/arm64")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/arm64")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/arm64")
 
   puts '= Building for x86'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
   `CC="#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-x86" ./Configure android-x86 shared threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.so*", "#{@build_dir}/natives/lib/x86")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.so*", "#{@build_dir}/natives/lib/x86")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/x86")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86")
 
   puts '= Building for x86_64'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
   `CC="#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-x86_64" ./Configure android-x86 shared threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.so*", "#{@build_dir}/natives/lib/x86_64")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.so*", "#{@build_dir}/natives/lib/x86_64")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/x86_64")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86_64")
 
   puts '= Building for mips'
   `make clean && make dclean`
   git.clean({force: true, d: true, x:true})
   `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-21/arch-mips" ./Configure android-mips shared threads no-asm && make`
-  FileUtils.cp("#{@build_dir}/openssl/libcrypto.so*", "#{@build_dir}/natives/lib/mips")
-  FileUtils.cp("#{@build_dir}/openssl/libssl.so*", "#{@build_dir}/natives/lib/mips")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/mips")
+  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/mips")
 
   Dir.chdir @build_dir
 end

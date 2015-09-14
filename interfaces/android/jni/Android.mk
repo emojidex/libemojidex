@@ -16,7 +16,8 @@ LOCAL_C_INCLUDES += $(OR_INCLUDE_PATH)
 
 #LOCAL_PATH += $(OR_LIB_PATH)/$(TARGET_ARCH)
 LOCAL_LDLIBS 	+= -L$(OR_LIB_PATH)/$(TARGET_ARCH) -lssl -lcrypto
-LOCAL_DYNAMIC_LIBRARIES += boost_system boost_filesystem z crypto ssl
+LOCAL_DYNAMIC_LIBRARIES += crypto ssl
+LOCAL_STATIC_LIBRARIES += boost_system_static boost_filesystem_static z
 
 include $(BUILD_SHARED_LIBRARY)
 
