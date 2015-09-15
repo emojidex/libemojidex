@@ -32,6 +32,5 @@ File.open("#{@build_dir}/jni/Android.mk", "w") { |mkfile| mkfile.puts txt }
 puts "== Creating Native Interface Java sources"
 `swig -c++ -java -package com.emojidex.libemojidex -outdir #{@interface_dir} -o #{@build_dir}/jni/libemojidex_wrap.cpp #{@source_dir}/src/emojidex.i`
 
-puts "== Building JNI bindings"
+puts "== Running NDK Build"
 `NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
-#`$CRYSTAX_NDK/ndk-build`
