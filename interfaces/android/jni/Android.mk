@@ -8,7 +8,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := libemojidex-android
 LOCAL_SRC_FILES := libemojidex_wrap.cpp $(OR_CPP_SOURCES)
-#LOCAL_CPP_FEATURES += exceptions rtti
+LOCAL_CPP_FEATURES += exceptions rtti
 #LOCAL_CFLAGS    := -frtti -fexceptions
 LOCAL_C_INCLUDES += $(OR_INCLUDE_PATH)
 
