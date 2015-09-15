@@ -22,24 +22,22 @@ SET(DO_INSTALL false)
 
 SET(CMAKE_PREFIX_PATH ${NATIVES_BUILD_DIR}/natives/arm ${CMAKE_PREFIX_PATH})
 
-#LINK_DIRECTORIES($ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/lib/)
+SET(BOOST_LIBRARYDIR $ENV{CRYSTAX_NDK}/sources/boost/1.58.0/libs/armeabi-v7a/)
 LINK_DIRECTORIES(${NATIVES_BUILD_DIR}/natives/arm/lib/
-  $ENV{CRYSTAX_NDK}/sources/boost+icu/1.58.0/libs/armeabi-v7a-hard/
+  ${BOOST_LIBRARYDIR}
   )
-#INCLUDE_DIRECTORIES(BEFORE $ENV{ANDROID_NDK}/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include/)
-#INCLUDE_DIRECTORIES(BEFORE $ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/)
+
+SET(BOOST_INCLUDEDIR $ENV{CRYSTAX_NDK}/sources/boost/1.58.0/include/)
 INCLUDE_DIRECTORIES(BEFORE ${NATIVES_BUILD_DIR}/natives/arm/include/
-  $ENV{CRYSTAX_NDK}/sources/boost/1.58.0/include/
+  ${BOOST_INCLUDEDIR}
   )
-#LIST(APPEND CMAKE_MODULE_PATH "$ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/lib/")
 LIST(APPEND CMAKE_MODULE_PATH "${NATIVES_BUILD_DIR}/natives/arm/lib/")
 
-SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-SET(CMAKE_EXE_LINKER_FLAGS "-static")
-#SET(BOOST_INCLUDEDIR ${NATIVES_BUILD_DIR}/Boost-for-Android/build/include/*/)
-#SET(BOOST_LIBRARYDIR ${NATIVES_BUILD_DIR}/Boost-for-Android/build/lib/)
-#SET(BOOST_ROOT ${NATIVES_BUILD_DIR}/Boost-for-Android/build/)
+SET(BOOST_ROOT $ENV{CRYSTAX_NDK}/sources/boost/1.58.0/)
 SET(USE_STATIC_BOOST ON)
+
+#SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
 #FIND_PACKAGE(SWIG REQUIRED)
 
