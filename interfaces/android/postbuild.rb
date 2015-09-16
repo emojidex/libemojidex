@@ -6,7 +6,7 @@ require 'fileutils'
 @build_dir = ARGV[0] || Dir.pwd
 @source_dir = ARGV[1] || "#{@build_dir}/../"
 @natives_dir = ARGV[2] || "#{@source_dir}/tmp/build/"
-@interface_dir = "#{@build_dir}/com/emojidex/"
+@interface_dir = "#{@build_dir}/com/emojidex/libemojidex/"
 
 puts "== copying natives"
 FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_destination: true})

@@ -33,23 +33,12 @@ Java Native Interface
   cmake -DJAVA=true ..
   ```
 3. Run "make" or compile on your native environment.
-4. * Coming Soon
-
-Ruby Native Extension
----------------------
-
-1. Follow steps 1 - 3 from normal build.
-2. Run cmake with the RUBY flag set to true:
-  ```
-  cmake -DRUBY=true ..
-  ```
-3. Run "make" or compile on your native environment.
-4. Run "make ruby" or build the "ruby" profile.
+4. Optional: run "make jar" to put the resulting JNI library in a JAR file
 
 Objective C Native Interface
 ----------------------------
 
-**NOTE:** This is for a language level Objective C build, NOT for iOS.
+**NOTE:** This is for a language level Objective C build, not specifically for iOS.
 
 > Linux Prerequisites: gobjc++ libgnustep-base-dev
 
@@ -74,8 +63,9 @@ Android [NDK] Build
   ```
   cmake -DANDROID=true ..
   ```
-4. Run "make" or compile on your native environment.
-5. * Coming Soon
+4. Optional: Run "make" or compile on your native environment. This only creates a static .a libary for ARM.
+5. Run "make android". This creates the JNI bindings and compiles so libraries for arm, arm64, x86, x86\_64 and mips.
+6. *coming soon*
 
 iOS Build
 ---------
