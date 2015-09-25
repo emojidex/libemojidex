@@ -1,7 +1,6 @@
 #include <client.h>
-#include <service/search.h>
-#include <service/transactor.h>
 #include <service/settings.h>
+#include <service/transactor.h>
 
 using namespace std;
 
@@ -143,6 +142,48 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	//BOOST_AUTO_TEST_CASE(term) {
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
 	//}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+///////////////////////////////////////////////////////////////////////////////
+// User tests
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(service_search_suite)
+
+	Emojidex::Service::User user;
+
+	// User does not yet have status
+	BOOST_AUTO_TEST_CASE(user_uninitialized) {
+		BOOST_CHECK(user.status.compare("none") == 0);
+		BOOST_CHECK(user.username.compare("") == 0);
+		BOOST_CHECK(user.history.emoji.size() == 0);
+		BOOST_CHECK(user.favorites.emoji.size() == 0);
+	}
+
+	// User login by key
+	BOOST_AUTO_TEST_CASE(user_auth_by_key) {
+		// NOTE: these are the "test" user credentials. This is an actual account.
+		// If anyone else is running specs at the same time they will be using this 
+		// account. Therefore it can be expected some specs may fail when run simultaniously.
+		BOOST_CHECK(user.authorize("test", 
+			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
+
+		BOOST_CHECK(user.status.compare("authorized") == 0);
+		BOOST_CHECK(user.username.compare("test") == 0);
+		BOOST_CHECK(user.history.emoji.size() > 0);
+		// Just in case
+		user.addFavorite("drift");
+		BOOST_CHECK(user.favorites.emoji.size() > 0);
+	}
+
+	// User favorites
+	BOOST_AUTO_TEST_CASE(user_favorites) {
+		if (!user.authorized())
+			user.authorize("test", 
+				"1798909355d57c9a93e3b82d275594e7c7c000db05021138");
+
+		//TODO
+	}
 
 BOOST_AUTO_TEST_SUITE_END()
 

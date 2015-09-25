@@ -12,6 +12,7 @@
 #ifndef EMOJIDEX_CLIENT_H
 #define EMOJIDEX_CLIENT_H
 
+#include "service/user.h"
 #include "service/indexes.h"
 #include "service/search.h"
 
