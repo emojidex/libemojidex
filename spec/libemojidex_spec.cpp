@@ -160,8 +160,8 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(user.favorites.emoji.size() == 0);
 	}
 
-	// User login by key
-	BOOST_AUTO_TEST_CASE(user_auth_by_key) {
+	// User authentication by token
+	BOOST_AUTO_TEST_CASE(user_auth) {
 		// NOTE: these are the "test" user credentials. This is an actual account.
 		// If anyone else is running specs at the same time they will be using this 
 		// account. Therefore it can be expected some specs may fail when run simultaniously.
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(user.username.compare("test") == 0);
 		BOOST_CHECK(user.history.emoji.size() > 0);
 		// Just in case
-		user.addFavorite("drift");
+		//user.addFavorite("drift");
 		BOOST_CHECK(user.favorites.emoji.size() > 0);
 	}
 

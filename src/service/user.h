@@ -27,6 +27,8 @@ namespace Emojidex {
 			// returns 1 if authorized through normal token
 			// In the future may return other numbers for higher auth levels
 			unsigned char authorized();
+			
+			bool login(string user, string password);
 
 			Emojidex::Data::Collection favorites;
 			bool addFavorite(string code);

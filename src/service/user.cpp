@@ -1,4 +1,5 @@
 #include "user.h"
+#include "transactor.h"
 
 Emojidex::Service::User::User()
 {
@@ -12,6 +13,9 @@ Emojidex::Service::User::~User()
 
 bool Emojidex::Service::User::authorize(string username, string token)
 {
+	Transactor transactor;
+	string response = transactor.get("users/authenticate", {{"username", username}, {"token", token}});
+	
 	return false;
 }
 
@@ -23,22 +27,27 @@ unsigned char Emojidex::Service::User::authorized()
 	return 0;
 }
 
-bool addFavorite(string code)
+bool Emojidex::Service::User::login(string user, string password)
 {
 	return false;
 }
 
-bool removeFavorite(string code)
+bool Emojidex::Service::User::addFavorite(string code)
 {
 	return false;
 }
 
-unsigned int addHistory(string code)
+bool Emojidex::Service::User::removeFavorite(string code)
+{
+	return false;
+}
+
+unsigned int Emojidex::Service::User::addHistory(string code)
 {
 	return 0;
 }
 
-bool syncHistory()
+bool Emojidex::Service::User::syncHistory()
 {
 	return false;
 }
