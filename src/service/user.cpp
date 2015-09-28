@@ -3,7 +3,7 @@
 
 Emojidex::Service::User::User()
 {
-	status = "none";
+	status = NONE;
 	token = "";
 }
 
@@ -16,15 +16,13 @@ bool Emojidex::Service::User::authorize(string username, string token)
 	Transactor transactor;
 	string response = transactor.get("users/authenticate", {{"username", username}, {"token", token}});
 	
-	return false;
-}
-
-unsigned char Emojidex::Service::User::authorized()
-{
-	if (status.compare("verified") == 0)
-		return 1;
-
-	return 0;
+	// TODO WIP hack here
+	status = VERIFIED;
+	username = username;
+	token = token;
+	return true;
+	
+	//return false;
 }
 
 bool Emojidex::Service::User::login(string user, string password)

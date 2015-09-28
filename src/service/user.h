@@ -14,7 +14,14 @@ namespace Emojidex {
 			string token;
 
 		public:
-			string status;
+			enum AuthStatusCode
+			{
+				NONE,
+				UNVERIFIED,
+				VERIFIED
+			};
+
+			AuthStatusCode status;
 			string username;
 
 			User();
@@ -22,12 +29,6 @@ namespace Emojidex {
 
 			bool authorize(string username, string token);
 
-			// authorized
-			// returns 0 if not authroized
-			// returns 1 if authorized through normal token
-			// In the future may return other numbers for higher auth levels
-			unsigned char authorized();
-			
 			bool login(string user, string password);
 
 			Emojidex::Data::Collection favorites;

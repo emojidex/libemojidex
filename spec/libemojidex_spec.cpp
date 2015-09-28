@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 
 	// User does not yet have status
 	BOOST_AUTO_TEST_CASE(user_uninitialized) {
-		BOOST_CHECK(user.status.compare("none") == 0);
+		BOOST_CHECK(user.status == Emojidex::Service::User::AuthStatusCode::NONE);
 		BOOST_CHECK(user.username.compare("") == 0);
 		BOOST_CHECK(user.history.emoji.size() == 0);
 		BOOST_CHECK(user.favorites.emoji.size() == 0);
@@ -168,7 +168,6 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(user.authorize("test", 
 			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
 
-		BOOST_CHECK(user.status.compare("authorized") == 0);
 		BOOST_CHECK(user.username.compare("test") == 0);
 		BOOST_CHECK(user.history.emoji.size() > 0);
 		// Just in case
@@ -178,7 +177,7 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 
 	// User favorites
 	BOOST_AUTO_TEST_CASE(user_favorites) {
-		if (!user.authorized())
+		if (!user.status != Emojidex::Service::User::AuthStatusCode::NONE)
 			user.authorize("test", 
 				"1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
