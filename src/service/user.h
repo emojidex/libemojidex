@@ -23,6 +23,8 @@ namespace Emojidex {
 
 			AuthStatusCode status;
 			string username;
+			bool pro;
+			bool premium;
 
 			User();
 			~User();
@@ -32,12 +34,13 @@ namespace Emojidex {
 			bool login(string user, string password);
 
 			Emojidex::Data::Collection favorites;
+			bool syncFavorites(bool detailed = true);
 			bool addFavorite(string code);
 			bool removeFavorite(string code);
 
 			Emojidex::Data::Collection history;
+			bool syncHistory(bool detailed = true);
 			unsigned int addHistory(string code);
-			bool syncHistory();
 		};
 	}
 }

@@ -1,5 +1,7 @@
 #include "collection.h"
 
+#include "rapidjson/document.h"
+
 using namespace std;
 
 Emojidex::Data::Collection::Collection()
@@ -63,7 +65,7 @@ Emojidex::Data::Collection Emojidex::Data::Collection::category(string category)
 	return collect;
 }
 
-Emojidex::Data::Collection Emojidex::Data::Collection::merge(
+Emojidex::Data::Collection* Emojidex::Data::Collection::merge(
 		Emojidex::Data::Collection delta_collection)
 {
 	for (auto new_moji : delta_collection.emoji)
@@ -71,12 +73,52 @@ Emojidex::Data::Collection Emojidex::Data::Collection::merge(
 
 	this->page = delta_collection.page;
 
-	return *this;
+	return this;
 }
 
-Emojidex::Data::Collection Emojidex::Data::Collection::operator<<(Emojidex::Data::Collection delta_collection)
+Emojidex::Data::Collection* Emojidex::Data::Collection::operator<<(Emojidex::Data::Collection delta_collection)
 {
 	return this->merge(delta_collection);
+}
+
+Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_string)
+{
+	rapidjson::Document d;
+	d.Parse(json_string.c_str());
+
+	if (d.HasParseError())
+		return this;
+
+	Emojidex::Data::Collection* collect = new Emojidex::Data::Collection();
+
+	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
+		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
+		moji.code = d[i]["code"].GetString();
+		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
+		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
+		d[i]["category"].IsString()? 
+			moji.category = d[i]["category"].GetString() : moji.category = "";
+		if(d[i].HasMember("checksums"))
+		{
+			const rapidjson::Value& checksums = d[i]["checksums"];
+			const rapidjson::Value& svg = checksums["svg"];
+			const rapidjson::Value& png = checksums["png"];
+			if(svg.IsString())	moji.checksums.svg = svg.GetString();
+			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+		}
+
+		rapidjson::Value& tags = d[i]["tags"];
+		assert(tags.IsArray());
+		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+			moji.tags.push_back(tags[tag_i].GetString());
+
+		collect->emoji[moji.code] = moji;
+	}
+
+	this->merge(*collect);
+
+	return this;
 }
 
 Emojidex::Data::Collection Emojidex::Data::Collection::more()

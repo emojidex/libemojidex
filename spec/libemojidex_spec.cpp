@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_SUITE_END()
 ///////////////////////////////////////////////////////////////////////////////
 // User tests
 ///////////////////////////////////////////////////////////////////////////////
-BOOST_AUTO_TEST_SUITE(service_search_suite)
+BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	Emojidex::Service::User user;
 
@@ -156,6 +156,8 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	BOOST_AUTO_TEST_CASE(user_uninitialized) {
 		BOOST_CHECK(user.status == Emojidex::Service::User::AuthStatusCode::NONE);
 		BOOST_CHECK(user.username.compare("") == 0);
+		BOOST_CHECK(user.pro == false);
+		BOOST_CHECK(user.premium == false);
 		BOOST_CHECK(user.history.emoji.size() == 0);
 		BOOST_CHECK(user.favorites.emoji.size() == 0);
 	}
@@ -169,10 +171,15 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
 
 		BOOST_CHECK(user.username.compare("test") == 0);
-		BOOST_CHECK(user.history.emoji.size() > 0);
+
+		BOOST_CHECK(user.syncFavorites() == true);
 		// Just in case
-		//user.addFavorite("drift");
+		user.addFavorite("drift");
 		BOOST_CHECK(user.favorites.emoji.size() > 0);
+
+		BOOST_CHECK(user.syncHistory() == true);
+		BOOST_CHECK(user.history.emoji.size() > 0);
+
 	}
 
 	// User favorites

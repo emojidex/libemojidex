@@ -47,9 +47,13 @@ namespace Emojidex {
 
 			// Merge a collection with this collection, overwriting emoji with the same
 			// code in this collection. Rerturns this collection after the merge for chaining.
-			Emojidex::Data::Collection merge(Emojidex::Data::Collection delta_collection);
-			Emojidex::Data::Collection operator<<(Emojidex::Data::Collection delta_collection);
-      
+			Emojidex::Data::Collection* merge(Emojidex::Data::Collection delta_collection);
+			Emojidex::Data::Collection* operator<<(Emojidex::Data::Collection delta_collection);
+
+			// Add emoji from a JSON string
+			// Returns this collection after the merge for chaining.
+			Emojidex::Data::Collection* mergeJSON(string json_string);
+
 			//=====================================================================================
 			// Service Info
 			// ============
