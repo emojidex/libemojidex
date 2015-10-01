@@ -6,6 +6,7 @@
 
 #include <unordered_map>
 #include "./emoji.h"
+#include "rapidjson/document.h"
 
 namespace Emojidex {
 	namespace Data {
@@ -17,6 +18,14 @@ namespace Emojidex {
 			// Results are combined into this collection but a collection with just the new results 
 			// is returned.
 			Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
+
+			// Checks if the collection is dynamic (will have a meta section and an encased 
+			// emoji array). Fills the meta info and returns a document with only the emoji
+			// array.
+			bool preprocessDynamicCollection(Emojidex::Data::Collection* collect, 
+					rapidjson::Document *d);
+
+			void fillEmojiFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
 		public:
 			Collection();
 			~Collection();

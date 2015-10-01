@@ -104,13 +104,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getStaticCollection(strin
 	string response = transactor.get(name, {{"locale", locale}, 
 			{"detailed", TF(detailed)}});
 
-	rapidjson::Document d;
-	d.Parse(response.c_str());
-
-	if (d.HasParseError())
-		return collect; // return empty collection
-
-	fillEmojiFromJSON(&collect, d);
+	collect.mergeJSON(response);
 
 	collect.locale = locale;
 
@@ -128,14 +122,15 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getDynamicCollection(stri
 	string response = transactor.get(name, {{"limit", lexical_cast<string>(limit)}, 
 			{"page", lexical_cast<string>(page)}, {"detailed", TF(detailed)}});
 
-	rapidjson::Document d;
-	d.Parse(response.c_str());
+	//rapidjson::Document d;
+	//d.Parse(response.c_str());
 
-	if (d.HasParseError())
-		return collect; // return empty collection
+	//if (d.HasParseError())
+	//	return collect; // return empty collection
 
-	fillEmojiFromJSON(&collect, d["emoji"]);
-	fillMetaFromJSON(&collect, d["meta"]);
+	collect.mergeJSON(response);
+	//fillEmojiFromJSON(&collect, d["emoji"]);
+	//fillMetaFromJSON(&collect, d["meta"]);
 
 	return collect;
 }

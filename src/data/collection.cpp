@@ -81,15 +81,73 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::operator<<(Emojidex::Dat
 	return this->merge(delta_collection);
 }
 
+
+void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
+{
+	Emojidex::Data::Collection collect;
+
+	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
+		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
+		moji.code = d[i]["code"].GetString();
+		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
+		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
+		d[i]["category"].IsString()? 
+			moji.category = d[i]["category"].GetString() : moji.category = "";
+		if(d[i].HasMember("checksums"))
+		{
+			const rapidjson::Value& checksums = d[i]["checksums"];
+			const rapidjson::Value& svg = checksums["svg"];
+			const rapidjson::Value& png = checksums["png"];
+			if(svg.IsString())	moji.checksums.svg = svg.GetString();
+			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+		}
+
+		rapidjson::Value& tags = d[i]["tags"];
+		assert(tags.IsArray());
+		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+			moji.tags.push_back(tags[tag_i].GetString());
+
+		collect.emoji[moji.code] = moji;
+	}
+
+	this.merge(collect);
+}
+
+bool Emojidex::Data::Collection::preprocessDynamicCollection(
+		Emojidex::Data::Collection* collect, rapidjson::Document *d)
+{
+	if (d->HasMember("meta")) { //Check to see if a meta node is present
+		this->total_count = (*d)["meta"]["total_count"].GetInt();
+
+		return true;
+	}
+
+	return false;
+}
+
 Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_string)
 {
-	rapidjson::Document d;
-	d.Parse(json_string.c_str());
+	rapidjson::Document doc;
+	doc.Parse(json_string.c_str());
 
-	if (d.HasParseError())
+	if (doc.HasParseError())
 		return this;
 
 	Emojidex::Data::Collection* collect = new Emojidex::Data::Collection();
+
+	//rapidjson::Document::AllocatorType& allocator = d.getAllocator();
+	rapidjson::Document d;//(&allocator);
+	//moji_arr.SetObject();
+	if (preprocessDynamicCollection(collect, &doc)) {
+		rapidjson::Value& emoji_array = doc["emoji"];
+		emoji_array.SetObject();
+		d.Swap(emoji_array);//doc["emoji"];
+	} else {
+		d.Swap(doc);
+	}
+
+	d.SetArray();
 
 	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
 		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
