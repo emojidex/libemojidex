@@ -77,12 +77,12 @@ ADD_CUSTOM_TARGET(android
 #
 #SET(CMAKE_SWIG_FLAGS -package com.emojidex)
 #SET(CMAKE_SWIG_OUTDIR "src")
-#SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/emojidex.i"
+#SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i"
 #	PROPERTIES
 #	CPLUSPLUS 1
 #)
 #
-#SWIG_ADD_MODULE(${SWIG_ANDROID_TARGET} java "${PROJECT_SOURCE_DIR}/src/emojidex.i")
+#SWIG_ADD_MODULE(${SWIG_ANDROID_TARGET} java "${PROJECT_SOURCE_DIR}/src/libemojidex.i")
 #SWIG_LINK_LIBRARIES(${SWIG_ANDROID_TARGET} ${EMOJIDEX_STATIC_LIB_TARGET})
 #SET_TARGET_PROPERTIES(${SWIG_ANDROID_TARGET}
 #	PROPERTIES
@@ -91,3 +91,48 @@ ADD_CUSTOM_TARGET(android
 #)
 #
 ##CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/src/NativeLibLoader.java @ONLY)
+
+
+
+# Jar test
+FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
+INCLUDE(UseJava)
+
+SET(SWIG_ANDROID_JAR_TARGET android_jar)
+SET(SWIG_ANDROID_JAR_NAME libemojidex-android)
+SET(SWIG_ANDROID_JAR_FILENAME ${SWIG_ANDROID_JAR_NAME}-${EMOJIDEX_LIB_VERSION}.jar)
+SET(EMOJIDEX_JAVA_FILES
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Client.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Checksums.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Collection.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Emoji.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/MojiCodes.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Indexes.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Search.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Settings.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Transactor.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/EmojiVector.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/StringVector.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidex.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidexJNI.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/NativeLibLoader.java
+)
+
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/android/src/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/NativeLibLoader.java @ONLY)
+
+ADD_JAR(${SWIG_ANDROID_JAR_TARGET}
+  SOURCES ${EMOJIDEX_JAVA_FILES}
+  VERSION ${EMOJIDEX_LIB_VERSION}
+  OUTPUT_NAME ${SWIG_ANDROID_JAR_NAME}
+)
+SET_TARGET_PROPERTIES(${SWIG_ANDROID_JAR_TARGET}
+  PROPERTIES
+  EXCLUDE_FROM_ALL TRUE
+)
+
+ADD_DEPENDENCIES(${SWIG_ANDROID_JAR_TARGET} android)
+
+ADD_CUSTOM_COMMAND(TARGET ${SWIG_ANDROID_JAR_TARGET}
+  POST_BUILD
+  COMMAND ${JAVA_ARCHIVE} -uvf ${SWIG_ANDROID_JAR_FILENAME} libs/
+)

@@ -1,4 +1,4 @@
-%module Emojidex
+%module LibEmojidex
 
 // For java.
 %pragma(java) jniclasscode=%{
@@ -11,7 +11,7 @@
 // For ruby.
 #ifdef SWIGRUBY
 %{
-#define Init_Emojidex Init_libemojidex_ruby
+#define Init_LibEmojidex Init_libemojidex_ruby
 %}
 #endif
 

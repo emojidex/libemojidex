@@ -10,7 +10,7 @@ SET(SWIG_RUBY_LIB_NAME libemojidex_ruby)
 SET(CMAKE_SWIG_OUTDIR "src")
 
 SET(SWIG_INTERFACE_FILES
-  "${PROJECT_SOURCE_DIR}/src/emojidex.i"
+  "${PROJECT_SOURCE_DIR}/src/libemojidex.i"
   "${PROJECT_SOURCE_DIR}/src/data.i"
   "${PROJECT_SOURCE_DIR}/src/data/checksums.i"
   "${PROJECT_SOURCE_DIR}/src/data/emoji.i"
