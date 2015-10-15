@@ -114,6 +114,11 @@ void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
 		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
 			moji.tags.push_back(tags[tag_i].GetString());
 
+		rapidjson::Value& variants = d[i]["variants"];
+		assert(variants.IsArray());
+		for (rapidjson::SizeType variant_i = 0; variant_i < variants.Size(); variant_i++)
+			moji.variants.push_back(variants[variant_i].GetString());
+
 		collect.emoji[moji.code] = moji;
 	}
 
@@ -135,24 +140,6 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 		assert(doc.IsArray());
 		fillEmojiFromJSON(doc);
 	}
-
-//	Emojidex::Data::Collection* collect = new Emojidex::Data::Collection();
-
-	//rapidjson::Document::AllocatorType& allocator = d.getAllocator();
-	//rapidjson::Document d;//(&allocator);
-	//moji_arr.SetObject();
-	//if (preprocessDynamicCollection(collect, doc)) {
-	//	rapidjson::Value& emoji_array = doc["emoji"];
-	//	emoji_array.SetObject();
-//		d.Swap(emoji_array);//doc["emoji"];
-//	} else {
-//		d.Swap(doc);
-//	}
-
-//	d.SetArray();
-
-
-	//this->merge(*collect);
 
 	return this;
 }

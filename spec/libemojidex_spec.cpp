@@ -83,17 +83,17 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 
 	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
 		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
-	//	BOOST_CHECK(utf.locale.compare("ja") == 0);
-	//	BOOST_CHECK_GT(utf.emoji.size(), 0);
-	//	BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
+		BOOST_CHECK(utf.locale.compare("ja") == 0);
+		BOOST_CHECK_GT(utf.emoji.size(), 0);
+		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 	}
 
-//	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
-//		Emojidex::Data::Collection ext = idx.extendedEmoji();
-//		BOOST_CHECK(ext.locale.compare("en") == 0);
-//		BOOST_CHECK_GT(ext.emoji.size(), 0);
-//		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
-//	}
+	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
+		Emojidex::Data::Collection ext = idx.extendedEmoji();
+		BOOST_CHECK(ext.locale.compare("en") == 0);
+		BOOST_CHECK_GT(ext.emoji.size(), 0);
+		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
+	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index) {
 		Emojidex::Data::Collection emoji = idx.emoji();
@@ -149,50 +149,50 @@ BOOST_AUTO_TEST_SUITE_END()
 ///////////////////////////////////////////////////////////////////////////////
 // User tests
 ///////////////////////////////////////////////////////////////////////////////
-//BOOST_AUTO_TEST_SUITE(service_user_suite)
-//
-//	Emojidex::Service::User user;
-//
-//	// User does not yet have status
-//	BOOST_AUTO_TEST_CASE(user_uninitialized) {
-//		BOOST_CHECK(user.status == Emojidex::Service::User::AuthStatusCode::NONE);
-//		BOOST_CHECK(user.username.compare("") == 0);
-//		BOOST_CHECK(user.pro == false);
-//		BOOST_CHECK(user.premium == false);
-//		BOOST_CHECK(user.history.emoji.size() == 0);
-//		BOOST_CHECK(user.favorites.emoji.size() == 0);
-//	}
-//
-//	// User authentication by token
-//	BOOST_AUTO_TEST_CASE(user_auth) {
-//		// NOTE: these are the "test" user credentials. This is an actual account.
-//		// If anyone else is running specs at the same time they will be using this 
-//		// account. Therefore it can be expected some specs may fail when run simultaniously.
-//		BOOST_CHECK(user.authorize("test", 
-//			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
-//
-//		BOOST_CHECK(user.username.compare("test") == 0);
-//
-//		BOOST_CHECK(user.syncFavorites() == true);
-//		// Just in case
-//		user.addFavorite("drift");
-//		BOOST_CHECK(user.favorites.emoji.size() > 0);
-//
-//		BOOST_CHECK(user.syncHistory() == true);
-//		BOOST_CHECK(user.history.emoji.size() > 0);
-//
-//	}
-//
-//	// User favorites
-//	BOOST_AUTO_TEST_CASE(user_favorites) {
-//		if (!user.status != Emojidex::Service::User::AuthStatusCode::NONE)
-//			user.authorize("test", 
-//				"1798909355d57c9a93e3b82d275594e7c7c000db05021138");
-//
-//		//TODO
-//	}
-//
-//BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE(service_user_suite)
+
+	Emojidex::Service::User user;
+
+	// User does not yet have status
+	BOOST_AUTO_TEST_CASE(user_uninitialized) {
+		BOOST_CHECK(user.status == Emojidex::Service::User::AuthStatusCode::NONE);
+		BOOST_CHECK(user.username.compare("") == 0);
+		BOOST_CHECK(user.pro == false);
+		BOOST_CHECK(user.premium == false);
+		BOOST_CHECK(user.history.emoji.size() == 0);
+		BOOST_CHECK(user.favorites.emoji.size() == 0);
+	}
+
+	// User authentication by token
+	BOOST_AUTO_TEST_CASE(user_auth) {
+		// NOTE: these are the "test" user credentials. This is an actual account.
+		// If anyone else is running specs at the same time they will be using this 
+		// account. Therefore it can be expected some specs may fail when run simultaniously.
+		BOOST_CHECK(user.authorize("test", 
+			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
+
+		BOOST_CHECK(user.username.compare("test") == 0);
+
+		BOOST_CHECK(user.syncFavorites() == true);
+		// Just in case
+		user.addFavorite("drift");
+		BOOST_CHECK(user.favorites.emoji.size() > 0);
+
+		BOOST_CHECK(user.syncHistory() == true);
+		BOOST_CHECK(user.history.emoji.size() > 0);
+
+	}
+
+	// User favorites
+	BOOST_AUTO_TEST_CASE(user_favorites) {
+		if (!user.status != Emojidex::Service::User::AuthStatusCode::NONE)
+			user.authorize("test", 
+				"1798909355d57c9a93e3b82d275594e7c7c000db05021138");
+
+		//TODO
+	}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Client tests
