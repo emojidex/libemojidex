@@ -93,23 +93,26 @@ void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
 		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
 		d[i]["category"].IsString()? 
 			moji.category = d[i]["category"].GetString() : moji.category = "";
-		if(d[i].HasMember("checksums"))
+		if (d[i].HasMember("checksums"))
 		{
 			const rapidjson::Value& checksums = d[i]["checksums"];
-			assert(checksums.IsObject());
-			const rapidjson::Value& svg = checksums["svg"];
-			assert(svg.IsString());
-			const rapidjson::Value& png = checksums["png"];
-			assert(png.IsObject());
-	//		if(svg.IsString())	moji.checksums.svg = svg.GetString();
-	//		for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-	//			if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+			
+			if (checksums.HasMember("svg")) {
+				const rapidjson::Value& svg = checksums["svg"];
+				if(svg.IsString())	moji.checksums.svg = svg.GetString();
+			}
+
+			if (checksums.HasMember("png")) {
+				const rapidjson::Value& png = checksums["png"];
+				for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+					if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+			}
 		}
 
-	//	rapidjson::Value& tags = d[i]["tags"];
-	//	assert(tags.IsArray());
-	//	for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-	//		moji.tags.push_back(tags[tag_i].GetString());
+		rapidjson::Value& tags = d[i]["tags"];
+		assert(tags.IsArray());
+		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+			moji.tags.push_back(tags[tag_i].GetString());
 
 		collect.emoji[moji.code] = moji;
 	}
@@ -125,11 +128,11 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	if (doc.HasParseError())
 		return this;
 
-	if (doc.HasMember("meta")) { //Check to see if a meta node is present
+	if (doc.IsObject() && doc.HasMember("meta")) { //Check to see if a meta node is present
 		this->total_count = doc["meta"]["total_count"].GetInt();
 		fillEmojiFromJSON(doc["emoji"]);
 	} else {
-		doc.SetArray();
+		assert(doc.IsArray());
 		fillEmojiFromJSON(doc);
 	}
 
