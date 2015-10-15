@@ -1,5 +1,5 @@
-#ifndef _EMOJIDEX_H_
-#define _EMOJIDEX_H_
+#ifndef _LIBEMOJIDEX_H_
+#define _LIBEMOJIDEX_H_
 
 #include "./data.h"
 //#include "./data/collection.h"
@@ -11,4 +11,4 @@
 namespace Emojidex {
 }
 
-#endif /* _EMOJIDEX_H_ */
+#endif /* _LIBEMOJIDEX_H_ */
