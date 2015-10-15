@@ -26,41 +26,6 @@ void Emojidex::Service::Indexes::defaultLocale(string *object_locale, string *lo
 	}
 }
 
-void Emojidex::Service::Indexes::fillEmojiFromJSON(Emojidex::Data::Collection* collect, 
-		rapidjson::Value& d)
-{
-	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
-		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-		moji.code = d[i]["code"].GetString();
-		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
-		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
-		d[i]["category"].IsString()? 
-			moji.category = d[i]["category"].GetString() : moji.category = "";
-		if(d[i].HasMember("checksums"))
-		{
-			const rapidjson::Value& checksums = d[i]["checksums"];
-			const rapidjson::Value& svg = checksums["svg"];
-			const rapidjson::Value& png = checksums["png"];
-			if(svg.IsString())	moji.checksums.svg = svg.GetString();
-			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
-		}
-
-		rapidjson::Value& tags = d[i]["tags"];
-		assert(tags.IsArray());
-		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-			moji.tags.push_back(tags[tag_i].GetString());
-
-		collect->emoji[moji.code] = moji;
-	}
-}
-
-void Emojidex::Service::Indexes::fillMetaFromJSON(Emojidex::Data::Collection* collect, 
-		rapidjson::Value& d)
-{
-	collect->total_count = d["total_count"].GetInt();
-}
-
 Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
 	defaultLocale(&this->codes->locale, &locale);

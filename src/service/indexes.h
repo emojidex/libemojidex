@@ -19,8 +19,6 @@ namespace Emojidex {
 			Emojidex::Data::MojiCodes *codes;
 			// service methods
 			static void defaultLocale(std::string *object_locale, std::string *locale);
-			static void fillEmojiFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
-			static void fillMetaFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
 			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale, 
 					bool detailed);
 			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int limit, 

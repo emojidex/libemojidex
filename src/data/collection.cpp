@@ -96,34 +96,25 @@ void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
 		if(d[i].HasMember("checksums"))
 		{
 			const rapidjson::Value& checksums = d[i]["checksums"];
+			assert(checksums.IsObject());
 			const rapidjson::Value& svg = checksums["svg"];
+			assert(svg.IsString());
 			const rapidjson::Value& png = checksums["png"];
-			if(svg.IsString())	moji.checksums.svg = svg.GetString();
-			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
+			assert(png.IsObject());
+	//		if(svg.IsString())	moji.checksums.svg = svg.GetString();
+	//		for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+	//			if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
 		}
 
-		rapidjson::Value& tags = d[i]["tags"];
-		assert(tags.IsArray());
-		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-			moji.tags.push_back(tags[tag_i].GetString());
+	//	rapidjson::Value& tags = d[i]["tags"];
+	//	assert(tags.IsArray());
+	//	for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
+	//		moji.tags.push_back(tags[tag_i].GetString());
 
 		collect.emoji[moji.code] = moji;
 	}
 
-	this.merge(collect);
-}
-
-bool Emojidex::Data::Collection::preprocessDynamicCollection(
-		Emojidex::Data::Collection* collect, rapidjson::Document *d)
-{
-	if (d->HasMember("meta")) { //Check to see if a meta node is present
-		this->total_count = (*d)["meta"]["total_count"].GetInt();
-
-		return true;
-	}
-
-	return false;
+	this->merge(collect);
 }
 
 Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_string)
@@ -134,47 +125,31 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	if (doc.HasParseError())
 		return this;
 
-	Emojidex::Data::Collection* collect = new Emojidex::Data::Collection();
+	if (doc.HasMember("meta")) { //Check to see if a meta node is present
+		this->total_count = doc["meta"]["total_count"].GetInt();
+		fillEmojiFromJSON(doc["emoji"]);
+	} else {
+		doc.SetArray();
+		fillEmojiFromJSON(doc);
+	}
+
+//	Emojidex::Data::Collection* collect = new Emojidex::Data::Collection();
 
 	//rapidjson::Document::AllocatorType& allocator = d.getAllocator();
-	rapidjson::Document d;//(&allocator);
+	//rapidjson::Document d;//(&allocator);
 	//moji_arr.SetObject();
-	if (preprocessDynamicCollection(collect, &doc)) {
-		rapidjson::Value& emoji_array = doc["emoji"];
-		emoji_array.SetObject();
-		d.Swap(emoji_array);//doc["emoji"];
-	} else {
-		d.Swap(doc);
-	}
+	//if (preprocessDynamicCollection(collect, doc)) {
+	//	rapidjson::Value& emoji_array = doc["emoji"];
+	//	emoji_array.SetObject();
+//		d.Swap(emoji_array);//doc["emoji"];
+//	} else {
+//		d.Swap(doc);
+//	}
 
-	d.SetArray();
+//	d.SetArray();
 
-	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
-		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-		moji.code = d[i]["code"].GetString();
-		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
-		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
-		d[i]["category"].IsString()? 
-			moji.category = d[i]["category"].GetString() : moji.category = "";
-		if(d[i].HasMember("checksums"))
-		{
-			const rapidjson::Value& checksums = d[i]["checksums"];
-			const rapidjson::Value& svg = checksums["svg"];
-			const rapidjson::Value& png = checksums["png"];
-			if(svg.IsString())	moji.checksums.svg = svg.GetString();
-			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-				if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
-		}
 
-		rapidjson::Value& tags = d[i]["tags"];
-		assert(tags.IsArray());
-		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-			moji.tags.push_back(tags[tag_i].GetString());
-
-		collect->emoji[moji.code] = moji;
-	}
-
-	this->merge(*collect);
+	//this->merge(*collect);
 
 	return this;
 }
