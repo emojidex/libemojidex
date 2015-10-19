@@ -7,10 +7,11 @@ using namespace std;
 Emojidex::Data::Collection::Collection()
 {
 	moreMethod = NULL;
-	page = 0;
-	limit = 0;
+	page = DEFAULT_PAGE;
+	limit = DEFAULT_LIMIT;
 	total_count = 0;
 	endpoint = "";
+	token = 0;
 }
 
 Emojidex::Data::Collection::~Collection()
@@ -144,10 +145,16 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	return this;
 }
 
+Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()
+{
+	if (endpoint.compare("") != 0 && limit != 0)
+	return this;
+}
+
 Emojidex::Data::Collection Emojidex::Data::Collection::more()
 {
 	if (moreMethod == NULL)
-		return Emojidex::Data::Collection();
+		return this->genericMore();
 
 	Emojidex::Data::Collection collect = this->moreMethod(*this);
 

@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index_detailed) {
-		Emojidex::Data::Collection emoji = idx.emoji(20, 1, true);
+		Emojidex::Data::Collection emoji = idx.emoji(1, 20, true);
 		int sz = emoji.emoji.size();
 		BOOST_CHECK(sz == 20);
 		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);

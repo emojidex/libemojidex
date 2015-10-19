@@ -1,13 +1,11 @@
 #ifndef EMOJIDEX_SERVICE_USER_H
 #define EMOJIDEX_SERVICE_USER_H
 
-#include "data/collection.h"
+#include "../data/collection.h"
+#include "../defs.h"
 
 #include <string>
 using namespace std;
-
-#define DEFAULT_PAGE 1
-#define DEFAULT_LIMIT 50
 
 namespace Emojidex {
 	namespace Service {

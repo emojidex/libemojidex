@@ -6,6 +6,7 @@
 
 #include <unordered_map>
 #include "./emoji.h"
+#include "../defs.h"
 #include "rapidjson/document.h"
 
 namespace Emojidex {
@@ -20,6 +21,8 @@ namespace Emojidex {
 			Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
 
 			void fillEmojiFromJSON(rapidjson::Value& d);
+
+			Emojidex::Data::Collection genericMore();
 		public:
 			Collection();
 			~Collection();

@@ -3,12 +3,8 @@
 
 #include "../data/moji_codes.h"
 #include "../data/collection.h"
+#include "../defs.h"
 #include "rapidjson/document.h"
-
-#define DEFAULT_LOCALE "en"
-#define DEFAULT_PAGE 1
-#define DEFAULT_LIMIT 50
-#define TF(bv) ((bv)?"true":"false")
 
 namespace Emojidex {
 	namespace Service {
