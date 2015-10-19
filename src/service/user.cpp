@@ -54,7 +54,7 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	return false;
 }
 
-Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int limit, unsigned int page, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int page, unsigned int limit, bool detailed)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;

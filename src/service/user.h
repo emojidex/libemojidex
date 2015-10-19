@@ -42,7 +42,7 @@ namespace Emojidex {
 			bool removeFavorite(string code);
 
 			Emojidex::Data::Collection history;
-			Emojidex::Data::Collection syncHistory(unsigned int limit = DEFAULT_LIMIT, unsigned int page = DEFAULT_PAGE, bool detailed = false);
+			Emojidex::Data::Collection syncHistory(unsigned int page = DEFAULT_PAGE, unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 			unsigned int addHistory(string code);
 		};
 	}

@@ -77,7 +77,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getStaticCollection(strin
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::getDynamicCollection(string name, 
-		unsigned int limit, unsigned int page, bool detailed)
+		unsigned int page, unsigned int limit, bool detailed)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;
@@ -106,33 +106,33 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string loca
 Emojidex::Data::Collection Emojidex::Service::Indexes::nextPage(
 		Emojidex::Data::Collection collection)
 {
-	return getDynamicCollection(collection.endpoint, collection.limit, collection.page + 1, 
+	return getDynamicCollection(collection.endpoint, collection.page + 1, collection.limit,
 			collection.detailed);
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int limit, 
-		unsigned int page, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page, 
+		unsigned int limit, bool detailed)
 {
-	Emojidex::Data::Collection collect = getDynamicCollection("emoji", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
+	Emojidex::Data::Collection collect = getDynamicCollection("emoji", page, limit, detailed);
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit, detailed); 
 
 	return collect;
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit, 
-		unsigned int page, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int page,
+		unsigned int limit, bool detailed)
 {
-	Emojidex::Data::Collection collect = getDynamicCollection("newest", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
+	Emojidex::Data::Collection collect = getDynamicCollection("newest", page, limit, detailed);
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit, detailed); 
 
 	return collect;
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::popular(unsigned int limit, 
-		unsigned int page, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::Indexes::popular(unsigned int page,
+		unsigned int limit, bool detailed)
 {
-	Emojidex::Data::Collection collect = getDynamicCollection("popular", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
+	Emojidex::Data::Collection collect = getDynamicCollection("popular", page, limit, detailed);
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit, detailed); 
 
 	return collect;
 }
