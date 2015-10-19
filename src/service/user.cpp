@@ -54,9 +54,20 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	return false;
 }
 
-bool Emojidex::Service::User::syncHistory(bool detailed)
+Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int limit, unsigned int page, bool detailed)
 {
-	return false;
+	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
+	collect.detailed = detailed;
+	collect.endpoint = "users/history";
+	collect.setPagination(&Emojidex::Service::User::syncHistory, limit, page + 1, detailed); 
+
+	Emojidex::Service::Transactor transactor;
+	//string response = transactor.get("users/history", {{"limit", lexical_cast<string>(limit)}, 
+	//		{"page", lexical_cast<string>(page)}, {"detailed", TF(detailed)}});
+
+	//collect.mergeJSON(response);
+
+	return collect;
 }
 
 unsigned int Emojidex::Service::User::addHistory(string code)

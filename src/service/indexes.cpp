@@ -87,15 +87,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::getDynamicCollection(stri
 	string response = transactor.get(name, {{"limit", lexical_cast<string>(limit)}, 
 			{"page", lexical_cast<string>(page)}, {"detailed", TF(detailed)}});
 
-	//rapidjson::Document d;
-	//d.Parse(response.c_str());
-
-	//if (d.HasParseError())
-	//	return collect; // return empty collection
-
 	collect.mergeJSON(response);
-	//fillEmojiFromJSON(&collect, d["emoji"]);
-	//fillMetaFromJSON(&collect, d["meta"]);
 
 	return collect;
 }
@@ -122,7 +114,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int limit,
 		unsigned int page, bool detailed)
 {
 	Emojidex::Data::Collection collect = getDynamicCollection("emoji", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
 
 	return collect;
 }
@@ -131,7 +123,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int limit
 		unsigned int page, bool detailed)
 {
 	Emojidex::Data::Collection collect = getDynamicCollection("newest", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
 
 	return collect;
 }
@@ -140,7 +132,7 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::popular(unsigned int limi
 		unsigned int page, bool detailed)
 {
 	Emojidex::Data::Collection collect = getDynamicCollection("popular", limit, page, detailed);
-	collect.setPagination(&Emojidex::Service::Indexes::nextPage, page, limit); 
+	collect.setPagination(&Emojidex::Service::Indexes::nextPage, limit, page, detailed); 
 
 	return collect;
 }

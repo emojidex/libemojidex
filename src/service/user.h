@@ -6,6 +6,9 @@
 #include <string>
 using namespace std;
 
+#define DEFAULT_PAGE 1
+#define DEFAULT_LIMIT 50
+
 namespace Emojidex {
 	namespace Service {
 		class User
@@ -39,7 +42,7 @@ namespace Emojidex {
 			bool removeFavorite(string code);
 
 			Emojidex::Data::Collection history;
-			bool syncHistory(bool detailed = true);
+			Emojidex::Data::Collection syncHistory(unsigned int limit = DEFAULT_LIMIT, unsigned int page = DEFAULT_PAGE, bool detailed = false);
 			unsigned int addHistory(string code);
 		};
 	}

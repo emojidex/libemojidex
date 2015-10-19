@@ -76,7 +76,7 @@ namespace Emojidex {
 			// service).
 			void setPagination(
 					Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), 
-					unsigned int starting_page, unsigned int limit);
+					unsigned int limit, unsigned int starting_page, bool detailed);
 		};
 	}
 }

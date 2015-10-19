@@ -158,7 +158,7 @@ Emojidex::Data::Collection Emojidex::Data::Collection::more()
 
 void Emojidex::Data::Collection::setPagination(
 		Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), 
-		unsigned int starting_page, unsigned int limit)
+		unsigned int limit, unsigned int starting_page, bool detailed)
 {
 	this->moreMethod = moreMethod;
 	this->page = starting_page;
