@@ -21,7 +21,7 @@ Building
   ```
   cmake ..
   ```
-5. Build with "make" on \*nix or import into your IDE and build.
+5. Build with `make` on \*nix or import into your IDE and build.
 6. Simply link against the compiled library to use libemojidex.
 
 Java Native Interface
@@ -32,8 +32,8 @@ Java Native Interface
   ```
   cmake -DJAVA=true ..
   ```
-3. Run "make" or compile on your native environment.
-4. Optional: run "make jar" to put the resulting JNI library in a JAR file
+3. Run `make` or compile on your native environment.
+4. Optional: run `make jar` to put the resulting JNI library in a JAR file
 
 Objective C Native Interface
 ----------------------------
@@ -47,29 +47,51 @@ Objective C Native Interface
   ```
   cmake -DOBJC=true ..
   ```
-3. Run "make" or compile on your native environment.
-4. Run "make objc" or build the "objc" profile.
-
-Packaged Builds
-===============
+3. Run `make` or compile on your native environment.
+4. Run `make objc` or build the `objc` profile.
 
 Android [NDK] Build
 -------------------
-**NOTE:** A Ruby script handles compilation of required axiliary libraries and dependencies.  
+**NOTE:** A Ruby script handles compilation of required auxiliary libraries and dependencies.  
 	You will need Ruby installed and in your path to perform compilation.
-1. Install the [Android NDK](http://developer.android.com/tools/sdk/ndk/index.html)
+1. You must use the CrystaX NDK. The standard Android NDK lacks too many features. You can obtain 
+the CrystaX NDK from [here](https://www.crystax.net/android/ndk).
 2. Follow steps 1 - 3 from normal build.
 3. Run cmake with the ANDROID flag set to true:
   ```
   cmake -DANDROID=true ..
   ```
-4. Optional: Run "make" or compile on your native environment. This only creates a static .a libary for ARM.
-5. Run "make android". This creates the JNI bindings and compiles so libraries for arm, arm64, x86, x86\_64 and mips.
-6. *coming soon*
+4. Run `make`.
+5. Run `make android`. This creates the JNI bindings and compiles so libraries for arm, x86 and 
+mips. You can bundle these raw sources and generated libraries in your app *OR* more conveniently 
+build and bundle a JAR in step 6.
+6. *Optional* run `make android_jar` to bundle all generated sources and libraries into an 
+easy-to-use JAR.
 
 iOS Build
 ---------
 * Coming Soon
+
+Other Languages
+===============
+Some languages can be rolled out of the box with SWIG that we have not yet ported to. If you 
+would like us to port to a specific language please post an issue on GitHub.
+
+Ruby
+----
+Due to deficiencies in the Ruby implementation of SWIG and in order to avoid complexities 
+of native compilation on varied environments, Ruby interfaces are provided by the "emojidex" gem 
+in pure Ruby. See [emojidex/emojidex](https://github.com/emojidex/emojidex).
+
+JavaScript / CoffeeScript
+-------------------------
+JS is a strange beast for natives and generally we don't see much usage for libemojidex-like 
+functionality in JS. Instead we developed a light-weight component/module based implementation 
+called [emojidex-web-client](https://github.com/emojidex/emojidex-web-client). If you want to a 
+full set of tools to implement emojidex on your web site or in your JavaScript app check out 
+[emojidex-web](https://github.com/emojidex/emojidex-web) which has a variety of front end tools 
+and widgets and wraps the client in such a way that you have access to it, but don't actually 
+need to directly deal with it.
 
 License
 =======
