@@ -4,3 +4,4 @@
 /src/version.h
 *.orig
 /tmp/
+/vendor/*
