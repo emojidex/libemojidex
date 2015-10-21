@@ -10,7 +10,7 @@ Building
 1. Install dependencies (cmake, boost system, boost filesystem, SSL development packages/headers)
 2. Get submodules with:
   ```
-  git submodule update --init --recursive"
+  git submodule update --init --recursive
   ```
 3. Create the build directory, eg:
   ```
@@ -61,7 +61,8 @@ the CrystaX NDK from [here](https://www.crystax.net/android/ndk).
   ```
   cmake -DANDROID=true ..
   ```
-4. Run `make`.
+4. Run `make`. This will only generate a static ARM library which will not be very useful on its 
+own, but will also prime the build system for the next step.
 5. Run `make android`. This creates the JNI bindings and compiles so libraries for arm, x86 and 
 mips. You can bundle these raw sources and generated libraries in your app *OR* more conveniently 
 build and bundle a JAR in step 6.
