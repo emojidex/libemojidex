@@ -10,8 +10,14 @@ require 'fileutils'
 
 puts "== copying natives"
 FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_destination: true})
-
 FileUtils.mkdir_p(@interface_dir)
+FileUtils.mkdir_p("#{@build_dir}/libs")
+FileUtils.mkdir_p("#{@build_dir}/libs/armeabi")
+FileUtils.cp(Dir["#{@natives_dir}/natives/lib/arm/*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/armeabi/")
+FileUtils.mkdir_p("#{@build_dir}/libs/x86")
+FileUtils.cp(Dir["#{@natives_dir}/natives/lib/x86/*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/x86/")
+FileUtils.mkdir_p("#{@build_dir}/libs/mips")
+FileUtils.cp(Dir["#{@natives_dir}/natives/lib/mips/*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/mips/")
 
 puts "== Copying NDK build files and modifying variables"
 FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_destination: true})

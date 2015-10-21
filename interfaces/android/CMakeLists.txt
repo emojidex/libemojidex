@@ -55,44 +55,9 @@ SET(BUILD_TESTS false)
 # As a temporary fix the actual compilation is commented out and we're using a postbuild script
 # to do the actual SWIG handling; passing SWIG generated interfaces through an android mk project.
 ADD_CUSTOM_TARGET(android
-	ruby interfaces/android/postbuild.rb ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${NATIVES_BUILD_DIR}
+	ruby interfaces/android/androidbuild.rb ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${NATIVES_BUILD_DIR}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
-
-## Android Java interface
-##SET(JNI_INCLUDE_DIRS "ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/")
-##SET(JAVA_INCLUDE_PATH "ENV{ANDROID_NDK}/platforms/android-21/arch-arm/usr/include/")
-##INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
-#INCLUDE_DIRECTORIES($ENV{ANDROID_NDK}/sources/android/native_app_glue)
-#FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
-##FIND_PACKAGE(JNI REQUIRED)
-#FIND_PACKAGE(SWIG REQUIRED)
-#INCLUDE_DIRECTORIES(${JNI_INCLUDE_DIRS})
-#INCLUDE(UseJava)
-#INCLUDE(UseSWIG)
-#
-#SET(SWIG_ANDROID_TARGET android)
-#SET(SWIG_ANDROID_LIB_NAME libemojidex_android)
-#
-#SET(CMAKE_SWIG_FLAGS -package com.emojidex)
-#SET(CMAKE_SWIG_OUTDIR "src")
-#SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i"
-#	PROPERTIES
-#	CPLUSPLUS 1
-#)
-#
-#SWIG_ADD_MODULE(${SWIG_ANDROID_TARGET} java "${PROJECT_SOURCE_DIR}/src/libemojidex.i")
-#SWIG_LINK_LIBRARIES(${SWIG_ANDROID_TARGET} ${EMOJIDEX_STATIC_LIB_TARGET})
-#SET_TARGET_PROPERTIES(${SWIG_ANDROID_TARGET}
-#	PROPERTIES
-#	EXCLUDE_FROM_ALL TRUE
-#	OUTPUT_NAME ${SWIG_ANDROID_LIB_NAME}
-#)
-#
-##CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/src/NativeLibLoader.java @ONLY)
-
-
 
 # Jar test
 FIND_PACKAGE(Java REQUIRED COMPONENTS Runtime Development)
