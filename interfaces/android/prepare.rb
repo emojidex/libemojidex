@@ -6,13 +6,13 @@ require 'fileutils'
 @build_dir = ARGV[0] || Dir.pwd
 
 @build_api_level = 14
-@build_targets = ["arm", "arm64", "x86", "x86_64", "mips"]
+@build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
 
 def init()
   if @build_api_level < 21
-    @build_targets = ["arm", "x86", "mips"]
+    @build_targets = ["arm", "x86"] #, "mips"]
   end
 end
 
@@ -68,12 +68,12 @@ def build_OpenSSL()
   FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86")
 
 
-  puts '= Building for mips'
-  `make clean && make dclean`
-  git.clean({force: true, d: true, x:true})
-  `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips" ./Configure android-mips shared threads no-asm && make`
-  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/mips")
-  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/mips")
+#  puts '= Building for mips'
+#  `make clean && make dclean`
+#  git.clean({force: true, d: true, x:true})
+#  `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips" ./Configure android-mips shared threads no-asm && make`
+#  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/mips")
+#  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/mips")
 
   if @build_api_level > 20
     puts '= Building for arm64'
