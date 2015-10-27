@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		user.addFavorite("drift");
 		BOOST_CHECK(user.favorites.emoji.size() > 0);
 
-		//BOOST_CHECK(user.syncHistory() == true);
+		user.syncHistory();
 		BOOST_CHECK(user.history.emoji.size() > 0);
 
 	}

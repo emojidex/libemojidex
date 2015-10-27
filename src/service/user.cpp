@@ -54,18 +54,18 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	return false;
 }
 
-Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int page, unsigned int limit, bool detailed)
+Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int limit, bool detailed)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;
 	collect.endpoint = "users/history";
-	//collect.setPagination(&Emojidex::Service::User::syncHistory, page + 1, limit, detailed); 
+	collect.limit = limit;
+	collect.detailed = detailed;
+	collect.page = 0; // set to 0 so more gets 1
+	collect.username = this->username;
+	collect.token = this->token;
 
-	Emojidex::Service::Transactor transactor;
-	//string response = transactor.get("users/history", {{"limit", lexical_cast<string>(limit)}, 
-	//		{"page", lexical_cast<string>(page)}, {"detailed", TF(detailed)}});
-
-	//collect.mergeJSON(response);
+	this->history.merge(collect.more());
 
 	return collect;
 }

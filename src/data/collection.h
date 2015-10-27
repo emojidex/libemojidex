@@ -71,8 +71,9 @@ namespace Emojidex {
 			unsigned short limit;
 			unsigned int total_count;
 
-			// User
-			std::string token;
+			// User info
+			string username;
+			string token;
 
 			// Get more of the collection if the collection is paginated and has remaining pages.
 			// Returns true if the next page was sucessfully obtained. Returns false if there are 
@@ -81,9 +82,8 @@ namespace Emojidex {
 
 			// Sets up collection as a paged collection (with more pages/emoji remaining on the 
 			// service).
-			void setPagination(
-					Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), 
-					unsigned int starting_page, unsigned int limit, bool detailed);
+			void setPagination(Collection (*moreMethod)(Emojidex::Data::Collection), 
+				unsigned int starting_page, unsigned int limit, bool detailed);
 		};
 	}
 }

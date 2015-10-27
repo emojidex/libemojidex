@@ -10,6 +10,7 @@ Emojidex::Data::Collection::Collection()
 	limit = Collector::DefaultLimit;
 	total_count = 0;
 	endpoint = "";
+	username = "";
 	token = "";
 }
 
@@ -150,8 +151,7 @@ Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()
 		return *this;
 	
 	this->page += 1;
-	Collection collect = Collector::getDynamicCollection(this->endpoint, 
-		this->page, this->limit, this->detailed);
+	Collection collect = Collector::getCollection(*this);
 	this->merge(collect);
 
 	return *this;

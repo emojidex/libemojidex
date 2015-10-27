@@ -56,3 +56,22 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 
 	return collect;
 }
+
+Emojidex::Data::Collection Emojidex::Service::Collector::getCollection(Emojidex::Data::Collection collect)
+{
+	Emojidex::Service::Transactor transactor;
+	
+	string response = "";
+	if (collect.token.compare("") != 0) {
+		response = transactor.get(collect.endpoint, {{"limit", lexical_cast<string>(collect.limit)}, 
+			{"page", lexical_cast<string>(collect.page)}, {"detailed", TF(collect.detailed)}});
+	} else {
+		response = transactor.get(collect.endpoint, {{"limit", lexical_cast<string>(collect.limit)}, 
+			{"page", lexical_cast<string>(collect.page)}, {"detailed", TF(collect.detailed)},
+			{"auth_token", collect.token}});
+	}
+
+	collect.mergeJSON(response);
+
+	return collect;
+}

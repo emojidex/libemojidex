@@ -2,6 +2,8 @@
 #define EMOJIDEX_SERVICE_USER_H
 
 #include "collector.h"
+using namespace Emojidex::Service;
+using namespace Emojidex::Data;
 
 #include <string>
 using namespace std;
@@ -33,13 +35,13 @@ namespace Emojidex {
 
 			bool login(string user, string password);
 
-			Emojidex::Data::Collection favorites;
+			Collection favorites;
 			bool syncFavorites(bool detailed = true);
 			bool addFavorite(string code);
 			bool removeFavorite(string code);
 
-			Emojidex::Data::Collection history;
-			Emojidex::Data::Collection syncHistory(unsigned int page = DEFAULT_PAGE, unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+			Collection history;
+			Collection syncHistory(unsigned int limit = Collector::DefaultLimit, bool detailed = false);
 			unsigned int addHistory(string code);
 		};
 	}
