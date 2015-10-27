@@ -32,6 +32,8 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 	collect.mergeJSON(response);
 
 	collect.locale = locale;
+	collect.endpoint = name;
+	collect.detailed = detailed;
 
 	return collect;
 }
@@ -43,6 +45,8 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;
 	collect.endpoint = name;
+	collect.limit = limit;
+	collect.page = page;
 
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.get(name, {{"limit", lexical_cast<string>(limit)}, 

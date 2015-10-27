@@ -146,11 +146,12 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 
 Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()
 {
-	if (endpoint.compare("") != 0 && limit != 0)
+	if (endpoint.compare("") == 0 && limit == 0)
 		return *this;
 	
+	this->page += 1;
 	Collection collect = Collector::getDynamicCollection(this->endpoint, 
-		this->page + 1, this->limit, this->detailed);
+		this->page, this->limit, this->detailed);
 	this->merge(collect);
 
 	return *this;
