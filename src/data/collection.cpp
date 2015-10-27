@@ -1,17 +1,16 @@
 #include "collection.h"
 
-#include "rapidjson/document.h"
-
-using namespace std;
+#include "../service/collector.h"
+using namespace Emojidex::Service;
 
 Emojidex::Data::Collection::Collection()
 {
 	moreMethod = NULL;
-	page = DEFAULT_PAGE;
-	limit = DEFAULT_LIMIT;
+	page = Collector::DefaultPage;
+	limit = Collector::DefaultLimit;
 	total_count = 0;
 	endpoint = "";
-	token = 0;
+	token = "";
 }
 
 Emojidex::Data::Collection::~Collection()
@@ -148,7 +147,13 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()
 {
 	if (endpoint.compare("") != 0 && limit != 0)
-	return this;
+		return *this;
+	
+	Collection collect = Collector::getDynamicCollection(this->endpoint, 
+		this->page + 1, this->limit, this->detailed);
+	this->merge(collect);
+
+	return *this;
 }
 
 Emojidex::Data::Collection Emojidex::Data::Collection::more()

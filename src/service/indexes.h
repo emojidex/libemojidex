@@ -3,8 +3,9 @@
 
 #include "../data/moji_codes.h"
 #include "../data/collection.h"
-#include "../defs.h"
-#include "rapidjson/document.h"
+#include "collector.h"
+using namespace Emojidex::Service;
+using namespace Emojidex::Data;
 
 namespace Emojidex {
 	namespace Service {
@@ -12,13 +13,7 @@ namespace Emojidex {
 		class Indexes
 		{
 		private:
-			Emojidex::Data::MojiCodes *codes;
-			// service methods
-			static void defaultLocale(std::string *object_locale, std::string *locale);
-			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale, 
-					bool detailed);
-			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int page,
-					unsigned int limit, bool detailed);
+			MojiCodes *codes;
 		public:
 			Indexes();
 			~Indexes();
@@ -41,18 +36,15 @@ namespace Emojidex {
 			// Dynamic Indexes
 			// ===============
 
-
-			static Emojidex::Data::Collection nextPage(Emojidex::Data::Collection collection);
-
 			// Get full emoji index by score
-			Emojidex::Data::Collection emoji(unsigned int page = DEFAULT_PAGE, 
+			Emojidex::Data::Collection emoji(unsigned int page = Collector::DefaultPage, 
 					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 			// Get Newest emoji
-			Emojidex::Data::Collection newest(unsigned int page = DEFAULT_PAGE,
+			Emojidex::Data::Collection newest(unsigned int page = Collector::DefaultPage,
 					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 
 			// Get most Popular emoji
-			Emojidex::Data::Collection popular(unsigned int page = DEFAULT_PAGE,
+			Emojidex::Data::Collection popular(unsigned int page = Collector::DefaultPage,
 					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 		};
 	}

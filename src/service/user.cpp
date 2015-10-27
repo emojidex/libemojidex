@@ -59,7 +59,7 @@ Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int pag
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;
 	collect.endpoint = "users/history";
-	collect.setPagination(&Emojidex::Service::User::syncHistory, limit, page + 1, detailed); 
+	//collect.setPagination(&Emojidex::Service::User::syncHistory, page + 1, limit, detailed); 
 
 	Emojidex::Service::Transactor transactor;
 	//string response = transactor.get("users/history", {{"limit", lexical_cast<string>(limit)}, 

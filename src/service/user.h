@@ -1,8 +1,7 @@
 #ifndef EMOJIDEX_SERVICE_USER_H
 #define EMOJIDEX_SERVICE_USER_H
 
-#include "../data/collection.h"
-#include "../defs.h"
+#include "collector.h"
 
 #include <string>
 using namespace std;
