@@ -5,6 +5,8 @@
 #include <iostream>
 #include <boost/bind.hpp>
 
+#include <curl/curl.h>
+
 using namespace std;
 
 Emojidex::Service::Transactor::Transactor()
@@ -50,73 +52,19 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 
 string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<string, string> query)
 {
-	// TODO clean this the fuck up
-	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = getStream();
-	boost::asio::streambuf request;
-	std::ostream request_stream(&request);
+	CURL *curl;
+	CURLcode res;
 
-	string query_string = generateQueryString(query);
-	/* TODO HTTP 1.1+ (chunking etc.) */
-	request_stream 
-		<< "GET " << Settings::api_prefix << endpoint << " HTTP/1.1\r\n"
-		<< "Host: " << Settings::api_host << "\r\n"
-		<< "Accept: application/json; charset=utf-8\r\n"
-		<< "Connection: close" << "\r\n"
-		<< "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n"
-		<< "Content-Length: " << query_string.length() << "\r\n"
-		<< "\r\n"
-		<< query_string << "\r\n";
-	write(*stream, request);
-
-	boost::asio::streambuf response;
-	boost::asio::read_until(*stream, response, "\r\n");
-
-	std::istream response_stream(&response);
-	std::string http_version;
-	response_stream >> http_version;
-	unsigned int status_code;
-	response_stream >> status_code;
-	string status_message;
-	getline(response_stream, status_message);
-	if (status_code < 200 || status_code >= 300) {
-		cerr << "[" << status_code << "]:" << status_message << endl;
-		return "";
+	curl_global_init(CURL_GLOBAL_DEFAULT);
+	curl = curl_easy_init();
+	stringstream url;
+	url << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url.str().c_str());
+		res = curl_easy_perform(curl);
+		//TODO error handling
+		//cerr << res
 	}
-
-	// response header
-	boost::asio::read_until(*stream, response, "\r\n");
-	string header;
-	while (getline(response_stream, header) && header != "\r");
-	// TODO handle headers line by line
-	
-	boost::system::error_code error;
-	while (boost::asio::read(*stream, response, boost::asio::transfer_all(), error));
-	string json_string(boost::asio::buffer_cast<const char*>(response.data()));
-
-	// cut non-data info
-	std::size_t pos = json_string.find("\r\n\r\n");
-	if (pos != std::string::npos) {
-		json_string = json_string.substr(pos + 4);
-	}
-
-	// modify for http1.1
-	const std::string line_separator = "\r\n";
-	std::size_t cur = 0;
-	bool is_data = false;
-	while( (pos = json_string.find(line_separator, cur)) != std::string::npos )
-	{
-		if(is_data)
-			cur = pos;
-		is_data = !is_data;
-
-		json_string.erase(cur, (pos - cur) + line_separator.length());
-	}
-
-	// remove Etag
-	const std::string etag_marker = "Etag";
-	pos = 0;
-	if ((pos = json_string.find(etag_marker, 0)) != std::string::npos)
-		json_string.erase(pos, (size_t)(json_string.length() - pos));
-
+	string json_string = "";
 	return json_string;
 }
