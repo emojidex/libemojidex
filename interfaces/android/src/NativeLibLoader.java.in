@@ -3,7 +3,8 @@ package com.emojidex.libemojidex;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.File;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  *  Native library loader.
@@ -29,24 +30,34 @@ final class NativeLibLoader
    */
   private static String getArchitecture()
   {
-    final HashMap<String, String[]> table = new HashMap<String, String[]>()
+    final LinkedHashMap<String, String[]> table = new LinkedHashMap<String, String[]>()
     {
       {
-        put("armv7l", new String[] {"armeabi"});
+//        put("armv7l", new String[] {"armeabi"});
 //        put("", new String[] {"arm64-v8a", "armeabi"});
-        put("mips", new String[] {"mips"});
+        put("arm", new String[] {"armeabi"});
 //        put("", new String[] {"mips64", "mips"});
+        put("mips", new String[] {"mips"});
         put("i686", new String[] {"x86"});
         put("x86_64", new String[] {"x86_64", "x86"});
       }
     };
 
     // Check library file exists.
-    for(String arch : table.get(System.getProperty("os.arch")))
-      if(NativeLibLoader.class.getClassLoader().getResource(getPath("libemojidex-android.so", arch)) != null)
-        return arch;
+    final String arch = System.getProperty("os.arch");
+    for(Map.Entry<String, String[]> entry : table.entrySet())
+    {
+      if( arch.contains(entry.getKey()) )
+      {
+        for(String result : entry.getValue())
+        {
+          if(NativeLibLoader.class.getClassLoader().getResource(getPath("libemojidex-android.so", result)) != null)
+            return result;
+        }
+      }
+    }
 
-    return "";
+    return "armeabi";
   }
 
   /**
