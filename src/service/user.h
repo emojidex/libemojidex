@@ -19,6 +19,7 @@ namespace Emojidex {
 			enum AuthStatusCode
 			{
 				NONE,
+				FAILURE,
 				UNVERIFIED,
 				VERIFIED
 			};
@@ -27,6 +28,8 @@ namespace Emojidex {
 			string username;
 			bool pro;
 			bool premium;
+			// WARNING: debug
+			string response;
 
 			User();
 			~User();

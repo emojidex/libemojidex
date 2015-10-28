@@ -8,7 +8,6 @@ using namespace std;
 #define BOOST_TEST_MODULE emojidex_test
 #include <boost/test/unit_test.hpp>
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Settings tests
 ///////////////////////////////////////////////////////////////////////////////
@@ -168,9 +167,10 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		// NOTE: these are the "test" user credentials. This is an actual account.
 		// If anyone else is running specs at the same time they will be using this 
 		// account. Therefore it can be expected some specs may fail when run simultaniously.
-		BOOST_CHECK(user.authorize("test", 
-			"1798909355d57c9a93e3b82d275594e7c7c000db05021138") == true);
-
+		BOOST_CHECK_EQUAL(user.authorize("test", 
+			"1798909355d57c9a93e3b82d275594e7c7c000db05021138"), true);
+		BOOST_TEST_MESSAGE("RESPONSE IS: " << user.response);
+		BOOST_CHECK_EQUAL(user.status, Emojidex::Service::User::AuthStatusCode::VERIFIED);
 		BOOST_CHECK(user.username.compare("test") == 0);
 	}
 

@@ -1,5 +1,6 @@
 #include "user.h"
 #include "transactor.h"
+#include "rapidjson/document.h"
 
 Emojidex::Service::User::User()
 {
@@ -16,15 +17,34 @@ Emojidex::Service::User::~User()
 bool Emojidex::Service::User::authorize(string username, string token)
 {
 	Transactor transactor;
-	//string response = transactor.get("users/authenticate", {{"auth_user", username}, {"auth_token", token}});
+	string response = transactor.get("users/authenticate", {{"username", username}, 
+			{"token", token}});
+
+	this->response = response;
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError()) {
+		this->status = FAILURE;
+		this->username = username;
+		this->token = token;
+		return false;
+	}
 	
-	// TODO WIP hack here
-	status = VERIFIED;
-	this->username = username;
-	this->token = token;
-	return true;
-	
-	//return false;
+	if (doc.IsObject() && doc.HasMember("auth_status")) {
+		string ret_status = doc["auth_status"].GetString();
+		if (ret_status.compare("verified") == 0) {
+			this->status = VERIFIED;
+			this->username = doc["auth_user"].GetString();
+			this->token = doc["auth_token"].GetString();
+			this->pro = doc["pro"].GetBool();
+			this->premium = doc["premium"].GetBool();
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool Emojidex::Service::User::login(string user, string password)

@@ -52,8 +52,14 @@ Objective C Native Interface
 
 Android [NDK] Build
 -------------------
+**WARNING:** Due to incompatibilities in either the Android build system or Dalvik VM, and Android 
+build requires Java 7. Building with Java 8 seems to result in a variety of compatibility issues. 
+Google reports Java 8 compatibility to be a work in progress - so this warning may at some point 
+be invalid. If you try Java 8 and successfully build, please submit an issue informing us.
+
 **NOTE:** A Ruby script handles compilation of required auxiliary libraries and dependencies.  
-	You will need Ruby installed and in your path to perform compilation.
+You will need Ruby installed and in your path to perform compilation.
+
 1. You must use the CrystaX NDK. The standard Android NDK lacks too many features. You can obtain 
 the CrystaX NDK from [here](https://www.crystax.net/android/ndk).
 2. Follow steps 1 - 3 from normal build.
