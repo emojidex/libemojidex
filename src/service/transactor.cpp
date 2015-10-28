@@ -116,7 +116,7 @@ string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<st
 	const std::string etag_marker = "Etag";
 	pos = 0;
 	if ((pos = json_string.find(etag_marker, 0)) != std::string::npos)
-		json_string.erase(pos, (size_t)(json_string.length() - (int)pos));
+		json_string.erase(pos, (size_t)(json_string.length() - pos));
 
 	return json_string;
 }
