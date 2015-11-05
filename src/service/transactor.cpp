@@ -68,9 +68,12 @@ string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<st
 
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
-	
+
 	stringstream url_stream;
-	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint << "?" << generateQueryString(query);
+	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+	string query_string = generateQueryString(query);
+	if( !query_string.empty() )
+		url_stream << "?" << query_string;
 	if(url != NULL)
 		*url = url_stream.str();
 
