@@ -60,7 +60,7 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 	return stream;
 }
 
-string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<string, string> query)
+string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<string, string> query, string* url)
 {
 	CURL *curl;
 	CURLcode res;
@@ -68,12 +68,14 @@ string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<st
 
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
+	
+	stringstream url_stream;
+	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint << "?" << generateQueryString(query);
+	if(url != NULL)
+		*url = url_stream.str();
 
 	if (curl) {
-		stringstream url;
-		url << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint << "?" << generateQueryString(query);
-
-		curl_easy_setopt(curl, CURLOPT_URL, url.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
 

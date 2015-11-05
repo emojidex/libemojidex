@@ -20,7 +20,7 @@ namespace Emojidex {
 
 			std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
-			std::string get(std::string endpoint, std::unordered_map<std::string, std::string> query = {{"", ""}});
+			std::string get(std::string endpoint, std::unordered_map<std::string, std::string> query = {{"", ""}}, std::string* url = NULL);
 		};
 	}
 }
