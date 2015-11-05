@@ -9,6 +9,16 @@
 
 using namespace std;
 
+namespace
+{
+	size_t writeMemoryCallback(char *ptr, size_t size, size_t nmemb, void *userdata)
+	{
+		const size_t realsize = size * nmemb;
+		((string*)userdata)->append(ptr, realsize);
+		return realsize;
+	}
+}
+
 Emojidex::Service::Transactor::Transactor()
 {
 }
@@ -54,17 +64,31 @@ string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<st
 {
 	CURL *curl;
 	CURLcode res;
+	string json_string = "";
 
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
-	stringstream url;
-	url << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+
 	if (curl) {
+		stringstream url;
+		url << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint << "?" << generateQueryString(query);
+
 		curl_easy_setopt(curl, CURLOPT_URL, url.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
+
 		res = curl_easy_perform(curl);
-		//TODO error handling
-		//cerr << res
+		
+		if(res != CURLE_OK)
+		{
+			cerr << curl_easy_strerror(res);
+			json_string.clear();
+		}
+		
+		curl_easy_cleanup(curl);
 	}
-	string json_string = "";
+
+	curl_global_cleanup();
+
 	return json_string;
 }
