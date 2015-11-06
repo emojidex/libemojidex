@@ -97,3 +97,40 @@ string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<st
 
 	return json_string;
 }
+
+string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<string, string> query, string* url)
+{
+	CURL *curl;
+	CURLcode res;
+	string json_string = "";
+
+	curl_global_init(CURL_GLOBAL_DEFAULT);
+	curl = curl_easy_init();
+
+	stringstream url_stream;
+	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+	if(url != NULL)
+		*url = url_stream.str();
+
+	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
+		curl_easy_setopt(curl, CURLOPT_POST, true);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, generateQueryString(query).c_str());
+
+		res = curl_easy_perform(curl);
+		
+		if(res != CURLE_OK)
+		{
+			cerr << curl_easy_strerror(res);
+			json_string.clear();
+		}
+		
+		curl_easy_cleanup(curl);
+	}
+
+	curl_global_cleanup();
+
+	return json_string;
+}

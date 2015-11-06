@@ -56,6 +56,30 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 		BOOST_CHECK_NE(transactor.get("moji_codes", {{"locale", "ja"}}).compare(""), 0);
 	}
 
+	BOOST_AUTO_TEST_CASE(transactor_post_no_query) {
+		BOOST_TEST_MESSAGE("Checking raw POST:");
+		BOOST_CHECK_NE(transactor.post("popular").compare(""), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(transactor_post_w_query_map) {
+		BOOST_TEST_MESSAGE("Checking raw POST with a query map");
+		std::unordered_map<string, string> q;
+		q["detailed"] = "true";
+		q["page"] = "2";
+		BOOST_CHECK_NE(transactor.post("popular", q).compare(""), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(transactor_post_hash_query) {
+		BOOST_TEST_MESSAGE("Checking raw POST with an instance query map");
+		BOOST_CHECK_NE(transactor.post("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(transactor_post_static_point) {
+		BOOST_TEST_MESSAGE("Checking raw POST against a static endpoint");
+		BOOST_CHECK_NE(transactor.post("moji_codes").compare(""), 0);
+		BOOST_CHECK_NE(transactor.post("moji_codes", {{"locale", "ja"}}).compare(""), 0);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
