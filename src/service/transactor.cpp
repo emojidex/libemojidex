@@ -113,11 +113,13 @@ string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<s
 		*url = url_stream.str();
 
 	if (curl) {
+		const string query_string = generateQueryString(query);
 		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
 		curl_easy_setopt(curl, CURLOPT_POST, true);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, generateQueryString(query).c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query_string.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query_string.length());
 
 		res = curl_easy_perform(curl);
 		

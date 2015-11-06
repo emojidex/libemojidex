@@ -80,6 +80,18 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 		BOOST_CHECK_NE(transactor.post("moji_codes", {{"locale", "ja"}}).compare(""), 0);
 	}
 
+	BOOST_AUTO_TEST_CASE(transactor_post_favorites) {
+		BOOST_TEST_MESSAGE("Checking raw POST favorites");
+		rapidjson::Document doc;
+		doc.Parse(transactor.post("users/favorites", {
+			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
+			{"emoji_code", "zebra"}
+		}).c_str());
+		const std::string status = doc.HasMember("status") ? doc["status"].GetString() : "";
+		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
+		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
