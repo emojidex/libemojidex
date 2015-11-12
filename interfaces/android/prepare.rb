@@ -16,6 +16,29 @@ def init()
   end
 end
 
+def load_include_path(arch)
+  "C_INCLUDE_PATH=#{@build_dir}/natives/include/#{arch}:$C_INCLUDE_PATH LD_LOAD_PATH=#{@build_dir}/natives/lib/#{arch}:$LD_LOAD_PATH CPPFLAGS=\"-I#{@build_dir}/natives/include/#{arch}\" LDFLAGS=\"-L#{@build_dir}/natives/lib/#{arch}\" "
+end
+
+def chain_env(arch)
+  case arch
+  when "arm"
+    return "CC=\"#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm\" "
+  when "x86"
+    return "CC=\"#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86\" "
+  when "mips"
+    return "CC=\"#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips\" "
+  when "arm64"
+    return "CC=\"#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64\" "
+  when "x86_64"
+    return "CC=\"#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64\" "
+  end
+end
+
+def full_env_override(arch)
+  "#{load_include_path(arch)} #{chain_env(arch)}"
+end
+
 # Buld Chains
 def prepare_chains()
   puts "== Preparing Android NDK Build Chains"
@@ -40,7 +63,8 @@ def build_OpenSSL()
     git = Git.open("#{@build_dir}/openssl")
     git.reset_hard("HEAD")
     git.clean({force: true, d: true, x:true})
-    git.pull("https://github.com/openssl/openssl.git", "OpenSSL_1_0_2-stable")
+    git.checkout("OpenSSL_1_0_2-stable")
+    git.pull
     puts 'Updated.'
   else
     puts 'OpenSSL repository not found. Cloning...'
@@ -68,30 +92,92 @@ def build_OpenSSL()
   FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86")
 
 
-#  puts '= Building for mips'
-#  `make clean && make dclean`
-#  git.clean({force: true, d: true, x:true})
-#  `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips" ./Configure android-mips shared threads no-asm && make`
-#  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/mips")
-#  FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/mips")
+  if @build_targets.include? 'mips'
+    puts '= Building for mips'
+    `make clean && make dclean`
+    git.clean({force: true, d: true, x:true})
+    `CC="#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips" ./Configure android-mips shared threads no-asm && make`
+    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/mips")
+    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/mips")
+  end
 
   if @build_api_level > 20
-    puts '= Building for arm64'
-    `make clean && make dclean`
-    git.clean({force: true, d: true, x:true})
-    `CC="#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64" ./Configure android shared threads no-asm && make`
-    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/arm64")
-    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/arm64")
+    if @build_targets.include? 'arm64'
+      puts '= Building for arm64'
+      `make clean && make dclean`
+      git.clean({force: true, d: true, x:true})
+      `CC="#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64" ./Configure android shared threads no-asm && make`
+      FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/arm64")
+      FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/arm64")
+    end
 
-    puts '= Building for x86_64'
-    `make clean && make dclean`
-    git.clean({force: true, d: true, x:true})
-    `CC="#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64" ./Configure android-x86 shared threads no-asm && make`
-    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/x86_64")
-    FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86_64")
+    if @build_targets.include? 'x86_64'
+      puts '= Building for x86_64'
+      `make clean && make dclean`
+      git.clean({force: true, d: true, x:true})
+      `CC="#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64" ./Configure android-x86 shared threads no-asm && make`
+      FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libcrypto.so*"), "#{@build_dir}/natives/lib/x86_64")
+      FileUtils.cp(Dir.glob("#{@build_dir}/openssl/libssl.so*"), "#{@build_dir}/natives/lib/x86_64")
+    end
   end
 
   Dir.chdir @build_dir
+end
+
+def build_curl()
+  disable_lines = '--disable-ftp --disable-gopher --disable-file --disable-imap --disable-ldap ' +
+    '--disable-ldaps --disable-pop3 --disable-proxy --disable-rtsp --disable-smtp ' +
+    '--disable-telnet --disable-tftp --disable-libidn --disable-librtmp --disable-dict'
+  if Dir.exists? "#{@build_dir}/curl"
+    puts "CURL repository found. Updating..."
+    git = Git.open("#{@build_dir}/curl")
+    git.reset_hard("HEAD")
+    git.clean({force: true, d: true, x:true})
+    git.pull
+    puts 'Updated.'
+  else
+    puts 'CURL repository not found. Cloning...'
+    git = Git.clone("https://github.com/bagder/curl.git", "#{@build_dir}/curl")
+    puts 'Cloned.'
+  end
+
+  puts '== Building CURL'
+  Dir.chdir "#{@build_dir}/curl"
+  
+  puts '= Building for arm'
+  `make clean && make dclean`
+  git.clean({force: true, d: true, x:true})
+  #puts "#{full_env_override('arm')} ./buildconf && ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm --with-openssl-libraries=#{@build_dir}/natives/lib/arm --prefix=#{@build_dir}/natives/arm #{disable_lines} && make && make install"
+  `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./buildconf`
+  `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm --with-openssl-libraries=#{@build_dir}/natives/lib/arm --with-ssl --prefix=#{@build_dir}/natives/arm #{disable_lines} && make && make install`
+
+ # puts '= Building for x86'
+ # `make clean && make dclean`
+ # git.clean({force: true, d: true, x:true})
+ # `#{full_env_override('x86')} ./buildconf && ./configure --prefix=#{@build_dir}/natives/x86 && make && make install`
+
+ # if @build_targets.include? 'mips'
+ #   puts '= Building for mips'
+ #   `make clean && make dclean`
+ #   git.clean({force: true, d: true, x:true})
+ #   `#{full_env_override('mips')} ./buildconf && ./configure --prefix=#{@build_dir}/natives/mips && make`
+ # end
+
+ # if @build_api_level > 20
+ #   if @build_targets.include? 'arm64'
+ #     puts '= Building for arm64'
+ #     `make clean && make dclean`
+ #     git.clean({force: true, d: true, x:true})
+ #     `#{full_env_override('arm64')} ./buildconf && ./configure --prefix=#{@build_dir}/natives/arm64 && make`
+ #   end
+ # 
+ #   if @build_targets.include? 'x86_64'
+ #     puts '= Building for x86_64'
+ #     `make clean && make dclean`
+ #     git.clean({force: true, d: true, x:true})
+ #     `#{full_env_override('x86_64')} ./buildconf && ./configure --prefix=#{@build_dir}/natives/x86_64 && make`
+ #   end
+ # end
 end
 
 # Boost for Android
@@ -184,12 +270,13 @@ def set_lock()
   lock_file.close
 end
 
-check_lock()
+#check_lock()
 init()
 check_env()
 prepare_chains()
-build_OpenSSL()
+#build_OpenSSL()
 #build_boost()
+build_curl()
 #build_android_boost()
 set_lock()
 
