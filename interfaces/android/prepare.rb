@@ -37,7 +37,8 @@ end
 
 def setup_paths()
   # base
-  Dir.mkdir_p("#{@build_dir}/natives") unless File.exists? "#{@build_dir}/natives"
+  FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
+  Dir.mkdir("#{@build_dir}/natives") unless File.exists? "#{@build_dir}/natives"
 
   # include
   Dir.mkdir("#{@build_dir}/natives/include") unless File.exists? "#{@build_dir}/natives/include"
