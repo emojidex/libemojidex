@@ -35,6 +35,37 @@ def chain_env(arch)
   end
 end
 
+def setup_paths()
+  # base
+  Dir.mkdir_p("#{@build_dir}/natives") unless File.exists? "#{@build_dir}/natives"
+
+  # include
+  Dir.mkdir("#{@build_dir}/natives/include") unless File.exists? "#{@build_dir}/natives/include"
+  @build_targets.each do |target|
+    Dir.mkdir("#{@build_dir}/natives/include/#{target}") unless File.exists? "#{@build_dir}/natives/include/#{target}"
+  end
+
+  # lib
+  Dir.mkdir("#{@build_dir}/natives/lib") unless File.exists? "#{@build_dir}/natives/lib"
+  @build_targets.each do |target|
+    Dir.mkdir("#{@build_dir}/natives/lib/#{target}") unless File.exists? "#{@build_dir}/natives/lib/#{target}"
+  end
+
+  # bin
+  Dir.mkdir("#{@build_dir}/natives/bin") unless File.exists? "#{@build_dir}/natives/bin"
+  @build_targets.each do |target|
+    Dir.mkdir("#{@build_dir}/natives/bin/#{target}") unless File.exists? "#{@build_dir}/natives/bin/#{target}"
+  end
+
+  # jumper links
+  @build_targets.each do |target|
+    Dir.mkdir("#{@build_dir}/natives/#{target}") unless File.exists? "#{@build_dir}/natives/#{target}"
+    FileUtils.ln_s("#{@build_dir}/natives/bin/#{target}", "#{@build_dir}/natives/#{target}/bin")
+    FileUtils.ln_s("#{@build_dir}/natives/include/#{target}", "#{@build_dir}/natives/#{target}/include")
+    FileUtils.ln_s("#{@build_dir}/natives/lib/#{target}", "#{@build_dir}/natives/#{target}/lib")
+  end
+end
+
 def full_env_override(arch)
   "#{load_include_path(arch)} #{chain_env(arch)}"
 end
@@ -273,8 +304,9 @@ end
 #check_lock()
 init()
 check_env()
+setup_paths()
 prepare_chains()
-#build_OpenSSL()
+build_OpenSSL()
 #build_boost()
 build_curl()
 #build_android_boost()
