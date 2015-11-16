@@ -4,6 +4,7 @@ require 'git'
 require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
+FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
 Dir.chdir(@build_dir)
 @build_dir = Dir.pwd
 
@@ -39,7 +40,6 @@ end
 
 def setup_paths()
   # base
-  FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
   Dir.mkdir("#{@build_dir}/natives") unless File.exists? "#{@build_dir}/natives"
 
   # include
