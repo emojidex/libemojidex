@@ -180,25 +180,26 @@ def build_curl()
   `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./buildconf`
   `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86 --with-openssl-libraries=#{@build_dir}/natives/lib/x86 --with-ssl --prefix=#{@build_dir}/natives/x86/ #{disable_lines} && make && make install`
 
-#  if @build_targets.include? 'mips'
-#    puts '= Building for mips'
-#    `git clean -fdx`
-#    `#{full_env_override('mips')} ./buildconf && ./configure --prefix=#{@build_dir}/natives/mips && make`
-#  end
+  if @build_targets.include? 'mips'
+    puts '= Building for mips'
+    `git clean -fdx`
+    `#{chain_env('mips')} LDFLAGS=\"-L#{@build_dir}/natives/lib/mips -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/mips \" ./buildconf`
+    `#{chain_env('mips')} LDFLAGS=\"-L#{@build_dir}/natives/lib/mips -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/mips \" ./configure --host=mips-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/mips --with-openssl-libraries=#{@build_dir}/natives/lib/mips --with-ssl --prefix=#{@build_dir}/natives/mips/ #{disable_lines} && make && make install`
+  end
 
   if @build_api_level > 20
     if @build_targets.include? 'arm64'
       puts '= Building for arm64'
       `git clean -fdx`
       `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./buildconf`
-      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
+      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm64-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
     end
   
     if @build_targets.include? 'x86_64'
       puts '= Building for x86_64'
       `git clean -fdx`
       `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./buildconf`
-      `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./configure --with-openssl-includes=#{@build_dir}/natives/include/x86_64 --with-openssl-libraries=#{@build_dir}/natives/lib/x86_64 --with-ssl --prefix=#{@build_dir}/natives/x86_64/ #{disable_lines} && make && make install`
+      `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86_64 --with-openssl-libraries=#{@build_dir}/natives/lib/x86_64 --with-ssl --prefix=#{@build_dir}/natives/x86_64/ #{disable_lines} && make && make install`
     end
   end
 end
