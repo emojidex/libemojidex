@@ -4,9 +4,6 @@ require 'git'
 require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
-FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
-Dir.chdir(@build_dir)
-@build_dir = Dir.pwd
 
 @build_api_level = 14
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
@@ -17,6 +14,10 @@ def init()
   if @build_api_level < 21
     @build_targets = ["arm", "x86"] #, "mips"]
   end
+
+  FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
+  Dir.chdir(@build_dir)
+  @build_dir = Dir.pwd
 end
 
 def load_include_path(arch)
@@ -94,29 +95,22 @@ end
 def build_OpenSSL()
   if Dir.exists? "#{@build_dir}/openssl"
     puts "OpenSSL repository found. Updating..."
-    #git = Git.open("#{@build_dir}/openssl")
     Dir.chdir "#{@build_dir}/openssl"
-    #git.reset_hard('HEAD')
     `git reset HEAD --hard`
-    #git.clean({force: true, d: true, x:true})
     `git clean -fdx`
-    #git.checkout("OpenSSL_1_0_2-stable")
-    `git checkout OpenSSL_1_0_2-stable`
-    #git.pull
-    `git pull`
     puts 'Updated.'
   else
     puts 'OpenSSL repository not found. Cloning...'
     Dir.chdir "#{@build_dir}"
-    #git = Git.clone('https://github.com/openssl/openssl.git', "#{@build_dir}/openssl")
     `git clone https://github.com/openssl/openssl.git openssl`
-    #git.checkout("OpenSSL_1_0_2-stable")
-    `git checkout OpenSSL_1_0_2-stable`
     puts 'Cloned.'
   end
 
-  puts '== Building OpenSSL'
   Dir.chdir "#{@build_dir}/openssl"
+  `git checkout OpenSSL_1_0_2-stable`
+  `git pull`
+
+  puts '== Building OpenSSL'
   
   puts '= Building for arm'
   `git clean -fdx`
@@ -229,13 +223,16 @@ def set_lock()
   lock_file.close
 end
 
-#check_lock()
+check_lock()
+
 init()
 check_env()
 setup_paths()
 prepare_chains()
+
 build_OpenSSL()
 build_curl()
+
 set_lock()
 
 exit 0
