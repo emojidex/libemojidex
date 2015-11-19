@@ -22,6 +22,7 @@ namespace Emojidex {
 
 			std::string get(std::string endpoint, std::unordered_map<std::string, std::string> query = {{"", ""}}, std::string* url = NULL);
 			std::string post(std::string endpoint, std::unordered_map<std::string, std::string> query = {{"", ""}}, std::string* url = NULL);
+			std::string delete_(std::string endpoint, std::unordered_map<std::string, std::string> query = {{"", ""}}, std::string* url = NULL);
 		};
 	}
 }

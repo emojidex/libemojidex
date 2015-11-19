@@ -136,3 +136,8 @@ string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<s
 
 	return json_string;
 }
+
+string Emojidex::Service::Transactor::delete_(string endpoint, std::unordered_map<string, string> query, string* url)
+{
+	return "";
+}
