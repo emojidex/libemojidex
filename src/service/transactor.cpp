@@ -139,5 +139,39 @@ string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<s
 
 string Emojidex::Service::Transactor::delete_(string endpoint, std::unordered_map<string, string> query, string* url)
 {
-	return "";
+	CURL *curl;
+	CURLcode res;
+	string json_string = "";
+
+	curl_global_init(CURL_GLOBAL_DEFAULT);
+	curl = curl_easy_init();
+
+	stringstream url_stream;
+	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+	if(url != NULL)
+		*url = url_stream.str();
+
+	if (curl) {
+		const string query_string = generateQueryString(query);
+		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
+		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query_string.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query_string.length());
+
+		res = curl_easy_perform(curl);
+		
+		if(res != CURLE_OK)
+		{
+			cerr << curl_easy_strerror(res);
+			json_string.clear();
+		}
+		
+		curl_easy_cleanup(curl);
+	}
+
+	curl_global_cleanup();
+
+	return json_string;
 }
