@@ -19,14 +19,17 @@ namespace Emojidex {
     class Transactor
     {
     private:
-      std::string generateQueryString(Data::UnorderedMap<std::string, std::string> query);
+      std::string generateQueryString(const std::unordered_map<std::string, std::string>& query);
       boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
+      std::string request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<std::string, std::string>& query, std::string* url);
     public:
       Transactor();
 
-      Data::UnorderedMap<std::string, std::string> queryTemplate(bool defaults = true);
+      std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
-      std::string get(std::string endpoint, Data::UnorderedMap<std::string, std::string> query = {{"", ""}});
+      std::string get(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
+      std::string post(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
+      std::string del(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
     };
   }
 }

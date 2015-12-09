@@ -24,20 +24,22 @@ namespace Emojidex {
     class Emoji
     {
     public:
-      std::string moji;
-      std::string code;
-      std::string unicode;
-      std::string category;
-      std::vector<std::string> tags;
-      std::string base;
-      std::vector<std::string> variants;
-      std::string link;
+      string moji;
+      string code;
+      string unicode;
+      string category;
+      vector<std::string> tags;
+      string base;
+      vector<std::string> variants;
+      string link;
       // detailed
       bool is_wide;
       bool copyright_lock;
-      int times_used;
-      std::string attribution;
-      std::string user_id;
+      unsigned int times_used;
+      unsigned int times_favorited;
+      int score;
+      string attribution;
+      string user_id;
       Checksums checksums;
     };
   }

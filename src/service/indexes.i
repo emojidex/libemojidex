@@ -14,15 +14,7 @@ namespace Emojidex {
     class Indexes
     {
     private:
-      Emojidex::Data::MojiCodes *codes;
-      // service methods
-      static void defaultLocale(std::string *object_locale, std::string *locale);
-      static void fillEmojiFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
-      static void fillMetaFromJSON(Emojidex::Data::Collection* collect, rapidjson::Value& d);
-      static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale, 
-          bool detailed);
-      static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int limit, 
-          unsigned int page, bool detailed);
+      MojiCodes *codes;
     public:
       Indexes();
       ~Indexes();
@@ -45,19 +37,16 @@ namespace Emojidex {
       // Dynamic Indexes
       // ===============
 
-
-      static Emojidex::Data::Collection nextPage(Emojidex::Data::Collection collection);
-
       // Get full emoji index by score
-      Emojidex::Data::Collection emoji(unsigned int limit = DEFAULT_LIMIT, 
-          unsigned int page = DEFAULT_PAGE, bool detailed = false);
+      Emojidex::Data::Collection emoji(unsigned int page = Collector::DefaultPage, 
+          unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
       // Get Newest emoji
-      Emojidex::Data::Collection newest(unsigned int limit = DEFAULT_LIMIT, 
-          unsigned int page = DEFAULT_PAGE, bool detailed = false);
+      Emojidex::Data::Collection newest(unsigned int page = Collector::DefaultPage,
+          unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 
       // Get most Popular emoji
-      Emojidex::Data::Collection popular(unsigned int limit = DEFAULT_LIMIT, 
-          unsigned int page = DEFAULT_PAGE, bool detailed = false);
+      Emojidex::Data::Collection popular(unsigned int page = Collector::DefaultPage,
+          unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
     };
   }
 }
