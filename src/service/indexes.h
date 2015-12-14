@@ -4,8 +4,6 @@
 #include "../data/moji_codes.h"
 #include "../data/collection.h"
 #include "collector.h"
-using namespace Emojidex::Service;
-using namespace Emojidex::Data;
 
 namespace Emojidex {
 	namespace Service {
@@ -13,7 +11,7 @@ namespace Emojidex {
 		class Indexes
 		{
 		private:
-			MojiCodes *codes;
+			Emojidex::Data::MojiCodes *codes;
 		public:
 			Indexes();
 			~Indexes();
@@ -37,15 +35,15 @@ namespace Emojidex {
 			// ===============
 
 			// Get full emoji index by score
-			Emojidex::Data::Collection emoji(unsigned int page = Collector::DefaultPage, 
-					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+			Emojidex::Data::Collection emoji(unsigned int page = Emojidex::Service::Collector::DefaultPage,
+					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 			// Get Newest emoji
-			Emojidex::Data::Collection newest(unsigned int page = Collector::DefaultPage,
-					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+			Emojidex::Data::Collection newest(unsigned int page = Emojidex::Service::Collector::DefaultPage,
+					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 
 			// Get most Popular emoji
-			Emojidex::Data::Collection popular(unsigned int page = Collector::DefaultPage,
-					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+			Emojidex::Data::Collection popular(unsigned int page = Emojidex::Service::Collector::DefaultPage,
+					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 		};
 	}
 }

@@ -3,6 +3,7 @@
 #include "collector.h"
 
 using namespace std;
+using namespace Emojidex::Data;
 
 Emojidex::Service::Indexes::Indexes()
 {

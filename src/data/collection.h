@@ -7,8 +7,6 @@
 #include <unordered_map>
 #include "./emoji.h"
 #include "rapidjson/document.h"
-using namespace std;
-using namespace Emojidex::Data;
 
 namespace Emojidex {
 	namespace Data {
@@ -28,7 +26,7 @@ namespace Emojidex {
 			Collection();
 			~Collection();
 
-			unordered_map<std::string, Emojidex::Data::Emoji> emoji;
+			std::unordered_map<std::string, Emojidex::Data::Emoji> emoji;
 
 			//=====================================================================================
 			// Broken out operations on the emoji map (for interfaces or implementations 
@@ -36,7 +34,7 @@ namespace Emojidex {
 			// ============
 
 			// Returns a vector array of all emoji in the collection
-			vector<Emojidex::Data::Emoji> all();
+			std::vector<Emojidex::Data::Emoji> all();
 
 			// Adds an emoji to the map
 			Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
@@ -59,7 +57,7 @@ namespace Emojidex {
 
 			// Add emoji from a JSON string
 			// Returns this collection after the merge for chaining.
-			Emojidex::Data::Collection* mergeJSON(string json_string);
+			Emojidex::Data::Collection* mergeJSON(std::string json_string);
 
 			//=====================================================================================
 			// Service Info
@@ -72,8 +70,8 @@ namespace Emojidex {
 			unsigned int total_count;
 
 			// User info
-			string username;
-			string token;
+			std::string username;
+			std::string token;
 
 			// Get more of the collection if the collection is paginated and has remaining pages.
 			// Returns true if the next page was sucessfully obtained. Returns false if there are 

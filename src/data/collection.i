@@ -16,12 +16,13 @@ import com.emojidex.libemojidex.EmojiVector;
 %}
 
 // Ignore operator overrides
-//%ignore Emojidex::Data::Collection::operator<<;
+%ignore Emojidex::Data::Collection::operator<<;
 
 // Ignore function pointers
 %ignore Emojidex::Data::Collection::moreMethod;
 %ignore Emojidex::Data::Collection::setPagination;
 
+// Ignore std::unordered_map
 %ignore Emojidex::Data::Collection::emoji;
 
 // %include "data/collection.h"
@@ -43,7 +44,7 @@ namespace Emojidex {
       Collection();
       ~Collection();
 
-      unordered_map<std::string, Emojidex::Data::Emoji> emoji;
+      std::unordered_map<std::string, Emojidex::Data::Emoji> emoji;
 
       //=====================================================================================
       // Broken out operations on the emoji map (for interfaces or implementations 
@@ -51,7 +52,7 @@ namespace Emojidex {
       // ============
 
       // Returns a vector array of all emoji in the collection
-      vector<Emojidex::Data::Emoji> all();
+      std::vector<Emojidex::Data::Emoji> all();
 
       // Adds an emoji to the map
       Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
@@ -70,11 +71,11 @@ namespace Emojidex {
       // Merge a collection with this collection, overwriting emoji with the same
       // code in this collection. Rerturns this collection after the merge for chaining.
       Emojidex::Data::Collection* merge(Emojidex::Data::Collection delta_collection);
-//      Emojidex::Data::Collection* operator<<(Emojidex::Data::Collection delta_collection);
+      Emojidex::Data::Collection* operator<<(Emojidex::Data::Collection delta_collection);
 
       // Add emoji from a JSON string
       // Returns this collection after the merge for chaining.
-      Emojidex::Data::Collection* mergeJSON(string json_string);
+      Emojidex::Data::Collection* mergeJSON(std::string json_string);
 
       //=====================================================================================
       // Service Info
@@ -87,8 +88,8 @@ namespace Emojidex {
       unsigned int total_count;
 
       // User info
-      string username;
-      string token;
+      std::string username;
+      std::string token;
 
       // Get more of the collection if the collection is paginated and has remaining pages.
       // Returns true if the next page was sucessfully obtained. Returns false if there are 

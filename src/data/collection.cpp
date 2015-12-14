@@ -1,6 +1,8 @@
 #include "collection.h"
 
 #include "../service/collector.h"
+
+using namespace std;
 using namespace Emojidex::Service;
 
 Emojidex::Data::Collection::Collection()
