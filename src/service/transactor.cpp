@@ -82,6 +82,7 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, requestname.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query_string.length());
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		res = curl_easy_perform(curl);
 		
