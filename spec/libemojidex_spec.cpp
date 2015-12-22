@@ -219,12 +219,12 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User favorites
 	BOOST_AUTO_TEST_CASE(user_favorites) {
-		//user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
+		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
-		//user.syncFavorites();
+		user.syncFavorites();
 		// Just in case
-		//user.addFavorite("drift");
-		//BOOST_CHECK(user.favorites.emoji.size() > 0);
+		user.addFavorite("drift");
+		BOOST_CHECK(user.favorites.emoji.size() > 0);
 		//TODO
 	}
 
