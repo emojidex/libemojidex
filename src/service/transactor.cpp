@@ -35,7 +35,7 @@ std::unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(
 	return q;
 }
 
-string Emojidex::Service::Transactor::generateQueryString(std::unordered_map<string, string> query)
+string Emojidex::Service::Transactor::generateQueryString(const std::unordered_map<string, string>& query)
 {
 	stringstream query_ss;
 
@@ -60,45 +60,7 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 	return stream;
 }
 
-string Emojidex::Service::Transactor::get(string endpoint, std::unordered_map<string, string> query, string* url)
-{
-	CURL *curl;
-	CURLcode res;
-	string json_string = "";
-
-	curl_global_init(CURL_GLOBAL_DEFAULT);
-	curl = curl_easy_init();
-
-	stringstream url_stream;
-	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
-	string query_string = generateQueryString(query);
-	if( !query_string.empty() )
-		url_stream << "?" << query_string;
-	if(url != NULL)
-		*url = url_stream.str();
-
-	if (curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
-
-		res = curl_easy_perform(curl);
-		
-		if(res != CURLE_OK)
-		{
-			cerr << curl_easy_strerror(res);
-			json_string.clear();
-		}
-		
-		curl_easy_cleanup(curl);
-	}
-
-	curl_global_cleanup();
-
-	return json_string;
-}
-
-string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<string, string> query, string* url)
+std::string Emojidex::Service::Transactor::request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<string, string>& query, std::string* url)
 {
 	CURL *curl;
 	CURLcode res;
@@ -117,9 +79,10 @@ string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<s
 		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
-		curl_easy_setopt(curl, CURLOPT_POST, true);
+		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, requestname.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query_string.length());
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		res = curl_easy_perform(curl);
 		
@@ -135,4 +98,19 @@ string Emojidex::Service::Transactor::post(string endpoint, std::unordered_map<s
 	curl_global_cleanup();
 
 	return json_string;
+}
+
+string Emojidex::Service::Transactor::get(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+{
+	return request("GET", endpoint, query, url);
+}
+
+string Emojidex::Service::Transactor::post(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+{
+	return request("POST", endpoint, query, url);
+}
+
+string Emojidex::Service::Transactor::del(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+{
+	return request("DELETE", endpoint, query, url);
 }

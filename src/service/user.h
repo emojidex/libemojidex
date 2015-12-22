@@ -2,18 +2,16 @@
 #define EMOJIDEX_SERVICE_USER_H
 
 #include "collector.h"
-using namespace Emojidex::Service;
-using namespace Emojidex::Data;
 
 #include <string>
-using namespace std;
+// using namespace std;
 
 namespace Emojidex {
 	namespace Service {
 		class User
 		{
 		private:
-			string token;
+			std::string token;
 
 		public:
 			enum AuthStatusCode
@@ -25,27 +23,27 @@ namespace Emojidex {
 			};
 
 			AuthStatusCode status;
-			string username;
+			std::string username;
 			bool pro;
 			bool premium;
 			// WARNING: debug
-			string response;
+			std::string response;
 
 			User();
 			~User();
 
-			bool authorize(string username, string token);
+			bool authorize(std::string username, std::string token);
 
-			bool login(string user, string password);
+			bool login(std::string user, std::string password);
 
-			Collection favorites;
+			Emojidex::Data::Collection favorites;
 			bool syncFavorites(bool detailed = true);
-			bool addFavorite(string code);
-			bool removeFavorite(string code);
+			bool addFavorite(std::string code);
+			bool removeFavorite(std::string code);
 
-			Collection history;
-			Collection syncHistory(unsigned int limit = Collector::DefaultLimit, bool detailed = false);
-			unsigned int addHistory(string code);
+			Emojidex::Data::Collection history;
+			Emojidex::Data::Collection syncHistory(unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
+			unsigned int addHistory(std::string code);
 		};
 	}
 }

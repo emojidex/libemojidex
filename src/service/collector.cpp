@@ -3,8 +3,10 @@
 #include "rapidjson/document.h"
 
 #include <boost/lexical_cast.hpp>
+
 using namespace boost;
 using namespace std;
+using namespace Emojidex::Data;
 
 const string Emojidex::Service::Collector::DefaultLocale = DEFAULT_LOCALE;
 

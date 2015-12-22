@@ -2,6 +2,9 @@
 #include "transactor.h"
 #include "rapidjson/document.h"
 
+using namespace Emojidex::Data;
+using namespace std;
+
 Emojidex::Service::User::User()
 {
 	status = NONE;

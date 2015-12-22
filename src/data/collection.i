@@ -16,12 +16,13 @@ import com.emojidex.libemojidex.EmojiVector;
 %}
 
 // Ignore operator overrides
-//%ignore Emojidex::Data::Collection::operator<<;
+%ignore Emojidex::Data::Collection::operator<<;
 
 // Ignore function pointers
 %ignore Emojidex::Data::Collection::moreMethod;
 %ignore Emojidex::Data::Collection::setPagination;
 
+// Ignore std::unordered_map
 %ignore Emojidex::Data::Collection::emoji;
 
 // %include "data/collection.h"
@@ -34,12 +35,16 @@ namespace Emojidex {
       // Called when more() is invoked.
       // Results are combined into this collection but a collection with just the new results 
       // is returned.
-      Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection);
+      Collection (*moreMethod)(Emojidex::Data::Collection);
+
+      void fillEmojiFromJSON(rapidjson::Value& d);
+
+      Collection genericMore();
     public:
       Collection();
       ~Collection();
 
-      Data::UnorderedMap<std::string, Emojidex::Data::Emoji> emoji;
+      std::unordered_map<std::string, Emojidex::Data::Emoji> emoji;
 
       //=====================================================================================
       // Broken out operations on the emoji map (for interfaces or implementations 
@@ -65,9 +70,13 @@ namespace Emojidex {
 
       // Merge a collection with this collection, overwriting emoji with the same
       // code in this collection. Rerturns this collection after the merge for chaining.
-      Emojidex::Data::Collection merge(Emojidex::Data::Collection delta_collection);
-      //Emojidex::Data::Collection operator<<(Emojidex::Data::Collection delta_collection);
-      
+      Emojidex::Data::Collection* merge(Emojidex::Data::Collection delta_collection);
+      Emojidex::Data::Collection* operator<<(Emojidex::Data::Collection delta_collection);
+
+      // Add emoji from a JSON string
+      // Returns this collection after the merge for chaining.
+      Emojidex::Data::Collection* mergeJSON(std::string json_string);
+
       //=====================================================================================
       // Service Info
       // ============
@@ -78,6 +87,10 @@ namespace Emojidex {
       unsigned short limit;
       unsigned int total_count;
 
+      // User info
+      std::string username;
+      std::string token;
+
       // Get more of the collection if the collection is paginated and has remaining pages.
       // Returns true if the next page was sucessfully obtained. Returns false if there are 
       // no more pages/emoji to obtain.
@@ -85,9 +98,8 @@ namespace Emojidex {
 
       // Sets up collection as a paged collection (with more pages/emoji remaining on the 
       // service).
-      void setPagination(
-          Emojidex::Data::Collection (*moreMethod)(Emojidex::Data::Collection), 
-          unsigned int starting_page, unsigned int limit);
+      void setPagination(Collection (*moreMethod)(Emojidex::Data::Collection), 
+        unsigned int starting_page, unsigned int limit, bool detailed);
     };
   }
 }

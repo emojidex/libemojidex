@@ -7,7 +7,6 @@
 #define TF(bv) ((bv)?"true":"false")
 
 #include "../data/collection.h"
-using namespace Emojidex::Data;
 
 namespace Emojidex {
 	namespace Service {
@@ -15,16 +14,16 @@ namespace Emojidex {
 		class Collector
 		{
 		public:
-			static const string DefaultLocale;
+			static const std::string DefaultLocale;
 			static const unsigned int DefaultPage = DEFAULT_PAGE;
 			static const unsigned int DefaultLimit = DEFAULT_LIMIT;
 
 			static void defaultLocale(std::string *object_locale, std::string *locale);
-			static Collection getStaticCollection(std::string name, std::string locale,
+			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale,
 				bool detailed);
-			static Collection getDynamicCollection(std::string name, unsigned int page,
+			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int page,
 				unsigned int limit, bool detailed);
-			static Collection getCollection(Collection collect);
+			static Emojidex::Data::Collection getCollection(Emojidex::Data::Collection collect);
 		};
 	}
 }

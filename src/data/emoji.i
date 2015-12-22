@@ -35,10 +35,12 @@ namespace Emojidex {
       // detailed
       bool is_wide;
       bool copyright_lock;
-      int times_used;
+      unsigned int times_used;
+      unsigned int times_favorited;
+      int score;
       std::string attribution;
       std::string user_id;
-      Checksums checksums;
+      Emojidex::Data::Checksums checksums;
     };
   }
 }

@@ -56,38 +56,30 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 		BOOST_CHECK_NE(transactor.get("moji_codes", {{"locale", "ja"}}).compare(""), 0);
 	}
 
-	BOOST_AUTO_TEST_CASE(transactor_post_no_query) {
-		BOOST_TEST_MESSAGE("Checking raw POST:");
-		BOOST_CHECK_NE(transactor.post("popular").compare(""), 0);
-	}
-
-	BOOST_AUTO_TEST_CASE(transactor_post_w_query_map) {
-		BOOST_TEST_MESSAGE("Checking raw POST with a query map");
-		std::unordered_map<string, string> q;
-		q["detailed"] = "true";
-		q["page"] = "2";
-		BOOST_CHECK_NE(transactor.post("popular", q).compare(""), 0);
-	}
-
-	BOOST_AUTO_TEST_CASE(transactor_post_hash_query) {
-		BOOST_TEST_MESSAGE("Checking raw POST with an instance query map");
-		BOOST_CHECK_NE(transactor.post("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
-	}
-
-	BOOST_AUTO_TEST_CASE(transactor_post_static_point) {
-		BOOST_TEST_MESSAGE("Checking raw POST against a static endpoint");
-		BOOST_CHECK_NE(transactor.post("moji_codes").compare(""), 0);
-		BOOST_CHECK_NE(transactor.post("moji_codes", {{"locale", "ja"}}).compare(""), 0);
-	}
-
 	BOOST_AUTO_TEST_CASE(transactor_post_favorites) {
 		BOOST_TEST_MESSAGE("Checking raw POST favorites");
-		rapidjson::Document doc;
-		doc.Parse(transactor.post("users/favorites", {
+		const std::string result = transactor.post("users/favorites", {
 			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
 			{"emoji_code", "zebra"}
-		}).c_str());
+		});
+		rapidjson::Document doc;
+		doc.Parse(result.empty() ? "{}" : result.c_str());
 		const std::string status = doc.HasMember("status") ? doc["status"].GetString() : "";
+		BOOST_CHECK_NE(result.compare(""), 0);
+		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
+		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(transactor_delete_favorites) {
+		BOOST_TEST_MESSAGE("Checking raw DELETE favorites");
+		const std::string result = transactor.del("users/favorites", {
+			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
+			{"emoji_code", "zebra"}
+		});
+		rapidjson::Document doc;
+		doc.Parse(result.empty() ? "{}" : result.c_str());
+		const std::string status = doc.HasMember("status") ? doc["status"].GetString() : "";
+		BOOST_CHECK_NE(result.compare(""), 0);
 		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
 		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);
 	}

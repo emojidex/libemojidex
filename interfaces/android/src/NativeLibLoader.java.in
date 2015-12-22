@@ -21,6 +21,7 @@ final class NativeLibLoader
     loadFromJar("libgnustl_shared.so", arch);
     loadFromJar("libcrypto.so.1.0.0", arch);
     loadFromJar("libssl.so.1.0.0", arch);
+    loadFromJar("libcurl.so.5", arch);
     loadFromJar("libemojidex-android.so", arch);
   }
 
