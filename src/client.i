@@ -12,12 +12,12 @@ namespace Emojidex {
   class Client
   {
   private:
-    //Emojidex::Transactor *transactor;
   public:
     Emojidex::Service::Search *Search;
-    Emojidex::Service::Search *Indexes;
+    Emojidex::Service::Indexes *Indexes;
 
     Client();
+    ~Client();
     char apiVersion();
   }; // Client
 } // Emojidex namespace
