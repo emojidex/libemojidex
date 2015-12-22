@@ -47,6 +47,7 @@ INCLUDE_DIRECTORIES(${EMOJIDEX_INCLUDE_DIRS})
 FIND_PACKAGE(Boost REQUIRED
 	system
 	filesystem
+	date_time
 	)
 FIND_PACKAGE(OpenSSL)
 FIND_PACKAGE(CURL)
@@ -95,6 +96,7 @@ INSTALL(FILES
 	${PROJECT_SOURCE_DIR}/src/service/indexes.h
 	${PROJECT_SOURCE_DIR}/src/service/search.h
 	${PROJECT_SOURCE_DIR}/src/service/user.h
+	${PROJECT_SOURCE_DIR}/src/service/user/history.h
 	${PROJECT_SOURCE_DIR}/src/data/emoji.h
 	${PROJECT_SOURCE_DIR}/src/data/collection.h
 	${PROJECT_SOURCE_DIR}/src/data/checksums.h

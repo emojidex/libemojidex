@@ -186,7 +186,9 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.username.compare("") == 0);
 		BOOST_CHECK(user.pro == false);
 		BOOST_CHECK(user.premium == false);
-		BOOST_CHECK(user.history.emoji.size() == 0);
+		BOOST_CHECK(user.history_total) == 0);
+		BOOST_CHECK(user.history_page) == 0);
+		BOOST_CHECK(user.history.size()) == 0);
 		BOOST_CHECK(user.favorites.emoji.size() == 0);
 	}
 

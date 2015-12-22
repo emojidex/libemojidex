@@ -2,9 +2,9 @@
 #define EMOJIDEX_SERVICE_USER_H
 
 #include "collector.h"
+#include "user/history.h"
 
 #include <string>
-// using namespace std;
 
 namespace Emojidex {
 	namespace Service {
@@ -25,7 +25,10 @@ namespace Emojidex {
 			AuthStatusCode status;
 			std::string username;
 			bool pro;
+			std::string pro_exp;
 			bool premium;
+			std::string premium_exp;
+			bool r18;
 			// WARNING: debug
 			std::string response;
 
@@ -41,8 +44,10 @@ namespace Emojidex {
 			bool addFavorite(std::string code);
 			bool removeFavorite(std::string code);
 
-			Emojidex::Data::Collection history;
-			Emojidex::Data::Collection syncHistory(unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
+			std::vector<Emojidex::Service::HistoryItem> history;
+			unsigned int history_total;
+			unsigned int history_page;
+			std::vector<Emojidex::Service::HistoryItem> syncHistory(unsigned int limit = Emojidex::Service::Collector::DefaultLimit, unsigned int page = 0, bool detailed = false);
 			unsigned int addHistory(std::string code);
 		};
 	}

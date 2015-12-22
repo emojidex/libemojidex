@@ -8,9 +8,11 @@ using namespace std;
 Emojidex::Service::User::User()
 {
 	status = NONE;
+	username = "";
 	token = "";
 	pro = false;
 	premium = false;
+	r18 = false;
 }
 
 Emojidex::Service::User::~User()
@@ -82,20 +84,36 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	return false;
 }
 
-Emojidex::Data::Collection Emojidex::Service::User::syncHistory(unsigned int limit, bool detailed)
+std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory(unsigned int limit, unsigned int page, bool detailed)
 {
-	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
-	collect.detailed = detailed;
-	collect.endpoint = "users/history";
-	collect.limit = limit;
-	collect.detailed = detailed;
-	collect.page = 0; // set to 0 so more gets 1
-	collect.username = this->username;
-	collect.token = this->token;
+	if (page == 0)
+		page = this->history_page +=1;
 
-	this->history.merge(collect.more());
+	std::vector<Emojidex::Service::HistoryItem> history_page;
 
-	return collect;
+	transactor = Emojidex::Service::Transactor.new();
+	std::string response = transactor.get("users/history", {{"auth_token", this->auth_token}, {"limit", limit}, {"page", page}});
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return this;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("meta")) { //Check to see if a meta node is present
+		this->history_total = doc["meta"]["total_count"].GetInt();
+		this->history_page = doc["meta"]["page"].getInt();
+		// todo: fill/merge history
+		} else if (doc.HasMember("status") {
+		// todo handle status
+		}
+	}
+
+	return this;
+
+
+	return history_page;
 }
 
 unsigned int Emojidex::Service::User::addHistory(string code)
