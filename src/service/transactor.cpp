@@ -1,12 +1,10 @@
 #include "transactor.h"
-
-#include "./settings.h"
-
-#include <iostream>
-#include <boost/bind.hpp>
+#include "settings.h"
 
 #include <curl/curl.h>
 
+#include <sstream>
+#include <iostream>
 using namespace std;
 
 namespace
@@ -37,7 +35,7 @@ std::unordered_map<string, string> Emojidex::Service::Transactor::queryTemplate(
 
 string Emojidex::Service::Transactor::generateQueryString(const std::unordered_map<string, string>& query)
 {
-	stringstream query_ss;
+	std::stringstream query_ss;
 
 	for (auto q : query)
 		if (q.first != "" && q.second != "")
@@ -56,7 +54,7 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
 
-	stringstream url_stream;
+	std::stringstream url_stream;
 	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
 	if(url != NULL)
 		*url = url_stream.str();

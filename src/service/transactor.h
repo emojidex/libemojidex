@@ -3,9 +3,6 @@
 
 #include <string>
 #include <unordered_map>
-#include <boost/lexical_cast.hpp>
-using namespace boost;
-
 
 namespace Emojidex {
 	namespace Service {
