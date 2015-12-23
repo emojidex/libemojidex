@@ -85,17 +85,17 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 	return json_string;
 }
 
-string Emojidex::Service::Transactor::get(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::GET(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
 {
 	return request("GET", endpoint, query, url);
 }
 
-string Emojidex::Service::Transactor::post(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::POST(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
 {
 	return request("POST", endpoint, query, url);
 }
 
-string Emojidex::Service::Transactor::del(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::DELETE(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
 {
 	return request("DELETE", endpoint, query, url);
 }

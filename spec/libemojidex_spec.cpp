@@ -34,32 +34,32 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 	Emojidex::Service::Transactor transactor;
 
 	BOOST_AUTO_TEST_CASE(transactor_get_no_query) {
-		BOOST_TEST_MESSAGE("Checking raw GET:");
-		BOOST_CHECK_NE(transactor.get("popular").compare(""), 0);
+		BOOST_TEST_MESSAGE("Transactor GET");
+		BOOST_CHECK_NE(transactor.GET("popular").compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_w_query_map) {
-		BOOST_TEST_MESSAGE("Checking raw GET with a query map");
+		BOOST_TEST_MESSAGE("Transactor GET with a query map");
 		std::unordered_map<string, string> q;
 		q["detailed"] = "true";
 		q["page"] = "2";
-		BOOST_CHECK_NE(transactor.get("popular", q).compare(""), 0);
+		BOOST_CHECK_NE(transactor.GET("popular", q).compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_hash_query) {
-		BOOST_TEST_MESSAGE("Checking raw GET with an instance query map");
-		BOOST_CHECK_NE(transactor.get("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
+		BOOST_TEST_MESSAGE("Transactor GET with an instance query map");
+		BOOST_CHECK_NE(transactor.GET("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_static_point) {
-		BOOST_TEST_MESSAGE("Checking raw GET against a static endpoint");
-		BOOST_CHECK_NE(transactor.get("moji_codes").compare(""), 0);
-		BOOST_CHECK_NE(transactor.get("moji_codes", {{"locale", "ja"}}).compare(""), 0);
+		BOOST_TEST_MESSAGE("Transactor GET against a static endpoint");
+		BOOST_CHECK_NE(transactor.GET("moji_codes").compare(""), 0);
+		BOOST_CHECK_NE(transactor.GET("moji_codes", {{"locale", "ja"}}).compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_post_favorites) {
-		BOOST_TEST_MESSAGE("Checking raw POST favorites");
-		const std::string result = transactor.post("users/favorites", {
+		BOOST_TEST_MESSAGE("Transactor POST");
+		const std::string result = transactor.POST("users/favorites", {
 			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
 			{"emoji_code", "zebra"}
 		});
@@ -72,8 +72,8 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_delete_favorites) {
-		BOOST_TEST_MESSAGE("Checking raw DELETE favorites");
-		const std::string result = transactor.del("users/favorites", {
+		BOOST_TEST_MESSAGE("Transactor DELETE");
+		const std::string result = transactor.DELETE("users/favorites", {
 			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
 			{"emoji_code", "zebra"}
 		});
@@ -95,6 +95,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	Emojidex::Service::Indexes idx;
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed) {
+		BOOST_TEST_MESSAGE("Index mojiCodes");
 		BOOST_CHECK(idx.mojiCodes().locale.compare("en") == 0);
 		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
 		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
@@ -103,6 +104,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed_ja) {
+		BOOST_TEST_MESSAGE("Index mojiCodes (ja)");
 		BOOST_CHECK(idx.mojiCodes("ja").locale.compare("ja") == 0);
 		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
 		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
@@ -110,6 +112,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
+		BOOST_TEST_MESSAGE("Index utfEmoji");
 		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
 		BOOST_CHECK(utf.locale.compare("ja") == 0);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
@@ -117,6 +120,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
+		BOOST_TEST_MESSAGE("Index extendedEmoji");
 		Emojidex::Data::Collection ext = idx.extendedEmoji();
 		BOOST_CHECK(ext.locale.compare("en") == 0);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
@@ -124,6 +128,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index) {
+		BOOST_TEST_MESSAGE("Index emoji");
 		Emojidex::Data::Collection emoji = idx.emoji();
 		int sz = emoji.emoji.size();
 		BOOST_CHECK_GT(sz, 0);
@@ -133,6 +138,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index_detailed) {
+		BOOST_TEST_MESSAGE("Index emoji (detailed)");
 		Emojidex::Data::Collection emoji = idx.emoji(1, 20, true);
 		int sz = emoji.emoji.size();
 		BOOST_CHECK(sz == 20);
@@ -143,6 +149,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(newest_index) {
+		BOOST_TEST_MESSAGE("Index newest");
 		Emojidex::Data::Collection newest = idx.newest();
 		int sz = newest.emoji.size();
 		BOOST_CHECK_GT(sz, 0);
@@ -151,6 +158,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(popular_index) {
+		BOOST_TEST_MESSAGE("Index popular");
 		Emojidex::Data::Collection popular = idx.popular();
 		int sz = popular.emoji.size();
 		BOOST_CHECK_GT(sz, 0);
@@ -183,6 +191,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User does not yet have status
 	BOOST_AUTO_TEST_CASE(user_uninitialized) {
+		BOOST_TEST_MESSAGE("User initialize");
 		BOOST_CHECK(user.status == Emojidex::Service::User::AuthStatusCode::NONE);
 		BOOST_CHECK(user.username.compare("") == 0);
 		BOOST_CHECK(user.pro == false);
@@ -195,6 +204,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User authentication by token
 	BOOST_AUTO_TEST_CASE(user_auth) {
+		BOOST_TEST_MESSAGE("User authorize");
 		// NOTE: these are the "test" user credentials. This is an actual account.
 		// If anyone else is running specs at the same time they will be using this 
 		// account. Therefore it can be expected some specs may fail when run simultaniously.
@@ -213,6 +223,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User favorites
 	BOOST_AUTO_TEST_CASE(user_favorites) {
+		BOOST_TEST_MESSAGE("User favorites");
 		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
 		user.syncFavorites();
@@ -224,6 +235,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User history
 	BOOST_AUTO_TEST_CASE(user_history) {
+		BOOST_TEST_MESSAGE("User history");
 		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
 		user.syncHistory(0, 2);

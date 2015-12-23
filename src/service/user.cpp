@@ -22,7 +22,7 @@ Emojidex::Service::User::~User()
 bool Emojidex::Service::User::authorize(string username, string token)
 {
 	Transactor transactor;
-	string response = transactor.get("users/authenticate", {{"username", username}, 
+	string response = transactor.GET("users/authenticate", {{"username", username}, 
 			{"token", token}});
 
 	this->response = response;
@@ -66,7 +66,7 @@ bool Emojidex::Service::User::syncFavorites(bool detailed)
 {
 	Transactor transactor;
 
-	string response = transactor.get("users/favorites", {{"auth_user", username}, 
+	string response = transactor.GET("users/favorites", {{"auth_user", username}, 
 			{"auth_token", this->auth_token}, {"detailed", (detailed ? "true" : "false")}});
 
 	favorites.mergeJSON(response);
@@ -92,7 +92,7 @@ std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory
 	std::vector<Emojidex::Service::HistoryItem> history_page;
 
 	Emojidex::Service::Transactor transactor;
-	std::string response = transactor.get("users/history", {{"auth_token", this->auth_token}, 
+	std::string response = transactor.GET("users/history", {{"auth_token", this->auth_token}, 
 			{"limit", std::to_string(limit)}, {"page", std::to_string(page)}});
 	this->response = response; // DEBUG
 
@@ -151,7 +151,7 @@ void Emojidex::Service::User::sortHistory()
 bool Emojidex::Service::User::addHistory(string code)
 {
 	Emojidex::Service::Transactor transactor;
-	std::string response = transactor.post("users/history", {{"auth_token", this->auth_token}, 
+	std::string response = transactor.POST("users/history", {{"auth_token", this->auth_token}, 
 			{"emoji_code", code}});
 	this->response = response; // DEBUG
 

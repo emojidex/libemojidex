@@ -17,9 +17,9 @@ namespace Emojidex {
 
 			std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
-			std::string get(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
-			std::string post(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
-			std::string del(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
+			std::string GET(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
+			std::string POST(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
+			std::string DELETE(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, std::string* url = NULL);
 		};
 	}
 }

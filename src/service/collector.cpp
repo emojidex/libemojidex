@@ -25,7 +25,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 	defaultLocale(&collect.locale, &locale);
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.get(name, {{"locale", locale}, 
+	string response = transactor.GET(name, {{"locale", locale}, 
 			{"detailed", TF(detailed)}});
 
 	collect.mergeJSON(response);
@@ -48,7 +48,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 	collect.page = page;
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.get(name, {{"limit", std::to_string(limit)}, 
+	string response = transactor.GET(name, {{"limit", std::to_string(limit)}, 
 			{"page", std::to_string(page)}, {"detailed", TF(detailed)}});
 
 	collect.mergeJSON(response);
@@ -62,10 +62,10 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getCollection(Emojidex:
 	
 	string response = "";
 	if (collect.token.compare("") != 0) {
-		response = transactor.get(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
+		response = transactor.GET(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
 				{"page", std::to_string(collect.page)}, {"detailed", TF(collect.detailed)}});
 	} else {
-		response = transactor.get(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
+		response = transactor.GET(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
 				{"page", std::to_string(collect.page)}, {"detailed", TF(collect.detailed)},
 				{"auth_token", collect.token}});
 	}

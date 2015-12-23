@@ -23,7 +23,7 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 		return *this->codes;
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.get("moji_codes", {{"locale", locale}});
+	string response = transactor.GET("moji_codes", {{"locale", locale}});
 	
 	rapidjson::Document d;
 	d.Parse(response.c_str());
