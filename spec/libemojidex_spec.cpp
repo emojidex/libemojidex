@@ -149,23 +149,23 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(emoji.emoji.begin()->second.checksums.png["xhdpi"].compare("") != 0);
 	}
 
-	BOOST_AUTO_TEST_CASE(newest_index) {
-		BOOST_TEST_MESSAGE("Index newest");
-		Emojidex::Data::Collection newest = idx.newest();
-		int sz = newest.emoji.size();
-		BOOST_CHECK_GT(sz, 0);
-		BOOST_CHECK_GT(newest.more().emoji.size(), 0);
-		BOOST_CHECK_GT(newest.emoji.size(), sz);
-	}
-
-	BOOST_AUTO_TEST_CASE(popular_index) {
-		BOOST_TEST_MESSAGE("Index popular");
-		Emojidex::Data::Collection popular = idx.popular();
-		int sz = popular.emoji.size();
-		BOOST_CHECK_GT(sz, 0);
-		BOOST_CHECK_GT(popular.more().emoji.size(), 0);
-		BOOST_CHECK_GT(popular.emoji.size(), sz);
-	}
+//	BOOST_AUTO_TEST_CASE(newest_index) {
+//		BOOST_TEST_MESSAGE("Index newest");
+//		Emojidex::Data::Collection newest = idx.newest();
+//		int sz = newest.emoji.size();
+//		BOOST_CHECK_GT(sz, 0);
+//		BOOST_CHECK_GT(newest.more().emoji.size(), 0);
+//		BOOST_CHECK_GT(newest.emoji.size(), sz);
+//	}
+//
+//	BOOST_AUTO_TEST_CASE(popular_index) {
+//		BOOST_TEST_MESSAGE("Index popular");
+//		Emojidex::Data::Collection popular = idx.popular();
+//		int sz = popular.emoji.size();
+//		BOOST_CHECK_GT(sz, 0);
+//		BOOST_CHECK_GT(popular.more().emoji.size(), 0);
+//		BOOST_CHECK_GT(popular.emoji.size(), sz);
+//	}
 
 BOOST_AUTO_TEST_SUITE_END()
 
