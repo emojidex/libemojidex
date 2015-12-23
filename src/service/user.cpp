@@ -9,7 +9,7 @@ Emojidex::Service::User::User()
 {
 	status = NONE;
 	username = "";
-	token = "";
+	auth_token = "";
 	pro = false;
 	premium = false;
 	r18 = false;
@@ -33,7 +33,7 @@ bool Emojidex::Service::User::authorize(string username, string token)
 	if (doc.HasParseError()) {
 		this->status = FAILURE;
 		this->username = username;
-		this->token = token;
+		this->auth_token = token;
 		return false;
 	}
 	
@@ -42,14 +42,14 @@ bool Emojidex::Service::User::authorize(string username, string token)
 		if (ret_status.compare("verified") == 0) {
 			this->status = VERIFIED;
 			this->username = doc["auth_user"].GetString();
-			this->token = doc["auth_token"].GetString();
+			this->auth_token = doc["auth_token"].GetString();
 			this->pro = doc["pro"].GetBool();
 			this->premium = doc["premium"].GetBool();
 			return true;
 		} else if (ret_status.compare("unverified") == 0) {
 			this->status = UNVERIFIED;
 			this->username = username;
-			this->token = token;
+			this->auth_token = token;
 			return false;
 		}
 	}
@@ -67,7 +67,7 @@ bool Emojidex::Service::User::syncFavorites(bool detailed)
 	Transactor transactor;
 
 	string response = transactor.get("users/favorites", {{"auth_user", username}, 
-			{"auth_token", token}, {"detailed", (detailed ? "true" : "false")}});
+			{"auth_token", this->auth_token}, {"detailed", (detailed ? "true" : "false")}});
 
 	favorites.mergeJSON(response);
 
@@ -84,39 +84,76 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	return false;
 }
 
-std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory(unsigned int limit, unsigned int page, bool detailed)
+std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory(unsigned int page, unsigned int limit)
 {
 	if (page == 0)
-		page = this->history_page +=1;
+		page = this->history_page + 1;
 
 	std::vector<Emojidex::Service::HistoryItem> history_page;
 
-	transactor = Emojidex::Service::Transactor.new();
-	std::string response = transactor.get("users/history", {{"auth_token", this->auth_token}, {"limit", limit}, {"page", page}});
+	Emojidex::Service::Transactor transactor;
+	std::string response = transactor.get("users/history", {{"auth_token", this->auth_token}, 
+			{"limit", std::to_string(limit)}, {"page", std::to_string(page)}});
+	this->response = response; // DEBUG
 
 	rapidjson::Document doc;
 	doc.Parse(response.c_str());
 
 	if (doc.HasParseError())
-		return this;
+		return history_page;
 
 	if (doc.IsObject()) {
 		if (doc.HasMember("meta")) { //Check to see if a meta node is present
-		this->history_total = doc["meta"]["total_count"].GetInt();
-		this->history_page = doc["meta"]["page"].getInt();
-		// todo: fill/merge history
-		} else if (doc.HasMember("status") {
+			this->history_total = doc["meta"]["total_count"].GetInt();
+			this->history_page = doc["meta"]["page"].GetInt();
+			for (rapidjson::SizeType i = 0; i < doc["history"].Size(); i++) {
+				history_page.push_back(Emojidex::Service::HistoryItem(
+							doc["history"][i]["emoji_code"].GetString(),
+							doc["history"][i]["times_used"].GetInt(),
+							doc["history"][i]["last_used"].GetString()));
+			}
+		} else if (doc.HasMember("status")) {
 		// todo handle status
 		}
 	}
 
-	return this;
-
+	mergeHistoryPage(history_page);
+	sortHistory();
 
 	return history_page;
 }
 
-unsigned int Emojidex::Service::User::addHistory(string code)
+void Emojidex::Service::User::mergeHistoryPage(std::vector<Emojidex::Service::HistoryItem> history_page)
 {
-	return 0;
+	for (unsigned int i = 0; i < history_page.size(); i++) {
+		mergeHistoryItem(history_page[i]);
+	}
+}
+
+bool Emojidex::Service::User::mergeHistoryItem(Emojidex::Service::HistoryItem history_item)
+{
+	for (unsigned int i = 0; i < this->history.size(); i++) {
+		if (history_item.emoji_code.compare(this->history[i].emoji_code) == 0) {
+			this->history[i].times_used = history_item.times_used;
+			this->history[i].last_used = history_item.last_used;
+			return true;
+		}
+	}
+	this->history.push_back(history_item);
+	return false;
+}
+
+void Emojidex::Service::User::sortHistory()
+{
+	// TODO
+}
+
+bool Emojidex::Service::User::addHistory(string code)
+{
+	Emojidex::Service::Transactor transactor;
+	std::string response = transactor.post("users/history", {{"auth_token", this->auth_token}, 
+			{"emoji_code", code}});
+	this->response = response; // DEBUG
+
+	return false;
 }

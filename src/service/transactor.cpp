@@ -47,19 +47,6 @@ string Emojidex::Service::Transactor::generateQueryString(const std::unordered_m
 	return query_s.substr(0, query_s.size() - 1);
 }
 
-boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Transactor::getStream()
-{
-	boost::asio::io_service io_service;
-	boost::asio::ssl::context context(io_service, boost::asio::ssl::context::sslv23_client);
-	boost::asio::ssl::stream<boost::asio::ip::tcp::socket> *stream = new boost::asio::ssl::stream<boost::asio::ip::tcp::socket>(io_service, context);
-	stream->lowest_layer().connect(
-		*boost::asio::ip::tcp::resolver(io_service).resolve(boost::asio::ip::tcp::resolver::query(Settings::api_host, Settings::api_protocol))
-	);
-	stream->handshake(boost::asio::ssl::stream_base::client);
-
-	return stream;
-}
-
 std::string Emojidex::Service::Transactor::request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<string, string>& query, std::string* url)
 {
 	CURL *curl;

@@ -7,9 +7,13 @@
 namespace Emojidex {
 	namespace Service {
 		class HistoryItem {
+			public:
+
 			std::string emoji_code;
-			int times_used;
+			unsigned int times_used;
 			std::string last_used;
+
+			HistoryItem(std::string emoji_code, unsigned int times_used, std::string last_used);
 		};
 	}
 }

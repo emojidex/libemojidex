@@ -3,8 +3,8 @@
 
 #include <string>
 #include <unordered_map>
-#include <boost/asio.hpp>
-#include <boost/asio/ssl.hpp>
+#include <boost/lexical_cast.hpp>
+using namespace boost;
 
 
 namespace Emojidex {
@@ -14,7 +14,6 @@ namespace Emojidex {
 		{
 		private:
 			std::string generateQueryString(const std::unordered_map<std::string, std::string>& query);
-			boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* getStream();
 			std::string request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<std::string, std::string>& query, std::string* url);
 		public:
 			Transactor();

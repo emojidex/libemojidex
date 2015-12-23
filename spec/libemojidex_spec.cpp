@@ -8,6 +8,7 @@ using namespace std;
 #define BOOST_TEST_MODULE emojidex_test
 #include <boost/test/unit_test.hpp>
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // Settings tests
 ///////////////////////////////////////////////////////////////////////////////
@@ -186,9 +187,9 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.username.compare("") == 0);
 		BOOST_CHECK(user.pro == false);
 		BOOST_CHECK(user.premium == false);
-		BOOST_CHECK(user.history_total) == 0);
-		BOOST_CHECK(user.history_page) == 0);
-		BOOST_CHECK(user.history.size()) == 0);
+		BOOST_CHECK(user.history_total == 0);
+		BOOST_CHECK(user.history_page == 0);
+		BOOST_CHECK(user.history.size() == 0);
 		BOOST_CHECK(user.favorites.emoji.size() == 0);
 	}
 
@@ -201,7 +202,6 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		// Test a failure first
 		BOOST_CHECK_EQUAL(user.authorize("test", "12345"), false);
 		BOOST_CHECK_EQUAL(user.status, Emojidex::Service::User::AuthStatusCode::UNVERIFIED);
-		BOOST_TEST_MESSAGE("RESPONSE IS: " << user.response);
 
 		// This should succeed
 		BOOST_CHECK_EQUAL(user.authorize("test", 
@@ -224,11 +224,20 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User history
 	BOOST_AUTO_TEST_CASE(user_history) {
-	//	user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
+		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
-	//	user.syncHistory();
-	//	BOOST_CHECK(user.history.emoji.size() > 0);
-	//	//TODO
+		user.syncHistory(0, 2);
+		BOOST_TEST_MESSAGE("first time: " << user.response);
+		BOOST_CHECK(user.history.size() > 0);
+		BOOST_CHECK(user.history_total > 0);
+		BOOST_CHECK(user.history_page > 0);
+		unsigned int size_mark = user.history.size();
+		user.syncHistory(0, 2);
+		BOOST_TEST_MESSAGE("second time: " << user.response);
+		BOOST_CHECK(user.history.size() > size_mark);
+
+		BOOST_CHECK(user.addHistory("poop") == true);
+		BOOST_TEST_MESSAGE("add: " << user.response);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

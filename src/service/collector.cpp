@@ -2,9 +2,6 @@
 #include "transactor.h"
 #include "rapidjson/document.h"
 
-#include <boost/lexical_cast.hpp>
-
-using namespace boost;
 using namespace std;
 using namespace Emojidex::Data;
 
