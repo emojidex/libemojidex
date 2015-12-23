@@ -35,20 +35,21 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 
 	BOOST_AUTO_TEST_CASE(transactor_get_no_query) {
 		BOOST_TEST_MESSAGE("Transactor GET");
-		BOOST_CHECK_NE(transactor.GET("popular").compare(""), 0);
+		BOOST_CHECK_NE(transactor.GET("emoji").compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_w_query_map) {
 		BOOST_TEST_MESSAGE("Transactor GET with a query map");
 		std::unordered_map<string, string> q;
 		q["detailed"] = "true";
+		q["limit"] = "10";
 		q["page"] = "2";
-		BOOST_CHECK_NE(transactor.GET("popular", q).compare(""), 0);
+		BOOST_CHECK_NE(transactor.GET("emoji", q).compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_hash_query) {
 		BOOST_TEST_MESSAGE("Transactor GET with an instance query map");
-		BOOST_CHECK_NE(transactor.GET("popular", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
+		BOOST_CHECK_NE(transactor.GET("emoji", {{"detailed", "true"}, {"page", "3"}}).compare(""), 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(transactor_get_static_point) {
