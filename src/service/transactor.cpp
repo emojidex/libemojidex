@@ -60,7 +60,7 @@ boost::asio::ssl::stream<boost::asio::ip::tcp::socket>* Emojidex::Service::Trans
 	return stream;
 }
 
-std::string Emojidex::Service::Transactor::request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<string, string>& query, std::string* url)
+std::string Emojidex::Service::Transactor::request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<string, string>& query, int* status)
 {
 	CURL *curl;
 	CURLcode res;
@@ -71,8 +71,6 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 
 	stringstream url_stream;
 	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
-	if(url != NULL)
-		*url = url_stream.str();
 
 	if (curl) {
 		const string query_string = generateQueryString(query);
@@ -89,9 +87,16 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 		if(res != CURLE_OK)
 		{
 			cerr << curl_easy_strerror(res);
-			json_string.clear();
 		}
-		
+
+		if(status != NULL)
+		{
+//			*status = res;
+			res = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, status);
+			if(res != CURLE_OK)
+				printf("hoge\n");
+		}
+
 		curl_easy_cleanup(curl);
 	}
 
@@ -100,17 +105,17 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 	return json_string;
 }
 
-string Emojidex::Service::Transactor::get(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::get(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
 {
-	return request("GET", endpoint, query, url);
+	return request("GET", endpoint, query, status);
 }
 
-string Emojidex::Service::Transactor::post(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::post(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
 {
-	return request("POST", endpoint, query, url);
+	return request("POST", endpoint, query, status);
 }
 
-string Emojidex::Service::Transactor::del(const string& endpoint, const std::unordered_map<string, string>& query, string* url)
+string Emojidex::Service::Transactor::del(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
 {
-	return request("DELETE", endpoint, query, url);
+	return request("DELETE", endpoint, query, status);
 }
