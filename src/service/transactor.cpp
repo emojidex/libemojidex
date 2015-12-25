@@ -76,10 +76,7 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 
 		if(status != NULL)
 		{
-//			*status = res;
 			res = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, status);
-			if(res != CURLE_OK)
-				printf("hoge\n");
 		}
 
 		curl_easy_cleanup(curl);
