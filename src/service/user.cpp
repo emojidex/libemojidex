@@ -94,7 +94,6 @@ std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory
 	Emojidex::Service::Transactor transactor;
 	std::string response = transactor.GET("users/history", {{"auth_token", this->auth_token}, 
 			{"limit", std::to_string(limit)}, {"page", std::to_string(page)}});
-	this->response = response; // DEBUG
 
 	rapidjson::Document doc;
 	doc.Parse(response.c_str());
@@ -153,7 +152,33 @@ bool Emojidex::Service::User::addHistory(string code)
 	Emojidex::Service::Transactor transactor;
 	std::string response = transactor.POST("users/history", {{"auth_token", this->auth_token}, 
 			{"emoji_code", code}});
+
 	this->response = response; // DEBUG
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("emoji_code")) { // Make sure we're dealing with a history item
+			std::string emoji_code = doc["emoji_code"].GetString();
+			history.insert(history.begin(), Emojidex::Service::HistoryItem(
+							emoji_code,
+							doc["times_used"].GetInt(),
+							doc["last_used"].GetString()));
+			for (unsigned int i = 1; i < history.size(); i++) {
+				if (history[i].emoji_code.compare(emoji_code) == 0) {
+					history.erase(history.begin() + i, history.begin() + i + 1);
+					break;
+				}
+			}
+			return true;
+		} else if (doc.HasMember("status")) {
+			return false; // Status lines indicate an error, so just return false
+		}
+	}
 
 	return false;
 }

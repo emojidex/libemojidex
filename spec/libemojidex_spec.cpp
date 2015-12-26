@@ -240,17 +240,17 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
 		user.syncHistory(0, 2);
-		BOOST_TEST_MESSAGE("first time: " << user.response);
 		BOOST_CHECK(user.history.size() > 0);
 		BOOST_CHECK(user.history_total > 0);
 		BOOST_CHECK(user.history_page > 0);
 		unsigned int size_mark = user.history.size();
-		user.syncHistory(0, 2);
-		BOOST_TEST_MESSAGE("second time: " << user.response);
-		BOOST_CHECK(user.history.size() > size_mark);
+		std::vector<Emojdex::User::HistoryItem> hist_page = user.syncHistory(100, 2);
+		BOOST_TEST_MESSAGE("User history is limited to max 50 items for normal users");
+		BOOST_CHECK(hist_page.size() == 50);
 
+		BOOST_CHECK(user.history.size() > size_mark);
 		BOOST_CHECK(user.addHistory("poop") == true);
-		BOOST_TEST_MESSAGE("add: " << user.response);
+		BOOST_CHECK(user.history[0].emoji_code.compare("poop") == 0);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
