@@ -24,6 +24,13 @@ Building
 5. Build with `make` on \*nix or import into your IDE and build.
 6. Simply link against the compiled library to use libemojidex.
 
+Specs and Testing
+-----------------
+
+libemojidex features a full spec suite. Simply ```make test``` or, after building, run 
+```./spec/libemojidex_spec```. For detailed output you can call with ```--log-level=message``` 
+like ```./spec/libemojidex_spec --log-level=message```.
+
 Java Native Interface
 ---------------------
 

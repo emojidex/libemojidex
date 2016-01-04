@@ -2,7 +2,7 @@
 #define EMOJIDEX_SERVICE_USER_H
 
 #include "collector.h"
-#include "user/history.h"
+#include "user/history_item.h"
 
 #include <vector>
 #include <string>

@@ -1,4 +1,4 @@
-#include "history.h"
+#include "history_item.h"
 
 Emojidex::Service::HistoryItem::HistoryItem(std::string emoji_code, unsigned int times_used, std::string last_used)
 {

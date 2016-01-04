@@ -61,7 +61,7 @@ SET(EMOJIDEX_CPP_FILES
 	${PROJECT_SOURCE_DIR}/src/service/indexes.cpp
 	${PROJECT_SOURCE_DIR}/src/service/search.cpp
 	${PROJECT_SOURCE_DIR}/src/service/user.cpp
-	${PROJECT_SOURCE_DIR}/src/service/user/history.cpp
+	${PROJECT_SOURCE_DIR}/src/service/user/history_item.cpp
 	${PROJECT_SOURCE_DIR}/src/data/collection.cpp
 	${PROJECT_SOURCE_DIR}/src/data/checksums.cpp
 )
@@ -97,7 +97,7 @@ INSTALL(FILES
 	${PROJECT_SOURCE_DIR}/src/service/indexes.h
 	${PROJECT_SOURCE_DIR}/src/service/search.h
 	${PROJECT_SOURCE_DIR}/src/service/user.h
-	${PROJECT_SOURCE_DIR}/src/service/user/history.h
+	${PROJECT_SOURCE_DIR}/src/service/user/history_item.h
 	${PROJECT_SOURCE_DIR}/src/data/emoji.h
 	${PROJECT_SOURCE_DIR}/src/data/collection.h
 	${PROJECT_SOURCE_DIR}/src/data/checksums.h

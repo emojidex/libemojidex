@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.history_total > 0);
 		BOOST_CHECK(user.history_page > 0);
 		unsigned int size_mark = user.history.size();
-		std::vector<Emojdex::User::HistoryItem> hist_page = user.syncHistory(100, 2);
+		std::vector<Emojidex::Service::HistoryItem> hist_page = user.syncHistory(100, 2);
 		BOOST_TEST_MESSAGE("User history is limited to max 50 items for normal users");
 		BOOST_CHECK(hist_page.size() == 50);
 
