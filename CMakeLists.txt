@@ -54,6 +54,7 @@ FIND_PACKAGE(CURL)
 
 SET(EMOJIDEX_DYNAMIC_LIB_TARGET emojidex)
 SET(EMOJIDEX_CPP_FILES
+	${PROJECT_SOURCE_DIR}/src/libemojidex.cpp
 	${PROJECT_SOURCE_DIR}/src/client.cpp
 	${PROJECT_SOURCE_DIR}/src/service/settings.cpp
 	${PROJECT_SOURCE_DIR}/src/service/transactor.cpp
@@ -88,7 +89,7 @@ ENABLE_TESTING()
 
 # Installation
 INSTALL(FILES 
-	${PROJECT_SOURCE_DIR}/src/emojidex.h
+	${PROJECT_SOURCE_DIR}/src/libemojidex.h
 	${PROJECT_SOURCE_DIR}/src/version.h
 	${PROJECT_SOURCE_DIR}/src/client.h
 	${PROJECT_SOURCE_DIR}/src/service/settings.h

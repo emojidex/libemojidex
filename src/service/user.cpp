@@ -1,3 +1,4 @@
+#include "../libemojidex.h"
 #include "user.h"
 #include "transactor.h"
 #include "rapidjson/document.h"
@@ -76,11 +77,25 @@ bool Emojidex::Service::User::syncFavorites(bool detailed)
 
 bool Emojidex::Service::User::addFavorite(string code)
 {
+	Transactor transactor;
+
+	string response = transactor.POST("users/favorites", {{"auth_user", username},
+			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
+
+	//TODO responseを処理し、statusコードが出てなければemoji情報が入っていることを確認し、favorites内に同じ絵文字が既に存在する場合は更新し、無い場合は追加
+
 	return false;
 }
 
 bool Emojidex::Service::User::removeFavorite(string code)
 {
+	Transactor transactor;
+
+	string response = transactor.DELETE("users/favorites", {{"auth_user", username},
+			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
+
+	//TODO responseを処理し、statusコードが出てなければemoji情報が入っていることを確認し、favorites内からその絵文字を削除する
+
 	return false;
 }
 
@@ -144,14 +159,14 @@ bool Emojidex::Service::User::mergeHistoryItem(Emojidex::Service::HistoryItem hi
 
 void Emojidex::Service::User::sortHistory()
 {
-	// TODO
+	// TODO 日付で再整理する
 }
 
 bool Emojidex::Service::User::addHistory(string code)
 {
 	Emojidex::Service::Transactor transactor;
 	std::string response = transactor.POST("users/history", {{"auth_token", this->auth_token}, 
-			{"emoji_code", code}});
+			{"emoji_code", Emojidex::escapeCode(code)}});
 
 	this->response = response; // DEBUG
 

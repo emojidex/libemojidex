@@ -2,6 +2,7 @@
 #define _LIBEMOJIDEX_H_
 
 #include "./data.h"
+#include <string>
 //#include "./data/collection.h"
 
 //#include "./client.h"
@@ -9,6 +10,10 @@
 //#include "./service/search.h"
 
 namespace Emojidex {
+	const char encapsulator = ':';
+	std::string escapeCode(std::string code);
+	std::string unescapeCode(std::string code);
+	std::string encapsulateCode(std::string code);
 }
 
 #endif /* _LIBEMOJIDEX_H_ */

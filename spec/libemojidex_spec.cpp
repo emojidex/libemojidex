@@ -1,3 +1,4 @@
+#include <libemojidex.h>
 #include <client.h>
 #include <service/settings.h>
 #include <service/transactor.h>
@@ -8,6 +9,32 @@ using namespace std;
 #define BOOST_TEST_MODULE emojidex_test
 #include <boost/test/unit_test.hpp>
 
+
+///////////////////////////////////////////////////////////////////////////////
+// libemojidex Utility test
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
+	// Check that defaults are accurate
+	BOOST_AUTO_TEST_CASE(code_utilities) {
+		BOOST_TEST_MESSAGE("Checking code unescape:");
+		std::string escaped_code = Emojidex::escapeCode(":test code:");
+		BOOST_TEST_MESSAGE("Escaping ':test code:' results in: " << escaped_code);
+		BOOST_CHECK_EQUAL(escaped_code.compare("test_code"), 0);
+
+		BOOST_TEST_MESSAGE("Checking code escape:");
+		std::string unescaped_code = Emojidex::unescapeCode("test_code");
+		BOOST_TEST_MESSAGE("Unescaping 'test_code' results in: " << unescaped_code);
+		BOOST_CHECK_EQUAL(unescaped_code.compare("test code"), 0);
+
+		BOOST_TEST_MESSAGE("Checking code encapsulate:");
+		std::string encap_code = Emojidex::encapsulateCode("test code");
+		BOOST_TEST_MESSAGE("Encapsulating 'test code' results in: " << encap_code);
+		BOOST_CHECK_EQUAL(encap_code.compare(":test code:"), 0);
+		encap_code = Emojidex::encapsulateCode(":test code:");
+		BOOST_TEST_MESSAGE("Encapsulating ':test code:' results in: " << encap_code);
+		BOOST_CHECK_EQUAL(encap_code.compare(":test code:"), 0);
+	}
+BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Settings tests
@@ -242,10 +269,11 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		user.syncHistory(0, 2);
 		BOOST_CHECK(user.history.size() > 0);
 		BOOST_CHECK(user.history_total > 0);
-		BOOST_CHECK(user.history_page > 0);
+		BOOST_CHECK(user.history_page == 1);
 		unsigned int size_mark = user.history.size();
-		std::vector<Emojidex::Service::HistoryItem> hist_page = user.syncHistory(100, 2);
-		BOOST_TEST_MESSAGE("User history is limited to max 50 items for normal users");
+		BOOST_TEST_MESSAGE("Size of history at first sync (limit 2): " << size_mark);
+		std::vector<Emojidex::Service::HistoryItem> hist_page = user.syncHistory(2, 100);
+		BOOST_TEST_MESSAGE("User history is limited to max 50 items for normal users, got: " << hist_page.size());
 		BOOST_CHECK(hist_page.size() == 50);
 
 		BOOST_CHECK(user.history.size() > size_mark);

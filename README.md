@@ -28,8 +28,8 @@ Specs and Testing
 -----------------
 
 libemojidex features a full spec suite. Simply ```make test``` or, after building, run 
-```./spec/libemojidex_spec```. For detailed output you can call with ```--log-level=message``` 
-like ```./spec/libemojidex_spec --log-level=message```.
+```./spec/libemojidex_spec```. For detailed output you can call with ```--log_level=message``` 
+like ```./spec/libemojidex_spec --log_level=message```.
 
 Java Native Interface
 ---------------------
