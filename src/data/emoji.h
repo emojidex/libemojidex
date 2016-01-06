@@ -29,6 +29,15 @@ namespace Emojidex {
 			int score;
 			std::string attribution;
 			std::string user_id;
+			double current_price;
+			bool primary;
+			bool permalock;
+			std::string registered_at;
+			std::string link_expiration;
+			std::string lock_expiration;
+			unsigned int times_changed;
+			unsigned int favorited;
+
 			Emojidex::Data::Checksums checksums;
 
 			Emoji();

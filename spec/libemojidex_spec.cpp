@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 				"\"base\":\"zipper_mouth_face\",\"variants\":[\"zipper_mouth_face(wh)\","
 				"\"zipper_mouth_face(p)\",\"zipper_mouth_face(ye)\",\"zipper_mouth_face(br)\","
 				"\"zipper_mouth_face(bk)\",\"zipper_mouth_face\",\"zipper_mouth_face(smiley)\"],"
-				"\"score\":0}");
+				"\"score\":10}");
 		BOOST_CHECK_EQUAL(em.code.compare("zipper mouth face"), 0);
 		BOOST_CHECK_EQUAL(em.moji.compare("🤐"), 0);
 		BOOST_CHECK_EQUAL(em.unicode.compare("1f910"), 0);
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 		BOOST_CHECK_EQUAL(em.base.compare("zipper_mouth_face"), 0);
 		BOOST_CHECK_EQUAL(em.variants.size(), 7);
 		BOOST_CHECK_EQUAL(em.variants[0].compare("zipper_mouth_face(wh)"), 0);
-		BOOST_CHECK_EQUAL(em.score, 0);
+		BOOST_CHECK_EQUAL(em.score, 10);
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_data_detailed) {
@@ -69,9 +69,9 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 				"\"base\":\"zipper_mouth_face\",\"variants\":[\"zipper_mouth_face(wh)\","
 				"\"zipper_mouth_face(p)\",\"zipper_mouth_face(ye)\",\"zipper_mouth_face(br)\","
 				"\"zipper_mouth_face(bk)\",\"zipper_mouth_face\",\"zipper_mouth_face(smiley)\"],"
-				"\"score\":0,\"current_price\":1.0,\"primary\":true,\"registered_at\":null,"
+				"\"score\":10,\"current_price\":1.0,\"primary\":true,\"registered_at\":null,"
 				"\"permalock\":true,\"copyright_lock\":false,\"link_expiration\":null,"
-				"\"lock_expiration\":null,\"times_changed\":0,\"is_wide\":false,\"times_used\":0,"
+				"\"lock_expiration\":null,\"times_changed\":2,\"is_wide\":false,\"times_used\":8,"
 				"\"attribution\":null,\"user_id\":\"emoji\",\"checksums\":{"
 				"\"svg\":\"64f320f87517fc31fbf7f798a77d980b\",\"png\":{"
 				"\"ldpi\":\"cf5dca7b0c71ee482fba3faa5f802eef\",\"mdpi\":"
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 				"\"eea71418b65007ebb76b7fad531f0211\",\"px512\":"
 				"\"c3a4d09276b2f9a4c45d56685651e026\",\"hanko\":"
 				"\"7bd6808ea4edd2acd0636b73a99d4a01\",\"seal\":"
-				"\"e1bfb5385d58f65c23cb7c2e6045ae1e\"}},\"favorited\":0}");
+				"\"e1bfb5385d58f65c23cb7c2e6045ae1e\"}},\"favorited\":5}");
 		BOOST_CHECK_EQUAL(em.code.compare("zipper mouth face"), 0);
 		BOOST_CHECK_EQUAL(em.moji.compare("🤐"), 0);
 		BOOST_CHECK_EQUAL(em.unicode.compare("1f910"), 0);
@@ -97,7 +97,24 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 		BOOST_CHECK_EQUAL(em.tags[0].compare("silence"), 0);
 		BOOST_CHECK_EQUAL(em.link.compare(""), 0);
 		BOOST_CHECK_EQUAL(em.base.compare("zipper_mouth_face"), 0);
-		//TODO check other atributes
+		BOOST_CHECK_EQUAL(em.variants.size(), 7);
+		BOOST_CHECK_EQUAL(em.variants[0].compare("zipper_mouth_face(wh)"), 0);
+		BOOST_CHECK_EQUAL(em.score, 10);
+		BOOST_CHECK_EQUAL(em.current_price, 1.0);
+		BOOST_CHECK_EQUAL(em.primary, true);
+		BOOST_CHECK_EQUAL(em.registered_at.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.permalock, true);
+		BOOST_CHECK_EQUAL(em.copyright_lock, false);
+		BOOST_CHECK_EQUAL(em.link_expiration.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.lock_expiration.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.times_changed, 2);
+		BOOST_CHECK_EQUAL(em.is_wide, false);
+		BOOST_CHECK_EQUAL(em.times_used, 8);
+		BOOST_CHECK_EQUAL(em.attribution.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.user_id.compare("emoji"), 0);
+		BOOST_CHECK_EQUAL(em.checksums.svg.compare("64f320f87517fc31fbf7f798a77d980b"), 0);
+		BOOST_CHECK_EQUAL(em.checksums.png["hdpi"].compare("e70ffdce3d9bb87f2247283b53353aa8"), 0);
+		BOOST_CHECK_EQUAL(em.favorited, 5);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
