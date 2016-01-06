@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "./checksums.h"
+#include "rapidjson/document.h"
 
 namespace Emojidex {
 	namespace Data {
@@ -29,6 +30,11 @@ namespace Emojidex {
 			std::string attribution;
 			std::string user_id;
 			Emojidex::Data::Checksums checksums;
+
+			Emoji();
+
+			void fillFromJSONString(std::string json);
+			void fillFromJSON(rapidjson::Value& d);
 		};
 	}
 }

@@ -88,41 +88,12 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::operator<<(Emojidex::Dat
 void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
 {
 	Emojidex::Data::Collection collect;
-
+	
 	for (rapidjson::SizeType i = 0; i < d.Size(); i++) {
 		Emojidex::Data::Emoji moji = Emojidex::Data::Emoji();
-		moji.code = d[i]["code"].GetString();
-		if (d[i]["moji"].IsString()) { moji.moji = d[i]["moji"].GetString(); }
-		if (d[i]["unicode"].IsString()) { moji.unicode = d[i]["unicode"].GetString(); }
-		d[i]["category"].IsString()? 
-			moji.category = d[i]["category"].GetString() : moji.category = "";
-		if (d[i].HasMember("checksums"))
-		{
-			const rapidjson::Value& checksums = d[i]["checksums"];
-			
-			if (checksums.HasMember("svg")) {
-				const rapidjson::Value& svg = checksums["svg"];
-				if(svg.IsString())	moji.checksums.svg = svg.GetString();
-			}
-
-			if (checksums.HasMember("png")) {
-				const rapidjson::Value& png = checksums["png"];
-				for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-					if(it->value.IsString())	moji.checksums.png[it->name.GetString()] = it->value.GetString();
-			}
-		}
-
-		rapidjson::Value& tags = d[i]["tags"];
-		assert(tags.IsArray());
-		for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
-			moji.tags.push_back(tags[tag_i].GetString());
-
-		rapidjson::Value& variants = d[i]["variants"];
-		assert(variants.IsArray());
-		for (rapidjson::SizeType variant_i = 0; variant_i < variants.Size(); variant_i++)
-			moji.variants.push_back(variants[variant_i].GetString());
-
-		collect.emoji[moji.code] = moji;
+		moji.fillFromJSON(d[i]);
+		if (moji.code.compare("") != 0)
+			collect.emoji[moji.code] = moji;
 	}
 
 	this->merge(collect);

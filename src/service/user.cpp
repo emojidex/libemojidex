@@ -82,7 +82,22 @@ bool Emojidex::Service::User::addFavorite(string code)
 	string response = transactor.POST("users/favorites", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
 
-	//TODO responseを処理し、statusコードが出てなければemoji情報が入っていることを確認し、favorites内に同じ絵文字が既に存在する場合は更新し、無い場合は追加
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("code")) { //Check to see if a code is actually present
+			Emojidex::Data::Emoji em;
+			em.fillFromJSONString(response);
+			this->favorites.add(em);
+			return true;
+		} else if (doc.HasMember("status")) {
+			return false;
+		}
+	}
 
 	return false;
 }
@@ -127,7 +142,7 @@ std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory
 							doc["history"][i]["last_used"].GetString()));
 			}
 		} else if (doc.HasMember("status")) {
-		// todo handle status
+			return history_page;
 		}
 	}
 

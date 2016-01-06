@@ -14,7 +14,6 @@ using namespace std;
 // libemojidex Utility test
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
-	// Check that defaults are accurate
 	BOOST_AUTO_TEST_CASE(code_utilities) {
 		BOOST_TEST_MESSAGE("Checking code unescape:");
 		std::string escaped_code = Emojidex::escapeCode(":test code:");
@@ -33,6 +32,72 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 		encap_code = Emojidex::encapsulateCode(":test code:");
 		BOOST_TEST_MESSAGE("Encapsulating ':test code:' results in: " << encap_code);
 		BOOST_CHECK_EQUAL(encap_code.compare(":test code:"), 0);
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
+///////////////////////////////////////////////////////////////////////////////
+// Emoji data container test
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
+	BOOST_AUTO_TEST_CASE(emoji_data) {
+		BOOST_TEST_MESSAGE("Checking emoji data fill from JSON string:");
+		Emojidex::Data::Emoji em;
+		em.fillFromJSONString("{\"code\":\"zipper mouth face\",\"moji\":\"🤐\","
+				"\"unicode\":\"1f910\",\"category\":\"faces\",\"tags\":[\"silence\"],\"link\":null,"
+				"\"base\":\"zipper_mouth_face\",\"variants\":[\"zipper_mouth_face(wh)\","
+				"\"zipper_mouth_face(p)\",\"zipper_mouth_face(ye)\",\"zipper_mouth_face(br)\","
+				"\"zipper_mouth_face(bk)\",\"zipper_mouth_face\",\"zipper_mouth_face(smiley)\"],"
+				"\"score\":0}");
+		BOOST_CHECK_EQUAL(em.code.compare("zipper mouth face"), 0);
+		BOOST_CHECK_EQUAL(em.moji.compare("🤐"), 0);
+		BOOST_CHECK_EQUAL(em.unicode.compare("1f910"), 0);
+		BOOST_CHECK_EQUAL(em.category.compare("faces"), 0);
+		BOOST_CHECK_EQUAL(em.tags.size(), 1);
+		BOOST_CHECK_EQUAL(em.tags[0].compare("silence"), 0);
+		BOOST_CHECK_EQUAL(em.link.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.base.compare("zipper_mouth_face"), 0);
+		BOOST_CHECK_EQUAL(em.variants.size(), 7);
+		BOOST_CHECK_EQUAL(em.variants[0].compare("zipper_mouth_face(wh)"), 0);
+		BOOST_CHECK_EQUAL(em.score, 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(emoji_data_detailed) {
+		BOOST_TEST_MESSAGE("Checking detailed emoji data fill from JSON string:");
+		Emojidex::Data::Emoji em;
+		em.fillFromJSONString("{\"code\":\"zipper mouth face\",\"moji\":\"🤐\","
+				"\"unicode\":\"1f910\",\"category\":\"faces\",\"tags\":[\"silence\"],\"link\":null,"
+				"\"base\":\"zipper_mouth_face\",\"variants\":[\"zipper_mouth_face(wh)\","
+				"\"zipper_mouth_face(p)\",\"zipper_mouth_face(ye)\",\"zipper_mouth_face(br)\","
+				"\"zipper_mouth_face(bk)\",\"zipper_mouth_face\",\"zipper_mouth_face(smiley)\"],"
+				"\"score\":0,\"current_price\":1.0,\"primary\":true,\"registered_at\":null,"
+				"\"permalock\":true,\"copyright_lock\":false,\"link_expiration\":null,"
+				"\"lock_expiration\":null,\"times_changed\":0,\"is_wide\":false,\"times_used\":0,"
+				"\"attribution\":null,\"user_id\":\"emoji\",\"checksums\":{"
+				"\"svg\":\"64f320f87517fc31fbf7f798a77d980b\",\"png\":{"
+				"\"ldpi\":\"cf5dca7b0c71ee482fba3faa5f802eef\",\"mdpi\":"
+				"\"6ddc276b2850459f2a018d1dec5f1632\",\"hdpi\":"
+				"\"e70ffdce3d9bb87f2247283b53353aa8\",\"xhdpi\":"
+				"\"18bbc85e597838a26b7e40a7361bfcf1\",\"xxhdpi\":"
+				"\"6bb35d9169c4f1a98293591222df0d9e\",\"xxxhdpi\":"
+				"\"f16e94d9a4d6e58f6f7f6a6f4c362bf4\",\"px8\":"
+				"\"549e037f61ffc3091a2d774abe01f94e\",\"px16\":"
+				"\"69b7725278aaf136f8908bf51c412874\",\"px32\":"
+				"\"8ba5e03812aa5f0df249ab0162816216\",\"px64\":"
+				"\"bfcfe6cbcc71525b4651541b62ba0db4\",\"px128\":"
+				"\"cc1e8638ebc062dbcfb3521d840901c7\",\"px256\":"
+				"\"eea71418b65007ebb76b7fad531f0211\",\"px512\":"
+				"\"c3a4d09276b2f9a4c45d56685651e026\",\"hanko\":"
+				"\"7bd6808ea4edd2acd0636b73a99d4a01\",\"seal\":"
+				"\"e1bfb5385d58f65c23cb7c2e6045ae1e\"}},\"favorited\":0}");
+		BOOST_CHECK_EQUAL(em.code.compare("zipper mouth face"), 0);
+		BOOST_CHECK_EQUAL(em.moji.compare("🤐"), 0);
+		BOOST_CHECK_EQUAL(em.unicode.compare("1f910"), 0);
+		BOOST_CHECK_EQUAL(em.category.compare("faces"), 0);
+		BOOST_CHECK_EQUAL(em.tags.size(), 1);
+		BOOST_CHECK_EQUAL(em.tags[0].compare("silence"), 0);
+		BOOST_CHECK_EQUAL(em.link.compare(""), 0);
+		BOOST_CHECK_EQUAL(em.base.compare("zipper_mouth_face"), 0);
+		//TODO check other atributes
 	}
 BOOST_AUTO_TEST_SUITE_END()
 

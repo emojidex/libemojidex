@@ -63,6 +63,7 @@ SET(EMOJIDEX_CPP_FILES
 	${PROJECT_SOURCE_DIR}/src/service/search.cpp
 	${PROJECT_SOURCE_DIR}/src/service/user.cpp
 	${PROJECT_SOURCE_DIR}/src/service/user/history_item.cpp
+	${PROJECT_SOURCE_DIR}/src/data/emoji.cpp
 	${PROJECT_SOURCE_DIR}/src/data/collection.cpp
 	${PROJECT_SOURCE_DIR}/src/data/checksums.cpp
 )
