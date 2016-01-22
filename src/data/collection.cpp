@@ -36,7 +36,15 @@ Emojidex::Data::Emoji Emojidex::Data::Collection::add(Emojidex::Data::Emoji new_
 	return emoji[new_emoji.code] = new_emoji;
 }
 
-Emojidex::Data::Emoji Emojidex::Data::Collection::findByMoji(string moji)
+bool Emojidex::Data::Collection::remove(std::string code)
+{
+	if (emoji.erase(code) == 1)
+		return true;
+
+	return false;
+}
+
+Emojidex::Data::Emoji Emojidex::Data::Collection::findByMoji(std::string moji)
 {
 	for (auto em : emoji)
 		if (em.second.moji.compare(moji) == 0)
@@ -44,8 +52,10 @@ Emojidex::Data::Emoji Emojidex::Data::Collection::findByMoji(string moji)
 	return Emojidex::Data::Emoji();
 }
 
-Emojidex::Data::Emoji Emojidex::Data::Collection::findByCode(string code)
+Emojidex::Data::Emoji Emojidex::Data::Collection::findByCode(std::string code)
 {
+	//TODO unescape code
+	//TODO avoid auto insert
 	return emoji[code];
 }
 
