@@ -18,12 +18,12 @@ final class NativeLibLoader
   {
     final String arch = getArchitecture();
 
-    load("crystax", "libcrystax.so", arch);
-    load("gnustl_shared", "libgnustl_shared.so", arch);
-    load("crypto", "libcrypto.so.1.0.0", arch);
-    load("ssl", "libssl.so.1.0.0", arch);
-    load("curl", "libcurl.so.5", arch);
-    load("emojidex-android", "libemojidex-android.so", arch);
+    load("libcrystax.so", arch);
+    load("libgnustl_shared.so", arch);
+    load("libcrypto.so.1.0.0", arch);
+    load("libssl.so.1.0.0", arch);
+    load("libcurl.so.5", arch);
+    load("libemojidex-android.so", arch);
   }
 
   /**
@@ -66,21 +66,21 @@ final class NativeLibLoader
    */
   private static String getPath(String name, String arch)
   {
-    return "libs/" + arch + "/" + name;
+    return "libs/" + arch + "/" + name + "_";
   }
 
   /**
    *  Load library.
    */
-  private static void load(String name, String filename, String arch)
+  private static void load(String name, String arch)
   {
     try
     {
-      System.loadLibrary(name);
+      System.load(name);
     }
     catch(UnsatisfiedLinkError e)
     {
-      loadFromJar(filename, arch);
+      loadFromJar(name, arch);
     }
   }
 
