@@ -14,6 +14,7 @@ namespace Emojidex {
 	std::string escapeCode(std::string code);
 	std::string unescapeCode(std::string code);
 	std::string encapsulateCode(std::string code);
+	std::string unencapsulateCode(std::string code);
 }
 
 #endif /* _LIBEMOJIDEX_H_ */

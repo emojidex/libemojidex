@@ -39,6 +39,11 @@ namespace Emojidex {
 			// Adds an emoji to the map
 			Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
 
+			// Removes an emoji from the map [by code]
+			// Returns true if the emoji was located in the map and removed
+			// Returns false if the emoji was not located in the map
+			bool remove(std::string code);
+
 			// Finds by moji[character]code (UTF emoji only)
 			Emojidex::Data::Emoji findByMoji(std::string moji);
 			// Finds by emoji [short] code

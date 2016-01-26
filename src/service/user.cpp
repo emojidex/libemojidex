@@ -109,7 +109,20 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	string response = transactor.DELETE("users/favorites", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
 
-	//TODO responseを処理し、statusコードが出てなければemoji情報が入っていることを確認し、favorites内からその絵文字を削除する
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("code")) { //Check to see if a code is actually present
+			this->favorites.remove(doc["code"].GetString());
+			return true;
+		} else if (doc.HasMember("status")) {
+			return false;
+		}
+	}
 
 	return false;
 }

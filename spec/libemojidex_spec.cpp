@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 		BOOST_TEST_MESSAGE("Checking code unescape:");
 		std::string escaped_code = Emojidex::escapeCode(":test code:");
 		BOOST_TEST_MESSAGE("Escaping ':test code:' results in: " << escaped_code);
-		BOOST_CHECK_EQUAL(escaped_code.compare("test_code"), 0);
+		BOOST_CHECK_EQUAL(escaped_code.compare(":test_code:"), 0);
 
 		BOOST_TEST_MESSAGE("Checking code escape:");
 		std::string unescaped_code = Emojidex::unescapeCode("test_code");
@@ -32,13 +32,18 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 		encap_code = Emojidex::encapsulateCode(":test code:");
 		BOOST_TEST_MESSAGE("Encapsulating ':test code:' results in: " << encap_code);
 		BOOST_CHECK_EQUAL(encap_code.compare(":test code:"), 0);
+
+		BOOST_TEST_MESSAGE("Checking code unencapsulate:");
+		std::string unencap_code = Emojidex::unencapsulateCode(":test code:");
+		BOOST_TEST_MESSAGE("Unencapsulating ':test code:' results in: " << unencap_code);
+		BOOST_CHECK_EQUAL(unencap_code.compare("test code"), 0);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Emoji data container test
 ///////////////////////////////////////////////////////////////////////////////
-BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
+BOOST_AUTO_TEST_SUITE(data_emoji_suite)
 	BOOST_AUTO_TEST_CASE(emoji_data) {
 		BOOST_TEST_MESSAGE("Checking emoji data fill from JSON string:");
 		Emojidex::Data::Emoji em;
@@ -118,6 +123,37 @@ BOOST_AUTO_TEST_SUITE(libemojidex_utility_suite)
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_AUTO_TEST_SUITE(data_container_suite)
+	BOOST_AUTO_TEST_CASE(basic_container_usage) {
+		Emojidex::Data::Collection col;
+		BOOST_CHECK(col.emoji.size() == 0);
+		Emojidex::Data::Emoji em = Emojidex::Data::Emoji();
+		em.code = "a";
+		em.category = "people";
+		col.add(em);
+		BOOST_CHECK(col.emoji.size() == 1);
+		em.code = "b";
+		em.category = "faces";
+		col.add(em);
+		BOOST_CHECK(col.emoji.size() == 2);
+		BOOST_CHECK(col.emoji["b"].category.compare("faces") == 0);
+		//Now re-add last emoji, code is the same so should update
+		col.add(em);
+		BOOST_CHECK(col.emoji.size() == 2);
+		//Test emoji is being updated
+		em.category = "people";
+		col.add(em);
+		BOOST_CHECK(col.emoji.size() == 2);
+		BOOST_CHECK(col.emoji["b"].category.compare("people") == 0);
+		//See if we can find an emoji by code
+		//TODO
+		//See if we get a blank emoji when that code isn't found in our map
+		//TODO
+		//Make sure the blank emoji isn't actually added to the map (default map behavior)
+		//TODO
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
 ///////////////////////////////////////////////////////////////////////////////
 // Settings tests
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,7 +175,6 @@ BOOST_AUTO_TEST_SUITE_END()
 // Transactor tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_transactor_suite)
-
 	Emojidex::Service::Transactor transactor;
 
 	BOOST_AUTO_TEST_CASE(transactor_get_no_query) {
@@ -194,14 +229,12 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
 		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);
 	}
-
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Index tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_indexes_suite)
-
 	Emojidex::Service::Indexes idx;
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed) {
@@ -227,6 +260,8 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(utf.locale.compare("ja") == 0);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
+		//Make sure we only loaded one language
+		BOOST_CHECK(utf.emoji["droplet"].moji.compare("") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
@@ -235,6 +270,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(ext.locale.compare("en") == 0);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
+		BOOST_CHECK(ext.emoji["bunny boy"].category.compare("people") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index) {
@@ -275,28 +311,24 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 //		BOOST_CHECK_GT(popular.more().emoji.size(), 0);
 //		BOOST_CHECK_GT(popular.emoji.size(), sz);
 //	}
-
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Search tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_search_suite)
-
 	Emojidex::Service::Search search;
 
 	// Empty search provides empty results
 	//BOOST_AUTO_TEST_CASE(term) {
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
 	//}
-
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // User tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_user_suite)
-
 	Emojidex::Service::User user;
 
 	// User does not yet have status
@@ -336,11 +368,21 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_TEST_MESSAGE("User favorites");
 		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
 
-		user.syncFavorites();
+		BOOST_CHECK(user.syncFavorites());
 		// Just in case
-		user.addFavorite("drift");
-		BOOST_CHECK(user.favorites.emoji.size() > 0);
-		//TODO
+		BOOST_CHECK(user.addFavorite("drift"));
+		unsigned int num_favorites = user.favorites.emoji.size();
+		BOOST_CHECK(num_favorites > 0);
+		BOOST_CHECK(user.removeFavorite("drift"));
+		//One favorite should have been removed
+		BOOST_CHECK(user.favorites.emoji.size() == num_favorites - 1);
+		//Try removing again
+		num_favorites = user.favorites.emoji.size();
+		//Favorite should already be gone
+		BOOST_CHECK(user.removeFavorite("drift") == false);
+		//No more emoji should have been removed (emoji was already removed)
+		BOOST_CHECK(user.favorites.emoji.size() == num_favorites);
+
 	}
 
 	// User history
@@ -362,18 +404,15 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.addHistory("poop") == true);
 		BOOST_CHECK(user.history[0].emoji_code.compare("poop") == 0);
 	}
-
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Client tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(client_suite)
-
 	// Check that this client is for version 1 of the api
 	BOOST_AUTO_TEST_CASE(api_version) {
 		Emojidex::Client *client = new Emojidex::Client();
 		BOOST_CHECK_EQUAL(client->apiVersion(), 1);
 	}
-
 BOOST_AUTO_TEST_SUITE_END()
