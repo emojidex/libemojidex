@@ -382,7 +382,6 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.removeFavorite("drift") == false);
 		//No more emoji should have been removed (emoji was already removed)
 		BOOST_CHECK(user.favorites.emoji.size() == num_favorites);
-
 	}
 
 	// User history
@@ -403,6 +402,8 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.history.size() > size_mark);
 		BOOST_CHECK(user.addHistory("poop") == true);
 		BOOST_CHECK(user.history[0].emoji_code.compare("poop") == 0);
+
+		BOOST_CHECK(user.history[0].last_used_posix > user.history[1].last_used_posix);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
