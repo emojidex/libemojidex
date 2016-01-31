@@ -185,9 +185,16 @@ bool Emojidex::Service::User::mergeHistoryItem(Emojidex::Service::HistoryItem hi
 	return false;
 }
 
+bool historyComparitor(Emojidex::Service::HistoryItem const& lhs, Emojidex::Service::HistoryItem const& rhs)
+{
+	if (lhs.last_used_posix > rhs.last_used_posix)
+		return true;
+	return false;
+}
+
 void Emojidex::Service::User::sortHistory()
 {
-	// TODO 日付で再整理する
+	std::sort(this->history.begin(), this->history.end(), &historyComparitor);
 }
 
 bool Emojidex::Service::User::addHistory(string code)

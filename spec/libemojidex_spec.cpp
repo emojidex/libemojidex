@@ -403,7 +403,21 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.addHistory("poop") == true);
 		BOOST_CHECK(user.history[0].emoji_code.compare("poop") == 0);
 
+		BOOST_TEST_MESSAGE("User history is sorted on sync");
+		Emojidex::Service::HistoryItem hi = user.history[0];
+		user.history[0] = user.history[1];
+		user.history[1] = hi;
+		hi = user.history[2];
+		user.history[2] = user.history[3];
+		user.history[3] = hi;
+		BOOST_CHECK(user.history[0].last_used_posix < user.history[1].last_used_posix);
+		BOOST_CHECK(user.history[1].last_used_posix > user.history[2].last_used_posix);
+		BOOST_CHECK(user.history[2].last_used_posix < user.history[3].last_used_posix);
+
+		user.syncHistory();
 		BOOST_CHECK(user.history[0].last_used_posix > user.history[1].last_used_posix);
+		BOOST_CHECK(user.history[1].last_used_posix > user.history[2].last_used_posix);
+		BOOST_CHECK(user.history[2].last_used_posix > user.history[3].last_used_posix);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
