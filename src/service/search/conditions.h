@@ -2,6 +2,7 @@
 #define EMOJIDEX_SERVICE_SEARCH_CONDITIONS_H
 
 #include <unordered_map>
+#include "string"
 
 namespace Emojidex {
 	namespace Service {
@@ -17,7 +18,7 @@ namespace Emojidex {
 		//	Emojidex::Service::SearchConditions* username(std::string username);
 		//	Emojidex::Service::SearchConditions* auth_token(std::string auth_token);
 
-			
+
 			Emojidex::Service::SearchConditions* condition(std::string key, std::string value);
 		};
 	}
