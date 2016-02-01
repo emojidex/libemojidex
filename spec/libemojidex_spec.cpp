@@ -234,6 +234,19 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
+// Query Options tests
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(query_opts_suite)
+	Emojidex::Service::QueryOpts conditions;
+
+	BOOST_AUTO_TEST_CASE(query_opts_building) {
+		BOOST_CHECK(conditions.valueOf("page").compare("") == 0);
+		BOOST_CHECK(conditions.page(1).valueOf("page").compare("1") == 0);
+		BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").valueOf("detailed").compare("true") == 0);
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
+///////////////////////////////////////////////////////////////////////////////
 // Index tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_indexes_suite)
@@ -332,9 +345,8 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(service_search_suite)
 	Emojidex::Service::Search search;
 
-	BOOST_AUTO_TEST_CASE(search_conditions) {
-
-	}
+	//BOOST_AUTO_TEST_CASE(search_conditions) {
+	//}
 	// Empty search provides empty results
 	//BOOST_AUTO_TEST_CASE(term) {
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
