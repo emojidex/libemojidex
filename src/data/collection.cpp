@@ -13,7 +13,7 @@ Emojidex::Data::Collection::Collection()
 	total_count = 0;
 	endpoint = "";
 	username = "";
-	token = "";
+	auth_token = "";
 }
 
 Emojidex::Data::Collection::~Collection()

@@ -56,18 +56,37 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 	return collect;
 }
 
+Emojidex::Data::Collection Emojidex::Service::Collector::getAuthorizedDynamicCollection(string name, 
+		std::string auth_token, unsigned int page, unsigned int limit, bool detailed)
+{
+	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
+	collect.detailed = detailed;
+	collect.endpoint = name;
+	collect.limit = limit;
+	collect.page = page;
+	collect.auth_token = auth_token;
+
+	Emojidex::Service::Transactor transactor;
+	string response = transactor.GET(name, {{"limit", std::to_string(limit)},
+			{"page", std::to_string(page)}, {"detailed", TF(detailed)}});
+
+	collect.mergeJSON(response);
+
+	return collect;
+}
+
 Emojidex::Data::Collection Emojidex::Service::Collector::getCollection(Emojidex::Data::Collection collect)
 {
 	Emojidex::Service::Transactor transactor;
 	
 	string response = "";
-	if (collect.token.compare("") != 0) {
+	if (collect.auth_token.compare("") != 0) {
 		response = transactor.GET(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
 				{"page", std::to_string(collect.page)}, {"detailed", TF(collect.detailed)}});
 	} else {
 		response = transactor.GET(collect.endpoint, {{"limit", std::to_string(collect.limit)}, 
 				{"page", std::to_string(collect.page)}, {"detailed", TF(collect.detailed)},
-				{"auth_token", collect.token}});
+				{"auth_token", collect.auth_token}});
 	}
 
 	collect.mergeJSON(response);

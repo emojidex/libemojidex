@@ -19,7 +19,7 @@ SET(DO_INSTALL true)
 # Options and interface builds
 OPTION(ANDROID "Build native Android libs (for NDK) and libemojidex JAR.")
 OPTION(JAVA "Build Java interfaces")
-OPTION(RUBY "Build Ruby interfaces")
+#OPTION(RUBY "Build Ruby interfaces")
 OPTION(OBJC "Build Objective-C interfaces")
 
 # We're using C++11
@@ -61,6 +61,7 @@ SET(EMOJIDEX_CPP_FILES
 	${PROJECT_SOURCE_DIR}/src/service/collector.cpp
 	${PROJECT_SOURCE_DIR}/src/service/indexes.cpp
 	${PROJECT_SOURCE_DIR}/src/service/search.cpp
+	${PROJECT_SOURCE_DIR}/src/service/search/conditions.cpp
 	${PROJECT_SOURCE_DIR}/src/service/user.cpp
 	${PROJECT_SOURCE_DIR}/src/service/user/history_item.cpp
 	${PROJECT_SOURCE_DIR}/src/data/emoji.cpp
@@ -99,6 +100,7 @@ INSTALL(FILES
 	${PROJECT_SOURCE_DIR}/src/service/collector.h
 	${PROJECT_SOURCE_DIR}/src/service/indexes.h
 	${PROJECT_SOURCE_DIR}/src/service/search.h
+	${PROJECT_SOURCE_DIR}/src/service/search/conditions.h
 	${PROJECT_SOURCE_DIR}/src/service/user.h
 	${PROJECT_SOURCE_DIR}/src/service/user/history_item.h
 	${PROJECT_SOURCE_DIR}/src/data/emoji.h
@@ -131,9 +133,9 @@ IF(JAVA)
 	INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/java/CMakeLists.txt)
 ENDIF(JAVA)
 
-IF(RUBY)
-  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/ruby/CMakeLists.txt)
-ENDIF(RUBY)
+#IF(RUBY)
+#  INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/ruby/CMakeLists.txt)
+#ENDIF(RUBY)
 
 IF(OBJC)
   INCLUDE(${PROJECT_SOURCE_DIR}/interfaces/objc/CMakeLists.txt)

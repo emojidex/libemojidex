@@ -12,7 +12,6 @@ namespace Emojidex {
 		class User
 		{
 		private:
-			std::string auth_token;
 			// Merges a page of history items into the history list
 			void mergeHistoryPage(std::vector<Emojidex::Service::HistoryItem> history_page);
 			// Merges a single history item into the history list.
@@ -33,6 +32,7 @@ namespace Emojidex {
 
 			AuthStatusCode status;
 			std::string username;
+			std::string auth_token;
 			bool pro;
 			std::string pro_exp;
 			bool premium;

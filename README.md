@@ -31,6 +31,13 @@ libemojidex features a full spec suite. Simply ```make test``` or, after buildin
 ```./spec/libemojidex_spec```. For detailed output you can call with ```--log_level=message``` 
 like ```./spec/libemojidex_spec --log_level=message```.
 
+If you wish to test premium only endpoints or options, such as the 'newest' and 'popular' indexes 
+you must prefix the test command with "EMOJIDEX_AUTH_TOKEN=1234567890abcdef", replacing the 
+numbers with your auth_token (which can be found in your user settings on emojidex.com). Free 
+premium accounts are available for anyone working on emojidex code or integrating clients into 
+their software - simply e-mail info@emojidex.com with your username and a short description of 
+what you are working on.
+
 Java Native Interface
 ---------------------
 

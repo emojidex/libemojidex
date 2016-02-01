@@ -3,6 +3,8 @@
 #include <service/settings.h>
 #include <service/transactor.h>
 
+#include <stdlib.h>
+
 using namespace std;
 
 #define BOOST_TEST_DYN_LINK 
@@ -294,23 +296,34 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(emoji.emoji.begin()->second.checksums.png["xhdpi"].compare("") != 0);
 	}
 
-//	BOOST_AUTO_TEST_CASE(newest_index) {
-//		BOOST_TEST_MESSAGE("Index newest");
-//		Emojidex::Data::Collection newest = idx.newest();
-//		int sz = newest.emoji.size();
-//		BOOST_CHECK_GT(sz, 0);
-//		BOOST_CHECK_GT(newest.more().emoji.size(), 0);
-//		BOOST_CHECK_GT(newest.emoji.size(), sz);
-//	}
-//
-//	BOOST_AUTO_TEST_CASE(popular_index) {
-//		BOOST_TEST_MESSAGE("Index popular");
-//		Emojidex::Data::Collection popular = idx.popular();
-//		int sz = popular.emoji.size();
-//		BOOST_CHECK_GT(sz, 0);
-//		BOOST_CHECK_GT(popular.more().emoji.size(), 0);
-//		BOOST_CHECK_GT(popular.emoji.size(), sz);
-//	}
+
+	BOOST_AUTO_TEST_CASE(newest_index) {
+		BOOST_TEST_MESSAGE("Index newest");
+		if (std::getenv("EMOJIDEX_AUTH_TOKEN") != NULL) {
+			std::string auth_token = std::string(getenv("EMOJIDEX_AUTH_TOKEN"));
+
+			Emojidex::Data::Collection newest = idx.newest(auth_token);
+			int sz = newest.emoji.size();
+			BOOST_CHECK_GT(sz, 0);
+			BOOST_CHECK_GT(newest.more().emoji.size(), 0);
+			BOOST_CHECK_GT(newest.emoji.size(), sz);
+		}
+		//TODO make sure no auth token returns empty
+	}
+
+	BOOST_AUTO_TEST_CASE(popular_index) {
+		BOOST_TEST_MESSAGE("Index popular");
+		if (std::getenv("EMOJIDEX_AUTH_TOKEN") != NULL) {
+			std::string auth_token = std::string(getenv("EMOJIDEX_AUTH_TOKEN"));
+			
+			Emojidex::Data::Collection popular = idx.popular(auth_token);
+			int sz = popular.emoji.size();
+			BOOST_CHECK_GT(sz, 0);
+			BOOST_CHECK_GT(popular.more().emoji.size(), 0);
+			BOOST_CHECK_GT(popular.emoji.size(), sz);
+		}
+		//TODO make sure no auth token returns empty
+	}
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -319,6 +332,9 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(service_search_suite)
 	Emojidex::Service::Search search;
 
+	BOOST_AUTO_TEST_CASE(search_conditions) {
+
+	}
 	// Empty search provides empty results
 	//BOOST_AUTO_TEST_CASE(term) {
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);

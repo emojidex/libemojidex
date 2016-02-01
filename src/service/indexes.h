@@ -38,11 +38,13 @@ namespace Emojidex {
 			Emojidex::Data::Collection emoji(unsigned int page = Emojidex::Service::Collector::DefaultPage,
 					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 			// Get Newest emoji
-			Emojidex::Data::Collection newest(unsigned int page = Emojidex::Service::Collector::DefaultPage,
+			Emojidex::Data::Collection newest(std::string auth_token,
+					unsigned int page = Emojidex::Service::Collector::DefaultPage,
 					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 
 			// Get most Popular emoji
-			Emojidex::Data::Collection popular(unsigned int page = Emojidex::Service::Collector::DefaultPage,
+			Emojidex::Data::Collection popular(std::string auth_token,
+					unsigned int page = Emojidex::Service::Collector::DefaultPage,
 					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
 		};
 	}

@@ -76,7 +76,7 @@ namespace Emojidex {
 
 			// User info
 			std::string username;
-			std::string token;
+			std::string auth_token;
 
 			// Get more of the collection if the collection is paginated and has remaining pages.
 			// Returns true if the next page was sucessfully obtained. Returns false if there are 

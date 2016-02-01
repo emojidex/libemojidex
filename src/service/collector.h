@@ -23,6 +23,9 @@ namespace Emojidex {
 				bool detailed);
 			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int page,
 				unsigned int limit, bool detailed);
+			static Emojidex::Data::Collection getAuthorizedDynamicCollection(std::string name,
+				std::string auth_token, 
+				unsigned int page, unsigned int limit, bool detailed);
 			static Emojidex::Data::Collection getCollection(Emojidex::Data::Collection collect);
 		};
 	}

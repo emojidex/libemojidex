@@ -65,14 +65,14 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page,
 	return Emojidex::Service::Collector::getDynamicCollection("emoji", page, limit, detailed);
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::newest(unsigned int page,
+Emojidex::Data::Collection Emojidex::Service::Indexes::newest(std::string auth_token, unsigned int page,
 		unsigned int limit, bool detailed)
 {
-	return Emojidex::Service::Collector::getDynamicCollection("newest", page, limit, detailed);
+	return Emojidex::Service::Collector::getAuthorizedDynamicCollection("newest", auth_token, page, limit, detailed);
 }
 
-Emojidex::Data::Collection Emojidex::Service::Indexes::popular(unsigned int page,
+Emojidex::Data::Collection Emojidex::Service::Indexes::popular(std::string auth_token, unsigned int page,
 		unsigned int limit, bool detailed)
 {
-	return Emojidex::Service::Collector::getDynamicCollection("popular", page, limit, detailed);
+	return Emojidex::Service::Collector::getAuthorizedDynamicCollection("popular", auth_token, page, limit, detailed);
 }
