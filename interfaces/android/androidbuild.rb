@@ -40,3 +40,17 @@ puts "== Creating Native Interface Java sources"
 
 puts "== Running NDK Build"
 `NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
+
+puts "== Copying temporary natives for jar"
+Dir.chdir(@build_dir) do
+  tmp_dir = 'tmp';
+  FileUtils.rm_rf(tmp_dir);
+  Dir.glob('libs/**/*') do |filename|
+    tmp_filename = "#{tmp_dir}/#{filename}"
+    if FileTest.directory?(filename) then
+      FileUtils.mkdir_p(tmp_filename)
+      next
+    end
+    FileUtils.cp_r(filename, "#{tmp_filename}_", {remove_destination: true});
+  end
+end
