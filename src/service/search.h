@@ -20,6 +20,8 @@ namespace Emojidex {
 		//	Emojidex::Data::Collection ending(std::string code_ew, Emojidex::Service::QueryOpts conditions);
 		//	Emojidex::Data::Collection tags(std::string *tags, Emojidex::Service::QueryOpts conditions);
 		//	Emojidex::Data::Collection advanced(std::string code_cont, std::string *categories, std::string *tags, Emojidex::Service::QueryOpts conditions);
+
+      Emojidex::Data::Emoji find(std::string code, bool detailed = true);
 		};
 	}
 }
