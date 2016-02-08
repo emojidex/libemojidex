@@ -45,6 +45,30 @@ string Emojidex::Service::Transactor::generateQueryString(const std::unordered_m
 	return query_s.substr(0, query_s.size() - 1);
 }
 
+std::string hex(unsigned int c)
+{
+    std::ostringstream stm ;
+    stm << '%' << std::hex << std::uppercase << c ;
+    return stm.str() ;
+}
+
+std::string url_encode(const std::string& str)
+{
+    static const std::string unreserved = "0123456789"
+                                            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                            "abcdefghijklmnopqrstuvwxyz"
+                                            "-_.~/" ;
+    std::string result ;
+
+    for( unsigned char c : str )
+    {
+        if( unreserved.find(c) != std::string::npos ) result += c ;
+        else result += hex(c) ;
+    }
+
+    return result ;
+}
+
 std::string Emojidex::Service::Transactor::request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<string, string>& query, int* status)
 {
 	CURL *curl;
@@ -55,17 +79,22 @@ std::string Emojidex::Service::Transactor::request(const std::string& requestnam
 	curl = curl_easy_init();
 
 	std::stringstream url_stream;
-	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << endpoint;
+	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << url_encode(endpoint);
 
 	if (curl) {
 		const string query_string = generateQueryString(query);
+
+		struct curl_slist *headers = NULL;
+		headers = curl_slist_append(headers, "charset: utf-8");
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, "libemojidex/1.0");
+
 		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, requestname.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query_string.length());
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		res = curl_easy_perform(curl);
 		

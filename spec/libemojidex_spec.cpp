@@ -345,6 +345,17 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(service_search_suite)
 	Emojidex::Service::Search search;
 
+	BOOST_AUTO_TEST_CASE(search_find) {
+		Emojidex::Data::Emoji em = search.find("幻", false);
+		BOOST_CHECK(em.checksums.sum("png", "px32").compare("743b2af6d489390821f0e56a5d357b50") != 0);
+		BOOST_CHECK(em.category.compare("abstract") == 0);
+		em = search.find("幻");
+		BOOST_CHECK(em.checksums.sum("png", "px32").compare("743b2af6d489390821f0e56a5d357b50") == 0);
+		BOOST_CHECK(em.copyright_lock == true);
+		BOOST_CHECK(em.variants[1].compare("幻(白)") == 0);
+		BOOST_CHECK(em.user_id.compare("Zero") == 0);
+	}
+
 	//BOOST_AUTO_TEST_CASE(search_conditions) {
 	//}
 	// Empty search provides empty results

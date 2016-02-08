@@ -45,6 +45,8 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 		this->user_id = d["user_id"].GetString();
 	if (d.HasMember("favorited") && d["favorited"].IsUint())
 		this->favorited = d["favorited"].GetUint();
+	if (d.HasMember("copyright_lock"))
+		this->copyright_lock = d["copyright_lock"].GetBool();
 
 	rapidjson::Value& tags = d["tags"];
 	assert(tags.IsArray());

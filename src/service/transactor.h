@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+#define TF(bv) ((bv)?"true":"false")
+
 namespace Emojidex {
 	namespace Service {
 		// performs transactions with an emojidex API server
