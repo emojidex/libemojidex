@@ -362,10 +362,6 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	//BOOST_AUTO_TEST_CASE(term) {
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
 	//}
-
-	BOOST_AUTO_TEST_CASE(find) {
-		search.find(":ガソリンスタンド:");
-	}
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
