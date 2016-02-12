@@ -6,9 +6,12 @@ Emojidex::Service::Search::Search()
 	this->current_page = 0;
 }
 
-Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont, Emojidex::Service::QueryOpts conditions)
+Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection results;
+
+	if (conditions == NULL)
+		conditions = new Emojidex::Service::QueryOpts();
 
 	return results;
 }

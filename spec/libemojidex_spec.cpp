@@ -356,12 +356,11 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(em.user_id.compare("Zero") == 0);
 	}
 
-	//BOOST_AUTO_TEST_CASE(search_conditions) {
-	//}
-	// Empty search provides empty results
-	//BOOST_AUTO_TEST_CASE(term) {
+	BOOST_AUTO_TEST_CASE(search_term) {
+		// Empty search provides empty results
+		BOOST_CHECK(search.term("").size == 0);
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
-	//}
+	}
 
 	BOOST_AUTO_TEST_CASE(find) {
 		search.find(":ガソリンスタンド:");
