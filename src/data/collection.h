@@ -6,6 +6,7 @@
 
 #include <unordered_map>
 #include "./emoji.h"
+#include "../service/query_opts.h"
 #include "rapidjson/document.h"
 
 namespace Emojidex {
@@ -73,10 +74,15 @@ namespace Emojidex {
 			unsigned int page;
 			unsigned short limit;
 			unsigned int total_count;
+			std::string ext_args;
+			std::vector<std::string> tags;
 
 			// User info
 			std::string username;
 			std::string auth_token;
+
+			// Fills parameters from a QueryOpts object
+			void parseQueryOpts(Emojidex::Service::QueryOpts opts);
 
 			// Get more of the collection if the collection is paginated and has remaining pages.
 			// Returns true if the next page was sucessfully obtained. Returns false if there are 

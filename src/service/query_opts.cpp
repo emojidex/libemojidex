@@ -51,3 +51,18 @@ std::string Emojidex::Service::QueryOpts::valueOf(std::string key)
 
 	return pos->second;
 }
+
+Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::parseUnorderedMap(std::unordered_map<std::string, std::string> source_map)
+{
+	for (auto it = source_map.begin(); it != source_map.end(); it++)
+		this->condition(it->first, it->second);
+	return *this;
+}
+
+std::string Emojidex::Service::QueryOpts::to_string()
+{
+	std::string query_string = "";
+
+	//TODO
+	return query_string;
+}

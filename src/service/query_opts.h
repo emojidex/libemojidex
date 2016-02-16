@@ -24,6 +24,9 @@ namespace Emojidex {
 			Emojidex::Service::QueryOpts condition(std::string key, std::string value);
 
 			std::string valueOf(std::string key);
+
+			Emojidex::Service::QueryOpts parseUnorderedMap(std::unordered_map<std::string, std::string> source_map);
+			std::string to_string();
 		};
 	}
 }

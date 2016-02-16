@@ -26,9 +26,9 @@ namespace Emojidex {
 			// Get standard UTF emoji info in 3 compact forms
 			Emojidex::Data::MojiCodes mojiCodes(std::string locale = "");
 			// Get a collection of all standard UTF emoji
-			Emojidex::Data::Collection utfEmoji(std::string locale = "", bool detailed = false);
+			Emojidex::Data::Collection utfEmoji(std::string locale = "", bool detailed = true);
 			// Get a collection of all emojidex Extended emoji
-			Emojidex::Data::Collection extendedEmoji(std::string locale = "", bool detailed = false);
+			Emojidex::Data::Collection extendedEmoji(std::string locale = "", bool detailed = true);
 		  
 			//=====================================================================================
 			// Dynamic Indexes

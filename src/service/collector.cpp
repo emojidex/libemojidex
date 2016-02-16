@@ -39,7 +39,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 
 
 Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(string name,
-		unsigned int page, unsigned int limit, bool detailed)
+		unsigned int page, unsigned int limit, bool detailed, std::string ext_args)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;
@@ -57,7 +57,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 }
 
 Emojidex::Data::Collection Emojidex::Service::Collector::getAuthorizedDynamicCollection(string name,
-		std::string auth_token, unsigned int page, unsigned int limit, bool detailed)
+		std::string auth_token, unsigned int page, unsigned int limit, bool detailed, std::string ext_args)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.detailed = detailed;

@@ -247,6 +247,22 @@ BOOST_AUTO_TEST_SUITE(query_opts_suite)
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
+// Collection tests
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(collection_suite)
+	Emojidex::Data::Collection collect;
+
+	BOOST_AUTO_TEST_CASE(collect_params_from_query_opts) {
+		Emojidex::Service::QueryOpts opts;
+		opts.username("Z").auth_token("1234").tag("testing").tag("テスト").page(5).limit(33);
+		collect.parseQueryOpts(opts);
+		BOOST_CHECK(collect.username.compare("Z") == 0);
+		//BOOST_CHECK(conditions.page(1).valueOf("page").compare("1") == 0);
+		//BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").valueOf("detailed").compare("true") == 0);
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
+///////////////////////////////////////////////////////////////////////////////
 // Index tests
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(service_indexes_suite)
@@ -358,7 +374,9 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 
 	BOOST_AUTO_TEST_CASE(search_term) {
 		// Empty search provides empty results
-		BOOST_CHECK(search.term("").size == 0);
+		BOOST_CHECK(search.term("").emoji.size() == 0);
+		BOOST_CHECK(search.term("pudding").emoji.size() > 0);
+
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
 	}
 

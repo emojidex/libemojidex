@@ -2,6 +2,8 @@
 
 #include "../service/collector.h"
 
+#include <sstream>
+
 using namespace std;
 using namespace Emojidex::Service;
 
@@ -126,6 +128,13 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	}
 
 	return this;
+}
+
+void Emojidex::Data::Collection::parseQueryOpts(Emojidex::Service::QueryOpts opts)
+{
+	username = opts.valueOf("username");
+	auth_token = opts.valueOf("auth_token");
+	std::istringstream(opts.valueOf("detailed")) >> std::boolalpha >> detailed;
 }
 
 Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()

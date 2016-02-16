@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include "./query_opts.h"
 
 #define TF(bv) ((bv)?"true":"false")
 
@@ -14,12 +15,14 @@ namespace Emojidex {
 		private:
 			std::string generateQueryString(const std::unordered_map<std::string, std::string>& query);
 			std::string request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<std::string, std::string>& query, int* status);
+			std::string request(const std::string& requestname, const std::string& endpoint, const std::string& query, int* status);
 		public:
 			Transactor();
 
 			std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
 			std::string GET(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+			std::string GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status = NULL);
 			std::string POST(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
 			std::string DELETE(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
 		};
