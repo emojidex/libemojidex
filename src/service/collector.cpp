@@ -5,7 +5,7 @@
 using namespace std;
 using namespace Emojidex::Data;
 
-const string Emojidex::Service::Collector::DefaultLocale = DEFAULT_LOCALE;
+//const string Emojidex::Service::Collector::DefaultLocale = DEFAULT_LOCALE;
 
 void Emojidex::Service::Collector::defaultLocale(string *object_locale, string *locale)
 {

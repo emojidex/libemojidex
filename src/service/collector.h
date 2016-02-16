@@ -1,11 +1,7 @@
 #ifndef EMOJIDEX_SERVICE_COLLECTOR_H
 #define EMOJIDEX_SERVICE_COLLECTOR_H
 
-#define DEFAULT_LOCALE "en"
-#define DEFAULT_PAGE 1
-#define DEFAULT_LIMIT 50
-#define TF(bv) ((bv)?"true":"false")
-
+#include "./query_opts.h"
 #include "../data/collection.h"
 
 namespace Emojidex {
@@ -14,9 +10,9 @@ namespace Emojidex {
 		class Collector
 		{
 		public:
-			static const std::string DefaultLocale;
-			static const unsigned int DefaultPage = DEFAULT_PAGE;
-			static const unsigned int DefaultLimit = DEFAULT_LIMIT;
+			//static const std::string DefaultLocale;
+			//static const unsigned int DefaultPage = DEFAULT_PAGE;
+			//static const unsigned int DefaultLimit = DEFAULT_LIMIT;
 
 			static void defaultLocale(std::string *object_locale, std::string *locale);
 			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale,

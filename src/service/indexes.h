@@ -35,17 +35,17 @@ namespace Emojidex {
 			// ===============
 
 			// Get full emoji index by score
-			Emojidex::Data::Collection emoji(unsigned int page = Emojidex::Service::Collector::DefaultPage,
-					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
+			Emojidex::Data::Collection emoji(unsigned int page = DEFAULT_PAGE,
+					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 			// Get Newest emoji
 			Emojidex::Data::Collection newest(std::string auth_token,
-					unsigned int page = Emojidex::Service::Collector::DefaultPage,
-					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
+					unsigned int page = DEFAULT_PAGE,
+					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 
 			// Get most Popular emoji
 			Emojidex::Data::Collection popular(std::string auth_token,
-					unsigned int page = Emojidex::Service::Collector::DefaultPage,
-					unsigned int limit = Emojidex::Service::Collector::DefaultLimit, bool detailed = false);
+					unsigned int page = DEFAULT_PAGE,
+					unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 		};
 	}
 }

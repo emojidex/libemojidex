@@ -240,9 +240,12 @@ BOOST_AUTO_TEST_SUITE(query_opts_suite)
 	Emojidex::Service::QueryOpts conditions;
 
 	BOOST_AUTO_TEST_CASE(query_opts_building) {
-		BOOST_CHECK(conditions.valueOf("page").compare("") == 0);
-		BOOST_CHECK(conditions.page(1).valueOf("page").compare("1") == 0);
-		BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").valueOf("detailed").compare("true") == 0);
+		BOOST_CHECK(conditions.getValue("page").compare("") == 0);
+		BOOST_CHECK(conditions.getPage() == 0);
+		BOOST_CHECK(conditions.page(1).getValue("page").compare("1") == 0);
+		BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").getValue("detailed").compare("true") == 0);
+		BOOST_CHECK(conditions.getDetailed() == true);
+		BOOST_CHECK(conditions.detailed(false).getDetailed() == false);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -254,11 +257,19 @@ BOOST_AUTO_TEST_SUITE(collection_suite)
 
 	BOOST_AUTO_TEST_CASE(collect_params_from_query_opts) {
 		Emojidex::Service::QueryOpts opts;
-		opts.username("Z").auth_token("1234").tag("testing").tag("テスト").page(5).limit(33);
+		opts.username("Z").auth_token("a1234").tag("testing").tag("テスト").page(5).limit(33).detailed(true);
 		collect.parseQueryOpts(opts);
 		BOOST_CHECK(collect.username.compare("Z") == 0);
-		//BOOST_CHECK(conditions.page(1).valueOf("page").compare("1") == 0);
-		//BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").valueOf("detailed").compare("true") == 0);
+		BOOST_CHECK(collect.auth_token.compare("a1234") == 0);
+		BOOST_CHECK(collect.tags[0].compare("testing") == 0);
+		BOOST_CHECK(collect.tags[1].compare("テスト") == 0);
+		BOOST_CHECK(collect.page == 5);
+		BOOST_CHECK(collect.limit == 33);
+		BOOST_CHECK(collect.detailed == true);
+		opts.detailed(false).tag("third");
+		collect.parseQueryOpts(opts);
+		BOOST_CHECK(collect.detailed == false);
+		BOOST_CHECK(collect.tags.size() == 3);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 

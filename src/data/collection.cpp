@@ -2,16 +2,14 @@
 
 #include "../service/collector.h"
 
-#include <sstream>
-
 using namespace std;
 using namespace Emojidex::Service;
 
 Emojidex::Data::Collection::Collection()
 {
 	moreMethod = NULL;
-	page = Collector::DefaultPage;
-	limit = Collector::DefaultLimit;
+	page = DEFAULT_PAGE;
+	limit = DEFAULT_LIMIT;
 	total_count = 0;
 	endpoint = "";
 	username = "";
@@ -132,9 +130,9 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 
 void Emojidex::Data::Collection::parseQueryOpts(Emojidex::Service::QueryOpts opts)
 {
-	username = opts.valueOf("username");
-	auth_token = opts.valueOf("auth_token");
-	std::istringstream(opts.valueOf("detailed")) >> std::boolalpha >> detailed;
+	username = opts.getValue("username");
+	auth_token = opts.getValue("auth_token");
+	detailed = opts.getDetailed();
 }
 
 Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()

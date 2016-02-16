@@ -5,8 +5,6 @@
 #include <unordered_map>
 #include "./query_opts.h"
 
-#define TF(bv) ((bv)?"true":"false")
-
 namespace Emojidex {
 	namespace Service {
 		// performs transactions with an emojidex API server
