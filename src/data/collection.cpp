@@ -132,6 +132,10 @@ void Emojidex::Data::Collection::parseQueryOpts(Emojidex::Service::QueryOpts opt
 {
 	username = opts.getValue("username");
 	auth_token = opts.getValue("auth_token");
+	page = opts.getPage();
+	limit = opts.getLimit();
+	tags = opts.tags;
+	ext_opts = opts.ext_opts;
 	detailed = opts.getDetailed();
 }
 

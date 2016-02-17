@@ -74,7 +74,7 @@ namespace Emojidex {
 			unsigned int page;
 			unsigned short limit;
 			unsigned int total_count;
-			std::string ext_args;
+			std::string ext_opts;
 			std::vector<std::string> tags;
 
 			// User info

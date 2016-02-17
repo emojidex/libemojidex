@@ -9,7 +9,7 @@ Emojidex::Service::QueryOpts::QueryOpts()
 	//this->conditions["detailed"] = "true";
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::page(unsigned int number)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::page(unsigned int number)
 {
 	this->conditions["page"] = std::to_string(number);
 	return *this;
@@ -23,7 +23,7 @@ unsigned int Emojidex::Service::QueryOpts::getPage()
 	return std::stoi(val);
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::limit(unsigned int value)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::limit(unsigned int value)
 {
 	this->conditions["limit"] = std::to_string(value);
 	return *this;
@@ -37,7 +37,7 @@ unsigned int Emojidex::Service::QueryOpts::getLimit()
 	return std::stoi(val);
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::detailed(bool detail)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::detailed(bool detail)
 {
 	conditions["detailed"] = TF(detail);
 	return *this;
@@ -54,25 +54,25 @@ bool Emojidex::Service::QueryOpts::getDetailed()
 	return val_bool;
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::username(std::string username)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::username(std::string username)
 {
 	this->conditions["username"] = username;
 	return *this;
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::auth_token(std::string auth_token)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::auth_token(std::string auth_token)
 {
 	this->conditions["auth_token"] = auth_token;
 	return *this;
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::tag(std::string tag)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::tag(std::string tag)
 {
 	this->tags.push_back(tag);
 	return *this;
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::condition(std::string key, std::string value)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::condition(std::string key, std::string value)
 {
 	this->conditions[key] = value;
 	return *this;
@@ -88,7 +88,7 @@ std::string Emojidex::Service::QueryOpts::getValue(std::string key)
 	return pos->second;
 }
 
-Emojidex::Service::QueryOpts Emojidex::Service::QueryOpts::parseUnorderedMap(std::unordered_map<std::string, std::string> source_map)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::parseUnorderedMap(std::unordered_map<std::string, std::string> source_map)
 {
 	for (auto it = source_map.begin(); it != source_map.end(); it++)
 		this->condition(it->first, it->second);
