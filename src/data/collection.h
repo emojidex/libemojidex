@@ -69,20 +69,23 @@ namespace Emojidex {
 			// Service Info
 			// ============
 			std::string endpoint;
-			bool detailed;
-			std::string locale;
-			unsigned int page;
-			unsigned short limit;
+			Emojidex::Service::QueryOpts opts;
+			//bool detailed;
+			//std::string locale;
+			//unsigned int page;
+			//unsigned short limit;
 			unsigned int total_count;
-			std::string ext_opts;
-			std::vector<std::string> tags;
+			//std::string ext_opts;
+			//std::vector<std::string> tags; //TODO create tag filler
+			//std::vector<std::string> categories; //TODO create category filler
+			
 
 			// User info
-			std::string username;
-			std::string auth_token;
+			//std::string username;
+			//std::string auth_token;
 
 			// Fills parameters from a QueryOpts object
-			void parseQueryOpts(Emojidex::Service::QueryOpts opts);
+			//void parseQueryOpts(Emojidex::Service::QueryOpts opts);
 
 			// Get more of the collection if the collection is paginated and has remaining pages.
 			// Returns true if the next page was sucessfully obtained. Returns false if there are 

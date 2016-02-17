@@ -17,11 +17,6 @@ Emojidex::Service::Indexes::~Indexes()
 
 Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
-	Emojidex::Service::Collector::defaultLocale(&this->codes->locale, &locale);
-
-	if (this->codes->locale.compare(locale) == 0)
-		return *this->codes;
-
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.GET("moji_codes", {{"locale", locale}});
 	

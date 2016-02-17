@@ -16,18 +16,16 @@ Emojidex::Data::Collection Emojidex::Service::Search::term(const std::string cod
 
 Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont, Emojidex::Service::QueryOpts *conditions)
 {
-	Emojidex::Data::Collection results;
+	Emojidex::Data::Collection result;
 
 	if (conditions == NULL)
 		conditions = new Emojidex::Service::QueryOpts();
 
-	results.parseQueryOpts(*conditions);
-	//Emojidex::Service::Transactor transactor;
-	//std::string response = transactor.GET("search/emoji", *conditions);
+	result.opts = *conditions;
+	result.endpoint = "search/emoji";
+	result.more();
 
-	//TODO
-
-	return results;
+	return result;
 }
 
 Emojidex::Data::Emoji Emojidex::Service::Search::find(std::string code, bool detailed)

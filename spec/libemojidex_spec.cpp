@@ -257,21 +257,20 @@ BOOST_AUTO_TEST_SUITE(collection_suite)
 
 	BOOST_AUTO_TEST_CASE(collect_params_from_query_opts) {
 		Emojidex::Data::Collection collect;
-		Emojidex::Service::QueryOpts opts;
-		opts.auth_token("a1234").username("Z").tag("testing").tag("テスト").page(5).limit(33).detailed(true);
-		collect.parseQueryOpts(opts);
-		BOOST_CHECK(collect.username.compare("Z") == 0);
-		BOOST_CHECK(collect.auth_token.compare("a1234") == 0);
-		BOOST_CHECK(collect.tags.size() == 2);
-		//BOOST_CHECK(collect.tags[0].compare("testing") == 0);
-		//BOOST_CHECK(collect.tags[1].compare("テスト") == 0);
-		BOOST_CHECK(collect.page == 5);
-		BOOST_CHECK(collect.limit == 33);
-		BOOST_CHECK(collect.detailed == true);
-		opts.detailed(false).tag("third");
-		collect.parseQueryOpts(opts);
-		BOOST_CHECK(collect.detailed == false);
-		BOOST_CHECK(collect.tags.size() == 3);
+		collect.opts.auth_token("a1234").username("Z").tag("testing").tag("テスト").page(5).limit(33).detailed(true);
+		collect.opts.category("faces").category("nature");
+		BOOST_CHECK(collect.opts.getValue("username").compare("Z") == 0);
+		BOOST_CHECK(collect.opts.getValue("auth_token").compare("a1234") == 0);
+		BOOST_CHECK(collect.opts.tags.size() == 2);
+		BOOST_CHECK(collect.opts.tags[0].compare("testing") == 0);
+		BOOST_CHECK(collect.opts.tags[1].compare("テスト") == 0);
+		BOOST_CHECK(collect.opts.categories[1].compare("nature") == 0);
+		BOOST_CHECK(collect.opts.getPage() == 5);
+		BOOST_CHECK(collect.opts.getLimit() == 33);
+		BOOST_CHECK(collect.opts.getDetailed() == true);
+		collect.opts.detailed(false).tag("third");
+		BOOST_CHECK(collect.opts.getDetailed() == false);
+		BOOST_CHECK(collect.opts.tags.size() == 3);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -292,16 +291,17 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed_ja) {
 		BOOST_TEST_MESSAGE("Index mojiCodes (ja)");
-		BOOST_CHECK(idx.mojiCodes("ja").locale.compare("ja") == 0);
-		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
-		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
-		BOOST_CHECK(idx.mojiCodes().moji_index["🌢"].compare("雫") == 0);
+		Emojidex::Data::MojiCodes mc = idx.mojiCodes("ja");
+		BOOST_CHECK(mc.locale.compare("ja") == 0);
+		BOOST_CHECK_GT(mc.moji_array.size(), 0);
+		BOOST_CHECK_GT(mc.moji_index.size(), 0);
+		BOOST_CHECK(mc.moji_index["🌢"].compare("雫") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
 		BOOST_TEST_MESSAGE("Index utfEmoji");
 		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
-		BOOST_CHECK(utf.locale.compare("ja") == 0);
+		BOOST_CHECK(utf.opts.locale.compare("ja") == 0);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 		//Make sure we only loaded one language
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
 		BOOST_TEST_MESSAGE("Index extendedEmoji");
 		Emojidex::Data::Collection ext = idx.extendedEmoji();
-		BOOST_CHECK(ext.locale.compare("en") == 0);
+		BOOST_CHECK(ext.opts.locale.compare("en") == 0);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
 		BOOST_CHECK(ext.emoji["bunny boy"].category.compare("people") == 0);

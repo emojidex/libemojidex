@@ -4,9 +4,14 @@
 
 Emojidex::Service::QueryOpts::QueryOpts()
 {
-	//this->conditions["page"] = std::to_string(0);
-	//this->conditions["limit"] = std::to_string(Emojidex::Service::Collector::DefaultLimit);
-	//this->conditions["detailed"] = "true";
+	this->locale = "";
+}
+
+void Emojidex::Service::QueryOpts::setCollectionDefaults()
+{
+	this->conditions["page"] = std::to_string(1);
+	this->conditions["limit"] = std::to_string(DEFAULT_LIMIT);
+	this->conditions["detailed"] = "true";
 }
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::page(unsigned int number)
@@ -72,6 +77,12 @@ Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::tag(std::string tag)
 	return *this;
 }
 
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::category(std::string category)
+{
+	this->categories.push_back(category);
+	return *this;
+}
+
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::condition(std::string key, std::string value)
 {
 	this->conditions[key] = value;
@@ -97,8 +108,31 @@ Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::parseUnorderedMap(st
 
 std::string Emojidex::Service::QueryOpts::to_string()
 {
-	std::string query_string = "";
+	std::stringstream qss;
 
-	//TODO
-	return query_string;
+	qss << "?"; //prefix
+
+	if (locale.compare("") != 0)
+		qss << "&locale=" << locale;
+
+	if (getValue("limit").compare("") != 0)
+		qss << "&limit=" << getValue("limit");
+
+	if (getValue("page").compare("") != 0)
+		qss << "&page=" << getValue("page");
+
+	if (getValue("detailed").compare("") != 0)
+		qss << "&detailed=" << getValue("detailed");
+
+	if (getValue("auth_token").compare("") != 0)
+		qss << "&auth_token=" << getValue("auth_token");
+
+	if (getValue("username").compare("") != 0)
+		qss << "&username=" << getValue("username");
+
+		//TODO categories and tags
+	if (ext_opts.compare("") != 0)
+		qss << ext_opts;
+	
+	return qss.str();
 }

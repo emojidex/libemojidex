@@ -16,8 +16,13 @@ namespace Emojidex {
 			public:
 			QueryOpts();
 
+			std::string locale;
 			std::unordered_map<std::string, std::string> conditions;
 			std::vector<std::string> tags;
+			std::vector<std::string> categories;
+
+			// Sets defaults for a collection
+			void setCollectionDefaults();
 
 			// Chain method to set "page" by unsigned int
 			Emojidex::Service::QueryOpts& page(unsigned int number = 0);
@@ -45,6 +50,9 @@ namespace Emojidex {
 
 			// Chain method to add a tag string to the tags vector
 			Emojidex::Service::QueryOpts& tag(std::string tag);
+
+			// Chain method to add a category string to the categories vector
+			Emojidex::Service::QueryOpts& category(std::string category);
 
 			// Chain method to set a custom query key/variable and value
 			Emojidex::Service::QueryOpts& condition(std::string key, std::string value);
