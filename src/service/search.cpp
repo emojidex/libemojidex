@@ -6,14 +6,6 @@ Emojidex::Service::Search::Search()
 	this->current_page = 0;
 }
 
-
-Emojidex::Data::Collection Emojidex::Service::Search::term(const std::string code_cont, const std::unordered_map<std::string, std::string>& conditions)
-{
-	Emojidex::Service::QueryOpts opts;
-	opts.parseUnorderedMap(conditions);
-	return term(code_cont, &opts);
-}
-
 Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection result;
@@ -23,6 +15,7 @@ Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont
 
 	result.opts = *conditions;
 	result.endpoint = "search/emoji";
+	result.opts.ext("code_cont=" + code_cont);
 	result.more();
 
 	return result;

@@ -89,6 +89,12 @@ Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::condition(std::strin
 	return *this;
 }
 
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::ext(std::string opt, std::string prefix)
+{
+	ext_opts = ext_opts + prefix + opt;
+	return *this;
+}
+
 std::string Emojidex::Service::QueryOpts::getValue(std::string key)
 {
 	std::unordered_map<std::string, std::string>::const_iterator pos = this->conditions.find(key);
@@ -130,7 +136,13 @@ std::string Emojidex::Service::QueryOpts::to_string()
 	if (getValue("username").compare("") != 0)
 		qss << "&username=" << getValue("username");
 
-		//TODO categories and tags
+	std::vector<std::string>::iterator item;
+	for (item = tags.begin(); item < tags.end(); item++)
+		qss << "&tags[]=" << *item;
+
+	for (item = categories.begin(); item < categories.end(); item++)
+		qss << "&categories[]=" << *item;
+
 	if (ext_opts.compare("") != 0)
 		qss << ext_opts;
 	

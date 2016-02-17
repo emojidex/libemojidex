@@ -16,7 +16,6 @@ namespace Emojidex {
 
 			Search();
 
-			Emojidex::Data::Collection term(const std::string code_cont, const std::unordered_map<std::string, std::string>& conditions);
 			Emojidex::Data::Collection term(const std::string code_cont, Emojidex::Service::QueryOpts *conditions = NULL);
 		//	Emojidex::Data::Collection starting(std::string code_sw, Emojidex::Service::QueryOpts conditions);
 		//	Emojidex::Data::Collection ending(std::string code_ew, Emojidex::Service::QueryOpts conditions);

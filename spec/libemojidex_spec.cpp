@@ -247,6 +247,10 @@ BOOST_AUTO_TEST_SUITE(query_opts_suite)
 		BOOST_CHECK(conditions.getDetailed() == true);
 		BOOST_CHECK(conditions.getValue("code").compare("忍者") == 0);
 		BOOST_CHECK(conditions.detailed(false).getDetailed() == false);
+		conditions.ext("code=abc");
+		BOOST_CHECK(conditions.ext_opts.compare("&code=abc") == 0);
+		conditions.ext("code=abc");
+		BOOST_CHECK(conditions.ext_opts.compare("&code=abc&code=abc") == 0);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 

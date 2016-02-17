@@ -60,7 +60,7 @@ namespace Emojidex {
 			// Opts string that is appended to the end of a query
 			std::string ext_opts;
 			// Adds an opt to the ext_opts string with a prefixed "&" (or custom prefix when specified)
-			Emojidex::Service::QueryOpts& ext(std::string opt, std::string prefix = "");
+			Emojidex::Service::QueryOpts& ext(std::string opt, std::string prefix = "&");
 
 			std::string getValue(std::string key);
 
