@@ -4,146 +4,179 @@
 
 Emojidex::Service::QueryOpts::QueryOpts()
 {
-	this->locale = "";
+	setCollectionDefaults();
 }
 
 void Emojidex::Service::QueryOpts::setCollectionDefaults()
 {
-	this->conditions["page"] = std::to_string(1);
-	this->conditions["limit"] = std::to_string(DEFAULT_LIMIT);
-	this->conditions["detailed"] = "true";
+	(*this)
+		.locale()
+		.page()
+		.limit()
+		.detailed()
+		.username()
+		.auth_token()
+		.clearTags()
+		.clearCategories()
+		;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::locale(const std::string &locale)
+{
+	_locale = locale;
+	return *this;
+}
+
+const std::string& Emojidex::Service::QueryOpts::getLocale() const
+{
+	return _locale;
 }
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::page(unsigned int number)
 {
-	this->conditions["page"] = std::to_string(number);
+	_page = number;
 	return *this;
 }
 
-unsigned int Emojidex::Service::QueryOpts::getPage()
+unsigned int Emojidex::Service::QueryOpts::getPage() const
 {
-	std::string val = getValue("page");
-	if (val.compare("") == 0)
-		return 0;
-	return std::stoi(val);
+	return _page;
 }
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::limit(unsigned int value)
 {
-	this->conditions["limit"] = std::to_string(value);
+	_limit = value;
 	return *this;
 }
 
-unsigned int Emojidex::Service::QueryOpts::getLimit()
+unsigned int Emojidex::Service::QueryOpts::getLimit() const
 {
-	std::string val = getValue("limit");
-	if (val.compare("") == 0)
-		return 0;
-	return std::stoi(val);
+	return _limit;
 }
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::detailed(bool detail)
 {
-	conditions["detailed"] = TF(detail);
+	_detailed = detail;
 	return *this;
 }
 
-bool Emojidex::Service::QueryOpts::getDetailed()
+bool Emojidex::Service::QueryOpts::getDetailed() const
 {
-	std::string val = getValue("detailed");
-	if (val.compare("") == 0)
-		return true;
-
-	bool val_bool;
-	std::istringstream(val) >> std::boolalpha >> val_bool;
-	return val_bool;
+	return _detailed;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::username(std::string username)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::username(const std::string &username)
 {
-	this->conditions["username"] = username;
+	_username = username;
 	return *this;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::auth_token(std::string auth_token)
+const std::string& Emojidex::Service::QueryOpts::getUsername() const
 {
-	this->conditions["auth_token"] = auth_token;
+	return _username;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::auth_token(const std::string &auth_token)
+{
+	_auth_token = auth_token;
 	return *this;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::tag(std::string tag)
+const std::string& Emojidex::Service::QueryOpts::getAuthToken() const
 {
-	this->tags.push_back(tag);
+	return _auth_token;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::tag(const std::string &tag)
+{
+	this->_tags.push_back(tag);
 	return *this;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::category(std::string category)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::clearTags()
 {
-	this->categories.push_back(category);
+	_tags.clear();
 	return *this;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::condition(std::string key, std::string value)
+const std::vector<std::string>& Emojidex::Service::QueryOpts::getTags() const
 {
-	this->conditions[key] = value;
+	return _tags;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::category(const std::string &category)
+{
+	this->_categories.push_back(category);
 	return *this;
 }
 
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::ext(std::string opt, std::string prefix)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::clearCategories()
+{
+	_categories.clear();
+	return *this;
+}
+
+const std::vector<std::string>& Emojidex::Service::QueryOpts::getCategories() const
+{
+	return _categories;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::ext(const std::string &opt, const std::string &prefix)
 {
 	ext_opts = ext_opts + prefix + opt;
 	return *this;
 }
 
-std::string Emojidex::Service::QueryOpts::getValue(std::string key)
-{
-	std::unordered_map<std::string, std::string>::const_iterator pos = this->conditions.find(key);
-
-	if (pos == this->conditions.end())
-		return "";
-
-	return pos->second;
-}
-
-Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::parseUnorderedMap(std::unordered_map<std::string, std::string> source_map)
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::parseUnorderedMap(const std::unordered_map<std::string, std::string> &source_map)
 {
 	for (auto it = source_map.begin(); it != source_map.end(); it++)
-		this->condition(it->first, it->second);
+	{
+		const std::string &key = it->first;
+		const std::string &value = it->second;
+		
+		if(key.compare("page") == 0)
+			_page = value.empty() ? DEFAULT_PAGE : std::stoi(value);
+		else if(key.compare("limit") == 0)
+			_limit = value.empty() ? DEFAULT_LIMIT : std::stoi(value);
+		else if(key.compare("detailed") == 0)
+			_detailed = (value.compare("false") == 0) ? false : true;
+		else if(key.compare("username") == 0)
+			_username = value;
+		else if(key.compare("auth_token") == 0)
+			_auth_token = value;
+		else
+			ext(key + "=" + value);
+	}
 	return *this;
 }
 
-std::string Emojidex::Service::QueryOpts::to_string()
+std::string Emojidex::Service::QueryOpts::to_string() const
 {
 	std::stringstream qss;
 
 	qss << "?"; //prefix
 
-	if (locale.compare("") != 0)
-		qss << "&locale=" << locale;
+	if ( !_locale.empty() )
+		qss << "&locale=" << _locale;
 
-	if (getValue("limit").compare("") != 0)
-		qss << "&limit=" << getValue("limit");
+	qss << "&limit=" << _limit
+			<< "&page=" << _page
+			<< "&detailed=" << TF(_detailed);
 
-	if (getValue("page").compare("") != 0)
-		qss << "&page=" << getValue("page");
+	if ( !_auth_token.empty() )
+		qss << "&auth_token=" << _auth_token;
 
-	if (getValue("detailed").compare("") != 0)
-		qss << "&detailed=" << getValue("detailed");
+	if ( !_username.empty() )
+		qss << "&username=" << _username;
 
-	if (getValue("auth_token").compare("") != 0)
-		qss << "&auth_token=" << getValue("auth_token");
-
-	if (getValue("username").compare("") != 0)
-		qss << "&username=" << getValue("username");
-
-	std::vector<std::string>::iterator item;
-	for (item = tags.begin(); item < tags.end(); item++)
+	std::vector<std::string>::const_iterator item;
+	for (item = _tags.begin(); item < _tags.end(); item++)
 		qss << "&tags[]=" << *item;
 
-	for (item = categories.begin(); item < categories.end(); item++)
+	for (item = _categories.begin(); item < _categories.end(); item++)
 		qss << "&categories[]=" << *item;
 
-	if (ext_opts.compare("") != 0)
+	if ( !ext_opts.empty() )
 		qss << ext_opts;
 	
 	return qss.str();

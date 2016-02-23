@@ -14,7 +14,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 
 	collect.endpoint = name;
-	collect.opts.locale = locale;
+	collect.opts.locale(locale);
 	collect.opts.detailed(detailed);
 
 	Emojidex::Service::Transactor transactor;
