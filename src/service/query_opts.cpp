@@ -18,6 +18,7 @@ void Emojidex::Service::QueryOpts::setCollectionDefaults()
 		.auth_token()
 		.clearTags()
 		.clearCategories()
+		.clearExt()
 		;
 }
 
@@ -123,8 +124,19 @@ const std::vector<std::string>& Emojidex::Service::QueryOpts::getCategories() co
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::ext(const std::string &opt, const std::string &prefix)
 {
-	ext_opts = ext_opts + prefix + opt;
+	_ext_opts += prefix + opt;
 	return *this;
+}
+
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::clearExt()
+{
+	_ext_opts.clear();
+	return *this;
+}
+
+const std::string& Emojidex::Service::QueryOpts::getExt() const
+{
+	return _ext_opts;
 }
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::parseUnorderedMap(const std::unordered_map<std::string, std::string> &source_map)
@@ -176,8 +188,8 @@ std::string Emojidex::Service::QueryOpts::to_string() const
 	for (item = _categories.begin(); item < _categories.end(); item++)
 		qss << "&categories[]=" << *item;
 
-	if ( !ext_opts.empty() )
-		qss << ext_opts;
+	if ( !_ext_opts.empty() )
+		qss << _ext_opts;
 	
 	return qss.str();
 }

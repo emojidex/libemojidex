@@ -244,9 +244,9 @@ BOOST_AUTO_TEST_SUITE(query_opts_suite)
 		BOOST_CHECK(conditions.page(2).getPage() == 2);
 		BOOST_CHECK(conditions.detailed(false).getDetailed() == false);
 		conditions.ext("code=abc");
-		BOOST_CHECK(conditions.ext_opts.compare("&code=abc") == 0);
+		BOOST_CHECK(conditions.getExt().compare("&code=abc") == 0);
 		conditions.ext("code=abc");
-		BOOST_CHECK(conditions.ext_opts.compare("&code=abc&code=abc") == 0);
+		BOOST_CHECK(conditions.getExt().compare("&code=abc&code=abc") == 0);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 

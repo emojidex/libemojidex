@@ -23,6 +23,9 @@ namespace Emojidex {
 			std::vector<std::string> _tags;
 			std::vector<std::string> _categories;
 
+			// Opts string that is appended to the end of a query
+			std::string _ext_opts;
+
 			public:
 			QueryOpts();
 
@@ -81,10 +84,13 @@ namespace Emojidex {
 			// DOES NOT set value of "categories" if categories is not set
 			const std::vector<std::string>& getCategories() const;
 
-			// Opts string that is appended to the end of a query
-			std::string ext_opts;
 			// Adds an opt to the ext_opts string with a prefixed "&" (or custom prefix when specified)
 			Emojidex::Service::QueryOpts& ext(const std::string &opt, const std::string &prefix = "&");
+			// Clear ext opts string
+			Emojidex::Service::QueryOpts& clearExt();
+			// Get ext opt string
+			const std::string& getExt() const;
+
 
 			Emojidex::Service::QueryOpts& parseUnorderedMap(const std::unordered_map<std::string, std::string> &source_map);
 			std::string to_string() const;
