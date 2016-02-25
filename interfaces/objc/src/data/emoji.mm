@@ -1,6 +1,7 @@
 
 #import "emoji.h"
 #import "emoji+private.h"
+
 #import "checksums+private.h"
 #import "../utils+private.h"
 
@@ -180,6 +181,26 @@ typedef Emojidex::Data::Emoji ImplType;
   return IMPL->times_used;
 }
 
+- (void)setTimesFavorited:(unsigned int)timesFavorited
+{
+  IMPL->times_favorited = timesFavorited;
+}
+
+- (unsigned int)getTimesFavorited
+{
+  return IMPL->times_favorited;
+}
+
+- (void)setScore:(int)score
+{
+  IMPL->score = score;
+}
+
+- (int)getScore
+{
+  return IMPL->score;
+}
+
 - (void)setAttribution:(NSString*)attribution
 {
   IMPL->attribution = NS2STD(attribution);
@@ -198,6 +219,86 @@ typedef Emojidex::Data::Emoji ImplType;
 - (NSString*)getUserId
 {
   return STD2NS(IMPL->user_id);
+}
+
+- (void)setCurrentPrice:(double)currentPrice
+{
+  IMPL->current_price = currentPrice;
+
+}
+- (double)getCurrentPrice
+{
+  return IMPL->current_price;
+}
+
+- (void)setPrimary:(BOOL)primary
+{
+  IMPL->primary = primary;
+}
+
+- (BOOL)getPrimary
+{
+  return IMPL->primary;
+}
+
+- (void)setPermalock:(BOOL)permalock
+{
+  IMPL->permalock = permalock;
+}
+
+- (BOOL)getPermalock
+{
+  return IMPL->permalock;
+}
+
+- (void)setRegisteredAt:(NSString*)registeredAt
+{
+  IMPL->registered_at = NS2STD(registeredAt);
+}
+
+- (NSString*)getRegisteredAt
+{
+  return STD2NS(IMPL->registered_at);
+}
+
+- (void)setLinkExpiration:(NSString*)linkExpiration
+{
+  IMPL->link_expiration = NS2STD(linkExpiration);
+}
+
+- (NSString*)getLinkExpiration
+{
+  return STD2NS(IMPL->link_expiration);
+}
+
+- (void)setLockExpiration:(NSString*)lockExpiration
+{
+  IMPL->lock_expiration = NS2STD(lockExpiration);
+}
+
+- (NSString*)getLockExpiration
+{
+  return STD2NS(IMPL->lock_expiration);
+}
+
+- (void)setTimesChanged:(unsigned int)timesChanged
+{
+  IMPL->times_changed = timesChanged;
+}
+
+- (unsigned int)getTimesChanged
+{
+  return IMPL->times_changed;
+}
+
+- (void)setFavorited:(unsigned int)favorited
+{
+  IMPL->favorited = favorited;
+}
+
+- (unsigned int)getFavorited
+{
+  return IMPL->favorited;
 }
 
 - (void)setChecksums:(Emojidex_Data_Checksums*)checksums

@@ -2,6 +2,7 @@
 #import <Foundation/NSObject.h>
 
 #import "service/search.h"
+#import "service/indexes.h"
 
 @interface Emojidex_Client : NSObject
 {
@@ -20,7 +21,7 @@
 - (Emojidex_Service_Search*)getSearch;
 
 // Emojidex::Service::Search *Indexes;
-- (void)setIndexes:(Emojidex_Service_Search*)search;
-- (Emojidex_Service_Search*)getIndexes;
+- (void)setIndexes:(Emojidex_Service_Indexes*)indexes;
+- (Emojidex_Service_Indexes*)getIndexes;
 
 @end
