@@ -4,6 +4,7 @@
 #import <Foundation/NSArray.h>
 
 #import "emoji.h"
+#import "../service/query_opts.h"
 
 // emoji base data
 @interface Emojidex_Data_Collection : NSObject
@@ -29,6 +30,11 @@
 // Adds an emoji to the map
 - (Emojidex_Data_Emoji*)add:(Emojidex_Data_Emoji*)newEmoji;
 
+// Removes an emoji from the map [by code]
+// Returns true if the emoji was located in the map and removed
+// Returns false if the emoji was not located in the map
+- (BOOL)remove:(NSString*)code;
+
 // Finds by moji[character]code (UTF emoji only)
 - (Emojidex_Data_Emoji*)findByMoji:(NSString*)moji;
 
@@ -46,6 +52,10 @@
 // code in this collection. Rerturns this collection after the merge for chaining.
 - (Emojidex_Data_Collection*)merge:(Emojidex_Data_Collection*)deltaCollection;
 
+// Add emoji from a JSON string
+// Returns this collection after the merge for chaining.
+- (Emojidex_Data_Collection*)mergeJSON:(NSString*)jsonString;
+
 //=====================================================================================
 // Service Info
 // ============
@@ -53,21 +63,9 @@
 - (void)setEndpoint:(NSString*)endpoint;
 - (NSString*)getEndpoint;
 
-// bool detailed;
-- (void)setDetailed:(BOOL)detailed;
-- (BOOL)getDetailed;
-
-// std::string locale;
-- (void)setLocale:(NSString*)locale;
-- (NSString*)getLocale;
-
-// unsigned int page;
-- (void)setPage:(unsigned int)page;
-- (unsigned int)getPage;
-
-// unsigned short limit;
-- (void)setLimit:(unsigned short)limit;
-- (unsigned short)getLimit;
+// Emojidex::Service::QueryOpts opts;
+- (void)setOpts:(Emojidex_Service_QueryOpts*)opts;
+- (Emojidex_Service_QueryOpts*)getOpts;
 
 // unsigned int total_count;
 - (void)setTotalCount:(unsigned int)totalCount;

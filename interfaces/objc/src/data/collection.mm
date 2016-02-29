@@ -1,8 +1,9 @@
 
 #import "collection.h"
 #import "collection+private.h"
-#import "emoji+private.h"
 
+#import "emoji+private.h"
+#import "../service/query_opts+private.h"
 #import "../utils+private.h"
 
 typedef Emojidex::Data::Collection ImplType;
@@ -75,6 +76,11 @@ typedef Emojidex::Data::Collection ImplType;
   return [[[Emojidex_Data_Emoji alloc] initWithEmoji:tmp] autorelease];
 }
 
+- (BOOL)remove:(NSString*)code
+{
+  return IMPL->remove(NS2STD(code));
+}
+
 - (Emojidex_Data_Emoji*)findByMoji:(NSString*)moji
 {
   const Emojidex::Data::Emoji& tmp = IMPL->findByMoji(NS2STD(moji));
@@ -105,6 +111,12 @@ typedef Emojidex::Data::Collection ImplType;
   return self;
 }
 
+- (Emojidex_Data_Collection*)mergeJSON:(NSString*)jsonString
+{
+  IMPL->mergeJSON(NS2STD(jsonString));
+  return self;
+}
+
 - (void)setEndpoint:(NSString*)endpoint
 {
   IMPL->endpoint = NS2STD(endpoint);
@@ -115,44 +127,14 @@ typedef Emojidex::Data::Collection ImplType;
   return STD2NS(IMPL->endpoint);
 }
 
-- (void)setDetailed:(BOOL)detailed
+- (void)setOpts:(Emojidex_Service_QueryOpts*)opts
 {
-  IMPL->detailed = detailed;
+  IMPL->opts = *[opts getImpl];
 }
 
-- (BOOL)getDetailed
+- (Emojidex_Service_QueryOpts*)getOpts
 {
-  return IMPL->detailed;
-}
-
-- (void)setLocale:(NSString*)locale
-{
-  IMPL->locale = NS2STD(locale);
-}
-
-- (NSString*)getLocale
-{
-  return STD2NS(IMPL->locale);
-}
-
-- (void)setPage:(unsigned int)page
-{
-  IMPL->page = page;
-}
-
-- (unsigned int)getPage
-{
-  return IMPL->page;
-}
-
-- (void)setLimit:(unsigned short)limit
-{
-  IMPL->limit = limit;
-}
-
-- (unsigned short)getLimit
-{
-  return IMPL->limit;
+  return [[[Emojidex_Service_QueryOpts alloc] initWithQueryOpts:IMPL->opts] autorelease];
 }
 
 - (void)setTotalCount:(unsigned int)totalCount

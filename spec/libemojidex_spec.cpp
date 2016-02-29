@@ -240,9 +240,37 @@ BOOST_AUTO_TEST_SUITE(query_opts_suite)
 	Emojidex::Service::QueryOpts conditions;
 
 	BOOST_AUTO_TEST_CASE(query_opts_building) {
-		BOOST_CHECK(conditions.valueOf("page").compare("") == 0);
-		BOOST_CHECK(conditions.page(1).valueOf("page").compare("1") == 0);
-		BOOST_CHECK(conditions.condition("detailed", "true").condition("code", "忍者").valueOf("detailed").compare("true") == 0);
+		BOOST_CHECK(conditions.getPage() == 1);
+		BOOST_CHECK(conditions.page(2).getPage() == 2);
+		BOOST_CHECK(conditions.detailed(false).getDetailed() == false);
+		conditions.ext("code=abc");
+		BOOST_CHECK(conditions.getExt().compare("&code=abc") == 0);
+		conditions.ext("code=abc");
+		BOOST_CHECK(conditions.getExt().compare("&code=abc&code=abc") == 0);
+	}
+BOOST_AUTO_TEST_SUITE_END()
+
+///////////////////////////////////////////////////////////////////////////////
+// Collection tests
+///////////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_SUITE(collection_suite)
+
+	BOOST_AUTO_TEST_CASE(collect_params_from_query_opts) {
+		Emojidex::Data::Collection collect;
+		collect.opts.auth_token("a1234").username("Z").tag("testing").tag("テスト").page(5).limit(33).detailed(true);
+		collect.opts.category("faces").category("nature");
+		BOOST_CHECK(collect.opts.getUsername().compare("Z") == 0);
+		BOOST_CHECK(collect.opts.getAuthToken().compare("a1234") == 0);
+		BOOST_CHECK(collect.opts.getTags().size() == 2);
+		BOOST_CHECK(collect.opts.getTags()[0].compare("testing") == 0);
+		BOOST_CHECK(collect.opts.getTags()[1].compare("テスト") == 0);
+		BOOST_CHECK(collect.opts.getCategories()[1].compare("nature") == 0);
+		BOOST_CHECK(collect.opts.getPage() == 5);
+		BOOST_CHECK(collect.opts.getLimit() == 33);
+		BOOST_CHECK(collect.opts.getDetailed() == true);
+		collect.opts.detailed(false).tag("third");
+		BOOST_CHECK(collect.opts.getDetailed() == false);
+		BOOST_CHECK(collect.opts.getTags().size() == 3);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -263,16 +291,17 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 
 	BOOST_AUTO_TEST_CASE(moji_codes_seed_ja) {
 		BOOST_TEST_MESSAGE("Index mojiCodes (ja)");
-		BOOST_CHECK(idx.mojiCodes("ja").locale.compare("ja") == 0);
-		BOOST_CHECK_GT(idx.mojiCodes().moji_array.size(), 0);
-		BOOST_CHECK_GT(idx.mojiCodes().moji_index.size(), 0);
-		BOOST_CHECK(idx.mojiCodes().moji_index["🌢"].compare("雫") == 0);
+		Emojidex::Data::MojiCodes mc = idx.mojiCodes("ja");
+		BOOST_CHECK(mc.locale.compare("ja") == 0);
+		BOOST_CHECK_GT(mc.moji_array.size(), 0);
+		BOOST_CHECK_GT(mc.moji_index.size(), 0);
+		BOOST_CHECK(mc.moji_index["🌢"].compare("雫") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(utf_emoji_seed) {
 		BOOST_TEST_MESSAGE("Index utfEmoji");
 		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
-		BOOST_CHECK(utf.locale.compare("ja") == 0);
+		BOOST_CHECK(utf.opts.getLocale().compare("ja") == 0);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 		//Make sure we only loaded one language
@@ -282,7 +311,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 	BOOST_AUTO_TEST_CASE(extended_emoji_seed) {
 		BOOST_TEST_MESSAGE("Index extendedEmoji");
 		Emojidex::Data::Collection ext = idx.extendedEmoji();
-		BOOST_CHECK(ext.locale.compare("en") == 0);
+		BOOST_CHECK(ext.opts.getLocale().compare("en") == 0);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
 		BOOST_CHECK(ext.emoji["bunny boy"].category.compare("people") == 0);
@@ -356,12 +385,13 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(em.user_id.compare("Zero") == 0);
 	}
 
-	//BOOST_AUTO_TEST_CASE(search_conditions) {
-	//}
-	// Empty search provides empty results
-	//BOOST_AUTO_TEST_CASE(term) {
+	BOOST_AUTO_TEST_CASE(search_term) {
+		// Empty search provides empty results
+		BOOST_CHECK(search.term("").emoji.size() == 0);
+		BOOST_CHECK(search.term("pudding").emoji.size() > 0);
+
 		//BOOST_CHECK_GT(search.term("tears").size(), 0);
-	//}
+	}
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////

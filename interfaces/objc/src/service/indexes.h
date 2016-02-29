@@ -42,20 +42,20 @@
 
 // Get full emoji index by score
 - (Emojidex_Data_Collection*)emoji;
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit;
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit page:(unsigned int)page;
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed;
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page;
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page limit:(unsigned int)limit;
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed;
 
 // Get Newest emoji
-- (Emojidex_Data_Collection*)newest;
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit;
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit page:(unsigned int)page;
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed;
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken;
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page;
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit;
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed;
 
 // Get most Popular emoji
-- (Emojidex_Data_Collection*)popular;
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit;
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit page:(unsigned int)page;
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed;
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken;
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page;
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit;
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed;
 
 @end

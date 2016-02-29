@@ -1,5 +1,7 @@
 
 #import "indexes.h"
+#import "indexes+private.h"
+
 #import "../data/moji_codes+private.h"
 #import "../data/collection+private.h"
 #import "../utils+private.h"
@@ -8,6 +10,26 @@
 
 typedef Emojidex::Service::Indexes ImplType;
 #define IMPL ((ImplType*)_impl)
+
+@implementation Emojidex_Service_Indexes (Private)
+
+- (id)initWithIndexes:(Emojidex::Service::Indexes*)src
+{
+  self = [super init];
+  if(self != nil)
+  {
+    _impl = src;
+  }
+  _autoDelete = NO;
+  return self;
+}
+
+- (Emojidex::Service::Indexes*)getImpl
+{
+  return IMPL;
+}
+
+@end
 
 @implementation Emojidex_Service_Indexes
 
@@ -94,69 +116,69 @@ typedef Emojidex::Service::Indexes ImplType;
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page
 {
-  const Emojidex::Data::Collection& tmp = IMPL->emoji(limit);
+  const Emojidex::Data::Collection& tmp = IMPL->emoji(page);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit page:(unsigned int)page
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page limit:(unsigned int)limit
 {
-  const Emojidex::Data::Collection& tmp = IMPL->emoji(limit, page);
+  const Emojidex::Data::Collection& tmp = IMPL->emoji(page, limit);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)emoji:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed
+- (Emojidex_Data_Collection*)emoji:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed
 {
-  const Emojidex::Data::Collection& tmp = IMPL->emoji(limit, page, detailed);
+  const Emojidex::Data::Collection& tmp = IMPL->emoji(page, limit, detailed);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)newest
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken
 {
-  const Emojidex::Data::Collection& tmp = IMPL->newest();
+  const Emojidex::Data::Collection& tmp = IMPL->newest(NS2STD(authToken));
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page
 {
-  const Emojidex::Data::Collection& tmp = IMPL->newest(limit);
+  const Emojidex::Data::Collection& tmp = IMPL->newest(NS2STD(authToken), page);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit page:(unsigned int)page
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit
 {
-  const Emojidex::Data::Collection& tmp = IMPL->newest(limit, page);
+  const Emojidex::Data::Collection& tmp = IMPL->newest(NS2STD(authToken), page, limit);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)newest:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed
+- (Emojidex_Data_Collection*)newest:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed
 {
-  const Emojidex::Data::Collection& tmp = IMPL->newest(limit, page, detailed);
+  const Emojidex::Data::Collection& tmp = IMPL->newest(NS2STD(authToken), page, limit, detailed);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)popular
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken
 {
-  const Emojidex::Data::Collection& tmp = IMPL->popular();
+  const Emojidex::Data::Collection& tmp = IMPL->popular(NS2STD(authToken));
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page
 {
-  const Emojidex::Data::Collection& tmp = IMPL->popular(limit);
+  const Emojidex::Data::Collection& tmp = IMPL->popular(NS2STD(authToken), page);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit page:(unsigned int)page
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit
 {
-  const Emojidex::Data::Collection& tmp = IMPL->popular(limit, page);
+  const Emojidex::Data::Collection& tmp = IMPL->popular(NS2STD(authToken), page, limit);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 
-- (Emojidex_Data_Collection*)popular:(unsigned int)limit page:(unsigned int)page detailed:(BOOL)detailed
+- (Emojidex_Data_Collection*)popular:(NSString*)authToken page:(unsigned int)page limit:(unsigned int)limit detailed:(BOOL)detailed
 {
-  const Emojidex::Data::Collection& tmp = IMPL->popular(limit, page, detailed);
+  const Emojidex::Data::Collection& tmp = IMPL->popular(NS2STD(authToken), page, limit, detailed);
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
 }
 

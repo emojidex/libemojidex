@@ -1,6 +1,7 @@
 
 #import "moji_codes.h"
 #import "moji_codes+private.h"
+
 #import "../utils+private.h"
 
 typedef Emojidex::Data::MojiCodes ImplType;

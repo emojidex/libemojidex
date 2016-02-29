@@ -6,17 +6,24 @@ PROJECT(LIBEMOJIDEX_OBJC)
 SET(OBJC_TARGET @OBJC_TARGET@-impl)
 
 SET(OBJC_HEADER_FILES
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/libemojidex.h
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/client.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data.h
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/search.h
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/indexes.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/query_opts.h
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/moji_codes.h
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/collection.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/emoji.h
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/checksums.h
 )
 
 SET(OBJC_SOURCE_FILES
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/libemojidex.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/client.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/search.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/indexes.mm
+  @PROJECT_SOURCE_DIR@/interfaces/objc/src/service/query_opts.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/moji_codes.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/collection.mm
   @PROJECT_SOURCE_DIR@/interfaces/objc/src/data/emoji.mm

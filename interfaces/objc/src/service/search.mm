@@ -1,6 +1,9 @@
 
 #import "search.h"
 #import "search+private.h"
+
+#import "query_opts+private.h"
+#import "../data/emoji+private.h"
 #import "../data/collection+private.h"
 #import "../utils+private.h"
 
@@ -52,10 +55,28 @@ typedef Emojidex::Service::Search ImplType;
   [super dealloc];
 }
 
-- (Emojidex_Data_Collection*)term:(NSString*)term
+- (Emojidex_Data_Collection*)term:(NSString*)codeCont
 {
-  const Emojidex::Data::Collection& tmp = IMPL->term(NS2STD(term));
+  const Emojidex::Data::Collection& tmp = IMPL->term(NS2STD(codeCont));
   return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
+}
+
+- (Emojidex_Data_Collection*)term:(NSString*)codeCont conditions:(Emojidex_Service_QueryOpts*)conditions
+{
+  const Emojidex::Data::Collection& tmp = IMPL->term(NS2STD(codeCont), [conditions getImpl]);
+  return [[[Emojidex_Data_Collection alloc] initWithCollection:tmp] autorelease];
+}
+
+- (Emojidex_Data_Emoji*)find:(NSString*)code
+{
+  const Emojidex::Data::Emoji& tmp = IMPL->find(NS2STD(code));
+  return [[[Emojidex_Data_Emoji alloc] initWithEmoji:tmp] autorelease];
+}
+
+- (Emojidex_Data_Emoji*)find:(NSString*)code detailed:(BOOL)detailed
+{
+  const Emojidex::Data::Emoji& tmp = IMPL->find(NS2STD(code), detailed);
+  return [[[Emojidex_Data_Emoji alloc] initWithEmoji:tmp] autorelease];
 }
 
 - (void)setCurrentPage:(unsigned int)currentPage

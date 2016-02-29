@@ -1,6 +1,8 @@
 
 #import "client.h"
+
 #import "service/search+private.h"
+#import "service/indexes+private.h"
 
 #import "../../../src/client.h"
 
@@ -47,14 +49,14 @@ typedef Emojidex::Client ImplType;
   return [[[Emojidex_Service_Search alloc] initWithSearch:IMPL->Search] autorelease];
 }
 
-- (void)setIndexes:(Emojidex_Service_Search*)search
+- (void)setIndexes:(Emojidex_Service_Indexes*)indexes
 {
-  IMPL->Indexes = [search getImpl];
+  IMPL->Indexes = [indexes getImpl];
 }
 
-- (Emojidex_Service_Search*)getIndexes
+- (Emojidex_Service_Indexes*)getIndexes
 {
-  return [[[Emojidex_Service_Search alloc] initWithSearch:IMPL->Indexes] autorelease];
+  return [[[Emojidex_Service_Indexes alloc] initWithIndexes:IMPL->Indexes] autorelease];
 }
 
 @end

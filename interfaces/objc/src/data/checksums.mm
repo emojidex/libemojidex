@@ -1,6 +1,7 @@
 
 #import "checksums.h"
 #import "checksums+private.h"
+
 #import "../utils+private.h"
 
 typedef Emojidex::Data::Checksums ImplType;

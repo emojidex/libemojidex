@@ -8,12 +8,9 @@ using namespace Emojidex::Service;
 Emojidex::Data::Collection::Collection()
 {
 	moreMethod = NULL;
-	page = Collector::DefaultPage;
-	limit = Collector::DefaultLimit;
 	total_count = 0;
 	endpoint = "";
-	username = "";
-	auth_token = "";
+	opts.setCollectionDefaults();
 }
 
 Emojidex::Data::Collection::~Collection()
@@ -84,7 +81,7 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::merge(
 	for (auto new_moji : delta_collection.emoji)
 		this->emoji[new_moji.first] = new_moji.second;
 
-	this->page = delta_collection.page;
+	this->opts.page(delta_collection.opts.getPage());
 
 	return this;
 }
@@ -128,12 +125,24 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	return this;
 }
 
+//void Emojidex::Data::Collection::parseQueryOpts(Emojidex::Service::QueryOpts opts)
+//{
+//	username = opts.getValue("username");
+//	auth_token = opts.getValue("auth_token");
+//	page = opts.getPage();
+//	limit = opts.getLimit();
+//	tags = opts.tags;
+//	categories = opts.categories;
+//	ext_opts = opts.ext_opts;
+//	detailed = opts.getDetailed();
+//}
+
 Emojidex::Data::Collection Emojidex::Data::Collection::genericMore()
 {
-	if (endpoint.compare("") == 0 && limit == 0)
+	if (endpoint.compare("") == 0)
 		return *this;
 	
-	this->page += 1;
+	this->opts.page(this->opts.getPage() + 1);
 	Collection collect = Collector::getCollection(*this);
 	this->merge(collect);
 
@@ -157,6 +166,6 @@ void Emojidex::Data::Collection::setPagination(
 		unsigned int starting_page, unsigned int limit, bool detailed)
 {
 	this->moreMethod = moreMethod;
-	this->page = starting_page;
-	this->limit = limit;
+	this->opts.page(starting_page);
+	this->opts.limit(limit);
 }

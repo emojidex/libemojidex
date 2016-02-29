@@ -58,7 +58,7 @@ namespace Emojidex {
 			unsigned int history_page;
 			// Syncs history.
 			// Consecutive calls [with page set to 0] will get the next page after history_page.
-			std::vector<Emojidex::Service::HistoryItem> syncHistory(unsigned int page = 0, unsigned int limit = Emojidex::Service::Collector::DefaultLimit);
+			std::vector<Emojidex::Service::HistoryItem> syncHistory(unsigned int page = 0, unsigned int limit = DEFAULT_LIMIT);
 			bool addHistory(std::string code);
 		};
 	}
