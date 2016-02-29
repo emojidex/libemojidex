@@ -57,6 +57,11 @@ namespace Emojidex {
       // Adds an emoji to the map
       Emojidex::Data::Emoji add(Emojidex::Data::Emoji new_emoji);
 
+      // Removes an emoji from the map [by code]
+      // Returns true if the emoji was located in the map and removed
+      // Returns false if the emoji was not located in the map
+      bool remove(std::string code);
+
       // Finds by moji[character]code (UTF emoji only)
       Emojidex::Data::Emoji findByMoji(std::string moji);
       // Finds by emoji [short] code
@@ -81,15 +86,23 @@ namespace Emojidex {
       // Service Info
       // ============
       std::string endpoint;
-      bool detailed;
-      std::string locale;
-      unsigned int page;
-      unsigned short limit;
+      Emojidex::Service::QueryOpts opts;
+      //bool detailed;
+      //std::string locale;
+      //unsigned int page;
+      //unsigned short limit;
       unsigned int total_count;
+      //std::string ext_opts;
+      //std::vector<std::string> tags; //TODO create tag filler
+      //std::vector<std::string> categories; //TODO create category filler
+      
 
       // User info
-      std::string username;
-      std::string token;
+      //std::string username;
+      //std::string auth_token;
+
+      // Fills parameters from a QueryOpts object
+      //void parseQueryOpts(Emojidex::Service::QueryOpts opts);
 
       // Get more of the collection if the collection is paginated and has remaining pages.
       // Returns true if the next page was sucessfully obtained. Returns false if there are 

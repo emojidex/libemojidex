@@ -8,6 +8,9 @@
 #include "data/checksums.h"
 %}
 
+// Ignore unordered_map.
+%ignore Emojidex::Data::Checksums::png;
+
 // %include "data/checksums.h"
 namespace Emojidex {
   namespace Data {
@@ -15,7 +18,7 @@ namespace Emojidex {
     {
     public:
       std::string svg;
-//      std::unordered_map <std::string, std::string> png;
+      std::unordered_map <std::string, std::string> png;
 
       std::string sum(std::string format_code, std::string size_code);
     };
