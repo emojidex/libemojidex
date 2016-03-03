@@ -4,7 +4,7 @@
 %pragma(java) jniclasscode=%{
   static
   {
-    NativeLibLoader.load();
+    LibemojidexInitializer.initialize();
   }
 %}
 

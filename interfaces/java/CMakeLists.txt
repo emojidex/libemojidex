@@ -47,7 +47,7 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/StringVector.java
 #	${PROJECT_BINARY_DIR}/src/LibEmojidex.java
 	${PROJECT_BINARY_DIR}/src/LibEmojidexJNI.java
-	${PROJECT_BINARY_DIR}/src/NativeLibLoader.java
+	${PROJECT_BINARY_DIR}/src/LibemojidexInitializer.java
 )
 
 IF(WIN32)
@@ -56,7 +56,7 @@ ELSE(WIN32)
 	SET(SWIG_JAVA_LIB_FILENAME lib${SWIG_JAVA_LIB_NAME}.so)
 ENDIF(WIN32)
 
-CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/NativeLibLoader.java.in ${PROJECT_BINARY_DIR}/src/NativeLibLoader.java @ONLY)
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/LibemojidexInitializer.java.in ${PROJECT_BINARY_DIR}/src/LibemojidexInitializer.java @ONLY)
 
 ADD_JAR(${SWIG_JAR_TARGET}
 	SOURCES ${EMOJIDEX_JAVA_FILES}

@@ -7,23 +7,23 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 
 /**
- *  Native library loader.
+ *  Libemojidex initializer.
  */
-final class NativeLibLoader
+final class LibemojidexInitializer
 {
   /**
-   *  Load library.
+   *  Initialize.
    */
-  static void load()
+  static void initialize()
   {
     final String arch = getArchitecture();
 
-    load("libcrystax.so", arch);
-    load("libgnustl_shared.so", arch);
-    load("libcrypto.so.1.0.0", arch);
-    load("libssl.so.1.0.0", arch);
-    load("libcurl.so.5", arch);
-    load("libemojidex-android.so", arch);
+    loadNativeLibrary("libcrystax.so", arch);
+    loadNativeLibrary("libgnustl_shared.so", arch);
+    loadNativeLibrary("libcrypto.so.1.0.0", arch);
+    loadNativeLibrary("libssl.so.1.0.0", arch);
+    loadNativeLibrary("libcurl.so.5", arch);
+    loadNativeLibrary("libemojidex-android.so", arch);
   }
 
   /**
@@ -52,7 +52,7 @@ final class NativeLibLoader
       {
         for(String result : entry.getValue())
         {
-          if(NativeLibLoader.class.getClassLoader().getResource(getPath("libemojidex-android.so", result)) != null)
+          if(LibemojidexInitializer.class.getClassLoader().getResource(getPath("libemojidex-android.so", result)) != null)
             return result;
         }
       }
@@ -70,9 +70,9 @@ final class NativeLibLoader
   }
 
   /**
-   *  Load library.
+   *  Load native library.
    */
-  private static void load(String name, String arch)
+  private static void loadNativeLibrary(String name, String arch)
   {
     try
     {
@@ -80,19 +80,19 @@ final class NativeLibLoader
     }
     catch(UnsatisfiedLinkError e)
     {
-      loadFromJar(name, arch);
+      loadNativeLibraryFromJar(name, arch);
     }
   }
 
   /**
-   *  Load library from jar file.
+   *  Load native library from jar file.
    */
-  private static void loadFromJar(String name, String arch)
+  private static void loadNativeLibraryFromJar(String name, String arch)
   {
     try
     {
       final String path = getPath(name, arch);
-      final InputStream is = NativeLibLoader.class.getClassLoader().getResourceAsStream(path);
+      final InputStream is = LibemojidexInitializer.class.getClassLoader().getResourceAsStream(path);
 
       final File tmp = new File(System.getProperty("java.io.tmpdir"), name);
       tmp.deleteOnExit();
