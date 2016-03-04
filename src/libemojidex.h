@@ -15,6 +15,9 @@ namespace Emojidex {
 	std::string unescapeCode(std::string code);
 	std::string encapsulateCode(std::string code);
 	std::string unencapsulateCode(std::string code);
+
+  void setCACertPath(const std::string &path = "");
+  const std::string& getCACertPath(void);
 }
 
 #endif /* _LIBEMOJIDEX_H_ */

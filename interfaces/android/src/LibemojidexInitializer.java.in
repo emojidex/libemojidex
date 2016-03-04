@@ -1,5 +1,7 @@
 package com.emojidex.libemojidex;
 
+import com.emojidex.libemojidex.LibEmojidex;
+
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.File;
@@ -16,14 +18,17 @@ final class LibemojidexInitializer
    */
   static void initialize()
   {
+    // Load native libraries.
     final String arch = getArchitecture();
-
     loadNativeLibrary("libcrystax.so", arch);
     loadNativeLibrary("libgnustl_shared.so", arch);
     loadNativeLibrary("libcrypto.so.1.0.0", arch);
     loadNativeLibrary("libssl.so.1.0.0", arch);
     loadNativeLibrary("libcurl.so.5", arch);
     loadNativeLibrary("libemojidex-android.so", arch);
+
+    // For ssl.
+    LibEmojidex.setCACertPath(copyFileFromJar("data/cacert.pem", "cacert.pem"));
   }
 
   /**
@@ -52,7 +57,7 @@ final class LibemojidexInitializer
       {
         for(String result : entry.getValue())
         {
-          if(LibemojidexInitializer.class.getClassLoader().getResource(getPath("libemojidex-android.so", result)) != null)
+          if(LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath("libemojidex-android.so", result)) != null)
             return result;
         }
       }
@@ -62,9 +67,9 @@ final class LibemojidexInitializer
   }
 
   /**
-   * Get file path.
+   * Get native library file path.
    */
-  private static String getPath(String name, String arch)
+  private static String getNativeLibraryPath(String name, String arch)
   {
     return "libs/" + arch + "/" + name + "_";
   }
@@ -89,12 +94,19 @@ final class LibemojidexInitializer
    */
   private static void loadNativeLibraryFromJar(String name, String arch)
   {
+    System.load(copyFileFromJar(getNativeLibraryPath(name, arch), name));
+  }
+
+  /**
+   *  Copy file from jar to temporary directory.
+   */
+  private static String copyFileFromJar(String source, String destination)
+  {
     try
     {
-      final String path = getPath(name, arch);
-      final InputStream is = LibemojidexInitializer.class.getClassLoader().getResourceAsStream(path);
+      final InputStream is = LibemojidexInitializer.class.getClassLoader().getResourceAsStream(source);
 
-      final File tmp = new File(System.getProperty("java.io.tmpdir"), name);
+      final File tmp = new File(System.getProperty("java.io.tmpdir"), destination);
       tmp.deleteOnExit();
 
       final FileOutputStream os = new FileOutputStream(tmp);
@@ -107,11 +119,13 @@ final class LibemojidexInitializer
       os.close();
       is.close();
 
-      System.load(tmp.getAbsolutePath());
+      return tmp.getAbsolutePath();
     }
     catch(Exception e)
     {
       e.printStackTrace();
     }
+
+    return "";
   }
 }

@@ -1,6 +1,8 @@
 #include "transactor.h"
 #include "settings.h"
 
+#include "../libemojidex.h"
+
 #include <curl/curl.h>
 
 #include <sstream>
@@ -98,6 +100,10 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, verb.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query.length());
+
+    const std::string& CACertPath = Emojidex::getCACertPath();
+    if( !CACertPath.empty() )
+      curl_easy_setopt(curl, CURLOPT_CAINFO, CACertPath.c_str());
 
 		res = curl_easy_perform(curl);
 		

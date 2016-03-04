@@ -26,3 +26,20 @@ std::string Emojidex::unencapsulateCode(std::string code)
 	code = std::regex_replace(code, std::regex(":"), "");
 	return code;
 }
+
+
+
+namespace
+{
+	std::string CACertPath = "";
+}
+
+void Emojidex::setCACertPath(const std::string &path)
+{
+	CACertPath = path;
+}
+
+const std::string& Emojidex::getCACertPath(void)
+{
+	return CACertPath;
+}

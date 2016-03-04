@@ -18,3 +18,8 @@
 %include "client.i"
 %include "data.i"
 %include "service.i"
+
+namespace Emojidex {
+  void setCACertPath(const std::string &path = "");
+  const std::string& getCACertPath(void);
+}
