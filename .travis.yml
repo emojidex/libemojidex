@@ -1,10 +1,6 @@
 language: cpp
 
-before_install:
-  - sudo apt-get update -qq
-
-install:
-  - sudo apt-get install openjdk-8-jdk libboost-dev libboost-filesystem-dev libboost-test-dev swig
+sudo: false
 
 compiler:
   - gcc
