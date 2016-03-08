@@ -2,22 +2,32 @@ language: cpp
 
 sudo: false
 
-compiler:
-  - gcc
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.6
-    packages:
-    - gcc-5
-    - g++-5
-    - openjdk-7-jdk
-    - libboost-all-dev
-    - swig
-
-env: COMPILER=g++-5
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-5
+            - g++-5
+            - openjdk-7-jdk
+            - libboost-all-dev
+            - swig
+      env: COMPILER=g++-5
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+            - openjdk-7-jdk
+            - libboost-all-dev
+            - swig
+      env: COMPILER=clang++-3.7
 
 before_script:
   - mkdir build
