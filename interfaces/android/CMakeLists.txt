@@ -84,6 +84,13 @@ SET(EMOJIDEX_JAVA_FILES
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibemojidexInitializer.java
 )
 
+IF(WIN32)
+  SET(LIB_EXT ".dll")
+ELSEIF(APPLE)
+  SET(LIB_EXT ".dylib")
+ELSE(WIN32)
+  SET(LIB_EXT ".so")
+ENDIF(WIN32)
 CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/android/src/LibemojidexInitializer.java.in ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibemojidexInitializer.java @ONLY)
 
 ADD_JAR(${SWIG_ANDROID_JAR_TARGET}
