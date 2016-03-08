@@ -15,4 +15,4 @@ before_script:
   - cmake ..
   - make
 
-script: make test
+script: ./spec/libemojidex_spec --show_progress --log_level=all
