@@ -4,7 +4,6 @@ sudo: false
 
 compiler:
   - gcc
-  - clang
 
 addons:
   apt:
@@ -14,10 +13,11 @@ addons:
     packages:
     - gcc-5
     - g++-5
-    - clang-3.6
     - openjdk-7-jdk
     - libboost-all-dev
     - swig
+
+env: COMPILER=g++-5
 
 before_script:
   - mkdir build
