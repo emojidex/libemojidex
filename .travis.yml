@@ -15,6 +15,11 @@ addons:
     - gcc-5
     - g++-5
     - clang-3.6
+    - openjdk-8-jdk
+    - libboost-dev
+    - libboost-filesystem-dev
+    - libboost-test-dev
+    - swig
 
 before_script:
   - mkdir build
