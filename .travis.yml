@@ -16,9 +16,7 @@ addons:
     - g++-5
     - clang-3.6
     - openjdk-7-jdk
-    - libboost-dev
-    - libboost-filesystem-dev
-    - libboost-test-dev
+    - libboost-all-dev
     - swig
 
 before_script:
