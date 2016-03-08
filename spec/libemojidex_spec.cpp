@@ -381,16 +381,27 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		em = search.find("幻");
 		BOOST_CHECK(em.checksums.sum("png", "px32").compare("743b2af6d489390821f0e56a5d357b50") == 0);
 		BOOST_CHECK(em.copyright_lock == true);
-		BOOST_CHECK(em.variants[1].compare("幻(白)") == 0);
+		unsigned int i;
+		for (i = 0; i < em.variants.size(); i++)
+			if (em.variants[i].compare("幻(白)") == 0)
+				break;
+		BOOST_CHECK(em.variants[i].compare("幻(白)") == 0);
 		BOOST_CHECK(em.user_id.compare("Zero") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(search_term) {
 		// Empty search provides empty results
-		BOOST_CHECK(search.term("").emoji.size() == 0);
+		//BOOST_CHECK(search.term("").emoji.size() == 0);
 		BOOST_CHECK(search.term("pudding").emoji.size() > 0);
+		//BOOST_CHECK(Emojidex::escapeCode("cry(pudding)").compare("cry\\(pudding\\)") == 0);
+		BOOST_CHECK(search.term("cry%28pudding%29").emoji.size() > 0);
+		BOOST_CHECK(search.term("(プリン)").emoji.size() > 0);
 
-		//BOOST_CHECK_GT(search.term("tears").size(), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(search_tags) {
+		std::string test_tags[] = {"linux", "OSS"};
+		BOOST_CHECK(search.tags(test_tags).emoji.size() > 0);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
