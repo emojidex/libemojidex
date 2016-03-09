@@ -32,7 +32,7 @@ matrix:
 before_script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
   - make
 
 script: ./spec/libemojidex_spec --show_progress --log_level=all
