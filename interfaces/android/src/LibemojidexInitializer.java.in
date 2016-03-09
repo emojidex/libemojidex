@@ -20,12 +20,12 @@ final class LibemojidexInitializer
   {
     // Load native libraries.
     final String arch = getArchitecture();
-    loadNativeLibrary("libcrystax@LIB_EXT@", arch);
-    loadNativeLibrary("libgnustl_shared@LIB_EXT@", arch);
-    loadNativeLibrary("libcrypto@LIB_EXT@.1.0.0", arch);
-    loadNativeLibrary("libssl@LIB_EXT@.1.0.0", arch);
-    loadNativeLibrary("libcurl@LIB_EXT@.5", arch);
-    loadNativeLibrary("libemojidex-android@LIB_EXT@", arch);
+    loadNativeLibrary("libcrystax.so", arch);
+    loadNativeLibrary("libgnustl_shared.so", arch);
+    loadNativeLibrary("libcrypto.so.1.0.0", arch);
+    loadNativeLibrary("libssl.so.1.0.0", arch);
+    loadNativeLibrary("libcurl.so.5", arch);
+    loadNativeLibrary("libemojidex-android.so", arch);
 
     // For ssl.
     LibEmojidex.setCACertPath(copyFileFromJar("data/cacert.pem", "cacert.pem"));
@@ -57,7 +57,7 @@ final class LibemojidexInitializer
       {
         for(String result : entry.getValue())
         {
-          if(LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath("libemojidex-android@LIB_EXT@", result)) != null)
+          if(LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath("libemojidex-android.so", result)) != null)
             return result;
         }
       }
