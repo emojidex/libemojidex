@@ -27,15 +27,15 @@ end
 def chain_env(arch)
   case arch
   when "arm"
-    return "CC=\"#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm\" "
+    return "CC=\"#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm\" LD=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ld AR=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ar RANLIB=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ranlib STRIP=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-strip "
   when "x86"
-    return "CC=\"#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86\" "
+    return "CC=\"#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86\" LD=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ld AR=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86/bin/i686-linux-android-strip "
   when "mips"
-    return "CC=\"#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips\" "
+    return "CC=\"#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips\" LD=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ld AR=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ar RANLIB=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ranlib STRIP=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-strip "
   when "arm64"
-    return "CC=\"#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64\" "
+    return "CC=\"#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64\" LD=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ld AR=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ar RANLIB=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-strip "
   when "x86_64"
-    return "CC=\"#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64\" "
+    return "CC=\"#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64\" LD=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ld AR=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-strip "
   end
 end
 
