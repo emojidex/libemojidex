@@ -1,18 +1,38 @@
 language: cpp
 
-before_install:
-  - sudo apt-get update -qq
+sudo: false
 
-install:
-  - sudo apt-get install openjdk-8-jdk libboost-dev libboost-filesystem-dev libboost-test-dev swig
-
-compiler:
-  - gcc
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-5
+            - g++-5
+            - openjdk-7-jdk
+            - libboost-all-dev
+            - swig
+      env: COMPILER=g++-5
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+            - openjdk-7-jdk
+            - libboost-all-dev
+            - swig
+      env: COMPILER=clang++-3.7
 
 before_script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
   - make
 
-script: make test
+script: ./spec/libemojidex_spec --show_progress --log_level=all
