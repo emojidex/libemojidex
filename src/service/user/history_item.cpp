@@ -1,5 +1,12 @@
 #include "history_item.h"
 
+Emojidex::Service::HistoryItem::HistoryItem()
+{
+  this->emoji_code = "";
+  this->times_used = 0;
+  this->last_used = "";
+}
+
 Emojidex::Service::HistoryItem::HistoryItem(std::string emoji_code, unsigned int times_used, std::string last_used)
 {
 	this->emoji_code = emoji_code;

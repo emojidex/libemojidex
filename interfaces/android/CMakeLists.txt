@@ -75,10 +75,13 @@ SET(EMOJIDEX_JAVA_FILES
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Indexes.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Search.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/QueryOpts.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/User.java
 # ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Settings.java
 # ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Transactor.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/HistoryItem.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/EmojiVector.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/StringVector.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/HistoryItemVector.java
 # ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidex.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidexJNI.java
   ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibemojidexInitializer.java

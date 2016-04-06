@@ -41,10 +41,14 @@ SET(EMOJIDEX_JAVA_FILES
 	${PROJECT_BINARY_DIR}/src/Emojidex/Data/MojiCodes.java
 	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Indexes.java
 	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Search.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Service/QueryOpts.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Service/User.java
 #	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Settings.java
 #	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Transactor.java
+	${PROJECT_BINARY_DIR}/src/Emojidex/Service/HistoryItem.java
 	${PROJECT_BINARY_DIR}/src/EmojiVector.java
 	${PROJECT_BINARY_DIR}/src/StringVector.java
+	${PROJECT_BINARY_DIR}/src/HistoryItemVector.java
 #	${PROJECT_BINARY_DIR}/src/LibEmojidex.java
 	${PROJECT_BINARY_DIR}/src/LibEmojidexJNI.java
 	${PROJECT_BINARY_DIR}/src/LibemojidexInitializer.java

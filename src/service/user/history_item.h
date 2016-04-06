@@ -14,6 +14,7 @@ namespace Emojidex {
 			std::string last_used;
 			boost::posix_time::ptime last_used_posix;
 
+			HistoryItem();
 			HistoryItem(std::string emoji_code, unsigned int times_used, std::string last_used);
 		};
 	}
