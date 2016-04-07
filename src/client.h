@@ -22,6 +22,7 @@ namespace Emojidex {
 	{
 	private:
 	public:
+		Emojidex::Service::User *User;
 		Emojidex::Service::Search *Search;
 		Emojidex::Service::Indexes *Indexes;
 

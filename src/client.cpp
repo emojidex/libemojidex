@@ -2,12 +2,18 @@
 
 Emojidex::Client::Client()
 {
+  this->User = new Emojidex::Service::User();
 	this->Search = new Emojidex::Service::Search();
   this->Indexes = new Emojidex::Service::Indexes();
 }
 
 Emojidex::Client::~Client()
 {
+  if(this->User != NULL)
+  {
+    delete this->User;
+    this->User = NULL;
+  }
   if(this->Search != NULL)
   {
     delete this->Search;
