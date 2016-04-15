@@ -2,6 +2,7 @@
 #define EMOJIDEX_SERVICE_SEARCH_CONDITIONS_H
 
 #include <vector>
+#include <string>
 #include <unordered_map>
 
 #define DEFAULT_LOCALE "en"

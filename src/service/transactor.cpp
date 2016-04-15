@@ -88,8 +88,6 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
 	std::stringstream url_stream;
 	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << url_encode(endpoint);
 
-	cout << "URL IS: " << url_stream.str() << endl;
-
 	if (curl) {
 		struct curl_slist *headers = NULL;
 		headers = curl_slist_append(headers, "charset: utf-8");
