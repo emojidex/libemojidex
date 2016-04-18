@@ -302,6 +302,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_TEST_MESSAGE("Index utfEmoji");
 		Emojidex::Data::Collection utf = idx.utfEmoji("ja");
 		BOOST_CHECK(utf.opts.getLocale().compare("ja") == 0);
+		BOOST_CHECK(utf.opts.getPage() == 1);
 		BOOST_CHECK_GT(utf.emoji.size(), 0);
 		BOOST_CHECK(utf.emoji["雫"].moji.compare("🌢") == 0);
 		//Make sure we only loaded one language
@@ -312,6 +313,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_TEST_MESSAGE("Index extendedEmoji");
 		Emojidex::Data::Collection ext = idx.extendedEmoji();
 		BOOST_CHECK(ext.opts.getLocale().compare("en") == 0);
+		BOOST_CHECK(ext.opts.getPage() == 1);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
 		BOOST_CHECK(ext.emoji["bunny boy"].category.compare("people") == 0);
@@ -321,9 +323,11 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_TEST_MESSAGE("Index emoji");
 		Emojidex::Data::Collection emoji = idx.emoji();
 		int sz = emoji.emoji.size();
+		BOOST_CHECK(emoji.opts.getPage() == 1);
 		BOOST_CHECK_GT(sz, 0);
 		BOOST_CHECK_GT(emoji.total_count, sz);
 		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);
+		BOOST_CHECK(emoji.opts.getPage() == 2);
 		BOOST_CHECK_GT(emoji.emoji.size(), sz);
 	}
 
@@ -331,8 +335,10 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_TEST_MESSAGE("Index emoji (detailed)");
 		Emojidex::Data::Collection emoji = idx.emoji(1, 20, true);
 		int sz = emoji.emoji.size();
+		BOOST_CHECK(emoji.opts.getPage() == 1);
 		BOOST_CHECK(sz == 20);
 		BOOST_CHECK_GT(emoji.more().emoji.size(), 0);
+		BOOST_CHECK(emoji.opts.getPage() == 2);
 		BOOST_CHECK_EQUAL(emoji.emoji.size(), 40);
 		BOOST_CHECK(emoji.emoji.begin()->second.checksums.svg.compare("") != 0);
 		BOOST_CHECK(emoji.emoji.begin()->second.checksums.png["xhdpi"].compare("") != 0);
@@ -346,8 +352,10 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 
 			Emojidex::Data::Collection newest = idx.newest(auth_token);
 			int sz = newest.emoji.size();
+			BOOST_CHECK(newest.opts.getPage() == 1);
 			BOOST_CHECK_GT(sz, 0);
 			BOOST_CHECK_GT(newest.more().emoji.size(), 0);
+			BOOST_CHECK(newest.opts.getPage() == 2);
 			BOOST_CHECK_GT(newest.emoji.size(), sz);
 		}
 		//TODO make sure no auth token returns empty
@@ -360,8 +368,10 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 			
 			Emojidex::Data::Collection popular = idx.popular(auth_token);
 			int sz = popular.emoji.size();
+			BOOST_CHECK(popular.opts.getPage() == 1);
 			BOOST_CHECK_GT(sz, 0);
 			BOOST_CHECK_GT(popular.more().emoji.size(), 0);
+			BOOST_CHECK(popular.opts.getPage() == 2);
 			BOOST_CHECK_GT(popular.emoji.size(), sz);
 		}
 		//TODO make sure no auth token returns empty
@@ -392,16 +402,24 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	BOOST_AUTO_TEST_CASE(search_term) {
 		// Empty search provides empty results
 		//BOOST_CHECK(search.term("").emoji.size() == 0);
-		BOOST_CHECK(search.term("pudding").emoji.size() > 0);
+		Emojidex::Data::Collection term = search.term("pudding");
+		BOOST_CHECK(term.opts.getPage() == 1);
+		BOOST_CHECK(term.emoji.size() > 0);
 		//BOOST_CHECK(Emojidex::escapeCode("cry(pudding)").compare("cry\\(pudding\\)") == 0);
-		BOOST_CHECK(search.term("cry%28pudding%29").emoji.size() > 0);
-		BOOST_CHECK(search.term("(プリン)").emoji.size() > 0);
+		term = search.term("cry%28pudding%29");
+		BOOST_CHECK(term.opts.getPage() == 1);
+		BOOST_CHECK(term.emoji.size() > 0);
+		term = search.term("(プリン)");
+		BOOST_CHECK(term.opts.getPage() == 1);
+		BOOST_CHECK(term.emoji.size() > 0);
 
 	}
 
 	BOOST_AUTO_TEST_CASE(search_tags) {
 		std::string test_tags[] = {"linux", "OSS"};
-		BOOST_CHECK(search.tags(test_tags).emoji.size() > 0);
+		Emojidex::Data::Collection tags = search.tags(test_tags);
+		BOOST_CHECK(tags.opts.getPage() == 1);
+		BOOST_CHECK(tags.emoji.size() > 0);
 	}
 BOOST_AUTO_TEST_SUITE_END()
 
