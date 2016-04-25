@@ -7,7 +7,6 @@
 
 #include <sstream>
 #include <iostream>
-#include <regex>
 using namespace std;
 
 namespace
@@ -18,12 +17,6 @@ namespace
 		((string*)userdata)->append(ptr, realsize);
 		return realsize;
 	}
-
-  std::string escape_regex(const std::string& src)
-  {
-    std::regex regex("\\(|\\)|%28|%29");
-    return std::regex_replace(src, regex, "\\$0");
-  }
 }
 
 Emojidex::Service::Transactor::Transactor()
@@ -106,9 +99,8 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, verb.c_str());
 
-    const std::string escape_query = escape_regex(query);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, escape_query.c_str());
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)escape_query.length());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query.length());
 
     const std::string& CACertPath = Emojidex::getCACertPath();
     if( !CACertPath.empty() )

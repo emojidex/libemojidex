@@ -1,6 +1,17 @@
 #include "search.h"
 #include "transactor.h"
 
+#include <regex>
+
+namespace
+{
+  std::string escape_regex(const std::string& src)
+  {
+    std::regex regex("\\(|\\)|%28|%29");
+    return std::regex_replace(src, regex, "\\$0");
+  }
+}
+
 Emojidex::Service::Search::Search()
 {
 	this->current_page = 0;
@@ -13,7 +24,7 @@ Emojidex::Data::Collection Emojidex::Service::Search::term(std::string code_cont
 	result.opts = conditions != NULL ? *conditions : Emojidex::Service::QueryOpts();
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
-	result.opts.ext("code_cont=" + code_cont);
+	result.opts.ext("code_cont=" + escape_regex(code_cont));
 	result.more();
 
 	return result;
@@ -26,7 +37,7 @@ Emojidex::Data::Collection Emojidex::Service::Search::starting(std::string code_
 	result.opts = conditions != NULL ? *conditions : Emojidex::Service::QueryOpts();
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
-	result.opts.ext("code_sw=" + code_sw);
+	result.opts.ext("code_sw=" + escape_regex(code_sw));
 	result.more();
 
 	return result;
@@ -39,7 +50,7 @@ Emojidex::Data::Collection Emojidex::Service::Search::ending(std::string code_ew
 	result.opts = conditions != NULL ? *conditions : Emojidex::Service::QueryOpts();
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
-	result.opts.ext("code_ew=" + code_ew);
+	result.opts.ext("code_ew=" + escape_regex(code_ew));
 	result.more();
 
 	return result;
@@ -68,7 +79,7 @@ Emojidex::Data::Collection Emojidex::Service::Search::advanced(std::string code_
 	result.opts = conditions != NULL ? *conditions : Emojidex::Service::QueryOpts();
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
-	result.opts.ext("code_cont=" + code_cont);
+	result.opts.ext("code_cont=" + escape_regex(code_cont));
 	for (unsigned int i = 0; i < tags->size(); i++)
 		result.opts.tag(tags[i]);
 
