@@ -501,6 +501,15 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.addHistory("poop") == true);
 		BOOST_CHECK(user.history[0].emoji_code.compare("poop") == 0);
 
+		BOOST_CHECK(user.addHistory("cry(pudding)") == true);
+		BOOST_CHECK(user.history[0].emoji_code.compare("cry(pudding)") == 0);
+
+		BOOST_CHECK(user.addHistory("cry%28wh%29") == true);
+		BOOST_CHECK(user.history[0].emoji_code.compare("cry(wh)") == 0);
+
+		BOOST_CHECK(user.addHistory("あきれ顔(黄)") == true);
+		BOOST_CHECK(user.history[0].emoji_code.compare("あきれ顔(黄)") == 0);
+
 		BOOST_TEST_MESSAGE("User history is sorted on sync");
 		Emojidex::Service::HistoryItem hi = user.history[0];
 		user.history[0] = user.history[1];
