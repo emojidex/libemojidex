@@ -24,7 +24,16 @@ final class LibemojidexInitializer
     loadNativeLibrary("libgnustl_shared.so", arch);
     loadNativeLibrary("libcrypto.so.1.0.0", arch);
     loadNativeLibrary("libssl.so.1.0.0", arch);
-    loadNativeLibrary("libcurl.so.5", arch);
+    File f = new File("libcurl.so.5");
+    if (f.exists())
+    {
+      loadNativeLibrary("libcurl.so.5", arch);
+    }
+    else
+    {
+      // For mac.
+      loadNativeLibrary("libcurl.so", arch);
+    }
     loadNativeLibrary("libemojidex-android.so", arch);
 
     // For ssl.

@@ -41,6 +41,10 @@ puts "== Creating Native Interface Java sources"
 puts "== Running NDK Build"
 `NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
 
+puts "== for mac (copy the missing file)"
+FileUtils.cp("#{@natives_dir}/natives/lib/arm/libcurl.so", "#{@build_dir}/libs/armeabi/libcurl.so") unless File.exists? "#{@build_dir}/libs/armeabi/libcurl.so"
+FileUtils.cp("#{@natives_dir}/natives/lib/x86/libcurl.so", "#{@build_dir}/libs/x86/libcurl.so") unless File.exists? "#{@build_dir}/libs/x86/libcurl.so"
+
 puts "== Copying temporary natives for jar"
 Dir.chdir(@build_dir) do
   tmp_dir = 'tmp';
