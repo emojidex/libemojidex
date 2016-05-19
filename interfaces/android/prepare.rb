@@ -146,7 +146,7 @@ end
 def build_curl()
   disable_lines = '--disable-ftp --disable-gopher --disable-file --disable-imap --disable-ldap ' +
     '--disable-ldaps --disable-pop3 --disable-proxy --disable-rtsp --disable-smtp ' +
-    '--disable-telnet --disable-tftp --disable-libidn --disable-librtmp --disable-dict'
+    '--disable-telnet --disable-tftp --without-libidn --without-librtmp --disable-dict'
   if Dir.exists? "#{@build_dir}/curl"
     puts "CURL repository found. Updating..."
     git = Git.open("#{@build_dir}/curl")

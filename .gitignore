@@ -4,3 +4,5 @@
 /src/version.h
 *.orig
 /tmp/
+
+.DS_Store
