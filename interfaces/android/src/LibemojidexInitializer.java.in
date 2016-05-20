@@ -24,8 +24,8 @@ final class LibemojidexInitializer
     loadNativeLibraryFromJar("libgnustl_shared.so", arch);
     loadNativeLibraryFromJar("libcrypto.so.1.0.0", arch);
     loadNativeLibraryFromJar("libssl.so.1.0.0", arch);
-    File f = new File("libcurl.so.5");
-    if (f.exists())
+    
+    if (isExists("libcurl.so.5", arch))
     {
       loadNativeLibraryFromJar("libcurl.so.5", arch);
     }
@@ -66,7 +66,7 @@ final class LibemojidexInitializer
       {
         for(String result : entry.getValue())
         {
-          if(LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath("libemojidex-android.so", result)) != null)
+          if(isExists("libemojidex-android.so", result))
             return result;
         }
       }
@@ -136,5 +136,13 @@ final class LibemojidexInitializer
     }
 
     return "";
+  }
+
+  /**
+   *  Check file exists.
+   */
+  private static boolean isExists(String name, String arch)
+  {
+    return LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath(name, arch)) != null;
   }
 }
