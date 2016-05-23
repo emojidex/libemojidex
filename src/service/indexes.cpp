@@ -5,9 +5,23 @@
 using namespace std;
 using namespace Emojidex::Data;
 
+namespace
+{
+  bool is_logined(const Emojidex::Service::User *user)
+  {
+  	return user != NULL && !user->auth_token.empty();
+  }
+}
+
 Emojidex::Service::Indexes::Indexes()
+	: user(NULL)
 {
 	this->codes = new Emojidex::Data::MojiCodes();
+}
+
+void Emojidex::Service::Indexes::setUser(const Emojidex::Service::User *user)
+{
+	this->user = user;
 }
 
 Emojidex::Service::Indexes::~Indexes()
@@ -18,7 +32,9 @@ Emojidex::Service::Indexes::~Indexes()
 Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.GET("moji_codes", {{"locale", locale}});
+	string response = is_logined(user) ?
+		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}) :
+		transactor.GET("moji_codes", {{"locale", locale}});
 	
 	rapidjson::Document d;
 	d.Parse(response.c_str());

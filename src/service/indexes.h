@@ -4,6 +4,7 @@
 #include "../data/moji_codes.h"
 #include "../data/collection.h"
 #include "collector.h"
+#include "./user.h"
 
 namespace Emojidex {
 	namespace Service {
@@ -12,10 +13,13 @@ namespace Emojidex {
 		{
 		private:
 			Emojidex::Data::MojiCodes *codes;
+			const Emojidex::Service::User *user;
+
 		public:
 			Indexes();
 			~Indexes();
 
+			void setUser(const Emojidex::Service::User *user);
 
 			/* NOTE: all calls default to locale = "en" and detailed = false */
 

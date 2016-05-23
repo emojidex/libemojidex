@@ -5,6 +5,9 @@ Emojidex::Client::Client()
   this->User = new Emojidex::Service::User();
 	this->Search = new Emojidex::Service::Search();
   this->Indexes = new Emojidex::Service::Indexes();
+
+  this->Search->setUser(this->User);
+  this->Indexes->setUser(this->User);
 }
 
 Emojidex::Client::~Client()

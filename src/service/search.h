@@ -4,6 +4,7 @@
 #include "../data/collection.h"
 #include "../libemojidex.h"
 #include "./query_opts.h"
+#include "./user.h"
 
 #include <string>
 
@@ -11,10 +12,15 @@ namespace Emojidex {
 	namespace Service {
 		class Search
 		{
+		private:
+			const Emojidex::Service::User *user;
+
 		public:
 			unsigned int current_page;
 
 			Search();
+
+			void setUser(const Emojidex::Service::User *user);
 
 			Emojidex::Data::Collection term(const std::string code_cont, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection starting(std::string code_sw, Emojidex::Service::QueryOpts *conditions = NULL);
