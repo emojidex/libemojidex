@@ -74,14 +74,14 @@ Emojidex::Data::Collection Emojidex::Service::Search::ending(std::string code_ew
 }
 
 
-Emojidex::Data::Collection Emojidex::Service::Search::tags(std::string tags[], Emojidex::Service::QueryOpts *conditions)
+Emojidex::Data::Collection Emojidex::Service::Search::tags(const std::vector<std::string> &tags, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection result;
 
 	result.opts = conditions != NULL ? *conditions : Emojidex::Service::QueryOpts();
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
-	for (unsigned int i = 0; i < tags->size(); i++)
+	for (unsigned int i = 0; i < tags.size(); i++)
 		result.opts.tag(tags[i]);
 	if(is_logged_in(user))
 		result.opts.auth_token(user->auth_token);

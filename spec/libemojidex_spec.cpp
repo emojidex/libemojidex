@@ -416,13 +416,13 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(search_tags) {
-		std::string test_tag[1];
+		std::vector<std::string> test_tag(1);
 		test_tag[0] = "linux";
 		Emojidex::Data::Collection tags = search.tags(test_tag);
 		BOOST_CHECK(tags.opts.getPage() == 1);
 		BOOST_CHECK(tags.emoji.size() > 0);
 
-		std::string test_tags[] = {"linux", "OSS"};
+		std::vector<std::string> test_tags{"linux", "OSS"};
 		tags = search.tags(test_tags);
 		BOOST_CHECK(tags.opts.getPage() == 1);
 		BOOST_CHECK(tags.emoji.size() > 0);
