@@ -38,8 +38,6 @@ namespace Emojidex {
 			bool premium;
 			std::string premium_exp;
 			bool r18;
-			// WARNING: debug
-			std::string response;
 
 			User();
 			~User();

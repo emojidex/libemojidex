@@ -7,7 +7,7 @@ using namespace Emojidex::Data;
 
 namespace
 {
-  bool is_logined(const Emojidex::Service::User *user)
+  bool is_logged_in(const Emojidex::Service::User *user)
   {
   	return user != NULL && !user->auth_token.empty();
   }
@@ -32,7 +32,7 @@ Emojidex::Service::Indexes::~Indexes()
 Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
 	Emojidex::Service::Transactor transactor;
-	string response = is_logined(user) ?
+	string response = is_logged_in(user) ?
 		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}) :
 		transactor.GET("moji_codes", {{"locale", locale}});
 	
