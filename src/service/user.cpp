@@ -26,8 +26,6 @@ bool Emojidex::Service::User::authorize(string username, string token)
 	string response = transactor.GET("users/authenticate", {{"username", username}, 
 			{"token", token}});
 
-	this->response = response;
-
 	rapidjson::Document doc;
 	doc.Parse(response.c_str());
 
@@ -202,8 +200,6 @@ bool Emojidex::Service::User::addHistory(string code)
 	Emojidex::Service::Transactor transactor;
 	std::string response = transactor.POST("users/history", {{"auth_token", this->auth_token}, 
 			{"emoji_code", Emojidex::escapeCode(code)}});
-
-	this->response = response; // DEBUG
 
 	rapidjson::Document doc;
 	doc.Parse(response.c_str());

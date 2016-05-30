@@ -7,6 +7,7 @@
 #include "./user.h"
 
 #include <string>
+#include <vector>
 
 namespace Emojidex {
 	namespace Service {
@@ -25,7 +26,7 @@ namespace Emojidex {
 			Emojidex::Data::Collection term(const std::string code_cont, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection starting(std::string code_sw, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection ending(std::string code_ew, Emojidex::Service::QueryOpts *conditions = NULL);
-			Emojidex::Data::Collection tags(std::string tags[], Emojidex::Service::QueryOpts *conditions = NULL);
+			Emojidex::Data::Collection tags(const std::vector<std::string> &tags, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection advanced(std::string code_cont, std::string categories[],
 					std::string tags[], Emojidex::Service::QueryOpts *conditions = NULL);
 

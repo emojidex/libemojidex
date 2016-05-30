@@ -90,7 +90,8 @@ const std::string& Emojidex::Service::QueryOpts::getAuthToken() const
 
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::tag(const std::string &tag)
 {
-	this->_tags.push_back(tag);
+	if (tag.empty() == false)
+		this->_tags.push_back(tag);
 	return *this;
 }
 
