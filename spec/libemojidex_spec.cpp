@@ -429,13 +429,10 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 	}
 
 	BOOST_AUTO_TEST_CASE(search_advanced) {
-	}
+		std::vector<std::string> test_tags = {"linux", "OSS"};
+		std::vector<std::string> test_categories = {"symbols"};
 
-	BOOST_AUTO_TEST_CASE(search_advanced) {
-		std::string test_tags[] = {"linux", "OSS"};
-		std::string test_categories[] = {"symbols"};
-
-		Emojidex::Data::Collection advanced = search.advanced("tu", test_categories, test_tags);
+		Emojidex::Data::Collection advanced = search.advanced("ux", test_categories, test_tags);
 		BOOST_CHECK(advanced.opts.getPage() == 1);
 		BOOST_CHECK(advanced.emoji.size() > 0);
 	}

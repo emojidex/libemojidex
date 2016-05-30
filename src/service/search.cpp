@@ -90,8 +90,8 @@ Emojidex::Data::Collection Emojidex::Service::Search::tags(const std::vector<std
 	return result;
 }
 
-Emojidex::Data::Collection Emojidex::Service::Search::advanced(std::string code_cont, std::string categories[],
-	std::string tags[], Emojidex::Service::QueryOpts *conditions)
+Emojidex::Data::Collection Emojidex::Service::Search::advanced(std::string code_cont, const std::vector<std::string> &categories,
+	const std::vector<std::string> &tags, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection result;
 
@@ -99,9 +99,9 @@ Emojidex::Data::Collection Emojidex::Service::Search::advanced(std::string code_
 	result.opts.page(result.opts.getPage() - 1);
 	result.endpoint = "search/emoji";
 	result.opts.ext("code_cont=" + escape_regex(code_cont));
-	for (unsigned int i = 0; i < tags->size(); i++)
+	for (unsigned int i = 0; i < tags.size(); i++)
 		result.opts.tag(tags[i]);
-	for (unsigned int i = 0; i < categories->size(); i++)
+	for (unsigned int i = 0; i < categories.size(); i++)
 		result.opts.category(categories[i]);
 	if(is_logged_in(user))
 		result.opts.auth_token(user->auth_token);

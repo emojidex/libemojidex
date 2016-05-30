@@ -27,8 +27,8 @@ namespace Emojidex {
 			Emojidex::Data::Collection starting(std::string code_sw, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection ending(std::string code_ew, Emojidex::Service::QueryOpts *conditions = NULL);
 			Emojidex::Data::Collection tags(const std::vector<std::string> &tags, Emojidex::Service::QueryOpts *conditions = NULL);
-			Emojidex::Data::Collection advanced(std::string code_cont, std::string categories[],
-					std::string tags[], Emojidex::Service::QueryOpts *conditions = NULL);
+			Emojidex::Data::Collection advanced(std::string code_cont, const std::vector<std::string> &categories,
+					const std::vector<std::string> &tags, Emojidex::Service::QueryOpts *conditions = NULL);
 
 			// Attempts to directly obtain emoji data by code
 			// Returns a Data::Emoji object filled with the emoji info on success (the emoji is registered)
