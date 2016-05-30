@@ -421,6 +421,15 @@ BOOST_AUTO_TEST_SUITE(service_search_suite)
 		BOOST_CHECK(tags.opts.getPage() == 1);
 		BOOST_CHECK(tags.emoji.size() > 0);
 	}
+
+	BOOST_AUTO_TEST_CASE(search_advanced) {
+		std::string test_tags[] = {"linux", "OSS"};
+		std::string test_categories[] = {"symbols"};
+
+		Emojidex::Data::Collection advanced = search.advanced("tu", test_categories, test_tags);
+		BOOST_CHECK(advanced.opts.getPage() == 1);
+		BOOST_CHECK(advanced.emoji.size() > 0);
+	}
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
