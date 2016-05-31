@@ -49,21 +49,6 @@ Java Native Interface
 3. Run `make` or compile on your native environment.
 4. Optional: run `make jar` to put the resulting JNI library in a JAR file
 
-Objective C Native Interface
-----------------------------
-
-**NOTE:** This is for a language level Objective C build, not specifically for iOS.
-
-> Linux Prerequisites: gobjc++ libgnustep-base-dev
-
-1. Follow steps 1 - 3 for normal build.
-2. Run cmake with the OBJC flag set to true:
-  ```
-  cmake -DOBJC=true ..
-  ```
-3. Run `make` or compile on your native environment.
-4. Run `make objc` or build the `objc` profile.
-
 Android [NDK] Build
 -------------------
 **WARNING:** Due to incompatibilities in either the Android build system or Dalvik VM, and Android 
@@ -88,6 +73,21 @@ mips. You can bundle these raw sources and generated libraries in your app *OR* 
 build and bundle a JAR in step 6.
 6. *Optional* run `make android_jar` to bundle all generated sources and libraries into an 
 easy-to-use JAR.
+
+Objective C Native Interface
+----------------------------
+
+**NOTE:** This is for a language level Objective C build, not specifically for iOS.
+
+> Linux Prerequisites: gobjc++ libgnustep-base-dev
+
+1. Follow steps 1 - 3 for normal build.
+2. Run cmake with the OBJC flag set to true:
+  ```
+  cmake -DOBJC=true ..
+  ```
+3. Run `make` or compile on your native environment.
+4. Run `make objc` or build the `objc` profile.
 
 iOS Build
 ---------
