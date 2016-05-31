@@ -18,6 +18,7 @@ void Emojidex::Service::QueryOpts::setCollectionDefaults()
 		.auth_token()
 		.clearTags()
 		.clearCategories()
+		.setSort()
 		.clearExt()
 		;
 }
@@ -123,6 +124,22 @@ const std::vector<std::string>& Emojidex::Service::QueryOpts::getCategories() co
 	return _categories;
 }
 
+Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::setSort(std::string order)
+{
+	if (order.compare("score")		== 0 ||
+		order.compare("unpopular")	== 0 ||
+		order.compare("newest")		== 0 ||
+		order.compare("oldest")		== 0 ||
+		order.compare("liked")		== 0 ||
+		order.compare("unliked")	== 0 ||
+		order.compare("shortest")	== 0 ||
+		order.compare("longest")	== 0 ||
+		order.compare("")			== 0)
+		this->_sort = order;
+
+	return *this;
+}
+
 Emojidex::Service::QueryOpts& Emojidex::Service::QueryOpts::ext(const std::string &opt, const std::string &prefix)
 {
 	_ext_opts += prefix + opt;
@@ -188,6 +205,9 @@ std::string Emojidex::Service::QueryOpts::to_string() const
 
 	for (item = _categories.begin(); item < _categories.end(); item++)
 		qss << "&categories[]=" << *item;
+
+	if ( !_sort.empty() )
+		qss << "&sort=" << _sort;
 
 	if ( !_ext_opts.empty() )
 		qss << _ext_opts;

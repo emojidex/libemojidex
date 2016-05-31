@@ -228,3 +228,105 @@ bool Emojidex::Service::User::addHistory(string code)
 
 	return false;
 }
+
+bool Emojidex::Service::User::syncFollowing()
+{
+	Transactor transactor;
+
+	string response = transactor.GET("users/following", {{"auth_user", username}, 
+			{"auth_token", this->auth_token}});
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	this->following.clear();
+
+	const rapidjson::Value& ua = doc["following"];
+	for (rapidjson::SizeType i = 0; i < ua.Size(); i++)
+		this->following.push_back(ua[i].GetString());
+
+	return true;
+}
+
+bool Emojidex::Service::User::addFollowing(string username)
+{
+	Transactor transactor;
+
+	string response = transactor.POST("users/following", {{"auth_user", username},
+			{"auth_token", this->auth_token}, {"username", username}});
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("username")) { //Check to see if a code is actually present
+			this->following.push_back(doc["username"].GetString());
+			return true;
+		} else if (doc.HasMember("status")) {
+			return false;
+		}
+	}
+
+	return false;
+}
+
+bool Emojidex::Service::User::removeFollowing(string username)
+{
+	Transactor transactor;
+
+	string response = transactor.DELETE("users/following", {{"auth_user", username},
+			{"auth_token", this->auth_token}, {"username", username}});
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	if (doc.IsObject()) {
+		if (doc.HasMember("username")) { //Check to see if a code is actually present
+			if (username.compare(doc["username"].GetString()) != 0)
+				return false;
+
+			for (unsigned int i = 0; i < following.size(); i++) {
+				if (following[i].compare(username) == 0) {
+					this->following.erase(this->following.begin() + i);
+					return true;
+				}
+			}
+			return false;
+		} else if (doc.HasMember("status")) {
+			return false;
+		}
+	}
+
+	return false;
+}
+
+bool Emojidex::Service::User::syncFollowers()
+{
+	Transactor transactor;
+
+	string response = transactor.GET("users/followers", {{"auth_user", username}, 
+			{"auth_token", this->auth_token}});
+
+	rapidjson::Document doc;
+	doc.Parse(response.c_str());
+
+	if (doc.HasParseError())
+		return false;
+
+	this->followers.clear();
+
+	const rapidjson::Value& ua = doc["followers"];
+	for (rapidjson::SizeType i = 0; i < ua.Size(); i++)
+		this->followers.push_back(ua[i].GetString());
+
+	return true;
+}

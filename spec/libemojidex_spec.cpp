@@ -541,6 +541,24 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 		BOOST_CHECK(user.history[1].last_used_posix > user.history[2].last_used_posix);
 		BOOST_CHECK(user.history[2].last_used_posix > user.history[3].last_used_posix);
 	}
+
+	// User following (followers is tested by hand on a premium account)
+	BOOST_AUTO_TEST_CASE(user_following) {
+		user.addFollowing("emojidex");
+		user.syncFollowing();
+		BOOST_CHECK(user.following.size() > 0);
+		unsigned int num_following = user.following.size();
+		BOOST_TEST_MESSAGE("User following on sync: " << num_following);
+		
+		user.removeFollowing("emojidex");
+		BOOST_TEST_MESSAGE("User following after remove: " << user.following.size());
+		BOOST_CHECK(user.following.size() == num_following - 1);
+		
+		user.addFollowing("emojidex");
+		BOOST_TEST_MESSAGE("User following after add: " << user.following.size());
+		BOOST_CHECK(user.following.size() == num_following);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////
