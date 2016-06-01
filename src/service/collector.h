@@ -13,10 +13,11 @@ namespace Emojidex {
 			static Emojidex::Data::Collection getStaticCollection(std::string name, std::string locale = DEFAULT_LOCALE,
 				bool detailed = true);
 			static Emojidex::Data::Collection getDynamicCollection(std::string name, unsigned int page,
-				unsigned int limit, bool detailed, std::string ext_args = "");
+				unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions = NULL);
 			static Emojidex::Data::Collection getAuthorizedDynamicCollection(std::string name,
 				std::string auth_token, 
-				unsigned int page, unsigned int limit, bool detailed, std::string ext_args = "");
+				unsigned int page, unsigned int limit, bool detailed,
+				Emojidex::Service::QueryOpts *conditions = NULL);
 			static Emojidex::Data::Collection getCollection(Emojidex::Data::Collection collect);
 		};
 	}

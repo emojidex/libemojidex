@@ -28,10 +28,12 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 
 
 Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(string name,
-		unsigned int page, unsigned int limit, bool detailed, std::string ext_args)
+		unsigned int page, unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.endpoint = name;
+	if (conditions != NULL)
+		collect.opts = *conditions;
 	collect.opts.detailed(detailed);
 	collect.opts.limit(limit);
 	collect.opts.page(page);
@@ -45,10 +47,12 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 }
 
 Emojidex::Data::Collection Emojidex::Service::Collector::getAuthorizedDynamicCollection(string name,
-		std::string auth_token, unsigned int page, unsigned int limit, bool detailed, std::string ext_args)
+		std::string auth_token, unsigned int page, unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions)
 {
 	Emojidex::Data::Collection collect = Emojidex::Data::Collection();
 	collect.endpoint = name;
+	if (conditions != NULL)
+		collect.opts = *conditions;
 	collect.opts.detailed(detailed);
 	collect.opts.limit(limit);
 	collect.opts.page(page);

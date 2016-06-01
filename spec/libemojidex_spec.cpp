@@ -376,6 +376,12 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		}
 		//TODO make sure no auth token returns empty
 	}
+
+	BOOST_AUTO_TEST_CASE(user_emoji_index) {
+		Emojidex::Data::Collection user_emoji = idx.userEmoji("Zero");
+		BOOST_CHECK_GT(user_emoji.emoji.size(), 0);
+	}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 ///////////////////////////////////////////////////////////////////////////////

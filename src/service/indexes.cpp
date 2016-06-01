@@ -71,9 +71,9 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string loca
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page, 
-		unsigned int limit, bool detailed)
+		unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions)
 {
-	return Emojidex::Service::Collector::getDynamicCollection("emoji", page, limit, detailed);
+	return Emojidex::Service::Collector::getDynamicCollection("emoji", page, limit, detailed, conditions);
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::newest(std::string auth_token, unsigned int page,
@@ -86,4 +86,12 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::popular(std::string auth_
 		unsigned int limit, bool detailed)
 {
 	return Emojidex::Service::Collector::getAuthorizedDynamicCollection("popular", auth_token, page, limit, detailed);
+}
+
+Emojidex::Data::Collection Emojidex::Service::Indexes::userEmoji(std::string username, unsigned int page, 
+		unsigned int limit, bool detailed)
+{
+	std::stringstream path;
+	path << "users/" << username << "/emoji";
+	return Emojidex::Service::Collector::getDynamicCollection(path.str(), page, limit, detailed);
 }
