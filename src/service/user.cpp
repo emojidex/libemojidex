@@ -1,6 +1,7 @@
 #include "../libemojidex.h"
 #include "user.h"
 #include "transactor.h"
+#include "indexes.h"
 #include "rapidjson/document.h"
 
 using namespace Emojidex::Data;
@@ -227,6 +228,17 @@ bool Emojidex::Service::User::addHistory(string code)
 	}
 
 	return false;
+}
+
+
+bool Emojidex::Service::User::syncMyEmoji()
+{
+	if (this->username.empty())
+		return false;
+
+	Emojidex::Service::Indexes idx;
+	this->my_emoji = idx.userEmoji(this->username);
+	return true;
 }
 
 bool Emojidex::Service::User::syncFollowing()
