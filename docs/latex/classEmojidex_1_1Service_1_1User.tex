@@ -1,0 +1,149 @@
+\hypertarget{classEmojidex_1_1Service_1_1User}{}\section{Emojidex\+:\+:Service\+:\+:User Class Reference}
+\label{classEmojidex_1_1Service_1_1User}\index{Emojidex\+::\+Service\+::\+User@{Emojidex\+::\+Service\+::\+User}}
+
+
+\hyperlink{classEmojidex_1_1Service_1_1User}{User} login/management for the emojidex service.  
+
+
+
+
+{\ttfamily \#include $<$user.\+h$>$}
+
+
+
+Collaboration diagram for Emojidex\+:\+:Service\+:\+:User\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classEmojidex_1_1Service_1_1User__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classEmojidex_1_1Service_1_1User_a01490eed8fcfc954284a058fea0a242b}{Auth\+Status\+Code} \{ {\bfseries N\+O\+NE}, 
+{\bfseries F\+A\+I\+L\+U\+RE}, 
+{\bfseries U\+N\+V\+E\+R\+I\+F\+I\+ED}, 
+{\bfseries V\+E\+R\+I\+F\+I\+ED}
+ \}\hypertarget{classEmojidex_1_1Service_1_1User_a01490eed8fcfc954284a058fea0a242b}{}\label{classEmojidex_1_1Service_1_1User_a01490eed8fcfc954284a058fea0a242b}
+\begin{DoxyCompactList}\small\item\em Status codes denoting the current authorization/login status of the user. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a909f2f2858ed1978476fcc9e2f7b32c5}{authorize} (std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}{username}, std\+::string token)\hypertarget{classEmojidex_1_1Service_1_1User_a909f2f2858ed1978476fcc9e2f7b32c5}{}\label{classEmojidex_1_1Service_1_1User_a909f2f2858ed1978476fcc9e2f7b32c5}
+
+\begin{DoxyCompactList}\small\item\em Authroize the user with a username and auth\+\_\+token. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a44800534bd40a64caf35fc5fb93298c5}{login} (std\+::string user, std\+::string password)\hypertarget{classEmojidex_1_1Service_1_1User_a44800534bd40a64caf35fc5fb93298c5}{}\label{classEmojidex_1_1Service_1_1User_a44800534bd40a64caf35fc5fb93298c5}
+
+\begin{DoxyCompactList}\small\item\em Authroize a user with a username or e-\/mail and password. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a4fd708d672d09325c07b72bae81bab10}{sync\+Favorites} (bool detailed=true)
+\begin{DoxyCompactList}\small\item\em Synchronize user favorites from the emojidex service. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a69799b874e057eefccd36fdaae42695d}{add\+Favorite} (std\+::string code)\hypertarget{classEmojidex_1_1Service_1_1User_a69799b874e057eefccd36fdaae42695d}{}\label{classEmojidex_1_1Service_1_1User_a69799b874e057eefccd36fdaae42695d}
+
+\begin{DoxyCompactList}\small\item\em Register an emoji to users favorites on the emojidex service. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a0f05215cbff6feacbe29ce9d7f1c2e17}{remove\+Favorite} (std\+::string code)\hypertarget{classEmojidex_1_1Service_1_1User_a0f05215cbff6feacbe29ce9d7f1c2e17}{}\label{classEmojidex_1_1Service_1_1User_a0f05215cbff6feacbe29ce9d7f1c2e17}
+
+\begin{DoxyCompactList}\small\item\em Remove an emoji from users favorites on the emojidex service. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classEmojidex_1_1Service_1_1HistoryItem}{Emojidex\+::\+Service\+::\+History\+Item} $>$ \hyperlink{classEmojidex_1_1Service_1_1User_ae26cdfd2fbd24777a167709a615590d1}{sync\+History} (unsigned int page=0, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT)
+\begin{DoxyCompactList}\small\item\em Syncs history. \end{DoxyCompactList}\item 
+bool {\bfseries add\+History} (std\+::string code)\hypertarget{classEmojidex_1_1Service_1_1User_a5bf74092c95f3b6aca6a5f8dee857879}{}\label{classEmojidex_1_1Service_1_1User_a5bf74092c95f3b6aca6a5f8dee857879}
+
+\item 
+bool {\bfseries sync\+My\+Emoji} ()\hypertarget{classEmojidex_1_1Service_1_1User_acef94239cf65b7d8b707b688a8f0a4c9}{}\label{classEmojidex_1_1Service_1_1User_acef94239cf65b7d8b707b688a8f0a4c9}
+
+\item 
+bool {\bfseries sync\+Following} ()\hypertarget{classEmojidex_1_1Service_1_1User_a5d3d73e8788572961694cab846f5708a}{}\label{classEmojidex_1_1Service_1_1User_a5d3d73e8788572961694cab846f5708a}
+
+\item 
+bool {\bfseries add\+Following} (std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}{username})\hypertarget{classEmojidex_1_1Service_1_1User_ad0e6e27ef16bc37e1839d2deda9f8744}{}\label{classEmojidex_1_1Service_1_1User_ad0e6e27ef16bc37e1839d2deda9f8744}
+
+\item 
+bool {\bfseries remove\+Following} (std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}{username})\hypertarget{classEmojidex_1_1Service_1_1User_a42f548583cb236e22278754c863ea6c6}{}\label{classEmojidex_1_1Service_1_1User_a42f548583cb236e22278754c863ea6c6}
+
+\item 
+bool {\bfseries sync\+Followers} ()\hypertarget{classEmojidex_1_1Service_1_1User_ac9d62c8a7fd9eb6e64e930460e9f98d3}{}\label{classEmojidex_1_1Service_1_1User_ac9d62c8a7fd9eb6e64e930460e9f98d3}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEmojidex_1_1Service_1_1User_a01490eed8fcfc954284a058fea0a242b}{Auth\+Status\+Code} \hyperlink{classEmojidex_1_1Service_1_1User_adc84ddae4c153e0be58a904c97dd9096}{status}\hypertarget{classEmojidex_1_1Service_1_1User_adc84ddae4c153e0be58a904c97dd9096}{}\label{classEmojidex_1_1Service_1_1User_adc84ddae4c153e0be58a904c97dd9096}
+
+\begin{DoxyCompactList}\small\item\em Holds the current status for this user instance (defaults to N\+O\+NE) \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}{username}\hypertarget{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}{}\label{classEmojidex_1_1Service_1_1User_a5bb9d033735aa9f82fa666f811f48743}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Service_1_1User}{User} name of the user (defaults to \char`\"{}\char`\"{}) \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_ab0dbc8fd015e529bdc295cbce221b6c3}{auth\+\_\+token}\hypertarget{classEmojidex_1_1Service_1_1User_ab0dbc8fd015e529bdc295cbce221b6c3}{}\label{classEmojidex_1_1Service_1_1User_ab0dbc8fd015e529bdc295cbce221b6c3}
+
+\begin{DoxyCompactList}\small\item\em Authorization token of the user (defaults to \char`\"{}\char`\"{}) \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a4e41f6c1d93b9c6cdf995904026ba761}{pro}\hypertarget{classEmojidex_1_1Service_1_1User_a4e41f6c1d93b9c6cdf995904026ba761}{}\label{classEmojidex_1_1Service_1_1User_a4e41f6c1d93b9c6cdf995904026ba761}
+
+\begin{DoxyCompactList}\small\item\em True if the user has an active Pro account. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a14d5753c674c9d6722d47982a309fc22}{pro\+\_\+exp}\hypertarget{classEmojidex_1_1Service_1_1User_a14d5753c674c9d6722d47982a309fc22}{}\label{classEmojidex_1_1Service_1_1User_a14d5753c674c9d6722d47982a309fc22}
+
+\begin{DoxyCompactList}\small\item\em Ending date of Pro status (blank if user was never Pro) \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a7ca897df6f9b7a903a395494b58a1b12}{premium}\hypertarget{classEmojidex_1_1Service_1_1User_a7ca897df6f9b7a903a395494b58a1b12}{}\label{classEmojidex_1_1Service_1_1User_a7ca897df6f9b7a903a395494b58a1b12}
+
+\begin{DoxyCompactList}\small\item\em True if the user has an active Premium account. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1User_a310c157d017007a8747cb3fa03c29e78}{premium\+\_\+exp}\hypertarget{classEmojidex_1_1Service_1_1User_a310c157d017007a8747cb3fa03c29e78}{}\label{classEmojidex_1_1Service_1_1User_a310c157d017007a8747cb3fa03c29e78}
+
+\begin{DoxyCompactList}\small\item\em Ending date of Premium status (blank if user was never Premium) \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1User_a0a66ff7c784815a1e186749bdc032070}{r18}\hypertarget{classEmojidex_1_1Service_1_1User_a0a66ff7c784815a1e186749bdc032070}{}\label{classEmojidex_1_1Service_1_1User_a0a66ff7c784815a1e186749bdc032070}
+
+\begin{DoxyCompactList}\small\item\em True if the user has enabled viewing r18 \mbox{[}adult\mbox{]} content. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1User_a7f4e37b223204146363b50ffdf89e12e}{favorites}\hypertarget{classEmojidex_1_1Service_1_1User_a7f4e37b223204146363b50ffdf89e12e}{}\label{classEmojidex_1_1Service_1_1User_a7f4e37b223204146363b50ffdf89e12e}
+
+\begin{DoxyCompactList}\small\item\em A collection of the emoji the user has favorited. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classEmojidex_1_1Service_1_1HistoryItem}{Emojidex\+::\+Service\+::\+History\+Item} $>$ \hyperlink{classEmojidex_1_1Service_1_1User_af3cc2fec42e5e17f442f718e15f76847}{history}\hypertarget{classEmojidex_1_1Service_1_1User_af3cc2fec42e5e17f442f718e15f76847}{}\label{classEmojidex_1_1Service_1_1User_af3cc2fec42e5e17f442f718e15f76847}
+
+\begin{DoxyCompactList}\small\item\em An ordered vector of items in the users history. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classEmojidex_1_1Service_1_1User_a5a7b4e141fdf8a9aaddfcce3394b12db}{history\+\_\+total}\hypertarget{classEmojidex_1_1Service_1_1User_a5a7b4e141fdf8a9aaddfcce3394b12db}{}\label{classEmojidex_1_1Service_1_1User_a5a7b4e141fdf8a9aaddfcce3394b12db}
+
+\begin{DoxyCompactList}\small\item\em Total number of history items stored on the emojidex service. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classEmojidex_1_1Service_1_1User_ab938b61c56121dbf590aa08d96556cd0}{history\+\_\+page}\hypertarget{classEmojidex_1_1Service_1_1User_ab938b61c56121dbf590aa08d96556cd0}{}\label{classEmojidex_1_1Service_1_1User_ab938b61c56121dbf590aa08d96556cd0}
+
+\begin{DoxyCompactList}\small\item\em Current page of history items taken from the emojidex service. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries my\+\_\+emoji}\hypertarget{classEmojidex_1_1Service_1_1User_aa4b1decc97e13a92ba6830ccf2176f09}{}\label{classEmojidex_1_1Service_1_1User_aa4b1decc97e13a92ba6830ccf2176f09}
+
+\item 
+std\+::vector$<$ std\+::string $>$ {\bfseries following}\hypertarget{classEmojidex_1_1Service_1_1User_a48fb02c42de30f7b901f41fd74117839}{}\label{classEmojidex_1_1Service_1_1User_a48fb02c42de30f7b901f41fd74117839}
+
+\item 
+std\+::vector$<$ std\+::string $>$ {\bfseries followers}\hypertarget{classEmojidex_1_1Service_1_1User_a89bd503730e389734980d45c978c6612}{}\label{classEmojidex_1_1Service_1_1User_a89bd503730e389734980d45c978c6612}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classEmojidex_1_1Service_1_1User}{User} login/management for the emojidex service. 
+
+\subsection{Member Function Documentation}
+\index{Emojidex\+::\+Service\+::\+User@{Emojidex\+::\+Service\+::\+User}!sync\+Favorites@{sync\+Favorites}}
+\index{sync\+Favorites@{sync\+Favorites}!Emojidex\+::\+Service\+::\+User@{Emojidex\+::\+Service\+::\+User}}
+\subsubsection[{\texorpdfstring{sync\+Favorites(bool detailed=true)}{syncFavorites(bool detailed=true)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Emojidex\+::\+Service\+::\+User\+::sync\+Favorites (
+\begin{DoxyParamCaption}
+\item[{bool}]{detailed = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Service_1_1User_a4fd708d672d09325c07b72bae81bab10}{}\label{classEmojidex_1_1Service_1_1User_a4fd708d672d09325c07b72bae81bab10}
+
+
+Synchronize user favorites from the emojidex service. 
+
+Synchronizing clears the favorites collection and obtains the first page of favorites. Call favorites.\+more() to retreive consecutive pages. \index{Emojidex\+::\+Service\+::\+User@{Emojidex\+::\+Service\+::\+User}!sync\+History@{sync\+History}}
+\index{sync\+History@{sync\+History}!Emojidex\+::\+Service\+::\+User@{Emojidex\+::\+Service\+::\+User}}
+\subsubsection[{\texorpdfstring{sync\+History(unsigned int page=0, unsigned int limit=\+D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+I\+T)}{syncHistory(unsigned int page=0, unsigned int limit=DEFAULT_LIMIT)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf Emojidex\+::\+Service\+::\+History\+Item}$>$ Emojidex\+::\+Service\+::\+User\+::sync\+History (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{page = {\ttfamily 0}, }
+\item[{unsigned int}]{limit = {\ttfamily DEFAULT\+\_\+LIMIT}}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Service_1_1User_ae26cdfd2fbd24777a167709a615590d1}{}\label{classEmojidex_1_1Service_1_1User_ae26cdfd2fbd24777a167709a615590d1}
+
+
+Syncs history. 
+
+Consecutive calls \mbox{[}with page set to 0\mbox{]} will get the next page after history\+\_\+page. The last page of history obtained is returned. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/zero/repo/emojidex/libemojidex/src/service/user.\+h\end{DoxyCompactItemize}

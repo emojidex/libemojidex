@@ -1,0 +1,7 @@
+<map id="Emojidex::Client" name="Emojidex::Client">
+<area shape="rect" id="node2" href="$classEmojidex_1_1Service_1_1Search.html" title="Emojidex::Service::\lSearch" alt="" coords="5,213,141,255"/>
+<area shape="rect" id="node3" href="$classEmojidex_1_1Service_1_1User.html" title="User login/management for the emojidex service. " alt="" coords="166,221,330,247"/>
+<area shape="rect" id="node4" href="$classEmojidex_1_1Data_1_1Collection.html" title="Emojidex::Data::Collection" alt="" coords="159,109,337,136"/>
+<area shape="rect" id="node5" href="$classEmojidex_1_1Service_1_1QueryOpts.html" title="Emojidex::Service::\lQueryOpts" alt="" coords="180,5,316,47"/>
+<area shape="rect" id="node6" href="$classEmojidex_1_1Service_1_1Indexes.html" title="Emojidex::Service::\lIndexes" alt="" coords="355,213,491,255"/>
+</map>
