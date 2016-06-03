@@ -8,6 +8,7 @@
 // For java.
 %typemap(javaimports) Emojidex::Service::User %{
 import com.emojidex.libemojidex.HistoryItemVector;
+import com.emojidex.libemojidex.StringVector;
 %}
 
 %{
@@ -46,8 +47,6 @@ namespace Emojidex {
       bool premium;
       std::string premium_exp;
       bool r18;
-      // WARNING: debug
-      std::string response;
 
       User();
       ~User();
@@ -68,6 +67,19 @@ namespace Emojidex {
       // Consecutive calls [with page set to 0] will get the next page after history_page.
       std::vector<Emojidex::Service::HistoryItem> syncHistory(unsigned int page = 0, unsigned int limit = DEFAULT_LIMIT);
       bool addHistory(std::string code);
+
+      // Collection of emoji the user has registered themselves
+      Emojidex::Data::Collection my_emoji;
+      // Sync users personal emoji
+      bool syncMyEmoji();
+
+      std::vector<std::string> following;
+      bool syncFollowing();
+      bool addFollowing(std::string username);
+      bool removeFollowing(std::string username);
+
+      std::vector<std::string> followers;
+      bool syncFollowers();
     };
   }
 }
@@ -76,4 +88,9 @@ namespace Emojidex {
 #ifndef TEMPLATE_HISTORY_ITEM_VECTOR
 #define TEMPLATE_HISTORY_ITEM_VECTOR
 %template(HistoryItemVector) std::vector<Emojidex::Service::HistoryItem>;
+#endif
+
+#ifndef TEMPLATE_STRING_VECTOR
+#define TEMPLATE_STRING_VECTOR
+%template(StringVector) std::vector<std::string>;
 #endif
