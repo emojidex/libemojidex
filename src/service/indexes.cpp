@@ -73,6 +73,14 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string loca
 Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page, 
 		unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions)
 {
+	Emojidex::Service::QueryOpts tmp;
+	if(is_logged_in(user))
+	{
+		if(conditions == NULL)
+			conditions = &tmp;
+		if(conditions->getAuthToken().empty())
+			conditions->auth_token(user->auth_token);
+	}
 	return Emojidex::Service::Collector::getDynamicCollection("emoji", page, limit, detailed, conditions);
 }
 
