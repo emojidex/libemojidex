@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['username',['username',['../classEmojidex_1_1Service_1_1User.html#a5bb9d033735aa9f82fa666f811f48743',1,'Emojidex::Service::User']]]
+  ['status',['status',['../classEmojidex_1_1Service_1_1User.html#adc84ddae4c153e0be58a904c97dd9096',1,'Emojidex::Service::User']]]
 ];
