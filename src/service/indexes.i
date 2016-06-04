@@ -15,10 +15,13 @@ namespace Emojidex {
     {
     private:
       Emojidex::Data::MojiCodes *codes;
+      const Emojidex::Service::User *user;
+
     public:
       Indexes();
       ~Indexes();
 
+      void setUser(const Emojidex::Service::User *user);
 
       /* NOTE: all calls default to locale = "en" and detailed = false */
 
@@ -37,9 +40,11 @@ namespace Emojidex {
       // Dynamic Indexes
       // ===============
 
-      // Get full emoji index by score
+      // Get full emoji index (by score unless otherwise configured with conditions)
       Emojidex::Data::Collection emoji(unsigned int page = DEFAULT_PAGE,
-          unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+          unsigned int limit = DEFAULT_LIMIT, bool detailed = false,
+          Emojidex::Service::QueryOpts *conditions = NULL);
+
       // Get Newest emoji
       Emojidex::Data::Collection newest(std::string auth_token,
           unsigned int page = DEFAULT_PAGE,
@@ -47,6 +52,11 @@ namespace Emojidex {
 
       // Get most Popular emoji
       Emojidex::Data::Collection popular(std::string auth_token,
+          unsigned int page = DEFAULT_PAGE,
+          unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
+
+      // Get the emoji registered by a specific user (by username)
+      Emojidex::Data::Collection userEmoji(std::string username,
           unsigned int page = DEFAULT_PAGE,
           unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
     };
