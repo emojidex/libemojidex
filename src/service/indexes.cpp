@@ -73,11 +73,13 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::extendedEmoji(string loca
 Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page, 
 		unsigned int limit, bool detailed, Emojidex::Service::QueryOpts *conditions)
 {
-	if (conditions != NULL && conditions->getAuthToken().compare("") == 0 && is_logged_in(user)) {
-		conditions->auth_token(user->auth_token);
-	} else if (conditions == NULL && is_logged_in(user)) {
-		conditions = new Emojidex::Service::QueryOpts();
-		conditions->auth_token(user->auth_token);
+	Emojidex::Service::QueryOpts tmp;
+	if(is_logged_in(user))
+	{
+		if(conditions == NULL)
+			conditions = &tmp;
+		if(conditions->getAuthToken().empty())
+			conditions->auth_token(user->auth_token);
 	}
 	return Emojidex::Service::Collector::getDynamicCollection("emoji", page, limit, detailed, conditions);
 }
@@ -99,10 +101,11 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::userEmoji(std::string use
 {
 	std::stringstream path;
 	path << "users/" << username << "/emoji";
-	if (is_logged_in(user)) {
-		Emojidex::Service::QueryOpts *opts = new Emojidex::Service::QueryOpts();
-		opts->auth_token(user->auth_token);
-		return Emojidex::Service::Collector::getDynamicCollection(path.str(), page, limit, detailed, opts);
+	if(is_logged_in(user))
+	{
+		Emojidex::Service::QueryOpts opts;
+		opts.auth_token(user->auth_token);
+		return Emojidex::Service::Collector::getDynamicCollection(path.str(), page, limit, detailed, &opts);
 	}
 	return Emojidex::Service::Collector::getDynamicCollection(path.str(), page, limit, detailed);
 }
