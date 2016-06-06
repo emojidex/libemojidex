@@ -27,19 +27,21 @@ char {\bfseries api\+Version} ()\hypertarget{classEmojidex_1_1Client_ada04f1b9d6
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classEmojidex_1_1Service_1_1User}{Emojidex\+::\+Service\+::\+User} $\ast$ {\bfseries User}\hypertarget{classEmojidex_1_1Client_aa81c4d93a3c5f7c052ec51480940bcf9}{}\label{classEmojidex_1_1Client_aa81c4d93a3c5f7c052ec51480940bcf9}
+\hyperlink{classEmojidex_1_1Service_1_1User}{Emojidex\+::\+Service\+::\+User} $\ast$ \hyperlink{classEmojidex_1_1Client_aa81c4d93a3c5f7c052ec51480940bcf9}{User}\hypertarget{classEmojidex_1_1Client_aa81c4d93a3c5f7c052ec51480940bcf9}{}\label{classEmojidex_1_1Client_aa81c4d93a3c5f7c052ec51480940bcf9}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1Search}{Emojidex\+::\+Service\+::\+Search} $\ast$ {\bfseries Search}\hypertarget{classEmojidex_1_1Client_a78ab88058c7ae2b4ca94912da4dde033}{}\label{classEmojidex_1_1Client_a78ab88058c7ae2b4ca94912da4dde033}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Client}{Client} user instance. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1Search}{Emojidex\+::\+Service\+::\+Search} $\ast$ \hyperlink{classEmojidex_1_1Client_a78ab88058c7ae2b4ca94912da4dde033}{Search}\hypertarget{classEmojidex_1_1Client_a78ab88058c7ae2b4ca94912da4dde033}{}\label{classEmojidex_1_1Client_a78ab88058c7ae2b4ca94912da4dde033}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1Indexes}{Emojidex\+::\+Service\+::\+Indexes} $\ast$ {\bfseries Indexes}\hypertarget{classEmojidex_1_1Client_a1b05ff602e2be8497d6def01c52d5a23}{}\label{classEmojidex_1_1Client_a1b05ff602e2be8497d6def01c52d5a23}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Client}{Client} search instance. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1Indexes}{Emojidex\+::\+Service\+::\+Indexes} $\ast$ \hyperlink{classEmojidex_1_1Client_a1b05ff602e2be8497d6def01c52d5a23}{Indexes}\hypertarget{classEmojidex_1_1Client_a1b05ff602e2be8497d6def01c52d5a23}{}\label{classEmojidex_1_1Client_a1b05ff602e2be8497d6def01c52d5a23}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Client}{Client} index instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Core client class (includes all components in a central state-\/machine client) 
+
+In general you\textquotesingle{}ll want to run everything through a client as long as you are implementing something with a single user. Multiple client instances could produce unpredicable behaviour and should be avoided. By loggin in with the User instance of this client class user details will automatically be set on appropriate queries. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

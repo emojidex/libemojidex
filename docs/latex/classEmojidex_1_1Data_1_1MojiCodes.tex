@@ -1,21 +1,42 @@
 \hypertarget{classEmojidex_1_1Data_1_1MojiCodes}{}\section{Emojidex\+:\+:Data\+:\+:Moji\+Codes Class Reference}
 \label{classEmojidex_1_1Data_1_1MojiCodes}\index{Emojidex\+::\+Data\+::\+Moji\+Codes@{Emojidex\+::\+Data\+::\+Moji\+Codes}}
+
+
+Moji \mbox{[}character\mbox{]} code container with 3 types of moji code indexes.  
+
+
+
+
+{\ttfamily \#include $<$moji\+\_\+codes.\+h$>$}
+
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string {\bfseries locale} = \char`\"{}\char`\"{}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_a30264352b96dfd99ff288c1669a999cc}{}\label{classEmojidex_1_1Data_1_1MojiCodes_a30264352b96dfd99ff288c1669a999cc}
+std\+::string \hyperlink{classEmojidex_1_1Data_1_1MojiCodes_a30264352b96dfd99ff288c1669a999cc}{locale} = \char`\"{}\char`\"{}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_a30264352b96dfd99ff288c1669a999cc}{}\label{classEmojidex_1_1Data_1_1MojiCodes_a30264352b96dfd99ff288c1669a999cc}
 
-\item 
-std\+::string {\bfseries moji\+\_\+string}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_af3d498cd68c0dad96394096631a871ce}{}\label{classEmojidex_1_1Data_1_1MojiCodes_af3d498cd68c0dad96394096631a871ce}
+\begin{DoxyCompactList}\small\item\em The locale of the codes in this instance. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Data_1_1MojiCodes_af3d498cd68c0dad96394096631a871ce}{moji\+\_\+string}
+\begin{DoxyCompactList}\small\item\em A large string of just emoji, sorted compount longest first. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{classEmojidex_1_1Data_1_1MojiCodes_a0847d05256542ad50fa8f3b48bf76853}{moji\+\_\+array}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_a0847d05256542ad50fa8f3b48bf76853}{}\label{classEmojidex_1_1Data_1_1MojiCodes_a0847d05256542ad50fa8f3b48bf76853}
 
-\item 
-std\+::vector$<$ std\+::string $>$ {\bfseries moji\+\_\+array}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_a0847d05256542ad50fa8f3b48bf76853}{}\label{classEmojidex_1_1Data_1_1MojiCodes_a0847d05256542ad50fa8f3b48bf76853}
+\begin{DoxyCompactList}\small\item\em An array with each item containing a single emoji, compount longest first. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \hyperlink{classEmojidex_1_1Data_1_1MojiCodes_adaa77850c0d3d456c268a15e0f92e3ec}{moji\+\_\+index}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_adaa77850c0d3d456c268a15e0f92e3ec}{}\label{classEmojidex_1_1Data_1_1MojiCodes_adaa77850c0d3d456c268a15e0f92e3ec}
 
-\item 
-std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ {\bfseries moji\+\_\+index}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_adaa77850c0d3d456c268a15e0f92e3ec}{}\label{classEmojidex_1_1Data_1_1MojiCodes_adaa77850c0d3d456c268a15e0f92e3ec}
+\begin{DoxyCompactList}\small\item\em A hash/map of emoji and their short codes in the given locale. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\end{DoxyCompactItemize}
 
+\subsection{Detailed Description}
+Moji \mbox{[}character\mbox{]} code container with 3 types of moji code indexes. 
+
+\subsection{Member Data Documentation}
+\index{Emojidex\+::\+Data\+::\+Moji\+Codes@{Emojidex\+::\+Data\+::\+Moji\+Codes}!moji\+\_\+string@{moji\+\_\+string}}
+\index{moji\+\_\+string@{moji\+\_\+string}!Emojidex\+::\+Data\+::\+Moji\+Codes@{Emojidex\+::\+Data\+::\+Moji\+Codes}}
+\subsubsection[{\texorpdfstring{moji\+\_\+string}{moji_string}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Emojidex\+::\+Data\+::\+Moji\+Codes\+::moji\+\_\+string}\hypertarget{classEmojidex_1_1Data_1_1MojiCodes_af3d498cd68c0dad96394096631a871ce}{}\label{classEmojidex_1_1Data_1_1MojiCodes_af3d498cd68c0dad96394096631a871ce}
+
+
+A large string of just emoji, sorted compount longest first. 
+
+Use this for regex to detect emoji within text or to validate emoji / determine if a charater is an emoji. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

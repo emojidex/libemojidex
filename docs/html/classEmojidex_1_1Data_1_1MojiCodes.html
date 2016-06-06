@@ -92,22 +92,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Emojidex::Data::MojiCodes Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Moji [character] code container with 3 types of moji code indexes.  
+ <a href="classEmojidex_1_1Data_1_1MojiCodes.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="moji__codes_8h_source.html">moji_codes.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a30264352b96dfd99ff288c1669a999cc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a30264352b96dfd99ff288c1669a999cc"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>locale</b> = &quot;&quot;</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1MojiCodes.html#a30264352b96dfd99ff288c1669a999cc">locale</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a30264352b96dfd99ff288c1669a999cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The locale of the codes in this instance. <br /></td></tr>
 <tr class="separator:a30264352b96dfd99ff288c1669a999cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3d498cd68c0dad96394096631a871ce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af3d498cd68c0dad96394096631a871ce"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>moji_string</b></td></tr>
+<tr class="memitem:af3d498cd68c0dad96394096631a871ce"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1MojiCodes.html#af3d498cd68c0dad96394096631a871ce">moji_string</a></td></tr>
+<tr class="memdesc:af3d498cd68c0dad96394096631a871ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">A large string of just emoji, sorted compount longest first.  <a href="#af3d498cd68c0dad96394096631a871ce">More...</a><br /></td></tr>
 <tr class="separator:af3d498cd68c0dad96394096631a871ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0847d05256542ad50fa8f3b48bf76853"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0847d05256542ad50fa8f3b48bf76853"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>moji_array</b></td></tr>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1MojiCodes.html#a0847d05256542ad50fa8f3b48bf76853">moji_array</a></td></tr>
+<tr class="memdesc:a0847d05256542ad50fa8f3b48bf76853"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array with each item containing a single emoji, compount longest first. <br /></td></tr>
 <tr class="separator:a0847d05256542ad50fa8f3b48bf76853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adaa77850c0d3d456c268a15e0f92e3ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adaa77850c0d3d456c268a15e0f92e3ec"></a>
-std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>moji_index</b></td></tr>
+std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1MojiCodes.html#adaa77850c0d3d456c268a15e0f92e3ec">moji_index</a></td></tr>
+<tr class="memdesc:adaa77850c0d3d456c268a15e0f92e3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hash/map of emoji and their short codes in the given locale. <br /></td></tr>
 <tr class="separator:adaa77850c0d3d456c268a15e0f92e3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Moji [character] code container with 3 types of moji code indexes. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="af3d498cd68c0dad96394096631a871ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Emojidex::Data::MojiCodes::moji_string</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A large string of just emoji, sorted compount longest first. </p>
+<p>Use this for regex to detect emoji within text or to validate emoji / determine if a charater is an emoji. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="moji__codes_8h_source.html">moji_codes.h</a></li>
 </ul>

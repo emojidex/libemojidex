@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['r18',['r18',['../classEmojidex_1_1Service_1_1User.html#a0a66ff7c784815a1e186749bdc032070',1,'Emojidex::Service::User']]]
+  ['indexes',['Indexes',['../classEmojidex_1_1Client.html#a1b05ff602e2be8497d6def01c52d5a23',1,'Emojidex::Client']]],
+  ['is_5fwide',['is_wide',['../classEmojidex_1_1Data_1_1Emoji.html#ae4151c475bae84ea410bfefd5ab2bd9d',1,'Emojidex::Data::Emoji']]]
 ];

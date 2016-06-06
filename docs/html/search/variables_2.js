@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['history',['history',['../classEmojidex_1_1Service_1_1User.html#af3cc2fec42e5e17f442f718e15f76847',1,'Emojidex::Service::User']]],
-  ['history_5fpage',['history_page',['../classEmojidex_1_1Service_1_1User.html#ab938b61c56121dbf590aa08d96556cd0',1,'Emojidex::Service::User']]],
-  ['history_5ftotal',['history_total',['../classEmojidex_1_1Service_1_1User.html#a5a7b4e141fdf8a9aaddfcce3394b12db',1,'Emojidex::Service::User']]]
+  ['category',['category',['../classEmojidex_1_1Data_1_1Emoji.html#a68441e044bc480a77e7fb0eaebd61d14',1,'Emojidex::Data::Emoji']]],
+  ['checksums',['checksums',['../classEmojidex_1_1Data_1_1Emoji.html#aa0c2638f3d68e538a247e22ad70f6255',1,'Emojidex::Data::Emoji']]],
+  ['code',['code',['../classEmojidex_1_1Data_1_1Emoji.html#ad098cea296b8389c4162467763effb72',1,'Emojidex::Data::Emoji']]],
+  ['copyright_5flock',['copyright_lock',['../classEmojidex_1_1Data_1_1Emoji.html#a95e1ae753363bddf0d063550262c811d',1,'Emojidex::Data::Emoji']]],
+  ['current_5fprice',['current_price',['../classEmojidex_1_1Data_1_1Emoji.html#a7828abfde9015bb688be4a93624f9dfe',1,'Emojidex::Data::Emoji']]]
 ];
