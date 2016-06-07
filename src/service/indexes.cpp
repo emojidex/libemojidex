@@ -87,12 +87,16 @@ Emojidex::Data::Collection Emojidex::Service::Indexes::emoji(unsigned int page,
 Emojidex::Data::Collection Emojidex::Service::Indexes::newest(std::string auth_token, unsigned int page,
 		unsigned int limit, bool detailed)
 {
+	if (auth_token.empty() && is_logged_in(user))
+		auth_token = user->auth_token;
 	return Emojidex::Service::Collector::getAuthorizedDynamicCollection("newest", auth_token, page, limit, detailed);
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::popular(std::string auth_token, unsigned int page,
 		unsigned int limit, bool detailed)
 {
+	if (auth_token.empty() && is_logged_in(user))
+		auth_token = user->auth_token;
 	return Emojidex::Service::Collector::getAuthorizedDynamicCollection("popular", auth_token, page, limit, detailed);
 }
 
