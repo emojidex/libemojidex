@@ -114,6 +114,18 @@ full set of tools to implement emojidex on your web site or in your JavaScript a
 and widgets and wraps the client in such a way that you have access to it, but don't actually 
 need to directly deal with it.
 
+Documentation
+=============
+Doxygen generated libemojidex documentation can be found in the docs directroy in 
+HTML and TEX format. You can generate other formats or regenerate documentation with doxygen.
+```
+cd docs
+doxygen doxygen-config
+```
+
+Usage examples can be found by clicking the C++, Java, or Objectve C tabs in the 
+[emojidex Developer Documentation](http://developer.emojidex.com).
+
 License
 =======
 emojidex and emojidex tools are licensed under the [emojidex Open License](https://www.emojidex.com/emojidex/emojidex_open_license).
