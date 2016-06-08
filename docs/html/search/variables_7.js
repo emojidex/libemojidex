@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['moji',['moji',['../classEmojidex_1_1Data_1_1Emoji.html#a4503be17248d982d5574779ffc0bb2eb',1,'Emojidex::Data::Emoji']]],
-  ['moji_5farray',['moji_array',['../classEmojidex_1_1Data_1_1MojiCodes.html#a0847d05256542ad50fa8f3b48bf76853',1,'Emojidex::Data::MojiCodes']]],
-  ['moji_5findex',['moji_index',['../classEmojidex_1_1Data_1_1MojiCodes.html#adaa77850c0d3d456c268a15e0f92e3ec',1,'Emojidex::Data::MojiCodes']]],
-  ['moji_5fstring',['moji_string',['../classEmojidex_1_1Data_1_1MojiCodes.html#af3d498cd68c0dad96394096631a871ce',1,'Emojidex::Data::MojiCodes']]],
-  ['my_5femoji',['my_emoji',['../classEmojidex_1_1Service_1_1User.html#aa4b1decc97e13a92ba6830ccf2176f09',1,'Emojidex::Service::User']]]
+  ['last_5fused',['last_used',['../classEmojidex_1_1Service_1_1HistoryItem.html#ac023cfba66fd6d1122d7d7b99009d441',1,'Emojidex::Service::HistoryItem']]],
+  ['last_5fused_5fposix',['last_used_posix',['../classEmojidex_1_1Service_1_1HistoryItem.html#a30ffecf28921ab7593c889335789dfb1',1,'Emojidex::Service::HistoryItem']]],
+  ['link',['link',['../classEmojidex_1_1Data_1_1Emoji.html#a0744da3356a9ad54a21f3f303fbae93b',1,'Emojidex::Data::Emoji']]],
+  ['link_5fexpiration',['link_expiration',['../classEmojidex_1_1Data_1_1Emoji.html#abd597aeadcd7200b1699b61b70b0b183',1,'Emojidex::Data::Emoji']]],
+  ['locale',['locale',['../classEmojidex_1_1Data_1_1MojiCodes.html#a30264352b96dfd99ff288c1669a999cc',1,'Emojidex::Data::MojiCodes']]],
+  ['lock_5fexpiration',['lock_expiration',['../classEmojidex_1_1Data_1_1Emoji.html#ab89f5f4534ea2f04093a314304514786',1,'Emojidex::Data::Emoji']]]
 ];

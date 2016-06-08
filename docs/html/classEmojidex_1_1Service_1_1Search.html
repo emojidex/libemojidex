@@ -87,43 +87,77 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classEmojidex_1_1Service_1_1Search-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Emojidex::Service::Search Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> functionality for the emojidex service.  
+ <a href="classEmojidex_1_1Service_1_1Search.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="search_8h_source.html">search.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac29e36bb5aed38c8443b4457691a3e7a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac29e36bb5aed38c8443b4457691a3e7a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setUser</b> (const <a class="el" href="classEmojidex_1_1Service_1_1User.html">Emojidex::Service::User</a> *user)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#ac29e36bb5aed38c8443b4457691a3e7a">setUser</a> (const <a class="el" href="classEmojidex_1_1Service_1_1User.html">Emojidex::Service::User</a> *user)</td></tr>
+<tr class="memdesc:ac29e36bb5aed38c8443b4457691a3e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets user for authorized search options such as ordering and enabling R-18 results. <br /></td></tr>
 <tr class="separator:ac29e36bb5aed38c8443b4457691a3e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e9de234cfa8cdfe52b9ad02778ec096"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e9de234cfa8cdfe52b9ad02778ec096"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>term</b> (const std::string code_cont, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#a7e9de234cfa8cdfe52b9ad02778ec096">term</a> (const std::string code_cont, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a7e9de234cfa8cdfe52b9ad02778ec096"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> within emoji short codes for a term (EG: 'car' will include results like 'blue_car') <br /></td></tr>
 <tr class="separator:a7e9de234cfa8cdfe52b9ad02778ec096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b90f2dab9c28d2dc971bb7494b4d291"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b90f2dab9c28d2dc971bb7494b4d291"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>starting</b> (std::string code_sw, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#a7b90f2dab9c28d2dc971bb7494b4d291">starting</a> (std::string code_sw, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a7b90f2dab9c28d2dc971bb7494b4d291"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> within emoji short codes for codes that start with a term. <br /></td></tr>
 <tr class="separator:a7b90f2dab9c28d2dc971bb7494b4d291"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c8100ad888ab404088cd44b07bc8b91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c8100ad888ab404088cd44b07bc8b91"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ending</b> (std::string code_ew, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#a0c8100ad888ab404088cd44b07bc8b91">ending</a> (std::string code_ew, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a0c8100ad888ab404088cd44b07bc8b91"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> within emoji short codes for codes that end with a term. <br /></td></tr>
 <tr class="separator:a0c8100ad888ab404088cd44b07bc8b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8d1aaece57cd92bf8712493055f2ef6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8d1aaece57cd92bf8712493055f2ef6"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>tags</b> (const std::vector&lt; std::string &gt; &amp;tags, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#af8d1aaece57cd92bf8712493055f2ef6">tags</a> (const std::vector&lt; std::string &gt; &amp;tags, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:af8d1aaece57cd92bf8712493055f2ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> for emoji with all the assigned tags. The tags array is exclusive in that more tags narrow down results. <br /></td></tr>
 <tr class="separator:af8d1aaece57cd92bf8712493055f2ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2924585a8bb92c1b902477cabc154fb0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2924585a8bb92c1b902477cabc154fb0"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>advanced</b> (std::string code_cont, const std::vector&lt; std::string &gt; &amp;categories, const std::vector&lt; std::string &gt; &amp;tags, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#a2924585a8bb92c1b902477cabc154fb0">advanced</a> (std::string code_cont, const std::vector&lt; std::string &gt; &amp;categories, const std::vector&lt; std::string &gt; &amp;<a class="el" href="classEmojidex_1_1Service_1_1Search.html#af8d1aaece57cd92bf8712493055f2ef6">tags</a>, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a2924585a8bb92c1b902477cabc154fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound search for a term, included in one of the given categories, with all of the given tags. <br /></td></tr>
 <tr class="separator:a2924585a8bb92c1b902477cabc154fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80970b4a18e5bcc37a2a697de237e8aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80970b4a18e5bcc37a2a697de237e8aa"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><b>find</b> (std::string code, bool detailed=true)</td></tr>
+<tr class="memitem:a80970b4a18e5bcc37a2a697de237e8aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Search.html#a80970b4a18e5bcc37a2a697de237e8aa">find</a> (std::string code, bool detailed=true)</td></tr>
 <tr class="separator:a80970b4a18e5bcc37a2a697de237e8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a8fe41d03f8c3013a021ad103c2ab4245"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fe41d03f8c3013a021ad103c2ab4245"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>current_page</b></td></tr>
-<tr class="separator:a8fe41d03f8c3013a021ad103c2ab4245"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classEmojidex_1_1Service_1_1Search.html" title="Search functionality for the emojidex service. ">Search</a> functionality for the emojidex service. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a80970b4a18e5bcc37a2a697de237e8aa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> Emojidex::Service::Search::find </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>detailed</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a <a class="el" href="classEmojidex_1_1Data_1_1Emoji.html" title="emoji data container ">Data::Emoji</a> object filled with the emoji info on success (the emoji is registered)<br />
+Returns an empty emoji object with only the code field filled on failure (the emoji is not registered) </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="search_8h_source.html">search.h</a></li>
 </ul>

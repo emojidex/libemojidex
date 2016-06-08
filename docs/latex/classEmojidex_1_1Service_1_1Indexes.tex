@@ -1,33 +1,45 @@
 \hypertarget{classEmojidex_1_1Service_1_1Indexes}{}\section{Emojidex\+:\+:Service\+:\+:Indexes Class Reference}
 \label{classEmojidex_1_1Service_1_1Indexes}\index{Emojidex\+::\+Service\+::\+Indexes@{Emojidex\+::\+Service\+::\+Indexes}}
+
+
+Retrieves data from emojidex indexes.  
+
+
+
+
+{\ttfamily \#include $<$indexes.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries set\+User} (const \hyperlink{classEmojidex_1_1Service_1_1User}{Emojidex\+::\+Service\+::\+User} $\ast$user)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a94824b67e2e46b7bf46e1ec9f0040226}{}\label{classEmojidex_1_1Service_1_1Indexes_a94824b67e2e46b7bf46e1ec9f0040226}
 
 \item 
-\hyperlink{classEmojidex_1_1Data_1_1MojiCodes}{Emojidex\+::\+Data\+::\+Moji\+Codes} {\bfseries moji\+Codes} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE)\hypertarget{classEmojidex_1_1Service_1_1Indexes_aad2b2a930b7665cc9a195cbaf302eb49}{}\label{classEmojidex_1_1Service_1_1Indexes_aad2b2a930b7665cc9a195cbaf302eb49}
+\hyperlink{classEmojidex_1_1Data_1_1MojiCodes}{Emojidex\+::\+Data\+::\+Moji\+Codes} \hyperlink{classEmojidex_1_1Service_1_1Indexes_aad2b2a930b7665cc9a195cbaf302eb49}{moji\+Codes} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE)\hypertarget{classEmojidex_1_1Service_1_1Indexes_aad2b2a930b7665cc9a195cbaf302eb49}{}\label{classEmojidex_1_1Service_1_1Indexes_aad2b2a930b7665cc9a195cbaf302eb49}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries utf\+Emoji} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE, bool detailed=true)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a0c2b3e28fe19af86b556a9d5641ddeb4}{}\label{classEmojidex_1_1Service_1_1Indexes_a0c2b3e28fe19af86b556a9d5641ddeb4}
+\begin{DoxyCompactList}\small\item\em Get standard U\+TF emoji info in 3 compact forms. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_a0c2b3e28fe19af86b556a9d5641ddeb4}{utf\+Emoji} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE, bool detailed=true)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a0c2b3e28fe19af86b556a9d5641ddeb4}{}\label{classEmojidex_1_1Service_1_1Indexes_a0c2b3e28fe19af86b556a9d5641ddeb4}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries extended\+Emoji} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE, bool detailed=true)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a9106f50086dec7ff8496589883d5bd37}{}\label{classEmojidex_1_1Service_1_1Indexes_a9106f50086dec7ff8496589883d5bd37}
+\begin{DoxyCompactList}\small\item\em Get a collection of all standard U\+TF emoji. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_a9106f50086dec7ff8496589883d5bd37}{extended\+Emoji} (std\+::string locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE, bool detailed=true)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a9106f50086dec7ff8496589883d5bd37}{}\label{classEmojidex_1_1Service_1_1Indexes_a9106f50086dec7ff8496589883d5bd37}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries emoji} (unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ac0aaddbd46779ced7502b6e1f4f81aa9}{}\label{classEmojidex_1_1Service_1_1Indexes_ac0aaddbd46779ced7502b6e1f4f81aa9}
+\begin{DoxyCompactList}\small\item\em Get a collection of all emojidex Extended emoji. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_ac0aaddbd46779ced7502b6e1f4f81aa9}{emoji} (unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ac0aaddbd46779ced7502b6e1f4f81aa9}{}\label{classEmojidex_1_1Service_1_1Indexes_ac0aaddbd46779ced7502b6e1f4f81aa9}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries newest} (std\+::string auth\+\_\+token, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_aa3033253b1d6fed4ec3046ffbc094ed7}{}\label{classEmojidex_1_1Service_1_1Indexes_aa3033253b1d6fed4ec3046ffbc094ed7}
+\begin{DoxyCompactList}\small\item\em Get full emoji index (by score unless otherwise configured with conditions) \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_ab222e1830304388b081413dd0f9bac40}{newest} (std\+::string auth\+\_\+token=\char`\"{}\char`\"{}, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ab222e1830304388b081413dd0f9bac40}{}\label{classEmojidex_1_1Service_1_1Indexes_ab222e1830304388b081413dd0f9bac40}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries popular} (std\+::string auth\+\_\+token, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_a15f63f13947e746cbc4e034973183c77}{}\label{classEmojidex_1_1Service_1_1Indexes_a15f63f13947e746cbc4e034973183c77}
+\begin{DoxyCompactList}\small\item\em Get Newest emoji. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_ae32c731be5ae83b49b428ed7bfd4b2ed}{popular} (std\+::string auth\+\_\+token=\char`\"{}\char`\"{}, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ae32c731be5ae83b49b428ed7bfd4b2ed}{}\label{classEmojidex_1_1Service_1_1Indexes_ae32c731be5ae83b49b428ed7bfd4b2ed}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries user\+Emoji} (std\+::string username, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ac489e53250311163cea342581ee5730d}{}\label{classEmojidex_1_1Service_1_1Indexes_ac489e53250311163cea342581ee5730d}
+\begin{DoxyCompactList}\small\item\em Get most Popular emoji. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Indexes_ac489e53250311163cea342581ee5730d}{user\+Emoji} (std\+::string username, unsigned int page=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE, unsigned int limit=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT, bool detailed=false)\hypertarget{classEmojidex_1_1Service_1_1Indexes_ac489e53250311163cea342581ee5730d}{}\label{classEmojidex_1_1Service_1_1Indexes_ac489e53250311163cea342581ee5730d}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get the emoji registered by a specific user (by username) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Retrieves data from emojidex indexes. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

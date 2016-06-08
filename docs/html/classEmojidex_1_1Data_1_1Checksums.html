@@ -93,22 +93,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Emojidex::Data::Checksums Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds a map of checksums for image assets that can be used to check against local assets.  
+ <a href="classEmojidex_1_1Data_1_1Checksums.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="checksums_8h_source.html">checksums.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8a65b3fc9c2d9fb40650c09fbbb8eca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8a65b3fc9c2d9fb40650c09fbbb8eca"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>sum</b> (std::string format_code, std::string size_code)</td></tr>
+<tr class="memitem:ae8a65b3fc9c2d9fb40650c09fbbb8eca"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Checksums.html#ae8a65b3fc9c2d9fb40650c09fbbb8eca">sum</a> (std::string format_code, std::string size_code)</td></tr>
+<tr class="memdesc:ae8a65b3fc9c2d9fb40650c09fbbb8eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MD5 sum for a file of the specified format and specified size.  <a href="#ae8a65b3fc9c2d9fb40650c09fbbb8eca">More...</a><br /></td></tr>
 <tr class="separator:ae8a65b3fc9c2d9fb40650c09fbbb8eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a2efd7301a746504a9227cb940a66493f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2efd7301a746504a9227cb940a66493f"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>svg</b></td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Checksums.html#a2efd7301a746504a9227cb940a66493f">svg</a></td></tr>
+<tr class="memdesc:a2efd7301a746504a9227cb940a66493f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The MD5 sum of the SVG file for an emoji. <br /></td></tr>
 <tr class="separator:a2efd7301a746504a9227cb940a66493f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3caf0bf70d315f74fb027e1f4b880500"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3caf0bf70d315f74fb027e1f4b880500"></a>
-std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>png</b></td></tr>
+std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Checksums.html#a3caf0bf70d315f74fb027e1f4b880500">png</a></td></tr>
+<tr class="memdesc:a3caf0bf70d315f74fb027e1f4b880500"><td class="mdescLeft">&#160;</td><td class="mdescRight">A map of MD5 sums for various sizes of PNG images for an emoji. <br /></td></tr>
 <tr class="separator:a3caf0bf70d315f74fb027e1f4b880500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds a map of checksums for image assets that can be used to check against local assets. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ae8a65b3fc9c2d9fb40650c09fbbb8eca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Emojidex::Data::Checksums::sum </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>format_code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>size_code</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the MD5 sum for a file of the specified format and specified size. </p>
+<p>format_code can be either "svg" or "png" size_code can be any size specified in the emojidex developer docs (eg: "px32" or "hdpi") </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="checksums_8h_source.html">checksums.h</a></li>
 </ul>

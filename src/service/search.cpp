@@ -20,7 +20,6 @@ namespace
 Emojidex::Service::Search::Search()
 	: user(NULL)
 {
-	this->current_page = 0;
 }
 
 void Emojidex::Service::Search::setUser(const Emojidex::Service::User *user)

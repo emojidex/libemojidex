@@ -2,6 +2,15 @@
 \label{classEmojidex_1_1Data_1_1Collection}\index{Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}}
 
 
+A managed collection of emoji objects.  
+
+
+
+
+{\ttfamily \#include $<$collection.\+h$>$}
+
+
+
 Collaboration diagram for Emojidex\+:\+:Data\+:\+:Collection\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -12,58 +21,100 @@ Collaboration diagram for Emojidex\+:\+:Data\+:\+:Collection\+:\nopagebreak
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} $>$ {\bfseries all} ()\hypertarget{classEmojidex_1_1Data_1_1Collection_a650a418293d89311263dc3e744416b1f}{}\label{classEmojidex_1_1Data_1_1Collection_a650a418293d89311263dc3e744416b1f}
+std\+::vector$<$ \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} $>$ \hyperlink{classEmojidex_1_1Data_1_1Collection_a650a418293d89311263dc3e744416b1f}{all} ()\hypertarget{classEmojidex_1_1Data_1_1Collection_a650a418293d89311263dc3e744416b1f}{}\label{classEmojidex_1_1Data_1_1Collection_a650a418293d89311263dc3e744416b1f}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} {\bfseries add} (\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} new\+\_\+emoji)\hypertarget{classEmojidex_1_1Data_1_1Collection_ab06d56b5d177f1e489d36c5ccf02b362}{}\label{classEmojidex_1_1Data_1_1Collection_ab06d56b5d177f1e489d36c5ccf02b362}
+\begin{DoxyCompactList}\small\item\em Returns a vector array of all emoji in the collection. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Data_1_1Collection_ab06d56b5d177f1e489d36c5ccf02b362}{add} (\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} new\+\_\+emoji)\hypertarget{classEmojidex_1_1Data_1_1Collection_ab06d56b5d177f1e489d36c5ccf02b362}{}\label{classEmojidex_1_1Data_1_1Collection_ab06d56b5d177f1e489d36c5ccf02b362}
 
-\item 
-bool {\bfseries remove} (std\+::string code)\hypertarget{classEmojidex_1_1Data_1_1Collection_a1e149fc6e461293a80babfd7461b02f4}{}\label{classEmojidex_1_1Data_1_1Collection_a1e149fc6e461293a80babfd7461b02f4}
+\begin{DoxyCompactList}\small\item\em Adds an emoji to the map. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Data_1_1Collection_a1e149fc6e461293a80babfd7461b02f4}{remove} (std\+::string code)
+\begin{DoxyCompactList}\small\item\em Removes an emoji from the map \mbox{[}by code\mbox{]}. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Data_1_1Collection_a85b15d61175aee9cce9b42fe6c21cf80}{find\+By\+Moji} (std\+::string moji)\hypertarget{classEmojidex_1_1Data_1_1Collection_a85b15d61175aee9cce9b42fe6c21cf80}{}\label{classEmojidex_1_1Data_1_1Collection_a85b15d61175aee9cce9b42fe6c21cf80}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} {\bfseries find\+By\+Moji} (std\+::string moji)\hypertarget{classEmojidex_1_1Data_1_1Collection_a85b15d61175aee9cce9b42fe6c21cf80}{}\label{classEmojidex_1_1Data_1_1Collection_a85b15d61175aee9cce9b42fe6c21cf80}
+\begin{DoxyCompactList}\small\item\em Finds by moji\mbox{[}character\mbox{]}code (U\+TF emoji only) \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Data_1_1Collection_a5ba6be5a862e6e23b2a5c99e6d751615}{find\+By\+Code} (std\+::string code)\hypertarget{classEmojidex_1_1Data_1_1Collection_a5ba6be5a862e6e23b2a5c99e6d751615}{}\label{classEmojidex_1_1Data_1_1Collection_a5ba6be5a862e6e23b2a5c99e6d751615}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} {\bfseries find\+By\+Code} (std\+::string code)\hypertarget{classEmojidex_1_1Data_1_1Collection_a5ba6be5a862e6e23b2a5c99e6d751615}{}\label{classEmojidex_1_1Data_1_1Collection_a5ba6be5a862e6e23b2a5c99e6d751615}
+\begin{DoxyCompactList}\small\item\em Finds by emoji \mbox{[}short\mbox{]} code. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Data_1_1Collection_a54f948efec77f14099defd7e6172a5b0}{find\+By\+Unicode} (std\+::string unicode)\hypertarget{classEmojidex_1_1Data_1_1Collection_a54f948efec77f14099defd7e6172a5b0}{}\label{classEmojidex_1_1Data_1_1Collection_a54f948efec77f14099defd7e6172a5b0}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} {\bfseries find\+By\+Unicode} (std\+::string unicode)\hypertarget{classEmojidex_1_1Data_1_1Collection_a54f948efec77f14099defd7e6172a5b0}{}\label{classEmojidex_1_1Data_1_1Collection_a54f948efec77f14099defd7e6172a5b0}
+\begin{DoxyCompactList}\small\item\em Finds by Unicode value (must be lower case) \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Data_1_1Collection_a230c9aae3e864b28cc25b94d861246bb}{category} (std\+::string category)\hypertarget{classEmojidex_1_1Data_1_1Collection_a230c9aae3e864b28cc25b94d861246bb}{}\label{classEmojidex_1_1Data_1_1Collection_a230c9aae3e864b28cc25b94d861246bb}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries category} (std\+::string category)\hypertarget{classEmojidex_1_1Data_1_1Collection_a230c9aae3e864b28cc25b94d861246bb}{}\label{classEmojidex_1_1Data_1_1Collection_a230c9aae3e864b28cc25b94d861246bb}
-
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} $\ast$ {\bfseries merge} (\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} delta\+\_\+collection)\hypertarget{classEmojidex_1_1Data_1_1Collection_a8166fb4585d12aa2843e7625a4accff2}{}\label{classEmojidex_1_1Data_1_1Collection_a8166fb4585d12aa2843e7625a4accff2}
-
-\item 
+\begin{DoxyCompactList}\small\item\em Obtain a sub collection of emoji of the specified category. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} $\ast$ \hyperlink{classEmojidex_1_1Data_1_1Collection_a8166fb4585d12aa2843e7625a4accff2}{merge} (\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} delta\+\_\+collection)
+\begin{DoxyCompactList}\small\item\em Merge a collection with this collection. \end{DoxyCompactList}\item 
 \hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} $\ast$ {\bfseries operator$<$$<$} (\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} delta\+\_\+collection)\hypertarget{classEmojidex_1_1Data_1_1Collection_abe7026c359c5cd222d61d34f38b1ce5d}{}\label{classEmojidex_1_1Data_1_1Collection_abe7026c359c5cd222d61d34f38b1ce5d}
 
 \item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} $\ast$ {\bfseries merge\+J\+S\+ON} (std\+::string json\+\_\+string)\hypertarget{classEmojidex_1_1Data_1_1Collection_abc94265d1af0e39ab7b12bbae92d4e4b}{}\label{classEmojidex_1_1Data_1_1Collection_abc94265d1af0e39ab7b12bbae92d4e4b}
-
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} $\ast$ \hyperlink{classEmojidex_1_1Data_1_1Collection_abc94265d1af0e39ab7b12bbae92d4e4b}{merge\+J\+S\+ON} (std\+::string json\+\_\+string)
 \item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries more} ()\hypertarget{classEmojidex_1_1Data_1_1Collection_a98118ea678e6b838e05f8d41f7ef7416}{}\label{classEmojidex_1_1Data_1_1Collection_a98118ea678e6b838e05f8d41f7ef7416}
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Data_1_1Collection_a98118ea678e6b838e05f8d41f7ef7416}{more} ()
+\begin{DoxyCompactList}\small\item\em Get more of the collection if the collection is paginated and has remaining pages. \end{DoxyCompactList}\item 
+void \hyperlink{classEmojidex_1_1Data_1_1Collection_ad18c6580a9afb8c132d4c158337e1524}{set\+Pagination} (\hyperlink{classEmojidex_1_1Data_1_1Collection}{Collection}($\ast$more\+Method)(\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection}), unsigned int starting\+\_\+page, unsigned int limit, bool detailed)\hypertarget{classEmojidex_1_1Data_1_1Collection_ad18c6580a9afb8c132d4c158337e1524}{}\label{classEmojidex_1_1Data_1_1Collection_ad18c6580a9afb8c132d4c158337e1524}
 
-\item 
-void {\bfseries set\+Pagination} (\hyperlink{classEmojidex_1_1Data_1_1Collection}{Collection}($\ast$more\+Method)(\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection}), unsigned int starting\+\_\+page, unsigned int limit, bool detailed)\hypertarget{classEmojidex_1_1Data_1_1Collection_ad18c6580a9afb8c132d4c158337e1524}{}\label{classEmojidex_1_1Data_1_1Collection_ad18c6580a9afb8c132d4c158337e1524}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Sets up collection as a paged collection (with more pages/emoji on the service). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} $>$ {\bfseries emoji}\hypertarget{classEmojidex_1_1Data_1_1Collection_aa8164e800401e64ce162ee5e734d9e74}{}\label{classEmojidex_1_1Data_1_1Collection_aa8164e800401e64ce162ee5e734d9e74}
+std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} $>$ \hyperlink{classEmojidex_1_1Data_1_1Collection_aa8164e800401e64ce162ee5e734d9e74}{emoji}\hypertarget{classEmojidex_1_1Data_1_1Collection_aa8164e800401e64ce162ee5e734d9e74}{}\label{classEmojidex_1_1Data_1_1Collection_aa8164e800401e64ce162ee5e734d9e74}
 
-\item 
-std\+::string {\bfseries endpoint}\hypertarget{classEmojidex_1_1Data_1_1Collection_a937eedb36767877da7c793625bf919a6}{}\label{classEmojidex_1_1Data_1_1Collection_a937eedb36767877da7c793625bf919a6}
+\begin{DoxyCompactList}\small\item\em emoji data hash, mapped by code \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Data_1_1Collection_a937eedb36767877da7c793625bf919a6}{endpoint}\hypertarget{classEmojidex_1_1Data_1_1Collection_a937eedb36767877da7c793625bf919a6}{}\label{classEmojidex_1_1Data_1_1Collection_a937eedb36767877da7c793625bf919a6}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} {\bfseries opts}\hypertarget{classEmojidex_1_1Data_1_1Collection_ade67a564b14f14375af66bc1a550ecdb}{}\label{classEmojidex_1_1Data_1_1Collection_ade67a564b14f14375af66bc1a550ecdb}
+\begin{DoxyCompactList}\small\item\em The service endpoint this collection is derived from. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \hyperlink{classEmojidex_1_1Data_1_1Collection_ade67a564b14f14375af66bc1a550ecdb}{opts}\hypertarget{classEmojidex_1_1Data_1_1Collection_ade67a564b14f14375af66bc1a550ecdb}{}\label{classEmojidex_1_1Data_1_1Collection_ade67a564b14f14375af66bc1a550ecdb}
 
-\item 
-unsigned int {\bfseries total\+\_\+count}\hypertarget{classEmojidex_1_1Data_1_1Collection_a0355662d1097dd631a6d6ce09875e8c3}{}\label{classEmojidex_1_1Data_1_1Collection_a0355662d1097dd631a6d6ce09875e8c3}
+\begin{DoxyCompactList}\small\item\em Query options on the endpoint. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classEmojidex_1_1Data_1_1Collection_a0355662d1097dd631a6d6ce09875e8c3}{total\+\_\+count}\hypertarget{classEmojidex_1_1Data_1_1Collection_a0355662d1097dd631a6d6ce09875e8c3}{}\label{classEmojidex_1_1Data_1_1Collection_a0355662d1097dd631a6d6ce09875e8c3}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The total number of emoji availble on the service to fill this collection. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+A managed collection of emoji objects. 
+
+\subsection{Member Function Documentation}
+\index{Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}!merge@{merge}}
+\index{merge@{merge}!Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}}
+\subsubsection[{\texorpdfstring{merge(\+Emojidex\+::\+Data\+::\+Collection delta\+\_\+collection)}{merge(Emojidex::Data::Collection delta_collection)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Emojidex\+::\+Data\+::\+Collection}$\ast$ Emojidex\+::\+Data\+::\+Collection\+::merge (
+\begin{DoxyParamCaption}
+\item[{{\bf Emojidex\+::\+Data\+::\+Collection}}]{delta\+\_\+collection}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Data_1_1Collection_a8166fb4585d12aa2843e7625a4accff2}{}\label{classEmojidex_1_1Data_1_1Collection_a8166fb4585d12aa2843e7625a4accff2}
+
+
+Merge a collection with this collection. 
+
+Overwrites emoji with the same code. Rerturns the joined collection after the merge for chaining. \index{Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}!merge\+J\+S\+ON@{merge\+J\+S\+ON}}
+\index{merge\+J\+S\+ON@{merge\+J\+S\+ON}!Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}}
+\subsubsection[{\texorpdfstring{merge\+J\+S\+O\+N(std\+::string json\+\_\+string)}{mergeJSON(std::string json_string)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Emojidex\+::\+Data\+::\+Collection}$\ast$ Emojidex\+::\+Data\+::\+Collection\+::merge\+J\+S\+ON (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{json\+\_\+string}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Data_1_1Collection_abc94265d1af0e39ab7b12bbae92d4e4b}{}\label{classEmojidex_1_1Data_1_1Collection_abc94265d1af0e39ab7b12bbae92d4e4b}
+Add emoji from a J\+S\+ON string Returns this collection after the merge for chaining. \index{Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}!more@{more}}
+\index{more@{more}!Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}}
+\subsubsection[{\texorpdfstring{more()}{more()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Emojidex\+::\+Data\+::\+Collection} Emojidex\+::\+Data\+::\+Collection\+::more (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Data_1_1Collection_a98118ea678e6b838e05f8d41f7ef7416}{}\label{classEmojidex_1_1Data_1_1Collection_a98118ea678e6b838e05f8d41f7ef7416}
+
+
+Get more of the collection if the collection is paginated and has remaining pages. 
+
+Returns true if the next page was sucessfully obtained. Returns false if there are no more pages/emoji to obtain. \index{Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}!remove@{remove}}
+\index{remove@{remove}!Emojidex\+::\+Data\+::\+Collection@{Emojidex\+::\+Data\+::\+Collection}}
+\subsubsection[{\texorpdfstring{remove(std\+::string code)}{remove(std::string code)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Emojidex\+::\+Data\+::\+Collection\+::remove (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{code}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Data_1_1Collection_a1e149fc6e461293a80babfd7461b02f4}{}\label{classEmojidex_1_1Data_1_1Collection_a1e149fc6e461293a80babfd7461b02f4}
+
+
+Removes an emoji from the map \mbox{[}by code\mbox{]}. 
+
+Returns true if the emoji was located in the map and removed Returns false if the emoji was not located in the map 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

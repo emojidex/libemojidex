@@ -1,84 +1,183 @@
 \hypertarget{classEmojidex_1_1Service_1_1QueryOpts}{}\section{Emojidex\+:\+:Service\+:\+:Query\+Opts Class Reference}
 \label{classEmojidex_1_1Service_1_1QueryOpts}\index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+
+
+Portable class to set complex query options.  
+
+
+
+
+{\ttfamily \#include $<$query\+\_\+opts.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void {\bfseries set\+Collection\+Defaults} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a8644a708f05f9cc96d2a58021c2c58ad}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a8644a708f05f9cc96d2a58021c2c58ad}
+void \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a8644a708f05f9cc96d2a58021c2c58ad}{set\+Collection\+Defaults} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a8644a708f05f9cc96d2a58021c2c58ad}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a8644a708f05f9cc96d2a58021c2c58ad}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries locale} (const std\+::string \&locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_aaf1f11b06b53a16a21a664225b16ddd6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_aaf1f11b06b53a16a21a664225b16ddd6}
+\begin{DoxyCompactList}\small\item\em Sets defaults for a generic collection. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_aaf1f11b06b53a16a21a664225b16ddd6}{locale} (const std\+::string \&locale=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+O\+C\+A\+LE)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_aaf1f11b06b53a16a21a664225b16ddd6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_aaf1f11b06b53a16a21a664225b16ddd6}
 
-\item 
-const std\+::string \& {\bfseries get\+Locale} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a21ac7ce8f5aabc514b9febb5ef98c7a1}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a21ac7ce8f5aabc514b9febb5ef98c7a1}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}locale\char`\"{}. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a21ac7ce8f5aabc514b9febb5ef98c7a1}{get\+Locale} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}locale\char`\"{} or returns default of \char`\"{}en\char`\"{} if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a09de9071d7d678fc2cbfd3b625261b22}{page} (unsigned int number=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a09de9071d7d678fc2cbfd3b625261b22}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a09de9071d7d678fc2cbfd3b625261b22}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries page} (unsigned int number=D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+GE)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a09de9071d7d678fc2cbfd3b625261b22}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a09de9071d7d678fc2cbfd3b625261b22}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}page\char`\"{} by unsigned int. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ab09d80f6810994e9f17eb69e0bf5bbd2}{get\+Page} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}page\char`\"{} or returns default of 1 if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a3a462f0647c4229aa24016c7e3fc24ea}{limit} (unsigned int value=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a3a462f0647c4229aa24016c7e3fc24ea}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a3a462f0647c4229aa24016c7e3fc24ea}
 
-\item 
-unsigned int {\bfseries get\+Page} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ab09d80f6810994e9f17eb69e0bf5bbd2}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ab09d80f6810994e9f17eb69e0bf5bbd2}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}limit\char`\"{} by unsigned int. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a1ad7569bc9fb0ab58ededdad2977e00f}{get\+Limit} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}limit\char`\"{} or returns default (50) if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a3cca92ff06d005a40e768ea9157721b6}{detailed} (bool detail=true)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a3cca92ff06d005a40e768ea9157721b6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a3cca92ff06d005a40e768ea9157721b6}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries limit} (unsigned int value=D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+I\+M\+IT)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a3a462f0647c4229aa24016c7e3fc24ea}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a3a462f0647c4229aa24016c7e3fc24ea}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}detailed\char`\"{} by bool. \end{DoxyCompactList}\item 
+bool \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ae48076b7bd5daa429ebea6f767e5304f}{get\+Detailed} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}detailed\char`\"{} or returns true if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ae4216a7709c4ecda00f5f347662f8f65}{username} (const std\+::string \&username=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae4216a7709c4ecda00f5f347662f8f65}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae4216a7709c4ecda00f5f347662f8f65}
 
-\item 
-unsigned int {\bfseries get\+Limit} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a1ad7569bc9fb0ab58ededdad2977e00f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a1ad7569bc9fb0ab58ededdad2977e00f}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}username\char`\"{}. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ad36b0b5169a96133f3f55db3322bf754}{get\+Username} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}username\char`\"{} or returns empty string if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_acca0bdf9bffb60ac767cff0506bc0fcc}{auth\+\_\+token} (const std\+::string \&auth\+\_\+token=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_acca0bdf9bffb60ac767cff0506bc0fcc}{}\label{classEmojidex_1_1Service_1_1QueryOpts_acca0bdf9bffb60ac767cff0506bc0fcc}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries detailed} (bool detail=true)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a3cca92ff06d005a40e768ea9157721b6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a3cca92ff06d005a40e768ea9157721b6}
+\begin{DoxyCompactList}\small\item\em Chain method to set \char`\"{}auth\+\_\+token\char`\"{}. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a26f673a87e58f3576e507321cb879eb8}{get\+Auth\+Token} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}auth\+\_\+token\char`\"{} or returns empty string if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ab0d2aa112c6ad9c9dadaec0e48b39f3d}{tag} (const std\+::string \&tag)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ab0d2aa112c6ad9c9dadaec0e48b39f3d}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ab0d2aa112c6ad9c9dadaec0e48b39f3d}
 
-\item 
-bool {\bfseries get\+Detailed} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae48076b7bd5daa429ebea6f767e5304f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae48076b7bd5daa429ebea6f767e5304f}
+\begin{DoxyCompactList}\small\item\em Chain method to add a tag string to the tags vector. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a04cb66831c992b892b1ca80228bcffae}{clear\+Tags} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a04cb66831c992b892b1ca80228bcffae}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a04cb66831c992b892b1ca80228bcffae}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries username} (const std\+::string \&username=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae4216a7709c4ecda00f5f347662f8f65}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae4216a7709c4ecda00f5f347662f8f65}
+\begin{DoxyCompactList}\small\item\em Clear current value of \char`\"{}tags\char`\"{}. \end{DoxyCompactList}\item 
+const std\+::vector$<$ std\+::string $>$ \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a0085f26b918a3466ea8524e754f30598}{get\+Tags} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}tags\char`\"{} or returns empty vector if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a55bf6248156ed527d0cb1a469488c999}{category} (const std\+::string \&category)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a55bf6248156ed527d0cb1a469488c999}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a55bf6248156ed527d0cb1a469488c999}
 
-\item 
-const std\+::string \& {\bfseries get\+Username} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ad36b0b5169a96133f3f55db3322bf754}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ad36b0b5169a96133f3f55db3322bf754}
+\begin{DoxyCompactList}\small\item\em Chain method to add a category string to the categories vector. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ad319ea44268d12872d7440697f86477a}{clear\+Categories} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ad319ea44268d12872d7440697f86477a}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ad319ea44268d12872d7440697f86477a}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries auth\+\_\+token} (const std\+::string \&auth\+\_\+token=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_acca0bdf9bffb60ac767cff0506bc0fcc}{}\label{classEmojidex_1_1Service_1_1QueryOpts_acca0bdf9bffb60ac767cff0506bc0fcc}
+\begin{DoxyCompactList}\small\item\em Clear current value of \char`\"{}categories\char`\"{}. \end{DoxyCompactList}\item 
+const std\+::vector$<$ std\+::string $>$ \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a70793f0fdaf87d80eb5343c45a58367e}{get\+Categories} () const 
+\begin{DoxyCompactList}\small\item\em Gets current value of \char`\"{}categories\char`\"{} or returns empty vector if not set. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a5a187d4a45d838387f99196a70458173}{set\+Sort} (std\+::string order=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a5a187d4a45d838387f99196a70458173}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a5a187d4a45d838387f99196a70458173}
 
-\item 
-const std\+::string \& {\bfseries get\+Auth\+Token} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a26f673a87e58f3576e507321cb879eb8}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a26f673a87e58f3576e507321cb879eb8}
+\begin{DoxyCompactList}\small\item\em Sets sort order. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_abc3b57ad07108e262eda4505cfdcc5c8}{ext} (const std\+::string \&opt, const std\+::string \&prefix=\char`\"{}\&\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_abc3b57ad07108e262eda4505cfdcc5c8}{}\label{classEmojidex_1_1Service_1_1QueryOpts_abc3b57ad07108e262eda4505cfdcc5c8}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries tag} (const std\+::string \&tag)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ab0d2aa112c6ad9c9dadaec0e48b39f3d}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ab0d2aa112c6ad9c9dadaec0e48b39f3d}
+\begin{DoxyCompactList}\small\item\em Adds an opt to the ext\+\_\+opts string with a prefixed \char`\"{}\&\char`\"{} (or custom prefix when specified) \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ae0455c295169a616efbbd5b3721c998f}{clear\+Ext} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae0455c295169a616efbbd5b3721c998f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae0455c295169a616efbbd5b3721c998f}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries clear\+Tags} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a04cb66831c992b892b1ca80228bcffae}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a04cb66831c992b892b1ca80228bcffae}
+\begin{DoxyCompactList}\small\item\em Clear ext opts string. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_ae1904d52159992a8bc6b50eefe2f27c6}{get\+Ext} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae1904d52159992a8bc6b50eefe2f27c6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae1904d52159992a8bc6b50eefe2f27c6}
 
-\item 
-const std\+::vector$<$ std\+::string $>$ \& {\bfseries get\+Tags} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a0085f26b918a3466ea8524e754f30598}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a0085f26b918a3466ea8524e754f30598}
+\begin{DoxyCompactList}\small\item\em Get ext opt string. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_afeace74ce515ca48c21c01fae5c01838}{parse\+Unordered\+Map} (const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&source\+\_\+map)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_afeace74ce515ca48c21c01fae5c01838}{}\label{classEmojidex_1_1Service_1_1QueryOpts_afeace74ce515ca48c21c01fae5c01838}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries category} (const std\+::string \&category)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a55bf6248156ed527d0cb1a469488c999}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a55bf6248156ed527d0cb1a469488c999}
+\begin{DoxyCompactList}\small\item\em Feed an unordered map into opts. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1QueryOpts_a8a513409a7f1c5509bd393bb2bd28225}{to\+\_\+string} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a8a513409a7f1c5509bd393bb2bd28225}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a8a513409a7f1c5509bd393bb2bd28225}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries clear\+Categories} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ad319ea44268d12872d7440697f86477a}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ad319ea44268d12872d7440697f86477a}
+\begin{DoxyCompactList}\small\item\em Provides current query opt set as a single string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\item 
-const std\+::vector$<$ std\+::string $>$ \& {\bfseries get\+Categories} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a70793f0fdaf87d80eb5343c45a58367e}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a70793f0fdaf87d80eb5343c45a58367e}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries set\+Sort} (std\+::string order=\char`\"{}\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a5a187d4a45d838387f99196a70458173}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a5a187d4a45d838387f99196a70458173}
+\subsection{Detailed Description}
+Portable class to set complex query options. 
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries ext} (const std\+::string \&opt, const std\+::string \&prefix=\char`\"{}\&\char`\"{})\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_abc3b57ad07108e262eda4505cfdcc5c8}{}\label{classEmojidex_1_1Service_1_1QueryOpts_abc3b57ad07108e262eda4505cfdcc5c8}
+This class was introduced in libemojidex to combat several issues. Primarily, it\textquotesingle{}s here to be an easy-\/to-\/use interface to set things like hashes and maps in any language an interface is availbe in. It\textquotesingle{}s also here to offer a lot of flexibility in query customization without having to add a lot of arguments to every method. Not all opts have a functionality on all endpoints, but the ones that do not will simply be discarded.
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries clear\+Ext} ()\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae0455c295169a616efbbd5b3721c998f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae0455c295169a616efbbd5b3721c998f}
+Any option that, if included, could change the results of the query is not set during a get nor is it intialized by default to any value. 
 
-\item 
-const std\+::string \& {\bfseries get\+Ext} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae1904d52159992a8bc6b50eefe2f27c6}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae1904d52159992a8bc6b50eefe2f27c6}
+\subsection{Member Function Documentation}
+\index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Auth\+Token@{get\+Auth\+Token}}
+\index{get\+Auth\+Token@{get\+Auth\+Token}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Auth\+Token() const }{getAuthToken() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string\& Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Auth\+Token (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a26f673a87e58f3576e507321cb879eb8}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a26f673a87e58f3576e507321cb879eb8}
 
-\item 
-\hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} \& {\bfseries parse\+Unordered\+Map} (const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&source\+\_\+map)\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_afeace74ce515ca48c21c01fae5c01838}{}\label{classEmojidex_1_1Service_1_1QueryOpts_afeace74ce515ca48c21c01fae5c01838}
 
-\item 
-std\+::string {\bfseries to\+\_\+string} () const \hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a8a513409a7f1c5509bd393bb2bd28225}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a8a513409a7f1c5509bd393bb2bd28225}
+Gets current value of \char`\"{}auth\+\_\+token\char`\"{} or returns empty string if not set. 
 
-\end{DoxyCompactItemize}
+D\+O\+ES N\+OT set value of \char`\"{}auth\+\_\+token\char`\"{} if username is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Categories@{get\+Categories}}
+\index{get\+Categories@{get\+Categories}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Categories() const }{getCategories() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::vector$<$std\+::string$>$\& Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Categories (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a70793f0fdaf87d80eb5343c45a58367e}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a70793f0fdaf87d80eb5343c45a58367e}
 
+
+Gets current value of \char`\"{}categories\char`\"{} or returns empty vector if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}categories\char`\"{} if categories is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Detailed@{get\+Detailed}}
+\index{get\+Detailed@{get\+Detailed}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Detailed() const }{getDetailed() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Detailed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ae48076b7bd5daa429ebea6f767e5304f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ae48076b7bd5daa429ebea6f767e5304f}
+
+
+Gets current value of \char`\"{}detailed\char`\"{} or returns true if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}detailed\char`\"{} if detailed is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Limit@{get\+Limit}}
+\index{get\+Limit@{get\+Limit}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Limit() const }{getLimit() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Limit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a1ad7569bc9fb0ab58ededdad2977e00f}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a1ad7569bc9fb0ab58ededdad2977e00f}
+
+
+Gets current value of \char`\"{}limit\char`\"{} or returns default (50) if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}limit\char`\"{} if limit is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Locale@{get\+Locale}}
+\index{get\+Locale@{get\+Locale}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Locale() const }{getLocale() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string\& Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Locale (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a21ac7ce8f5aabc514b9febb5ef98c7a1}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a21ac7ce8f5aabc514b9febb5ef98c7a1}
+
+
+Gets current value of \char`\"{}locale\char`\"{} or returns default of \char`\"{}en\char`\"{} if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}locale\char`\"{} if locale is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Page@{get\+Page}}
+\index{get\+Page@{get\+Page}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Page() const }{getPage() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Page (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ab09d80f6810994e9f17eb69e0bf5bbd2}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ab09d80f6810994e9f17eb69e0bf5bbd2}
+
+
+Gets current value of \char`\"{}page\char`\"{} or returns default of 1 if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}page\char`\"{} if page is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Tags@{get\+Tags}}
+\index{get\+Tags@{get\+Tags}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Tags() const }{getTags() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::vector$<$std\+::string$>$\& Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Tags (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_a0085f26b918a3466ea8524e754f30598}{}\label{classEmojidex_1_1Service_1_1QueryOpts_a0085f26b918a3466ea8524e754f30598}
+
+
+Gets current value of \char`\"{}tags\char`\"{} or returns empty vector if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}tags\char`\"{} if tags is not set \index{Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}!get\+Username@{get\+Username}}
+\index{get\+Username@{get\+Username}!Emojidex\+::\+Service\+::\+Query\+Opts@{Emojidex\+::\+Service\+::\+Query\+Opts}}
+\subsubsection[{\texorpdfstring{get\+Username() const }{getUsername() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string\& Emojidex\+::\+Service\+::\+Query\+Opts\+::get\+Username (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEmojidex_1_1Service_1_1QueryOpts_ad36b0b5169a96133f3f55db3322bf754}{}\label{classEmojidex_1_1Service_1_1QueryOpts_ad36b0b5169a96133f3f55db3322bf754}
+
+
+Gets current value of \char`\"{}username\char`\"{} or returns empty string if not set. 
+
+D\+O\+ES N\+OT set value of \char`\"{}username\char`\"{} if username is not set 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

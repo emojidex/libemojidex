@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['syncfavorites',['syncFavorites',['../classEmojidex_1_1Service_1_1User.html#a4fd708d672d09325c07b72bae81bab10',1,'Emojidex::Service::User']]],
-  ['syncfollowers',['syncFollowers',['../classEmojidex_1_1Service_1_1User.html#ac9d62c8a7fd9eb6e64e930460e9f98d3',1,'Emojidex::Service::User']]],
-  ['syncfollowing',['syncFollowing',['../classEmojidex_1_1Service_1_1User.html#a5d3d73e8788572961694cab846f5708a',1,'Emojidex::Service::User']]],
-  ['synchistory',['syncHistory',['../classEmojidex_1_1Service_1_1User.html#ae26cdfd2fbd24777a167709a615590d1',1,'Emojidex::Service::User']]],
-  ['syncmyemoji',['syncMyEmoji',['../classEmojidex_1_1Service_1_1User.html#acef94239cf65b7d8b707b688a8f0a4c9',1,'Emojidex::Service::User']]]
+  ['fillfromjson',['fillFromJSON',['../classEmojidex_1_1Data_1_1Emoji.html#ad173ee5dee8d6f6e807674fe7c73812f',1,'Emojidex::Data::Emoji']]],
+  ['fillfromjsonstring',['fillFromJSONString',['../classEmojidex_1_1Data_1_1Emoji.html#a81aa3a7621b4393bc211c4d67a153182',1,'Emojidex::Data::Emoji']]],
+  ['find',['find',['../classEmojidex_1_1Service_1_1Search.html#a80970b4a18e5bcc37a2a697de237e8aa',1,'Emojidex::Service::Search']]],
+  ['findbycode',['findByCode',['../classEmojidex_1_1Data_1_1Collection.html#a5ba6be5a862e6e23b2a5c99e6d751615',1,'Emojidex::Data::Collection']]],
+  ['findbymoji',['findByMoji',['../classEmojidex_1_1Data_1_1Collection.html#a85b15d61175aee9cce9b42fe6c21cf80',1,'Emojidex::Data::Collection']]],
+  ['findbyunicode',['findByUnicode',['../classEmojidex_1_1Data_1_1Collection.html#a54f948efec77f14099defd7e6172a5b0',1,'Emojidex::Data::Collection']]]
 ];

@@ -1,21 +1,47 @@
 \hypertarget{classEmojidex_1_1Data_1_1Checksums}{}\section{Emojidex\+:\+:Data\+:\+:Checksums Class Reference}
 \label{classEmojidex_1_1Data_1_1Checksums}\index{Emojidex\+::\+Data\+::\+Checksums@{Emojidex\+::\+Data\+::\+Checksums}}
+
+
+Holds a map of checksums for image assets that can be used to check against local assets.  
+
+
+
+
+{\ttfamily \#include $<$checksums.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string {\bfseries sum} (std\+::string format\+\_\+code, std\+::string size\+\_\+code)\hypertarget{classEmojidex_1_1Data_1_1Checksums_ae8a65b3fc9c2d9fb40650c09fbbb8eca}{}\label{classEmojidex_1_1Data_1_1Checksums_ae8a65b3fc9c2d9fb40650c09fbbb8eca}
-
-\end{DoxyCompactItemize}
+std\+::string \hyperlink{classEmojidex_1_1Data_1_1Checksums_ae8a65b3fc9c2d9fb40650c09fbbb8eca}{sum} (std\+::string format\+\_\+code, std\+::string size\+\_\+code)
+\begin{DoxyCompactList}\small\item\em Get the M\+D5 sum for a file of the specified format and specified size. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string {\bfseries svg}\hypertarget{classEmojidex_1_1Data_1_1Checksums_a2efd7301a746504a9227cb940a66493f}{}\label{classEmojidex_1_1Data_1_1Checksums_a2efd7301a746504a9227cb940a66493f}
+std\+::string \hyperlink{classEmojidex_1_1Data_1_1Checksums_a2efd7301a746504a9227cb940a66493f}{svg}\hypertarget{classEmojidex_1_1Data_1_1Checksums_a2efd7301a746504a9227cb940a66493f}{}\label{classEmojidex_1_1Data_1_1Checksums_a2efd7301a746504a9227cb940a66493f}
 
-\item 
-std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ {\bfseries png}\hypertarget{classEmojidex_1_1Data_1_1Checksums_a3caf0bf70d315f74fb027e1f4b880500}{}\label{classEmojidex_1_1Data_1_1Checksums_a3caf0bf70d315f74fb027e1f4b880500}
+\begin{DoxyCompactList}\small\item\em The M\+D5 sum of the S\+VG file for an emoji. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \hyperlink{classEmojidex_1_1Data_1_1Checksums_a3caf0bf70d315f74fb027e1f4b880500}{png}\hypertarget{classEmojidex_1_1Data_1_1Checksums_a3caf0bf70d315f74fb027e1f4b880500}{}\label{classEmojidex_1_1Data_1_1Checksums_a3caf0bf70d315f74fb027e1f4b880500}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A map of M\+D5 sums for various sizes of P\+NG images for an emoji. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Holds a map of checksums for image assets that can be used to check against local assets. 
+
+\subsection{Member Function Documentation}
+\index{Emojidex\+::\+Data\+::\+Checksums@{Emojidex\+::\+Data\+::\+Checksums}!sum@{sum}}
+\index{sum@{sum}!Emojidex\+::\+Data\+::\+Checksums@{Emojidex\+::\+Data\+::\+Checksums}}
+\subsubsection[{\texorpdfstring{sum(std\+::string format\+\_\+code, std\+::string size\+\_\+code)}{sum(std::string format_code, std::string size_code)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Emojidex\+::\+Data\+::\+Checksums\+::sum (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{format\+\_\+code, }
+\item[{std\+::string}]{size\+\_\+code}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Data_1_1Checksums_ae8a65b3fc9c2d9fb40650c09fbbb8eca}{}\label{classEmojidex_1_1Data_1_1Checksums_ae8a65b3fc9c2d9fb40650c09fbbb8eca}
+
+
+Get the M\+D5 sum for a file of the specified format and specified size. 
+
+format\+\_\+code can be either \char`\"{}svg\char`\"{} or \char`\"{}png\char`\"{} size\+\_\+code can be any size specified in the emojidex developer docs (eg\+: \char`\"{}px32\char`\"{} or \char`\"{}hdpi\char`\"{}) 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

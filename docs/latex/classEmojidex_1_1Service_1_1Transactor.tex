@@ -1,24 +1,36 @@
 \hypertarget{classEmojidex_1_1Service_1_1Transactor}{}\section{Emojidex\+:\+:Service\+:\+:Transactor Class Reference}
 \label{classEmojidex_1_1Service_1_1Transactor}\index{Emojidex\+::\+Service\+::\+Transactor@{Emojidex\+::\+Service\+::\+Transactor}}
+
+
+performs transactions with an emojidex A\+PI server  
+
+
+
+
+{\ttfamily \#include $<$transactor.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ {\bfseries query\+Template} (bool defaults=true)\hypertarget{classEmojidex_1_1Service_1_1Transactor_acdd10d6f4321b7a221c4bfb0d8590ff2}{}\label{classEmojidex_1_1Service_1_1Transactor_acdd10d6f4321b7a221c4bfb0d8590ff2}
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \hyperlink{classEmojidex_1_1Service_1_1Transactor_acdd10d6f4321b7a221c4bfb0d8590ff2}{query\+Template} (bool defaults=true)\hypertarget{classEmojidex_1_1Service_1_1Transactor_acdd10d6f4321b7a221c4bfb0d8590ff2}{}\label{classEmojidex_1_1Service_1_1Transactor_acdd10d6f4321b7a221c4bfb0d8590ff2}
 
-\item 
-std\+::string {\bfseries G\+ET} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_ad7db57d801c905c92ea81d0ae8e565b7}{}\label{classEmojidex_1_1Service_1_1Transactor_ad7db57d801c905c92ea81d0ae8e565b7}
+\begin{DoxyCompactList}\small\item\em Get a blanked query hash instance. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1Transactor_ad7db57d801c905c92ea81d0ae8e565b7}{G\+ET} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_ad7db57d801c905c92ea81d0ae8e565b7}{}\label{classEmojidex_1_1Service_1_1Transactor_ad7db57d801c905c92ea81d0ae8e565b7}
 
-\item 
-std\+::string {\bfseries G\+ET} (const std\+::string \&endpoint, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} query, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_aa21e59443304d5e9612981f4d7df4e8c}{}\label{classEmojidex_1_1Service_1_1Transactor_aa21e59443304d5e9612981f4d7df4e8c}
+\begin{DoxyCompactList}\small\item\em H\+T\+T\+P(\+S) Get with a query hash. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1Transactor_aa21e59443304d5e9612981f4d7df4e8c}{G\+ET} (const std\+::string \&endpoint, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} query, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_aa21e59443304d5e9612981f4d7df4e8c}{}\label{classEmojidex_1_1Service_1_1Transactor_aa21e59443304d5e9612981f4d7df4e8c}
 
-\item 
-std\+::string {\bfseries P\+O\+ST} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_a5335a34c16a0d16bb0196fda4754b611}{}\label{classEmojidex_1_1Service_1_1Transactor_a5335a34c16a0d16bb0196fda4754b611}
+\begin{DoxyCompactList}\small\item\em H\+T\+T\+P(\+S) Get with a \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Query\+Opts} instance. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1Transactor_a5335a34c16a0d16bb0196fda4754b611}{P\+O\+ST} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_a5335a34c16a0d16bb0196fda4754b611}{}\label{classEmojidex_1_1Service_1_1Transactor_a5335a34c16a0d16bb0196fda4754b611}
 
-\item 
-std\+::string {\bfseries D\+E\+L\+E\+TE} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_a9e9d1edc59867650851b99129b6dcc1d}{}\label{classEmojidex_1_1Service_1_1Transactor_a9e9d1edc59867650851b99129b6dcc1d}
+\begin{DoxyCompactList}\small\item\em Post with a query hash. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classEmojidex_1_1Service_1_1Transactor_a9e9d1edc59867650851b99129b6dcc1d}{D\+E\+L\+E\+TE} (const std\+::string \&endpoint, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \&query=\{\{\char`\"{}\char`\"{},\char`\"{}\char`\"{}\}\}, int $\ast$status=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Transactor_a9e9d1edc59867650851b99129b6dcc1d}{}\label{classEmojidex_1_1Service_1_1Transactor_a9e9d1edc59867650851b99129b6dcc1d}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Delete with a query hash. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+performs transactions with an emojidex A\+PI server 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

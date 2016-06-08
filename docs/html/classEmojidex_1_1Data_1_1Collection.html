@@ -93,69 +93,160 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Emojidex::Data::Collection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A managed collection of emoji objects.  
+ <a href="classEmojidex_1_1Data_1_1Collection.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="collection_8h_source.html">collection.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for Emojidex::Data::Collection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classEmojidex_1_1Data_1_1Collection__coll__graph.png" border="0" usemap="#Emojidex_1_1Data_1_1Collection_coll__map" alt="Collaboration graph"/></div>
 <map name="Emojidex_1_1Data_1_1Collection_coll__map" id="Emojidex_1_1Data_1_1Collection_coll__map">
-<area shape="rect" id="node2" href="classEmojidex_1_1Service_1_1QueryOpts.html" title="Emojidex::Service::\lQueryOpts" alt="" coords="27,5,163,47"/>
+<area shape="rect" id="node2" href="classEmojidex_1_1Service_1_1QueryOpts.html" title="Portable class to set complex query options. " alt="" coords="27,5,163,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a650a418293d89311263dc3e744416b1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a650a418293d89311263dc3e744416b1f"></a>
-std::vector&lt; <a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>all</b> ()</td></tr>
+std::vector&lt; <a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a650a418293d89311263dc3e744416b1f">all</a> ()</td></tr>
+<tr class="memdesc:a650a418293d89311263dc3e744416b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector array of all emoji in the collection. <br /></td></tr>
 <tr class="separator:a650a418293d89311263dc3e744416b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab06d56b5d177f1e489d36c5ccf02b362"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab06d56b5d177f1e489d36c5ccf02b362"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> new_emoji)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#ab06d56b5d177f1e489d36c5ccf02b362">add</a> (<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> new_emoji)</td></tr>
+<tr class="memdesc:ab06d56b5d177f1e489d36c5ccf02b362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an emoji to the map. <br /></td></tr>
 <tr class="separator:ab06d56b5d177f1e489d36c5ccf02b362"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e149fc6e461293a80babfd7461b02f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e149fc6e461293a80babfd7461b02f4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (std::string code)</td></tr>
+<tr class="memitem:a1e149fc6e461293a80babfd7461b02f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a1e149fc6e461293a80babfd7461b02f4">remove</a> (std::string code)</td></tr>
+<tr class="memdesc:a1e149fc6e461293a80babfd7461b02f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an emoji from the map [by code].  <a href="#a1e149fc6e461293a80babfd7461b02f4">More...</a><br /></td></tr>
 <tr class="separator:a1e149fc6e461293a80babfd7461b02f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85b15d61175aee9cce9b42fe6c21cf80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85b15d61175aee9cce9b42fe6c21cf80"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findByMoji</b> (std::string moji)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a85b15d61175aee9cce9b42fe6c21cf80">findByMoji</a> (std::string moji)</td></tr>
+<tr class="memdesc:a85b15d61175aee9cce9b42fe6c21cf80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds by moji[character]code (UTF emoji only) <br /></td></tr>
 <tr class="separator:a85b15d61175aee9cce9b42fe6c21cf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ba6be5a862e6e23b2a5c99e6d751615"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ba6be5a862e6e23b2a5c99e6d751615"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findByCode</b> (std::string code)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a5ba6be5a862e6e23b2a5c99e6d751615">findByCode</a> (std::string code)</td></tr>
+<tr class="memdesc:a5ba6be5a862e6e23b2a5c99e6d751615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds by emoji [short] code. <br /></td></tr>
 <tr class="separator:a5ba6be5a862e6e23b2a5c99e6d751615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54f948efec77f14099defd7e6172a5b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a54f948efec77f14099defd7e6172a5b0"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findByUnicode</b> (std::string unicode)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a54f948efec77f14099defd7e6172a5b0">findByUnicode</a> (std::string unicode)</td></tr>
+<tr class="memdesc:a54f948efec77f14099defd7e6172a5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds by Unicode value (must be lower case) <br /></td></tr>
 <tr class="separator:a54f948efec77f14099defd7e6172a5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a230c9aae3e864b28cc25b94d861246bb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a230c9aae3e864b28cc25b94d861246bb"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>category</b> (std::string category)</td></tr>
+<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a230c9aae3e864b28cc25b94d861246bb">category</a> (std::string category)</td></tr>
+<tr class="memdesc:a230c9aae3e864b28cc25b94d861246bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a sub collection of emoji of the specified category. <br /></td></tr>
 <tr class="separator:a230c9aae3e864b28cc25b94d861246bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8166fb4585d12aa2843e7625a4accff2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8166fb4585d12aa2843e7625a4accff2"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>merge</b> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> delta_collection)</td></tr>
+<tr class="memitem:a8166fb4585d12aa2843e7625a4accff2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a8166fb4585d12aa2843e7625a4accff2">merge</a> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> delta_collection)</td></tr>
+<tr class="memdesc:a8166fb4585d12aa2843e7625a4accff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge a collection with this collection.  <a href="#a8166fb4585d12aa2843e7625a4accff2">More...</a><br /></td></tr>
 <tr class="separator:a8166fb4585d12aa2843e7625a4accff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe7026c359c5cd222d61d34f38b1ce5d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe7026c359c5cd222d61d34f38b1ce5d"></a>
 <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> delta_collection)</td></tr>
 <tr class="separator:abe7026c359c5cd222d61d34f38b1ce5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc94265d1af0e39ab7b12bbae92d4e4b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc94265d1af0e39ab7b12bbae92d4e4b"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mergeJSON</b> (std::string json_string)</td></tr>
+<tr class="memitem:abc94265d1af0e39ab7b12bbae92d4e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#abc94265d1af0e39ab7b12bbae92d4e4b">mergeJSON</a> (std::string json_string)</td></tr>
 <tr class="separator:abc94265d1af0e39ab7b12bbae92d4e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98118ea678e6b838e05f8d41f7ef7416"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98118ea678e6b838e05f8d41f7ef7416"></a>
-<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>more</b> ()</td></tr>
+<tr class="memitem:a98118ea678e6b838e05f8d41f7ef7416"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a98118ea678e6b838e05f8d41f7ef7416">more</a> ()</td></tr>
+<tr class="memdesc:a98118ea678e6b838e05f8d41f7ef7416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get more of the collection if the collection is paginated and has remaining pages.  <a href="#a98118ea678e6b838e05f8d41f7ef7416">More...</a><br /></td></tr>
 <tr class="separator:a98118ea678e6b838e05f8d41f7ef7416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad18c6580a9afb8c132d4c158337e1524"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad18c6580a9afb8c132d4c158337e1524"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPagination</b> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Collection</a>(*moreMethod)(<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>), unsigned int starting_page, unsigned int limit, bool detailed)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#ad18c6580a9afb8c132d4c158337e1524">setPagination</a> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Collection</a>(*moreMethod)(<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>), unsigned int starting_page, unsigned int limit, bool detailed)</td></tr>
+<tr class="memdesc:ad18c6580a9afb8c132d4c158337e1524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up collection as a paged collection (with more pages/emoji on the service). <br /></td></tr>
 <tr class="separator:ad18c6580a9afb8c132d4c158337e1524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aa8164e800401e64ce162ee5e734d9e74"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8164e800401e64ce162ee5e734d9e74"></a>
-std::unordered_map&lt; std::string, <a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>emoji</b></td></tr>
+std::unordered_map&lt; std::string, <a class="el" href="classEmojidex_1_1Data_1_1Emoji.html">Emojidex::Data::Emoji</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#aa8164e800401e64ce162ee5e734d9e74">emoji</a></td></tr>
+<tr class="memdesc:aa8164e800401e64ce162ee5e734d9e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">emoji data hash, mapped by code <br /></td></tr>
 <tr class="separator:aa8164e800401e64ce162ee5e734d9e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937eedb36767877da7c793625bf919a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a937eedb36767877da7c793625bf919a6"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>endpoint</b></td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a937eedb36767877da7c793625bf919a6">endpoint</a></td></tr>
+<tr class="memdesc:a937eedb36767877da7c793625bf919a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The service endpoint this collection is derived from. <br /></td></tr>
 <tr class="separator:a937eedb36767877da7c793625bf919a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade67a564b14f14375af66bc1a550ecdb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade67a564b14f14375af66bc1a550ecdb"></a>
-<a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a>&#160;</td><td class="memItemRight" valign="bottom"><b>opts</b></td></tr>
+<a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#ade67a564b14f14375af66bc1a550ecdb">opts</a></td></tr>
+<tr class="memdesc:ade67a564b14f14375af66bc1a550ecdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query options on the endpoint. <br /></td></tr>
 <tr class="separator:ade67a564b14f14375af66bc1a550ecdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0355662d1097dd631a6d6ce09875e8c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0355662d1097dd631a6d6ce09875e8c3"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>total_count</b></td></tr>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html#a0355662d1097dd631a6d6ce09875e8c3">total_count</a></td></tr>
+<tr class="memdesc:a0355662d1097dd631a6d6ce09875e8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of emoji availble on the service to fill this collection. <br /></td></tr>
 <tr class="separator:a0355662d1097dd631a6d6ce09875e8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A managed collection of emoji objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8166fb4585d12aa2843e7625a4accff2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>* Emojidex::Data::Collection::merge </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td>
+          <td class="paramname"><em>delta_collection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merge a collection with this collection. </p>
+<p>Overwrites emoji with the same code. Rerturns the joined collection after the merge for chaining. </p>
+
+</div>
+</div>
+<a class="anchor" id="abc94265d1af0e39ab7b12bbae92d4e4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>* Emojidex::Data::Collection::mergeJSON </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>json_string</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add emoji from a JSON string Returns this collection after the merge for chaining. </p>
+
+</div>
+</div>
+<a class="anchor" id="a98118ea678e6b838e05f8d41f7ef7416"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> Emojidex::Data::Collection::more </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get more of the collection if the collection is paginated and has remaining pages. </p>
+<p>Returns true if the next page was sucessfully obtained. Returns false if there are no more pages/emoji to obtain. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1e149fc6e461293a80babfd7461b02f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Emojidex::Data::Collection::remove </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>code</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes an emoji from the map [by code]. </p>
+<p>Returns true if the emoji was located in the map and removed Returns false if the emoji was not located in the map </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="collection_8h_source.html">collection.h</a></li>
 </ul>

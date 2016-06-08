@@ -92,26 +92,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Emojidex::Service::Transactor Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>performs transactions with an emojidex API server  
+ <a href="classEmojidex_1_1Service_1_1Transactor.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="transactor_8h_source.html">transactor.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acdd10d6f4321b7a221c4bfb0d8590ff2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acdd10d6f4321b7a221c4bfb0d8590ff2"></a>
-std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>queryTemplate</b> (bool defaults=true)</td></tr>
+std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Transactor.html#acdd10d6f4321b7a221c4bfb0d8590ff2">queryTemplate</a> (bool defaults=true)</td></tr>
+<tr class="memdesc:acdd10d6f4321b7a221c4bfb0d8590ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a blanked query hash instance. <br /></td></tr>
 <tr class="separator:acdd10d6f4321b7a221c4bfb0d8590ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7db57d801c905c92ea81d0ae8e565b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7db57d801c905c92ea81d0ae8e565b7"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GET</b> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Transactor.html#ad7db57d801c905c92ea81d0ae8e565b7">GET</a> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+<tr class="memdesc:ad7db57d801c905c92ea81d0ae8e565b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP(S) Get with a query hash. <br /></td></tr>
 <tr class="separator:ad7db57d801c905c92ea81d0ae8e565b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa21e59443304d5e9612981f4d7df4e8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa21e59443304d5e9612981f4d7df4e8c"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GET</b> (const std::string &amp;endpoint, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> query, int *status=NULL)</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Transactor.html#aa21e59443304d5e9612981f4d7df4e8c">GET</a> (const std::string &amp;endpoint, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> query, int *status=NULL)</td></tr>
+<tr class="memdesc:aa21e59443304d5e9612981f4d7df4e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP(S) Get with a <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html" title="Portable class to set complex query options. ">QueryOpts</a> instance. <br /></td></tr>
 <tr class="separator:aa21e59443304d5e9612981f4d7df4e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5335a34c16a0d16bb0196fda4754b611"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5335a34c16a0d16bb0196fda4754b611"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>POST</b> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Transactor.html#a5335a34c16a0d16bb0196fda4754b611">POST</a> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+<tr class="memdesc:a5335a34c16a0d16bb0196fda4754b611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post with a query hash. <br /></td></tr>
 <tr class="separator:a5335a34c16a0d16bb0196fda4754b611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e9d1edc59867650851b99129b6dcc1d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e9d1edc59867650851b99129b6dcc1d"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>DELETE</b> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Transactor.html#a9e9d1edc59867650851b99129b6dcc1d">DELETE</a> (const std::string &amp;endpoint, const std::unordered_map&lt; std::string, std::string &gt; &amp;query={{&quot;&quot;,&quot;&quot;}}, int *status=NULL)</td></tr>
+<tr class="memdesc:a9e9d1edc59867650851b99129b6dcc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete with a query hash. <br /></td></tr>
 <tr class="separator:a9e9d1edc59867650851b99129b6dcc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>performs transactions with an emojidex API server </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="transactor_8h_source.html">transactor.h</a></li>
 </ul>
 </div><!-- contents -->

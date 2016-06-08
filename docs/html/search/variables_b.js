@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['tags',['tags',['../classEmojidex_1_1Data_1_1Emoji.html#a31fc45978cc598ce1a22e8e9acb5ba44',1,'Emojidex::Data::Emoji']]],
-  ['times_5fchanged',['times_changed',['../classEmojidex_1_1Data_1_1Emoji.html#a259f6b01221b548c048612b1c73cdf95',1,'Emojidex::Data::Emoji']]],
-  ['times_5ffavorited',['times_favorited',['../classEmojidex_1_1Data_1_1Emoji.html#ac069cd3bd86d55df3f95ff3e553c52ca',1,'Emojidex::Data::Emoji']]],
-  ['times_5fused',['times_used',['../classEmojidex_1_1Data_1_1Emoji.html#a12b0bac434266f28c90f4029cf345281',1,'Emojidex::Data::Emoji']]]
+  ['r18',['r18',['../classEmojidex_1_1Service_1_1User.html#a0a66ff7c784815a1e186749bdc032070',1,'Emojidex::Service::User']]],
+  ['registered_5fat',['registered_at',['../classEmojidex_1_1Data_1_1Emoji.html#a1bea369e1adc382cd1dc7c5c65cced03',1,'Emojidex::Data::Emoji']]]
 ];

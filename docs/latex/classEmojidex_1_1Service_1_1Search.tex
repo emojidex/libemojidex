@@ -1,36 +1,53 @@
 \hypertarget{classEmojidex_1_1Service_1_1Search}{}\section{Emojidex\+:\+:Service\+:\+:Search Class Reference}
 \label{classEmojidex_1_1Service_1_1Search}\index{Emojidex\+::\+Service\+::\+Search@{Emojidex\+::\+Service\+::\+Search}}
+
+
+\hyperlink{classEmojidex_1_1Service_1_1Search}{Search} functionality for the emojidex service.  
+
+
+
+
+{\ttfamily \#include $<$search.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void {\bfseries set\+User} (const \hyperlink{classEmojidex_1_1Service_1_1User}{Emojidex\+::\+Service\+::\+User} $\ast$user)\hypertarget{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a3e7a}{}\label{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a3e7a}
+void \hyperlink{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a3e7a}{set\+User} (const \hyperlink{classEmojidex_1_1Service_1_1User}{Emojidex\+::\+Service\+::\+User} $\ast$user)\hypertarget{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a3e7a}{}\label{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a3e7a}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries term} (const std\+::string code\+\_\+cont, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a7e9de234cfa8cdfe52b9ad02778ec096}{}\label{classEmojidex_1_1Service_1_1Search_a7e9de234cfa8cdfe52b9ad02778ec096}
+\begin{DoxyCompactList}\small\item\em Sets user for authorized search options such as ordering and enabling R-\/18 results. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Search_a7e9de234cfa8cdfe52b9ad02778ec096}{term} (const std\+::string code\+\_\+cont, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a7e9de234cfa8cdfe52b9ad02778ec096}{}\label{classEmojidex_1_1Service_1_1Search_a7e9de234cfa8cdfe52b9ad02778ec096}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries starting} (std\+::string code\+\_\+sw, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a7b90f2dab9c28d2dc971bb7494b4d291}{}\label{classEmojidex_1_1Service_1_1Search_a7b90f2dab9c28d2dc971bb7494b4d291}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Service_1_1Search}{Search} within emoji short codes for a term (EG\+: \textquotesingle{}car\textquotesingle{} will include results like \textquotesingle{}blue\+\_\+car\textquotesingle{}) \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Search_a7b90f2dab9c28d2dc971bb7494b4d291}{starting} (std\+::string code\+\_\+sw, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a7b90f2dab9c28d2dc971bb7494b4d291}{}\label{classEmojidex_1_1Service_1_1Search_a7b90f2dab9c28d2dc971bb7494b4d291}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries ending} (std\+::string code\+\_\+ew, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a0c8100ad888ab404088cd44b07bc8b91}{}\label{classEmojidex_1_1Service_1_1Search_a0c8100ad888ab404088cd44b07bc8b91}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Service_1_1Search}{Search} within emoji short codes for codes that start with a term. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Search_a0c8100ad888ab404088cd44b07bc8b91}{ending} (std\+::string code\+\_\+ew, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a0c8100ad888ab404088cd44b07bc8b91}{}\label{classEmojidex_1_1Service_1_1Search_a0c8100ad888ab404088cd44b07bc8b91}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries tags} (const std\+::vector$<$ std\+::string $>$ \&tags, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}{}\label{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Service_1_1Search}{Search} within emoji short codes for codes that end with a term. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}{tags} (const std\+::vector$<$ std\+::string $>$ \&tags, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}{}\label{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} {\bfseries advanced} (std\+::string code\+\_\+cont, const std\+::vector$<$ std\+::string $>$ \&categories, const std\+::vector$<$ std\+::string $>$ \&tags, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a2924585a8bb92c1b902477cabc154fb0}{}\label{classEmojidex_1_1Service_1_1Search_a2924585a8bb92c1b902477cabc154fb0}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEmojidex_1_1Service_1_1Search}{Search} for emoji with all the assigned tags. The tags array is exclusive in that more tags narrow down results. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Collection}{Emojidex\+::\+Data\+::\+Collection} \hyperlink{classEmojidex_1_1Service_1_1Search_a2924585a8bb92c1b902477cabc154fb0}{advanced} (std\+::string code\+\_\+cont, const std\+::vector$<$ std\+::string $>$ \&categories, const std\+::vector$<$ std\+::string $>$ \&\hyperlink{classEmojidex_1_1Service_1_1Search_af8d1aaece57cd92bf8712493055f2ef6}{tags}, \hyperlink{classEmojidex_1_1Service_1_1QueryOpts}{Emojidex\+::\+Service\+::\+Query\+Opts} $\ast$conditions=N\+U\+LL)\hypertarget{classEmojidex_1_1Service_1_1Search_a2924585a8bb92c1b902477cabc154fb0}{}\label{classEmojidex_1_1Service_1_1Search_a2924585a8bb92c1b902477cabc154fb0}
 
-\item 
-\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} {\bfseries find} (std\+::string code, bool detailed=true)\hypertarget{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}{}\label{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}
-
-\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-unsigned int {\bfseries current\+\_\+page}\hypertarget{classEmojidex_1_1Service_1_1Search_a8fe41d03f8c3013a021ad103c2ab4245}{}\label{classEmojidex_1_1Service_1_1Search_a8fe41d03f8c3013a021ad103c2ab4245}
-
+\begin{DoxyCompactList}\small\item\em Compound search for a term, included in one of the given categories, with all of the given tags. \end{DoxyCompactList}\item 
+\hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}{find} (std\+::string code, bool detailed=true)
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+\hyperlink{classEmojidex_1_1Service_1_1Search}{Search} functionality for the emojidex service. 
+
+\subsection{Member Function Documentation}
+\index{Emojidex\+::\+Service\+::\+Search@{Emojidex\+::\+Service\+::\+Search}!find@{find}}
+\index{find@{find}!Emojidex\+::\+Service\+::\+Search@{Emojidex\+::\+Service\+::\+Search}}
+\subsubsection[{\texorpdfstring{find(std\+::string code, bool detailed=true)}{find(std::string code, bool detailed=true)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Emojidex\+::\+Data\+::\+Emoji} Emojidex\+::\+Service\+::\+Search\+::find (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{code, }
+\item[{bool}]{detailed = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}\hypertarget{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}{}\label{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}
+Returns a \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Data\+::\+Emoji} object filled with the emoji info on success (the emoji is registered)~\newline
+Returns an empty emoji object with only the code field filled on failure (the emoji is not registered) 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

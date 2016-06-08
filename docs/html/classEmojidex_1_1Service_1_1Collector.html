@@ -92,23 +92,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Emojidex::Service::Collector Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Provides generic calls to fill a Collection from an API endpoint.  
+ <a href="classEmojidex_1_1Service_1_1Collector.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="collector_8h_source.html">collector.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a51ed2454051cff8ee1b76dfe0ebd0e3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51ed2454051cff8ee1b76dfe0ebd0e3c"></a>
-static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getStaticCollection</b> (std::string name, std::string locale=DEFAULT_LOCALE, bool detailed=true)</td></tr>
+static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Collector.html#a51ed2454051cff8ee1b76dfe0ebd0e3c">getStaticCollection</a> (std::string name, std::string locale=DEFAULT_LOCALE, bool detailed=true)</td></tr>
+<tr class="memdesc:a51ed2454051cff8ee1b76dfe0ebd0e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a static collection from seed endpoints (non paginated, limited query options) <br /></td></tr>
 <tr class="separator:a51ed2454051cff8ee1b76dfe0ebd0e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d576269475065aef15391dd597dfd5a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d576269475065aef15391dd597dfd5a"></a>
-static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getDynamicCollection</b> (std::string name, unsigned int page, unsigned int limit, bool detailed, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Collector.html#a3d576269475065aef15391dd597dfd5a">getDynamicCollection</a> (std::string name, unsigned int page, unsigned int limit, bool detailed, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a3d576269475065aef15391dd597dfd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a dynamic collection (paginated, queryable/customizable) <br /></td></tr>
 <tr class="separator:a3d576269475065aef15391dd597dfd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d3839fcce3e4191b3076c64bab9a925"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d3839fcce3e4191b3076c64bab9a925"></a>
-static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getAuthorizedDynamicCollection</b> (std::string name, std::string auth_token, unsigned int page, unsigned int limit, bool detailed, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Collector.html#a4d3839fcce3e4191b3076c64bab9a925">getAuthorizedDynamicCollection</a> (std::string name, std::string auth_token, unsigned int page, unsigned int limit, bool detailed, <a class="el" href="classEmojidex_1_1Service_1_1QueryOpts.html">Emojidex::Service::QueryOpts</a> *conditions=NULL)</td></tr>
+<tr class="memdesc:a4d3839fcce3e4191b3076c64bab9a925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a dynamic collection with forced auth credentials. <br /></td></tr>
 <tr class="separator:a4d3839fcce3e4191b3076c64bab9a925"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeb2efb1c30de239a89f360eba795818"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afeb2efb1c30de239a89f360eba795818"></a>
-static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getCollection</b> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> collect)</td></tr>
+static <a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEmojidex_1_1Service_1_1Collector.html#afeb2efb1c30de239a89f360eba795818">getCollection</a> (<a class="el" href="classEmojidex_1_1Data_1_1Collection.html">Emojidex::Data::Collection</a> collect)</td></tr>
+<tr class="memdesc:afeb2efb1c30de239a89f360eba795818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a collection from an instantiated collection object. <br /></td></tr>
 <tr class="separator:afeb2efb1c30de239a89f360eba795818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides generic calls to fill a Collection from an API endpoint. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="collector_8h_source.html">collector.h</a></li>
 </ul>
 </div><!-- contents -->

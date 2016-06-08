@@ -7,7 +7,7 @@
 
 namespace Emojidex {
 	namespace Service {
-		// performs transactions with an emojidex API server
+		//! performs transactions with an emojidex API server
 		class Transactor
 		{
 		private:
@@ -17,11 +17,16 @@ namespace Emojidex {
 		public:
 			Transactor();
 
+			//! Get a blanked query hash instance
 			std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
+			//! HTTP(S) Get with a query hash
 			std::string GET(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+			//! HTTP(S) Get with a QueryOpts instance
 			std::string GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status = NULL);
+			//! Post with a query hash
 			std::string POST(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+			//! Delete with a query hash
 			std::string DELETE(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
 		};
 	}

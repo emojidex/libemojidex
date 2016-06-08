@@ -1,4 +1,4 @@
 <map id="Emojidex::Service::User" name="Emojidex::Service::User">
-<area shape="rect" id="node2" href="$classEmojidex_1_1Data_1_1Collection.html" title="Emojidex::Data::Collection" alt="" coords="5,109,184,136"/>
-<area shape="rect" id="node3" href="$classEmojidex_1_1Service_1_1QueryOpts.html" title="Emojidex::Service::\lQueryOpts" alt="" coords="27,5,163,47"/>
+<area shape="rect" id="node2" href="$classEmojidex_1_1Data_1_1Collection.html" title="A managed collection of emoji objects. " alt="" coords="5,109,184,136"/>
+<area shape="rect" id="node3" href="$classEmojidex_1_1Service_1_1QueryOpts.html" title="Portable class to set complex query options. " alt="" coords="27,5,163,47"/>
 </map>
