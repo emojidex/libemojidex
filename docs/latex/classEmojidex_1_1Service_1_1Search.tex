@@ -31,7 +31,7 @@ void \hyperlink{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a
 
 \begin{DoxyCompactList}\small\item\em Compound search for a term, included in one of the given categories, with all of the given tags. \end{DoxyCompactList}\item 
 \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Emojidex\+::\+Data\+::\+Emoji} \hyperlink{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}{find} (std\+::string code, bool detailed=true)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Attempts to directly obtain emoji data by code. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -46,6 +46,10 @@ void \hyperlink{classEmojidex_1_1Service_1_1Search_ac29e36bb5aed38c8443b4457691a
 \item[{bool}]{detailed = {\ttfamily true}}
 \end{DoxyParamCaption}
 )}\hypertarget{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}{}\label{classEmojidex_1_1Service_1_1Search_a80970b4a18e5bcc37a2a697de237e8aa}
+
+
+Attempts to directly obtain emoji data by code. 
+
 Returns a \hyperlink{classEmojidex_1_1Data_1_1Emoji}{Data\+::\+Emoji} object filled with the emoji info on success (the emoji is registered)~\newline
 Returns an empty emoji object with only the code field filled on failure (the emoji is not registered) 
 
