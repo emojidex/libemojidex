@@ -20,6 +20,8 @@
 %include "service.i"
 
 namespace Emojidex {
+  //! Set the path to the CA certificate for SSL
   void setCACertPath(const std::string &path = "");
+  //! Get the [current/system] path to the CA certificate
   const std::string& getCACertPath(void);
 }

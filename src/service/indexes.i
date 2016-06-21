@@ -10,7 +10,7 @@
 
 namespace Emojidex {
   namespace Service {
-    // Retrieves data from emojidex indexes
+    //! Retrieves data from emojidex indexes
     class Indexes
     {
     private:
@@ -29,33 +29,33 @@ namespace Emojidex {
       // Static Seeds
       // ============
 
-      // Get standard UTF emoji info in 3 compact forms
+      //! Get standard UTF emoji info in 3 compact forms
       Emojidex::Data::MojiCodes mojiCodes(std::string locale = DEFAULT_LOCALE);
-      // Get a collection of all standard UTF emoji
+      //! Get a collection of all standard UTF emoji
       Emojidex::Data::Collection utfEmoji(std::string locale = DEFAULT_LOCALE, bool detailed = true);
-      // Get a collection of all emojidex Extended emoji
+      //! Get a collection of all emojidex Extended emoji
       Emojidex::Data::Collection extendedEmoji(std::string locale = DEFAULT_LOCALE, bool detailed = true);
       
       //=====================================================================================
       // Dynamic Indexes
       // ===============
 
-      // Get full emoji index (by score unless otherwise configured with conditions)
+      //! Get full emoji index (by score unless otherwise configured with conditions)
       Emojidex::Data::Collection emoji(unsigned int page = DEFAULT_PAGE,
           unsigned int limit = DEFAULT_LIMIT, bool detailed = false,
           Emojidex::Service::QueryOpts *conditions = NULL);
 
-      // Get Newest emoji
-      Emojidex::Data::Collection newest(std::string auth_token,
+      //! Get Newest emoji
+      Emojidex::Data::Collection newest(std::string auth_token = "",
           unsigned int page = DEFAULT_PAGE,
           unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 
-      // Get most Popular emoji
-      Emojidex::Data::Collection popular(std::string auth_token,
+      //! Get most Popular emoji
+      Emojidex::Data::Collection popular(std::string auth_token = "",
           unsigned int page = DEFAULT_PAGE,
           unsigned int limit = DEFAULT_LIMIT, bool detailed = false);
 
-      // Get the emoji registered by a specific user (by username)
+      //! Get the emoji registered by a specific user (by username)
       Emojidex::Data::Collection userEmoji(std::string username,
           unsigned int page = DEFAULT_PAGE,
           unsigned int limit = DEFAULT_LIMIT, bool detailed = false);

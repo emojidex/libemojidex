@@ -22,13 +22,21 @@ import com.emojidex.libemojidex.StringVector;
 // %include "data/moji_codes.h"
 namespace Emojidex {
   namespace Data {
-    // Moji code container with 3 types of moji code indexes
+    //! Moji [character] code container with 3 types of moji code indexes
     class MojiCodes
     {
     public:
+      //! The locale of the codes in this instance
       std::string locale = "";
+      //! A large string of just emoji, sorted compount longest first
+      /*!
+       * Use this for regex to detect emoji within text or to validate 
+       * emoji / determine if a charater is an emoji.
+       */
       std::string moji_string;
+      //! An array with each item containing a single emoji, compount longest first
       std::vector<std::string> moji_array;
+      //! A hash/map of emoji and their short codes in the given locale
       std::unordered_map<std::string, std::string> moji_index;
     };
   }
