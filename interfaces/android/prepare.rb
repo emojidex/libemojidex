@@ -156,7 +156,7 @@ def build_curl()
     puts 'Updated.'
   else
     puts 'CURL repository not found. Cloning...'
-    git = Git.clone("https://github.com/bagder/curl.git", "#{@build_dir}/curl")
+    git = Git.clone("https://github.com/curl/curl.git", "#{@build_dir}/curl")
     puts 'Cloned.'
   end
 
