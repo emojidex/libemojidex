@@ -12,7 +12,7 @@ SET(SWIG_JAVA_PACKAGE_NAME com.emojidex.libemojidex)
 
 SET(CMAKE_JNI_TARGET TRUE)
 SET(CMAKE_SWIG_FLAGS -package ${SWIG_JAVA_PACKAGE_NAME})
-SET(CMAKE_SWIG_OUTDIR "src")
+SET(CMAKE_SWIG_OUTDIR "com/emojidex/libemojidex")
 SET_SOURCE_FILES_PROPERTIES("${PROJECT_SOURCE_DIR}/src/libemojidex.i"
 	PROPERTIES
 	CPLUSPLUS 1
@@ -34,24 +34,24 @@ SET(SWIG_JAR_TARGET jar)
 SET(SWIG_JAR_NAME libemojidex)
 SET(SWIG_JAR_FILENAME ${SWIG_JAR_NAME}-${EMOJIDEX_LIB_VERSION}.jar)
 SET(EMOJIDEX_JAVA_FILES
-	${PROJECT_BINARY_DIR}/src/Emojidex/Client.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Checksums.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Collection.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Data/Emoji.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Data/MojiCodes.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Indexes.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Search.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Service/QueryOpts.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Service/User.java
-#	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Settings.java
-#	${PROJECT_BINARY_DIR}/src/Emojidex/Service/Transactor.java
-	${PROJECT_BINARY_DIR}/src/Emojidex/Service/HistoryItem.java
-	${PROJECT_BINARY_DIR}/src/EmojiVector.java
-	${PROJECT_BINARY_DIR}/src/StringVector.java
-	${PROJECT_BINARY_DIR}/src/HistoryItemVector.java
-#	${PROJECT_BINARY_DIR}/src/LibEmojidex.java
-	${PROJECT_BINARY_DIR}/src/LibEmojidexJNI.java
-	${PROJECT_BINARY_DIR}/src/LibemojidexInitializer.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Client.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Checksums.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Collection.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/Emoji.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Data/MojiCodes.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Indexes.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Search.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/QueryOpts.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/User.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Settings.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/Transactor.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/Emojidex/Service/HistoryItem.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/EmojiVector.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/StringVector.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/HistoryItemVector.java
+# ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidex.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibEmojidexJNI.java
+  ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibemojidexInitializer.java
 )
 
 IF(WIN32)
@@ -62,7 +62,7 @@ ELSE(WIN32)
 	SET(SWIG_JAVA_LIB_FILENAME lib${SWIG_JAVA_LIB_NAME}.so)
 ENDIF(WIN32)
 
-CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/LibemojidexInitializer.java.in ${PROJECT_BINARY_DIR}/src/LibemojidexInitializer.java @ONLY)
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/interfaces/java/src/LibemojidexInitializer.java.in ${PROJECT_BINARY_DIR}/com/emojidex/libemojidex/LibemojidexInitializer.java @ONLY)
 
 ADD_JAR(${SWIG_JAR_TARGET}
 	SOURCES ${EMOJIDEX_JAVA_FILES}
