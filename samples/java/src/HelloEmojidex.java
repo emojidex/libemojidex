@@ -32,6 +32,7 @@ public class HelloEmojidex {
     {
       loginSample();
       favoritesSample();
+      historySample();
     }
 
     // ログイン
@@ -128,5 +129,38 @@ public class HelloEmojidex {
         System.out.println("Remove favorite succeeded.");
       else
         System.out.println("Remove favorite failed.");
+    }
+
+    // 履歴
+    private void historySample()
+    {
+      // ログイン中のユーザの履歴を取得
+      if(user.getStatus() == User.AuthStatusCode.VERIFIED)
+      {
+        if(user.syncHistory().size() > 0)
+          System.out.println("Sync history succeeded.");
+        else
+          System.out.println("Sync historyfavorites failed.");
+      }
+
+      // 履歴の絵文字の情報を取得
+      HistoryItemVector historyItems = user.getHistory();
+
+      System.out.println("History array size = " + historyItems.size());
+      
+      for(int i = 0;  i < historyItems.size();  ++i)
+      {
+        HistoryItem historyItem = historyItems.get(i);
+
+        System.out.println("  History[" + i + "].emoji_code = " + historyItem.getEmoji_code());
+        // System.out.println("  History[" + i + "].times_used = " + historyItem.getTimes_used());
+        // System.out.println("  History[" + i + "].last_used = " + historyItem.getLast_used());
+      }
+
+      // 履歴を追加
+      if(user.addHistory("cyclone"))
+        System.out.println("Add history succeeded.");
+      else
+        System.out.println("Add history failed.");
     }
 }
