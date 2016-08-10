@@ -89,6 +89,7 @@ public class HelloEmojidex {
 
       System.out.println("Favorites array size = " + emojies.size());
       
+      System.out.println("Output favorites array:");
       for(int i = 0;  i < emojies.size();  ++i)
       {
         Emoji emoji = emojies.get(i);
@@ -149,6 +150,7 @@ public class HelloEmojidex {
 
       System.out.println("History array size = " + historyItems.size());
       
+      System.out.println("Output history array:");
       for(int i = 0;  i < historyItems.size();  ++i)
       {
         HistoryItem historyItem = historyItems.get(i);
@@ -172,6 +174,7 @@ public class HelloEmojidex {
       Collection searchResults = client.getSearch().term("heart");
       EmojiVector emojies = searchResults.all();
 
+      System.out.println("Output search results array:");
       for(int i = 0;  i < emojies.size();  ++i)
       {
         Emoji emoji = emojies.get(i);
@@ -183,6 +186,7 @@ public class HelloEmojidex {
       searchResults.more();
       emojies = searchResults.all();
 
+      System.out.println("Output search results array (page2):");
       for(int i = (int)searchResults.getOpts().getLimit();  i < emojies.size();  ++i)
       {
         Emoji emoji = emojies.get(i);
