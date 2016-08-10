@@ -33,6 +33,7 @@ public class HelloEmojidex {
       loginSample();
       favoritesSample();
       historySample();
+      searchSample();
     }
 
     // ログイン
@@ -162,5 +163,31 @@ public class HelloEmojidex {
         System.out.println("Add history succeeded.");
       else
         System.out.println("Add history failed.");
+    }
+
+    // 検索
+    private void searchSample()
+    {
+      // 検索
+      Collection searchResults = client.getSearch().term("heart");
+      EmojiVector emojies = searchResults.all();
+
+      for(int i = 0;  i < emojies.size();  ++i)
+      {
+        Emoji emoji = emojies.get(i);
+
+        System.out.println("  Search results[" + i + "].code = " + emoji.getCode());
+      }
+
+      // 検索結果の2ページ目を取得
+      searchResults.more();
+      emojies = searchResults.all();
+
+      for(int i = (int)searchResults.getOpts().getLimit();  i < emojies.size();  ++i)
+      {
+        Emoji emoji = emojies.get(i);
+
+        System.out.println("  Search results[" + i + "].code = " + emoji.getCode());
+      }
     }
 }
