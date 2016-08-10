@@ -35,6 +35,7 @@ public class HelloEmojidex {
       historySample();
       searchSample();
       indexSample();
+      newestSample();
     }
 
     // ログイン
@@ -228,6 +229,25 @@ public class HelloEmojidex {
         Emoji emoji = emojies.get(i);
 
         System.out.println("  Index[" + i + "].code = " + emoji.getCode());
+      }
+    }
+
+    // newest
+    private void newestSample()
+    {
+      if(user.getPremium() == false)
+        return;
+
+      // newest
+      Collection newest = client.getIndexes().newest();
+      EmojiVector emojies = newest.all();
+
+      System.out.println("Output newest array:");
+      for(int i = 0;  i < emojies.size();  ++i)
+      {
+        Emoji emoji = emojies.get(i);
+
+        System.out.println("  Newest[" + i + "].code = " + emoji.getCode());
       }
     }
 }
