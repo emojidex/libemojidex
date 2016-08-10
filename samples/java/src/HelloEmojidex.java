@@ -34,6 +34,7 @@ public class HelloEmojidex {
       favoritesSample();
       historySample();
       searchSample();
+      indexSample();
     }
 
     // ログイン
@@ -192,6 +193,34 @@ public class HelloEmojidex {
         Emoji emoji = emojies.get(i);
 
         System.out.println("  Search results[" + i + "].code = " + emoji.getCode());
+      }
+    }
+
+    // インデックス
+    private void indexSample()
+    {
+      // インデックス
+      Collection indexes = client.getIndexes().emoji();
+      EmojiVector emojies = indexes.all();
+
+      System.out.println("Output index array:");
+      for(int i = 0;  i < emojies.size();  ++i)
+      {
+        Emoji emoji = emojies.get(i);
+
+        System.out.println("  Index[" + i + "].code = " + emoji.getCode());
+      }
+
+      // インデックスの2ページ目を取得
+      indexes.more();
+      emojies = indexes.all();
+
+      System.out.println("Output index array (page2):");
+      for(int i = (int)indexes.getOpts().getLimit();  i < emojies.size();  ++i)
+      {
+        Emoji emoji = emojies.get(i);
+
+        System.out.println("  Index[" + i + "].code = " + emoji.getCode());
       }
     }
 }
