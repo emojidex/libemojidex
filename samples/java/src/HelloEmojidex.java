@@ -70,6 +70,13 @@ public class HelloEmojidex {
         System.out.println("Login succeeded.(status = " + user.getStatus() + ")");
       else
         System.out.println("Login failed.(status = " + user.getStatus() + ")");
+
+      // ユーザ情報
+      if(user.getStatus() == User.AuthStatusCode.VERIFIED)
+      {
+        System.out.println("  pro: " + user.getPro());
+        System.out.println("  premium: " + user.getPremium());
+      }
     }
 
     // お気に入り
