@@ -3,6 +3,7 @@ import java.io.*;
 
 import com.emojidex.libemojidex.EmojiVector;
 import com.emojidex.libemojidex.HistoryItemVector;
+import com.emojidex.libemojidex.StringVector;
 import com.emojidex.libemojidex.Emojidex.Client;
 import com.emojidex.libemojidex.Emojidex.Service.User;
 import com.emojidex.libemojidex.Emojidex.Service.HistoryItem;
@@ -37,6 +38,7 @@ public class HelloEmojidex {
       indexSample();
       newestSample();
       popularSample();
+      followingSample();
     }
 
     // ログイン
@@ -269,5 +271,43 @@ public class HelloEmojidex {
 
         System.out.println("  Popular[" + i + "].code = " + emoji.getCode());
       }
+    }
+
+    // following
+    private void followingSample()
+    {
+      // ログイン中のユーザのfollowingを取得
+      if(user.getStatus() == User.AuthStatusCode.VERIFIED)
+      {
+        if(user.syncFollowing())
+          System.out.println("Sync following succeeded.");
+        else
+          System.out.println("Sync following failed.");
+      }
+
+      // followingを追加
+      if(user.addFollowing("絵文字デックス"))
+        System.out.println("Add following succeeded.");
+      else
+        System.out.println("Add following failed.");
+
+      // followingの情報を取得
+      StringVector following = user.getFollowing();
+
+      System.out.println("Following array size = " + following.size());
+
+      System.out.println("Output following array:");
+      for(int i = 0;  i < following.size();  ++i)
+      {
+        String username = following.get(i);
+
+        System.out.println("  Following[" + i + "] = " + username);
+      }
+
+      // followingを削除
+      if(user.removeFollowing("絵文字デックス"))
+        System.out.println("Remove following succeeded.");
+      else
+        System.out.println("Remove following failed.");
     }
 }
