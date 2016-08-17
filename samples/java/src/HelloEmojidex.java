@@ -39,6 +39,7 @@ public class HelloEmojidex {
       newestSample();
       popularSample();
       followingSample();
+      followersSample();
     }
 
     // ログイン
@@ -309,5 +310,34 @@ public class HelloEmojidex {
         System.out.println("Remove following succeeded.");
       else
         System.out.println("Remove following failed.");
+    }
+
+    // followers
+    private void followersSample()
+    {
+      if(user.getPro() == false && user.getPremium() == false)
+        return;
+
+      // ログイン中のユーザのfollowersを取得
+      if(user.getStatus() == User.AuthStatusCode.VERIFIED)
+      {
+        if(user.syncFollowers())
+          System.out.println("Sync followers succeeded.");
+        else
+          System.out.println("Sync followers failed.");
+      }
+
+      // followersの情報を取得
+      StringVector followers = user.getFollowers();
+
+      System.out.println("Followers array size = " + followers.size());
+
+      System.out.println("Output followers array:");
+      for(int i = 0;  i < followers.size();  ++i)
+      {
+        String username = followers.get(i);
+
+        System.out.println("  Followers[" + i + "] = " + username);
+      }
     }
 }
