@@ -40,6 +40,7 @@ public class HelloEmojidex {
       popularSample();
       followingSample();
       followersSample();
+      seedSample();
     }
 
     // ログイン
@@ -338,6 +339,38 @@ public class HelloEmojidex {
         String username = followers.get(i);
 
         System.out.println("  Followers[" + i + "] = " + username);
+      }
+    }
+
+    // シード
+    private void seedSample()
+    {
+      // UTFの絵文字を取得
+      Collection utfEmojiCollection = client.getIndexes().utfEmoji();
+      EmojiVector utfEmojies = utfEmojiCollection.all();
+
+      System.out.println("UTF emoji array size = " + utfEmojies.size());
+
+      System.out.println("Output UTF emoji array:");
+      for(int i = 0;  i < utfEmojies.size();  ++i)
+      {
+        Emoji emoji = utfEmojies.get(i);
+
+        System.out.println("  utfEmoji[" + i + "].moji = " + emoji.getMoji());
+      }
+
+      // extendedの絵文字を取得
+      Collection extendedEmojiCollection = client.getIndexes().extendedEmoji();
+      EmojiVector extendedEmojies = extendedEmojiCollection.all();
+
+      System.out.println("Extended emoji array size = " + extendedEmojies.size());
+
+      System.out.println("Output extended emoji array:");
+      for(int i = 0;  i < extendedEmojies.size();  ++i)
+      {
+        Emoji emoji = extendedEmojies.get(i);
+
+        System.out.println("  extendedEmoji[" + i + "].moji = " + emoji.getMoji());
       }
     }
 }
