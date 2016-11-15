@@ -20,21 +20,21 @@ final class LibemojidexInitializer
   {
     // Load native libraries.
     final String arch = getArchitecture();
-    loadNativeLibraryFromJar("libcrystax.so", arch);
-    loadNativeLibraryFromJar("libgnustl_shared.so", arch);
-    loadNativeLibraryFromJar("libcrypto.so.1.0.0", arch);
-    loadNativeLibraryFromJar("libssl.so.1.0.0", arch);
+    loadNativeLibrary("libcrystax.so", arch);
+    loadNativeLibrary("libgnustl_shared.so", arch);
+    loadNativeLibrary("libcrypto.so.1.0.0", arch);
+    loadNativeLibrary("libssl.so.1.0.0", arch);
     
     if (isExists("libcurl.so.5", arch))
     {
-      loadNativeLibraryFromJar("libcurl.so.5", arch);
+      loadNativeLibrary("libcurl.so.5", arch);
     }
     else
     {
       // For mac.
-      loadNativeLibraryFromJar("libcurl.so", arch);
+      loadNativeLibrary("libcurl.so", arch);
     }
-    loadNativeLibraryFromJar("libemojidex-android.so", arch);
+    loadNativeLibrary("libemojidex-android.so", arch);
 
     // For ssl.
     LibEmojidex.setCACertPath(copyFileFromJar("data/cacert.pem", "cacert.pem"));
