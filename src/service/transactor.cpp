@@ -102,6 +102,8 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)query.length());
 
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+
     const std::string& CACertPath = Emojidex::getCACertPath();
     if( !CACertPath.empty() )
       curl_easy_setopt(curl, CURLOPT_CAINFO, CACertPath.c_str());
