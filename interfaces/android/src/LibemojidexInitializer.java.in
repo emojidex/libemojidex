@@ -115,7 +115,13 @@ final class LibemojidexInitializer
     {
       final InputStream is = LibemojidexInitializer.class.getClassLoader().getResourceAsStream(source);
 
-      final File tmp = new File(System.getProperty("java.io.tmpdir"), destination);
+      final File tmp = new File(System.getProperty("java.io.tmpdir") + "/libemojidex", destination);
+      final File parentDir = tmp.getParentFile();
+      if(!parentDir.exists())
+      {
+        parentDir.mkdirs();
+        parentDir.deleteOnExit();
+      }
       tmp.deleteOnExit();
 
       final FileOutputStream os = new FileOutputStream(tmp);
