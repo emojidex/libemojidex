@@ -1,5 +1,7 @@
 #include "collection.h"
 
+#include <msgpack.hpp>
+
 #include "../service/collector.h"
 
 using namespace std;
@@ -104,6 +106,23 @@ void Emojidex::Data::Collection::fillEmojiFromJSON(rapidjson::Value& d)
 	this->merge(collect);
 }
 
+void Emojidex::Data::Collection::fillEmojiFromMsgPack(const msgpack::object& d)
+{
+	assert(d.type == msgpack::type::ARRAY);
+
+	Emojidex::Data::Collection collect;
+
+	for(unsigned int i = 0;  i < d.via.array.size;  ++i)
+	{
+		Emojidex::Data::Emoji moji;
+		moji.fillFromMsgPack(d.via.array.ptr[i]);
+		if(moji.code.compare("") != 0)
+			collect.emoji[moji.code] = moji;
+	}
+
+	this->merge(collect);
+}
+
 Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_string)
 {
 	rapidjson::Document doc;
@@ -118,6 +137,31 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 	} else {
 		assert(doc.IsArray());
 		fillEmojiFromJSON(doc);
+	}
+
+	return this;
+}
+
+Emojidex::Data::Collection* Emojidex::Data::Collection::mergeMsgPack(string msgpack_string)
+{
+	msgpack::unpacked msg;
+	msgpack::unpack(&msg, msgpack_string.data(), msgpack_string.size());
+	msgpack::object root = msg.get();
+
+	if(root.type == msgpack::type::MAP)
+	{
+		auto m = root.as<std::map<std::string, msgpack::object>>();
+		//Check to see if a meta node is present
+		if(m.count("meta") != 0)
+		{
+			auto meta = m["meta"].as<std::map<std::string, int>>();
+			this->total_count = meta["total_count"];
+		}
+		fillEmojiFromMsgPack(m["emoji"]);
+	}
+	else
+	{
+		fillEmojiFromMsgPack(root);
 	}
 
 	return this;

@@ -71,32 +71,36 @@ std::string url_encode(const std::string& str)
     return result ;
 }
 
-std::string Emojidex::Service::Transactor::request(const std::string& verb, const std::string& endpoint, const std::unordered_map<string, string>& query, int* status)
+std::string Emojidex::Service::Transactor::request(const std::string& verb, const std::string& endpoint, const std::unordered_map<string, string>& query, int* status, bool msgpack)
 {
-	return this->request(verb, endpoint, generateQueryString(query), status);
+	return this->request(verb, endpoint, generateQueryString(query), status, msgpack);
 }
 
-std::string Emojidex::Service::Transactor::request(const std::string& verb, const std::string& endpoint, const std::string& query, int* status)
+std::string Emojidex::Service::Transactor::request(const std::string& verb, const std::string& endpoint, const std::string& query, int* status, bool msgpack)
 {
 	CURL *curl;
 	CURLcode res;
-	string json_string = "";
+	string response = "";
 
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
 
 	std::stringstream url_stream;
-	url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << url_encode(endpoint);
+  url_stream << Settings::api_protocol << "://" << Settings::api_host << Settings::api_prefix << url_encode(endpoint);
 
 	if (curl) {
 		struct curl_slist *headers = NULL;
-		headers = curl_slist_append(headers, "charset: utf-8");
+    headers = curl_slist_append(headers, "charset: utf-8");
+
+    if(msgpack)
+      headers = curl_slist_append(headers, "Accept: application/msgpack");
+
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, "libemojidex/1.0");
 
 		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json_string);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, verb.c_str());
 
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query.c_str());
@@ -125,25 +129,25 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
 
 	curl_global_cleanup();
 
-	return json_string;
+	return response;
 }
 
-std::string Emojidex::Service::Transactor::GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status)
+std::string Emojidex::Service::Transactor::GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status, bool msgpack)
 {
-	return request("GET", endpoint, query.to_string(), status);
+	return request("GET", endpoint, query.to_string(), status, msgpack);
 }
 
-string Emojidex::Service::Transactor::GET(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
+string Emojidex::Service::Transactor::GET(const string& endpoint, const std::unordered_map<string, string>& query, int* status, bool msgpack)
 {
-	return request("GET", endpoint, query, status);
+	return request("GET", endpoint, query, status, msgpack);
 }
 
-string Emojidex::Service::Transactor::POST(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
+string Emojidex::Service::Transactor::POST(const string& endpoint, const std::unordered_map<string, string>& query, int* status, bool msgpack)
 {
-	return request("POST", endpoint, query, status);
+	return request("POST", endpoint, query, status, msgpack);
 }
 
-string Emojidex::Service::Transactor::DELETE(const string& endpoint, const std::unordered_map<string, string>& query, int* status)
+string Emojidex::Service::Transactor::DELETE(const string& endpoint, const std::unordered_map<string, string>& query, int* status, bool msgpack)
 {
-	return request("DELETE", endpoint, query, status);
+	return request("DELETE", endpoint, query, status, msgpack);
 }

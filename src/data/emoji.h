@@ -7,6 +7,8 @@
 #include "./checksums.h"
 #include "rapidjson/document.h"
 
+namespace msgpack { class object; }
+
 namespace Emojidex {
 	namespace Data {
 		//! emoji data container
@@ -78,6 +80,8 @@ namespace Emojidex {
 			void fillFromJSONString(std::string json);
 			//! Fill the emoji information from a RapidJSON value
 			void fillFromJSON(rapidjson::Value& d);
+			//! Fill the emoji information from a msgpack object
+			void fillFromMsgPack(const msgpack::object& d);
 		};
 	}
 }
