@@ -48,8 +48,8 @@ namespace Emojidex {
     {
     private:
       std::string generateQueryString(const std::unordered_map<std::string, std::string>& query);
-      std::string request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<std::string, std::string>& query, int* status);
-      std::string request(const std::string& requestname, const std::string& endpoint, const std::string& query, int* status);
+      std::string request(const std::string& requestname, const std::string& endpoint, const std::unordered_map<std::string, std::string>& query, int* status, bool msgpack);
+      std::string request(const std::string& requestname, const std::string& endpoint, const std::string& query, int* status, bool msgpack);
     public:
       Transactor();
 
@@ -57,13 +57,13 @@ namespace Emojidex {
       std::unordered_map<std::string, std::string> queryTemplate(bool defaults = true);
 
       //! HTTP(S) Get with a query hash
-      std::string GET(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+      std::string GET(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL, bool msgpack = false);
       //! HTTP(S) Get with a QueryOpts instance
-      std::string GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status = NULL);
+      std::string GET(const std::string& endpoint, Emojidex::Service::QueryOpts query, int* status = NULL, bool msgpack = false);
       //! Post with a query hash
-      std::string POST(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+      std::string POST(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL, bool msgpack = false);
       //! Delete with a query hash
-      std::string DELETE(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL);
+      std::string DELETE(const std::string& endpoint, const std::unordered_map<std::string, std::string>& query = {{"", ""}}, int* status = NULL, bool msgpack = false);
     };
   }
 }

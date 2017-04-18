@@ -120,6 +120,8 @@ namespace Emojidex {
       void fillFromJSONString(std::string json);
       //! Fill the emoji information from a RapidJSON value
       void fillFromJSON(rapidjson::Value& d);
+      //! Fill the emoji information from a msgpack object
+      void fillFromMsgPack(const msgpack::object& d);
     };
   }
 }

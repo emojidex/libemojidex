@@ -38,6 +38,7 @@ namespace Emojidex {
       Collection (*moreMethod)(Emojidex::Data::Collection);
 
       void fillEmojiFromJSON(rapidjson::Value& d);
+      void fillEmojiFromMsgPack(const msgpack::object& d);
 
       Collection genericMore();
     public:
@@ -86,6 +87,10 @@ namespace Emojidex {
       //! Add emoji from a JSON string
       //! Returns this collection after the merge for chaining.
       Emojidex::Data::Collection* mergeJSON(std::string json_string);
+
+      //! Add emoji from a msgpack string
+      //! Returns this collection after the merge for chaining.
+      Emojidex::Data::Collection* mergeMsgPack(std::string msgpack_string);
 
       //=====================================================================================
       // Service Info
