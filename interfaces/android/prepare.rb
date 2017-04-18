@@ -197,6 +197,37 @@ def build_curl()
   end
 end
 
+def build_msgpack()
+  # disable_lines = '--disable-ftp --disable-gopher --disable-file --disable-imap --disable-ldap ' +
+  #   '--disable-ldaps --disable-pop3 --disable-proxy --disable-rtsp --disable-smtp ' +
+  #   '--disable-telnet --disable-tftp --without-libidn --without-librtmp --disable-dict'
+  if Dir.exists? "#{@build_dir}/msgpack"
+    puts "msgpack repository found. Updating..."
+    git = Git.open("#{@build_dir}/msgpack")
+    git.reset_hard("HEAD")
+    git.clean({force: true, d: true, x:true})
+    git.pull
+    puts 'Updated.'
+  else
+    puts 'msgpack repository not found. Cloning...'
+    git = Git.clone("https://github.com/msgpack/msgpack-c.git", "#{@build_dir}/msgpack")
+    puts 'Cloned.'
+  end
+
+  puts '== Building msgpack'
+  Dir.chdir "#{@build_dir}/msgpack"
+  git.checkout 'cpp-0.5.9'
+
+  puts '= Building for arm'
+  `git clean -fdx`
+  `#{chain_env('arm')} ./bootstrap`
+  `#{chain_env('arm')} ./configure --host=arm-linux-androideabi --prefix=#{@build_dir}/natives/arm/ --disable-static && make && make install`
+
+puts "========== hoge"
+puts "#{chain_env('arm')} ./configure --host=arm-linux-androideabi --prefix=#{@build_dir}/natives/arm/ --disable-static && make && make install"
+puts "========== piyo"
+end
+
 def check_lock()
   if File.exists? "#{@build_dir}/buildlock"
     puts '=> Build lock found. Skipping dependency preparation.'
@@ -231,6 +262,7 @@ prepare_chains()
 
 build_OpenSSL()
 build_curl()
+build_msgpack()
 
 set_lock()
 
