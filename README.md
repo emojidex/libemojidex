@@ -7,7 +7,8 @@ server and mobile platforms.
 Building
 ========
 
-1. Install dependencies (cmake, boost system, boost filesystem, SSL development packages/headers)
+1. Install dependencies (cmake, boost system, boost filesystem, 
+	SSL development packages/headers, msgpack)
 2. Get submodules with:
   ```
   git submodule update --init --recursive

@@ -5,7 +5,7 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_api_level = 14
+@build_api_level = 16
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
@@ -107,36 +107,36 @@ def build_OpenSSL()
   end
 
   Dir.chdir "#{@build_dir}/openssl"
-  `git checkout OpenSSL_1_0_2-stable`
+  `git checkout OpenSSL_1_1_0-stable`
   `git pull`
 
   puts '== Building OpenSSL'
 
   puts '= Building for arm'
   `git clean -fdx`
-  `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ android-armv7 shared threads no-asm; make; make install`
+  `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm android-armeabi shared threads no-asm; make; make install`
 
   puts '= Building for x86'
   `git clean -fdx`
-  `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ android-x86 shared threads no-asm; make; make install`
+  `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86 android-x86 shared threads no-asm; make; make install`
 
   if @build_targets.include? 'mips'
     puts '= Building for mips'
     `git clean -fdx`
-    `#{chain_env('mips')} ./Configure --prefix=#{@build_dir}/natives/mips/ android-mips shared threads no-asm; make; make install`
+    `#{chain_env('mips')} ./Configure --prefix=#{@build_dir}/natives/mips/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips android-mips shared threads no-asm; make; make install`
   end
 
   if @build_api_level > 20
     if @build_targets.include? 'arm64'
       puts '= Building for arm64'
       `git clean -fdx`
-      `#{chain_env('arm64')} ./Configure --prefix=#{@build_dir}/natives/arm64/ android shared threads no-asm; make; make install`
+      `#{chain_env('arm64')} ./Configure --prefix=#{@build_dir}/natives/arm64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64 android64 shared threads no-asm; make; make install`
     end
 
     if @build_targets.include? 'x86_64'
       puts '= Building for x86_64'
       `git clean -fdx`
-      `#{chain_env('x86_64')} ./Configure --prefix=#{@build_dir}/natives/x86_64/ android-x86 shared threads no-asm; make; make install`
+      `#{chain_env('x86_64')} ./Configure --prefix=#{@build_dir}/natives/x86_64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64 android-x86 shared threads no-asm; make; make install`
     end
   end
 
@@ -216,16 +216,21 @@ def build_msgpack()
 
   puts '== Building msgpack'
   Dir.chdir "#{@build_dir}/msgpack"
-  git.checkout 'cpp-0.5.9'
+  git.checkout 'master'
 
   puts '= Building for arm'
   `git clean -fdx`
-  `#{chain_env('arm')} ./bootstrap`
-  `#{chain_env('arm')} ./configure --host=arm-linux-androideabi --prefix=#{@build_dir}/natives/arm/ --disable-static && make && make install`
+  `#{chain_env('arm')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm/ .`
+  `#{chain_env('arm')} make`
+  `#{chain_env('arm')} make install`
 
-puts "========== hoge"
-puts "#{chain_env('arm')} ./configure --host=arm-linux-androideabi --prefix=#{@build_dir}/natives/arm/ --disable-static && make && make install"
-puts "========== piyo"
+  puts '= Building for x86'
+
+  `git clean -fdx`
+  `#{chain_env('x86')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86/ .`
+  `#{chain_env('x86')} make`
+  `#{chain_env('x86')} make install`
+
 end
 
 def check_lock()
