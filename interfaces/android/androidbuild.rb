@@ -14,7 +14,7 @@ FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_dest
 txt = File.read("#{@build_dir}/jni/Android.mk")
 
 # set source path
-txt.gsub!("$(OR_INCLUDE_PATH)", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/ #{ENV["CRYSTAX_NDK"]}/sources/boost/1.58.0/include/  #{@natives_dir}/natives/include/")
+txt.gsub!("$(OR_INCLUDE_PATH)", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/ #{ENV["CRYSTAX_NDK"]}/sources/boost/1.59.0/include/  #{@natives_dir}/natives/include/")
 txt.gsub!("$(OR_LIB_PATH)", "#{@natives_dir}/natives/lib/")
 
 cpp_files = Dir.glob("#{@source_dir}/src/**/*.cpp")
