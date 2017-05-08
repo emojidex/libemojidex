@@ -47,6 +47,7 @@ import com.emojidex.libemojidex.StringVector;
 
 // Ignore rapidjson.
 %ignore Emojidex::Data::Emoji::fillFromJSON;
+%ignore Emojidex::Data::Emoji::fillFromMsgPack;
 
 // %include "data/emoji.h"
 namespace Emojidex {

@@ -22,18 +22,10 @@ final class LibemojidexInitializer
     final String arch = getArchitecture();
     loadNativeLibrary("libcrystax.so", arch);
     loadNativeLibrary("libgnustl_shared.so", arch);
-    loadNativeLibrary("libcrypto.so.1.0.0", arch);
-    loadNativeLibrary("libssl.so.1.0.0", arch);
-    
-    if (isExists("libcurl.so.5", arch))
-    {
-      loadNativeLibrary("libcurl.so.5", arch);
-    }
-    else
-    {
-      // For mac.
-      loadNativeLibrary("libcurl.so", arch);
-    }
+    loadNativeLibrary("libcrypto.so.1.1", arch);
+    loadNativeLibrary("libssl.so.1.1", arch);
+    loadNativeLibrary("libcurl.so", arch);
+    loadNativeLibrary("libmsgpack.so", arch);
     loadNativeLibrary("libemojidex-android.so", arch);
 
     // For ssl.
