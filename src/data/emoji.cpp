@@ -78,10 +78,10 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 }
 
 #define OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0 && src[key].type == msgpack_type) dest = src[key].as<result_type>(); }
-#define OBJ2STR(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::RAW, std::string)
+#define OBJ2STR(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::STR, std::string)
 #define OBJ2INT(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::POSITIVE_INTEGER, int)
-#define OBJ2DOUBLE(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::DOUBLE, double)
-#define OBJ2BOOLEAN(dest, src,key) OBJ2TYPE(dest, src, key, msgpack::type::BOOLEAN, double)
+#define OBJ2DOUBLE(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::FLOAT64, double)
+#define OBJ2BOOLEAN(dest, src,key) OBJ2TYPE(dest, src, key, msgpack::type::BOOLEAN, bool)
 
 void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 {
@@ -94,7 +94,7 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 	OBJ2STR(this->base, m, "base");
 	OBJ2STR(this->link, m, "link");
 	OBJ2INT(this->score, m, "score");
-	OBJ2DOUBLE(this->current_price, m, "score");
+	OBJ2DOUBLE(this->current_price, m, "current_price");
 	OBJ2BOOLEAN(this->permalock, m, "permalock");
 	OBJ2INT(this->times_changed, m, "times_changed");
 	OBJ2INT(this->times_used, m, "times_used");
@@ -126,7 +126,7 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 			auto png = checksums["png"].as<std::map<std::string, msgpack::object>>();
 			for(auto& kv : png)
 			{
-				if(kv.second.type == msgpack::type::RAW)
+				if(kv.second.type == msgpack::type::STR)
 					this->checksums.png[kv.first] = kv.second.as<std::string>();
 			}
 		}

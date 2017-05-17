@@ -144,9 +144,8 @@ Emojidex::Data::Collection* Emojidex::Data::Collection::mergeJSON(string json_st
 
 Emojidex::Data::Collection* Emojidex::Data::Collection::mergeMsgPack(string msgpack_string)
 {
-	msgpack::unpacked msg;
-	msgpack::unpack(&msg, msgpack_string.data(), msgpack_string.size());
-	msgpack::object root = msg.get();
+	msgpack::object_handle oh = msgpack::unpack(msgpack_string.data(), msgpack_string.size());
+	msgpack::object root = oh.get();
 
 	if(root.type == msgpack::type::MAP)
 	{

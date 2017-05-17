@@ -3,13 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <msgpack.hpp>
 
 #include <unordered_map>
 #include "./emoji.h"
 #include "../service/query_opts.h"
 #include "rapidjson/document.h"
-
-namespace msgpack { class object; }
 
 namespace Emojidex {
 	namespace Data {

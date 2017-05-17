@@ -3,11 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <msgpack.hpp>
 
 #include "./checksums.h"
 #include "rapidjson/document.h"
-
-namespace msgpack { class object; }
 
 namespace Emojidex {
 	namespace Data {
