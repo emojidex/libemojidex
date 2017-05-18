@@ -15,11 +15,10 @@ LOCAL_C_INCLUDES += $(OR_INCLUDE_PATH)/$(TARGET_ARCH)
 #$(call import-add-path, $(OR_LIB_PATH))
 
 #LOCAL_PATH += $(OR_LIB_PATH)/$(TARGET_ARCH)
-LOCAL_LDLIBS 	+= -L$(OR_LIB_PATH)/$(TARGET_ARCH) -lssl -lcrypto -lcurl
-LOCAL_SHARED_LIBRARIES += crypto ssl curl msgpack
+LOCAL_LDLIBS 	+= -L$(OR_LIB_PATH)/$(TARGET_ARCH) -lssl -lcrypto -lcurl -lmsgpackc
+LOCAL_SHARED_LIBRARIES += crypto ssl curl msgpackc
 LOCAL_STATIC_LIBRARIES += boost_system_static boost_filesystem_static z
 
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,boost/1.59.0)
-$(call import-module,msgpack)

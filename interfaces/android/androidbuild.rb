@@ -28,7 +28,7 @@ puts "== Creating Native Interface Java sources"
 `swig -c++ -java -package com.emojidex.libemojidex -outdir #{@interface_dir} -o #{@build_dir}/jni/libemojidex_wrap.cpp #{@source_dir}/src/libemojidex.i`
 
 puts "== Running NDK Build"
-`NDK_PROJECT_PATH=#{@build_dir} NDK_MODULE_PATH=#{@natives_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
+`NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
 
 puts "== copying natives"
 FileUtils.mkdir_p(@interface_dir)

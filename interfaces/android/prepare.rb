@@ -3,7 +3,6 @@
 require 'git'
 require 'fileutils'
 
-@base_dir = File.expand_path(File.dirname(__FILE__))
 @build_dir = ARGV[0] || Dir.pwd
 
 @build_api_level = 16
@@ -205,7 +204,9 @@ def build_msgpack()
   if Dir.exists? "#{@build_dir}/msgpack"
     puts "msgpack repository found. Updating..."
     git = Git.open("#{@build_dir}/msgpack")
-    git.fetch('origin', {all: true})
+    git.clean({force: true, d: true, x:true})
+    git.checkout 'master'
+    git.pull
     puts 'Updated.'
   else
     puts 'msgpack repository not found. Cloning...'
@@ -213,14 +214,20 @@ def build_msgpack()
     puts 'Cloned.'
   end
 
-  puts '== Initialize msgpack'
-  git.clean({force: true, d: true, x:true})
-  git.checkout 'refs/tags/cpp-0.5.9'
-
+  puts '== Building msgpack'
   Dir.chdir "#{@build_dir}/msgpack"
-  `cmake .`
 
-  FileUtils.ln_s("#{@base_dir}/msgpack/Android.mk", "#{@build_dir}/msgpack/Android.mk") unless File.exists? "#{@build_dir}/msgpack/Android.mk"
+  puts '= Building for arm'
+  git.clean({force: true, d: true, x:true})
+  `#{chain_env('arm')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm/ .`
+  `#{chain_env('arm')} make`
+  `#{chain_env('arm')} make install`
+
+  puts '= Building for x86'
+  git.clean({force: true, d: true, x:true})
+  `#{chain_env('x86')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86/ .`
+  `#{chain_env('x86')} make`
+  `#{chain_env('x86')} make install`
 end
 
 def check_lock()
