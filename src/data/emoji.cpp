@@ -28,6 +28,9 @@ void Emojidex::Data::Emoji::fillFromJSONString(std::string json)
 
 void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 {
+	if(d.HasMember("error"))
+		return;
+
 	this->code = d["code"].GetString();
 	if (d["moji"].IsString()) { this->moji = d["moji"].GetString(); }
 	if (d["unicode"].IsString()) { this->unicode = d["unicode"].GetString(); }
