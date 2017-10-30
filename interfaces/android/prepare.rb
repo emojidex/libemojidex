@@ -5,7 +5,7 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_api_level = 16
+@build_api_level = 21
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
@@ -112,13 +112,17 @@ def build_OpenSSL()
 
   puts '== Building OpenSSL'
 
-  puts '= Building for arm'
-  `git clean -fdx`
-  `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm android-armeabi shared threads no-asm; make; make install`
+  if @build_targets.include? 'arm'
+    puts '= Building for arm'
+    `git clean -fdx`
+    `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm android-armeabi shared threads no-asm; make; make install`
+  end
 
-  puts '= Building for x86'
-  `git clean -fdx`
-  `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86 android-x86 shared threads no-asm; make; make install`
+  if @build_targets.include? 'x86'
+    puts '= Building for x86'
+    `git clean -fdx`
+    `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86 android-x86 shared threads no-asm; make; make install`
+  end
 
   if @build_targets.include? 'mips'
     puts '= Building for mips'
@@ -163,15 +167,19 @@ def build_curl()
   puts '== Building CURL'
   Dir.chdir "#{@build_dir}/curl"
 
-  puts '= Building for arm'
-  `git clean -fdx`
-  `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./buildconf`
-  `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm --with-openssl-libraries=#{@build_dir}/natives/lib/arm --with-ssl --prefix=#{@build_dir}/natives/arm/ #{disable_lines} && make && make install`
+  if @build_targets.include? 'arm'
+    puts '= Building for arm'
+    `git clean -fdx`
+    `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./buildconf`
+    `#{chain_env('arm')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm --with-openssl-libraries=#{@build_dir}/natives/lib/arm --with-ssl --prefix=#{@build_dir}/natives/arm/ #{disable_lines} && make && make install`
+  end
 
-  puts '= Building for x86'
-  `git clean -fdx`
-  `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./buildconf`
-  `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86 --with-openssl-libraries=#{@build_dir}/natives/lib/x86 --with-ssl --prefix=#{@build_dir}/natives/x86/ #{disable_lines} && make && make install`
+  if @build_targets.include? 'x86'
+    puts '= Building for x86'
+    `git clean -fdx`
+    `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./buildconf`
+    `#{chain_env('x86')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86 --with-openssl-libraries=#{@build_dir}/natives/lib/x86 --with-ssl --prefix=#{@build_dir}/natives/x86/ #{disable_lines} && make && make install`
+  end
 
   if @build_targets.include? 'mips'
     puts '= Building for mips'
@@ -185,7 +193,7 @@ def build_curl()
       puts '= Building for arm64'
       `git clean -fdx`
       `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./buildconf`
-      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm64-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
+      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
     end
 
     if @build_targets.include? 'x86_64'
@@ -217,17 +225,47 @@ def build_msgpack()
   puts '== Building msgpack'
   Dir.chdir "#{@build_dir}/msgpack"
 
-  puts '= Building for arm'
-  git.clean({force: true, d: true, x:true})
-  `#{chain_env('arm')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm/ .`
-  `#{chain_env('arm')} make`
-  `#{chain_env('arm')} make install`
+  if @build_targets.include? 'arm'
+    puts '= Building for arm'
+    git.clean({force: true, d: true, x:true})
+    `#{chain_env('arm')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm/ .`
+    `#{chain_env('arm')} make`
+    `#{chain_env('arm')} make install`
+  end
 
-  puts '= Building for x86'
-  git.clean({force: true, d: true, x:true})
-  `#{chain_env('x86')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86/ .`
-  `#{chain_env('x86')} make`
-  `#{chain_env('x86')} make install`
+  if @build_targets.include? 'x86'
+    puts '= Building for x86'
+    git.clean({force: true, d: true, x:true})
+    `#{chain_env('x86')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86/ .`
+    `#{chain_env('x86')} make`
+    `#{chain_env('x86')} make install`
+  end
+
+  if @build_targets.include? 'mips'
+    puts '= Building for mips'
+    git.clean({force: true, d: true, x:true})
+    `#{chain_env('mips')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/mips/ .`
+    `#{chain_env('mips')} make`
+    `#{chain_env('mips')} make install`
+  end
+
+  if @build_api_level > 20
+    if @build_targets.include? 'arm64'
+      puts '= Building for arm64'
+      git.clean({force: true, d: true, x:true})
+      `#{chain_env('arm64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm64/ .`
+      `#{chain_env('arm64')} make`
+      `#{chain_env('arm64')} make install`
+    end
+
+    if @build_targets.include? 'x86_64'
+      puts '= Building for x86_64'
+      git.clean({force: true, d: true, x:true})
+      `#{chain_env('x86_64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86_64/ .`
+      `#{chain_env('x86_64')} make`
+      `#{chain_env('x86_64')} make install`
+    end
+  end
 end
 
 def check_lock()
