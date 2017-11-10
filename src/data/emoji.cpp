@@ -13,6 +13,7 @@ Emojidex::Data::Emoji::Emoji()
 	this->registered_at = this->link_expiration = this->lock_expiration = "";
 	this->times_changed = 0;
 	this->favorited = 0;
+	this->created_at = "";
 }
 
 void Emojidex::Data::Emoji::fillFromJSONString(std::string json)
@@ -52,6 +53,8 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 		this->favorited = d["favorited"].GetUint();
 	if (d.HasMember("copyright_lock"))
 		this->copyright_lock = d["copyright_lock"].GetBool();
+	if (d.HasMember("created_at") && d["created_at"].IsString())
+		this->created_at = d["created_at"].GetString();
 
 	rapidjson::Value& tags = d["tags"];
 	assert(tags.IsArray());
@@ -104,6 +107,7 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 	OBJ2STR(this->user_id, m, "user_id");
 	OBJ2INT(this->favorited, m, "favorited");
 	OBJ2BOOLEAN(this->copyright_lock, m, "copyright_lock");
+	OBJ2STR(this->created_at, m, "created_at");
 
 	const msgpack::object& tags = m["tags"];
 	assert(tags.type == msgpack::type::ARRAY);

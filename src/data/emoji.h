@@ -69,6 +69,8 @@ namespace Emojidex {
 			unsigned int times_changed;
 			//! Number of users who have added this emoji to their favorites
 			unsigned int favorited;
+			//! Date the emoji was created
+			std::string created_at;
 
 			//! List of checksums for images. Use this to check if your images are up to date
 			Emojidex::Data::Checksums checksums;
