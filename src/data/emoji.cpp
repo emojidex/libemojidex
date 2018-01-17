@@ -7,13 +7,14 @@ Emojidex::Data::Emoji::Emoji()
 	this->moji = this->code = this->unicode = this->category = this->base = \
 		this-> link = this->attribution = this->user_id = "";
 	this->is_wide = this->copyright_lock = this->permalock = false;
-	this->times_used = this->times_favorited = this->score = 0;
+	this->times_used = this->score = 0;
 	this->current_price = 0.0;
 	this->primary = true;
 	this->registered_at = this->link_expiration = this->lock_expiration = "";
 	this->times_changed = 0;
 	this->favorited = 0;
 	this->created_at = "";
+	this->r18 = false;
 }
 
 void Emojidex::Data::Emoji::fillFromJSONString(std::string json)
@@ -55,6 +56,8 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 		this->copyright_lock = d["copyright_lock"].GetBool();
 	if (d.HasMember("created_at") && d["created_at"].IsString())
 		this->created_at = d["created_at"].GetString();
+	if (d.HasMember("r18") && d["r18"].IsBool())
+		this->r18 = d["r18"].GetBool();
 
 	rapidjson::Value& tags = d["tags"];
 	assert(tags.IsArray());
@@ -108,6 +111,7 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 	OBJ2INT(this->favorited, m, "favorited");
 	OBJ2BOOLEAN(this->copyright_lock, m, "copyright_lock");
 	OBJ2STR(this->created_at, m, "created_at");
+	OBJ2BOOLEAN(this->r18, m, "r18");
 
 	const msgpack::object& tags = m["tags"];
 	assert(tags.type == msgpack::type::ARRAY);

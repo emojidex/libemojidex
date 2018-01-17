@@ -45,8 +45,6 @@ namespace Emojidex {
 			bool copyright_lock;
 			//! The number of times this emoji has been used
 			unsigned int times_used;
-			//! The number of times this emoji has been favorited
-			unsigned int times_favorited;
 			//! The score (weighted popularity, times used, and other factors)
 			int score;
 			//! The owner/author of the images and/or information of this emoji
@@ -71,6 +69,8 @@ namespace Emojidex {
 			unsigned int favorited;
 			//! Date the emoji was created
 			std::string created_at;
+			//! specifies if the emoji contains adult/vulgar content (requires account with R-18 enabled)
+			bool r18;
 
 			//! List of checksums for images. Use this to check if your images are up to date
 			Emojidex::Data::Checksums checksums;
