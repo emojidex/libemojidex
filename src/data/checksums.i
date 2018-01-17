@@ -3,13 +3,11 @@
 %nspace Emojidex::Data::Checksums;
 
 %include <std_string.i>
+%include "unordered_map_string_string.i"
 
 %{
 #include "data/checksums.h"
 %}
-
-// Ignore unordered_map.
-%ignore Emojidex::Data::Checksums::png;
 
 // %include "data/checksums.h"
 namespace Emojidex {

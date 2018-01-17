@@ -3,6 +3,7 @@
 %nspace Emojidex::Data::Collection;
 
 %include <std_string.i>
+%include "unordered_map_string_emoji.i"
 
 // For java.
 SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
@@ -21,9 +22,6 @@ import com.emojidex.libemojidex.EmojiVector;
 // Ignore function pointers
 %ignore Emojidex::Data::Collection::moreMethod;
 %ignore Emojidex::Data::Collection::setPagination;
-
-// Ignore std::unordered_map
-%ignore Emojidex::Data::Collection::emoji;
 
 // %include "data/collection.h"
 namespace Emojidex {

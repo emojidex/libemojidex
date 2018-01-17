@@ -4,19 +4,16 @@
 
 %include <std_string.i>
 %include <std_vector.i>
+%include "unordered_map_string_string.i"
 
 // For java.
 %typemap(javaimports) Emojidex::Service::QueryOpts %{
 import com.emojidex.libemojidex.StringVector;
 %}
 
-
 %{
 #include "service/query_opts.h"
 %}
-
-// Ignore std::unordered_map
-%ignore Emojidex::Service::QueryOpts::parseUnorderedMap;
 
 //%include "service/query_opts.h"
 namespace Emojidex {

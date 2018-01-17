@@ -4,6 +4,7 @@
 
 %include <std_string.i>
 %include <std_vector.i>
+%include "unordered_map_string_string.i"
 
 // For java.
 SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
@@ -15,9 +16,6 @@ import com.emojidex.libemojidex.StringVector;
 %{
 #include "data/moji_codes.h"
 %}
-
-// Ignore unoredered_map.
-%ignore Emojidex::Data::MojiCodes::moji_index;
 
 // %include "data/moji_codes.h"
 namespace Emojidex {
