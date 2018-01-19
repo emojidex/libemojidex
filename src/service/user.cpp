@@ -45,6 +45,7 @@ bool Emojidex::Service::User::authorize(string username, string token)
 			this->auth_token = doc["auth_token"].GetString();
 			this->pro = doc["pro"].GetBool();
 			this->premium = doc["premium"].GetBool();
+			this->r18 = doc["r18"].GetBool();
 			return true;
 		} else if (ret_status.compare("unverified") == 0) {
 			this->status = UNVERIFIED;
