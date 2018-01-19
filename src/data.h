@@ -5,6 +5,7 @@
 #include "data/collection.h"
 #include "data/checksums.h"
 #include "data/moji_codes.h"
+#include "data/combination.h"
 
 namespace Emojidex {
     namespace Data {

@@ -6,6 +6,7 @@
 #include <msgpack.hpp>
 
 #include "./checksums.h"
+#include "./combination.h"
 #include "rapidjson/document.h"
 
 namespace Emojidex {
@@ -71,6 +72,10 @@ namespace Emojidex {
 			std::string created_at;
 			//! specifies if the emoji contains adult/vulgar content (requires account with R-18 enabled)
 			bool r18;
+			//! specifies overlays to customize the emoji
+			std::vector<Emojidex::Data::Combination> customizations;
+			//! specifies combinations this emoji can be used in
+			std::vector<Emojidex::Data::Combination> combinations;
 
 			//! List of checksums for images. Use this to check if your images are up to date
 			Emojidex::Data::Checksums checksums;

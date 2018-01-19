@@ -5,8 +5,13 @@
 %include "StringVector.i"
 
 // For java.
+SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
+SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
+%template(CombinationVector) std::vector<Emojidex::Data::Combination>;
+
 %typemap(javaimports) Emojidex::Data::Emoji %{
 import com.emojidex.libemojidex.StringVector;
+import com.emojidex.libemojidex.CombinationVector;
 %}
 
 #ifdef SWIGJAVA

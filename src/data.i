@@ -8,3 +8,4 @@
 %include "data/collection.i"
 %include "data/checksums.i"
 %include "data/moji_codes.i"
+%include "data/combination.i"

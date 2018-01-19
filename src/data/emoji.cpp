@@ -2,6 +2,173 @@
 
 #include <msgpack.hpp>
 
+//#define MSGPACK_OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0 && src[key].type == msgpack_type) dest = src[key].as<result_type>(); }
+#define MSGPACK_OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0) { const msgpack::object target = src.at(key); if(target.type == msgpack_type) dest = target.as<result_type>(); } }
+#define MSGPACK_OBJ2STR(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::STR, std::string)
+#define MSGPACK_OBJ2INT(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::POSITIVE_INTEGER, int)
+#define MSGPACK_OBJ2DOUBLE(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::FLOAT64, double)
+#define MSGPACK_OBJ2BOOLEAN(dest, src,key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::BOOLEAN, bool)
+
+namespace
+{
+	void fillChecksumsFromJSON(Emojidex::Data::Checksums *dest, const rapidjson::Value& src)
+	{
+		if (src.HasMember("svg")) {
+			const rapidjson::Value& svg = src["svg"];
+			if(svg.IsString())	dest->svg = svg.GetString();
+		}
+
+		if (src.HasMember("png")) {
+			const rapidjson::Value& png = src["png"];
+			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
+				if(it->name.IsString() && it->value.IsString())
+					dest->png[it->name.GetString()] = it->value.GetString();
+		}
+	}
+
+	void fillCombinationFromJSON(std::vector<Emojidex::Data::Combination> *dest, const rapidjson::Value& src)
+	{
+		assert(src.IsArray());
+		for (rapidjson::SizeType i = 0; i < src.Size(); i++)
+		{
+			Emojidex::Data::Combination combination;
+			const rapidjson::Value& data = src[i];
+
+			if (data.HasMember("base")) {
+				const rapidjson::Value& base = data["base"];
+				if(base.IsString())	combination.base = base.GetString();
+			}
+
+			if (data.HasMember("component_layer_order")) {
+				const rapidjson::Value& component_layer_order = data["component_layer_order"];
+				assert(component_layer_order.IsArray());
+				for (rapidjson::SizeType j = 0; j < component_layer_order.Size(); j++)
+				{
+					const rapidjson::Value& value = component_layer_order[j];
+					if(value.IsUint())
+						combination.component_layer_order.push_back(value.GetUint());
+				}
+			}
+
+			if (data.HasMember("components")) {
+				const rapidjson::Value& components = data["components"];
+				assert(components.IsArray());
+				for (rapidjson::SizeType j = 0; j < components.Size(); j++)
+				{
+					const rapidjson::Value& components_array = components[j];
+					assert(components_array.IsArray());
+					std::vector<std::string> new_components_array;
+					for (rapidjson::SizeType k = 0; k < components_array.Size(); k++)
+					{
+						const rapidjson::Value& value = components_array[k];
+						if(value.IsString())
+							new_components_array.push_back(value.GetString());
+					}
+					combination.components.push_back(new_components_array);
+				}
+			}
+
+			if (data.HasMember("checksums")) {
+				const rapidjson::Value& checksums = data["checksums"];
+				assert(checksums.IsArray());
+				for (rapidjson::SizeType j = 0; j < checksums.Size(); j++)
+				{
+					const rapidjson::Value& checksums_map = checksums[j];
+					std::unordered_map<std::string, Emojidex::Data::Checksums> new_checksums_map;
+					for(rapidjson::Value::ConstMemberIterator it = checksums_map.MemberBegin();  it != checksums_map.MemberEnd();  ++it)
+					{
+						if(it->name.IsString())
+						{
+							Emojidex::Data::Checksums new_checksums;
+							fillChecksumsFromJSON(&new_checksums, it->value);
+							new_checksums_map[it->name.GetString()] = new_checksums;
+						}
+					}
+					combination.checksums.push_back(new_checksums_map);
+				}
+			}
+
+			dest->push_back(combination);
+		}
+	}
+
+	void fillChecksumsFromMsgPack(Emojidex::Data::Checksums *dest, const msgpack::object &src)
+	{
+		auto data = src.as<std::map<std::string, msgpack::object>>();
+
+		if(data.count("svg") != 0)
+		{
+			MSGPACK_OBJ2STR(dest->svg, data, "svg");
+		}
+
+		if(data.count("png") != 0)
+		{
+			auto png = data.at("png").as<std::map<std::string, msgpack::object>>();
+			for(auto& kv : png)
+			{
+				if(kv.second.type == msgpack::type::STR)
+					dest->png[kv.first] = kv.second.as<std::string>();
+			}
+		}
+	}
+
+	void fillCombinationFromMsgPack(std::vector<Emojidex::Data::Combination> *dest, const msgpack::object& src)
+	{
+		assert(src.type == msgpack::type::ARRAY);
+
+		for(unsigned int i = 0;  i < src.via.array.size;  ++i)
+		{
+			Emojidex::Data::Combination combination;
+			auto data = src.via.array.ptr[i].as<std::map<std::string, msgpack::object>>();
+
+			MSGPACK_OBJ2STR(combination.base, data, "base");
+
+			if(data.count("component_layer_order") != 0)
+			{
+				const msgpack::object& component_layer_order = data["component_layer_order"];
+				assert(component_layer_order.type == msgpack::type::ARRAY);
+				for(unsigned int j = 0;  j < component_layer_order.via.array.size;  ++j)
+					combination.component_layer_order.push_back(component_layer_order.via.array.ptr[j].as<unsigned int>());
+			}
+
+			if(data.count("components") != 0)
+			{
+				const msgpack::object& components = data["components"];
+				assert(components.type == msgpack::type::ARRAY);
+				for(unsigned int j = 0;  j < components.via.array.size;  ++j)
+				{
+					const msgpack::object& components_array = components.via.array.ptr[j];
+					assert(components_array.type == msgpack::type::ARRAY);
+					std::vector<std::string> new_components_array;
+					for(unsigned int k = 0;  k < components_array.via.array.size;  ++k)
+						new_components_array.push_back(components_array.via.array.ptr[k].as<std::string>());
+					combination.components.push_back(new_components_array);
+				}
+			}
+
+			if(data.count("checksums") != 0)
+			{
+				const msgpack::object& checksums = data["checksums"];
+				assert(checksums.type == msgpack::type::ARRAY);
+				for(unsigned int j = 0;  j < checksums.via.array.size;  ++j)
+				{
+					auto checksums_map = checksums.via.array.ptr[j].as<std::map<std::string, msgpack::object>>();
+					std::unordered_map<std::string, Emojidex::Data::Checksums> new_checksums_map;
+					for(auto& kv : checksums_map)
+					{
+						Emojidex::Data::Checksums new_checksums;
+						fillChecksumsFromMsgPack(&new_checksums, kv.second);
+						new_checksums_map[kv.first] = new_checksums;
+					}
+					combination.checksums.push_back(new_checksums_map);
+				}
+			}
+
+			dest->push_back(combination);
+		}
+	}
+}
+
 Emojidex::Data::Emoji::Emoji()
 {
 	this->moji = this->code = this->unicode = this->category = this->base = \
@@ -70,48 +237,35 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 		this->variants.push_back(variants[variant_i].GetString());
 
 	if (d.HasMember("checksums"))
-	{
-		const rapidjson::Value& checksums = d["checksums"];
-		
-		if (checksums.HasMember("svg")) {
-			const rapidjson::Value& svg = checksums["svg"];
-			if(svg.IsString())	this->checksums.svg = svg.GetString();
-		}
+		fillChecksumsFromJSON(&this->checksums, d["checksums"]);
 
-		if (checksums.HasMember("png")) {
-			const rapidjson::Value& png = checksums["png"];
-			for(rapidjson::Value::ConstMemberIterator it = png.MemberBegin();  it != png.MemberEnd();  ++it)
-				if(it->value.IsString())	this->checksums.png[it->name.GetString()] = it->value.GetString();
-		}
-	}
+	if(d.HasMember("customizations"))
+		fillCombinationFromJSON(&this->customizations, d["customizations"]);
+
+	if(d.HasMember("combinations"))
+		fillCombinationFromJSON(&this->combinations, d["combinations"]);
 }
-
-#define OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0 && src[key].type == msgpack_type) dest = src[key].as<result_type>(); }
-#define OBJ2STR(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::STR, std::string)
-#define OBJ2INT(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::POSITIVE_INTEGER, int)
-#define OBJ2DOUBLE(dest, src, key) OBJ2TYPE(dest, src, key, msgpack::type::FLOAT64, double)
-#define OBJ2BOOLEAN(dest, src,key) OBJ2TYPE(dest, src, key, msgpack::type::BOOLEAN, bool)
 
 void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 {
 	auto m = d.as<std::map<std::string, msgpack::object>>();
 
-	OBJ2STR(this->code, m, "code");
-	OBJ2STR(this->moji, m, "moji");
-	OBJ2STR(this->unicode, m, "unicode");
-	OBJ2STR(this->category, m, "category");
-	OBJ2STR(this->base, m, "base");
-	OBJ2STR(this->link, m, "link");
-	OBJ2INT(this->score, m, "score");
-	OBJ2DOUBLE(this->current_price, m, "current_price");
-	OBJ2BOOLEAN(this->permalock, m, "permalock");
-	OBJ2INT(this->times_changed, m, "times_changed");
-	OBJ2INT(this->times_used, m, "times_used");
-	OBJ2STR(this->user_id, m, "user_id");
-	OBJ2INT(this->favorited, m, "favorited");
-	OBJ2BOOLEAN(this->copyright_lock, m, "copyright_lock");
-	OBJ2STR(this->created_at, m, "created_at");
-	OBJ2BOOLEAN(this->r18, m, "r18");
+	MSGPACK_OBJ2STR(this->code, m, "code");
+	MSGPACK_OBJ2STR(this->moji, m, "moji");
+	MSGPACK_OBJ2STR(this->unicode, m, "unicode");
+	MSGPACK_OBJ2STR(this->category, m, "category");
+	MSGPACK_OBJ2STR(this->base, m, "base");
+	MSGPACK_OBJ2STR(this->link, m, "link");
+	MSGPACK_OBJ2INT(this->score, m, "score");
+	MSGPACK_OBJ2DOUBLE(this->current_price, m, "current_price");
+	MSGPACK_OBJ2BOOLEAN(this->permalock, m, "permalock");
+	MSGPACK_OBJ2INT(this->times_changed, m, "times_changed");
+	MSGPACK_OBJ2INT(this->times_used, m, "times_used");
+	MSGPACK_OBJ2STR(this->user_id, m, "user_id");
+	MSGPACK_OBJ2INT(this->favorited, m, "favorited");
+	MSGPACK_OBJ2BOOLEAN(this->copyright_lock, m, "copyright_lock");
+	MSGPACK_OBJ2STR(this->created_at, m, "created_at");
+	MSGPACK_OBJ2BOOLEAN(this->r18, m, "r18");
 
 	const msgpack::object& tags = m["tags"];
 	assert(tags.type == msgpack::type::ARRAY);
@@ -123,23 +277,9 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 	for(unsigned int i = 0;  i < variants.via.array.size;  ++i)
 		this->variants.push_back(variants.via.array.ptr[i].as<std::string>());
 
-	if(m.count("checksums") != 0)
-	{
-		auto checksums = m["checksums"].as<std::map<std::string, msgpack::object>>();
+	if(m.count("customizations") != 0)
+		fillCombinationFromMsgPack(&this->customizations, m["customizations"]);
 
-		if(checksums.count("svg") != 0)
-		{
-			OBJ2STR(this->checksums.svg, checksums, "svg");
-		}
-
-		if(checksums.count("png") != 0)
-		{
-			auto png = checksums["png"].as<std::map<std::string, msgpack::object>>();
-			for(auto& kv : png)
-			{
-				if(kv.second.type == msgpack::type::STR)
-					this->checksums.png[kv.first] = kv.second.as<std::string>();
-			}
-		}
-	}
+	if(m.count("combinations") != 0)
+		fillCombinationFromMsgPack(&this->combinations, m["combinations"]);
 }
