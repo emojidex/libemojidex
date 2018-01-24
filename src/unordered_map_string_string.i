@@ -63,7 +63,13 @@
   const std::unordered_map<std::string, std::string>::const_iterator itEnd = (*$1).end();
   for(std::unordered_map<std::string, std::string>::const_iterator it = (*$1).begin();  it != itEnd;  ++it)
   {
-    jenv->CallObjectMethod($result, putMethodId, jenv->NewStringUTF(it->first.c_str()), jenv->NewStringUTF(it->second.c_str()));
+    jstring key = jenv->NewStringUTF(it->first.c_str());
+    jstring value = jenv->NewStringUTF(it->second.c_str());
+
+    jenv->CallObjectMethod($result, putMethodId, key, value);
+
+    jenv->DeleteLocalRef(value);
+    jenv->DeleteLocalRef(key);
   }
 }
 

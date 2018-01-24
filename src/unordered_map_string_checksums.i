@@ -67,9 +67,13 @@
   const std::unordered_map<std::string, Emojidex::Data::Checksums>::const_iterator itEnd = (*$1).end();
   for(std::unordered_map<std::string, Emojidex::Data::Checksums>::const_iterator it = (*$1).begin();  it != itEnd;  ++it)
   {
-    jobject checksums = jenv->NewObject(checksumsClazz, checksumsInitMethodId, (jlong)new Emojidex::Data::Checksums((const Emojidex::Data::Checksums &)it->second), true);
+    jstring key = jenv->NewStringUTF(it->first.c_str());
+    jobject value = jenv->NewObject(checksumsClazz, checksumsInitMethodId, (jlong)new Emojidex::Data::Checksums((const Emojidex::Data::Checksums &)it->second), true);
 
-    jenv->CallObjectMethod($result, putMethodId, jenv->NewStringUTF(it->first.c_str()), checksums);
+    jenv->CallObjectMethod($result, putMethodId, key, value);
+
+    jenv->DeleteLocalRef(value);
+    jenv->DeleteLocalRef(key);
   }
 }
 
