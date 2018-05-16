@@ -2,7 +2,7 @@
 
 %nspace Emojidex::Data::Emoji;
 
-%include "StringVector.i"
+%include "string_vector.i"
 %include "cstring_to_jstring.i"
 
 // For java.
