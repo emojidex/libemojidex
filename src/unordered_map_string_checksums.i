@@ -1,6 +1,8 @@
 
 #ifdef SWIGJAVA
 
+%include "cstring_to_jstring.i"
+
 %typemap(jni) std::unordered_map<std::string, Emojidex::Data::Checksums>& "jobject"
 %typemap(jtype) std::unordered_map<std::string, Emojidex::Data::Checksums>& "Object"
 %typemap(jstype) std::unordered_map<std::string, Emojidex::Data::Checksums>& "java.util.HashMap<String , com.emojidex.libemojidex.Emojidex.Data.Checksums>"
@@ -67,7 +69,7 @@
   const std::unordered_map<std::string, Emojidex::Data::Checksums>::const_iterator itEnd = (*$1).end();
   for(std::unordered_map<std::string, Emojidex::Data::Checksums>::const_iterator it = (*$1).begin();  it != itEnd;  ++it)
   {
-    jstring key = jenv->NewStringUTF(it->first.c_str());
+    jstring key = cstr2jstr(jenv, it->first);
     jobject value = jenv->NewObject(checksumsClazz, checksumsInitMethodId, (jlong)new Emojidex::Data::Checksums((const Emojidex::Data::Checksums &)it->second), true);
 
     jenv->CallObjectMethod($result, putMethodId, key, value);

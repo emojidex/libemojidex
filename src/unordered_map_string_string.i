@@ -1,6 +1,8 @@
 
 #ifdef SWIGJAVA
 
+%include "cstring_to_jstring.i"
+
 %typemap(jni) std::unordered_map<std::string, std::string>&, std::unordered_map<std::string, std::string>* "jobject"
 %typemap(jtype) std::unordered_map<std::string, std::string>&, std::unordered_map<std::string, std::string>* "Object"
 %typemap(jstype) std::unordered_map<std::string, std::string>&, std::unordered_map<std::string, std::string>* "java.util.HashMap<String ,String>"
@@ -63,8 +65,8 @@
   const std::unordered_map<std::string, std::string>::const_iterator itEnd = (*$1).end();
   for(std::unordered_map<std::string, std::string>::const_iterator it = (*$1).begin();  it != itEnd;  ++it)
   {
-    jstring key = jenv->NewStringUTF(it->first.c_str());
-    jstring value = jenv->NewStringUTF(it->second.c_str());
+    jstring key = cstr2jstr(jenv, it->first);
+    jstring value = cstr2jstr(jenv, it->second);
 
     jenv->CallObjectMethod($result, putMethodId, key, value);
 

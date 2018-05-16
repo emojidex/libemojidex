@@ -5,7 +5,7 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_api_level = 21
+@build_api_level = 16
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
