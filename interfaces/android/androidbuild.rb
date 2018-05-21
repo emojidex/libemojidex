@@ -37,6 +37,8 @@ FileUtils.mkdir_p("#{@build_dir}/libs")
 if File.exists? "#{@natives_dir}/natives/lib/arm"
   FileUtils.mkdir_p("#{@build_dir}/libs/armeabi")
   FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/arm/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/armeabi/", {remove_destination: true})
+  FileUtils.mkdir_p("#{@build_dir}/libs/armeabi-v7a")
+  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/arm/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/armeabi-v7a/", {remove_destination: true})
 end
 if File.exists? "#{@natives_dir}/natives/lib/arm64"
   FileUtils.mkdir_p("#{@build_dir}/libs/arm64-v8a")
@@ -57,6 +59,7 @@ end
 
 puts "== for mac (copy the missing file)"
 FileUtils.cp("#{@natives_dir}/natives/lib/arm/libcurl.so", "#{@build_dir}/libs/armeabi/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/arm/libcurl.so"
+FileUtils.cp("#{@natives_dir}/natives/lib/arm/libcurl.so", "#{@build_dir}/libs/armeabi-v7a/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/arm/libcurl.so"
 FileUtils.cp("#{@natives_dir}/natives/lib/arm64/libcurl.so", "#{@build_dir}/libs/arm64-v8a/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/arm64/libcurl.so"
 FileUtils.cp("#{@natives_dir}/natives/lib/x86/libcurl.so", "#{@build_dir}/libs/x86/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/x86/libcurl.so"
 FileUtils.cp("#{@natives_dir}/natives/lib/x86_64/libcurl.so", "#{@build_dir}/libs/x86_64/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/x86_64/libcurl.so"

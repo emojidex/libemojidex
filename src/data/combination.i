@@ -2,7 +2,7 @@
 
 %nspace Emojidex::Data::Combination;
 
-%include "StringVector.i"
+%include "string_vector.i"
 %include "unordered_map_string_checksums.i"
 
 // For java.

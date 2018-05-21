@@ -2,7 +2,7 @@
 
 %nspace Emojidex::Service::User;
 
-%include "StringVector.i"
+%include "string_vector.i"
 
 // For java.
 SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)

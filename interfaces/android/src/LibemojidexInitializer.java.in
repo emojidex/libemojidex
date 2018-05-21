@@ -40,7 +40,8 @@ final class LibemojidexInitializer
     final LinkedHashMap<String, String[]> table = new LinkedHashMap<String, String[]>()
     {
       {
-        put("armv7l", new String[] {"armeabi"});
+        put("arm", new String[] {"armeabi"});
+        put("armv7l", new String[] {"armeabi-v7a", "armeabi"});
         put("aarch64", new String[] {"arm64-v8a", "armeabi"});
         put("i686", new String[] {"x86"});
         put("x86_64", new String[] {"x86_64", "x86"});
