@@ -19,83 +19,21 @@ final class LibemojidexInitializer
   static void initialize()
   {
     // Load native libraries.
-    final String arch = getArchitecture();
-    loadNativeLibrary("libcrystax.so", arch);
-    loadNativeLibrary("libgnustl_shared.so", arch);
-    loadNativeLibrary("libcrypto.so.1.1", arch);
-    loadNativeLibrary("libssl.so.1.1", arch);
-    loadNativeLibrary("libcurl.so", arch);
-    loadNativeLibrary("libmsgpackc.so.2", arch);
-    loadNativeLibrary("libemojidex-android.so", arch);
+    final String[] libraryNames = {
+      "crystax",
+      "gnustl_shared",
+      "crypto_1_1",
+      "ssl_1_1",
+      "curl",
+      "msgpackc_2",
+      "emojidex-android",
+    };
+
+    for(String libname : libraryNames)
+      System.loadLibrary(libname);
 
     // For ssl.
     LibEmojidex.setCACertPath(copyFileFromJar("data/cacert.pem", "cacert.pem"));
-  }
-
-  /**
-   *  Get architecture name.
-   */
-  private static String getArchitecture()
-  {
-    final LinkedHashMap<String, String[]> table = new LinkedHashMap<String, String[]>()
-    {
-      {
-        put("arm", new String[] {"armeabi"});
-        put("armv7l", new String[] {"armeabi-v7a", "armeabi"});
-        put("aarch64", new String[] {"arm64-v8a", "armeabi"});
-        put("i686", new String[] {"x86"});
-        put("x86_64", new String[] {"x86_64", "x86"});
-        put("mips", new String[] {"mips"});
-//        put("", new String[] {"mips64", "mips"});
-      }
-    };
-
-    // Check library file exists.
-    final String arch = System.getProperty("os.arch");
-    for(Map.Entry<String, String[]> entry : table.entrySet())
-    {
-      if( arch.contains(entry.getKey()) )
-      {
-        for(String result : entry.getValue())
-        {
-          if(isExists("libemojidex-android.so", result))
-            return result;
-        }
-      }
-    }
-
-    return "armeabi";
-  }
-
-  /**
-   * Get native library file path.
-   */
-  private static String getNativeLibraryPath(String name, String arch)
-  {
-    return "libs/" + arch + "/" + name + "_";
-  }
-
-  /**
-   *  Load native library.
-   */
-  private static void loadNativeLibrary(String name, String arch)
-  {
-    try
-    {
-      System.load(name);
-    }
-    catch(UnsatisfiedLinkError e)
-    {
-      loadNativeLibraryFromJar(name, arch);
-    }
-  }
-
-  /**
-   *  Load native library from jar file.
-   */
-  private static void loadNativeLibraryFromJar(String name, String arch)
-  {
-    System.load(copyFileFromJar(getNativeLibraryPath(name, arch), name));
   }
 
   /**
@@ -134,13 +72,5 @@ final class LibemojidexInitializer
     }
 
     return "";
-  }
-
-  /**
-   *  Check file exists.
-   */
-  private static boolean isExists(String name, String arch)
-  {
-    return LibemojidexInitializer.class.getClassLoader().getResource(getNativeLibraryPath(name, arch)) != null;
   }
 }
