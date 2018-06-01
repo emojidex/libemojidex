@@ -5,14 +5,15 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_api_level = 21
+@build_api_level = 16
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
 
 def init()
   if @build_api_level < 21
-    @build_targets = ["arm", "x86"] #, "mips"]
+    @build_targets.delete "arm64"
+    @build_targets.delete "x86_64"
   end
 
   FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"

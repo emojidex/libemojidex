@@ -7,6 +7,37 @@ require 'fileutils'
 @source_dir = ARGV[1] || "#{@build_dir}/../"
 @natives_dir = ARGV[2] || "#{@source_dir}/tmp/build/"
 @interface_dir = "#{@build_dir}/com/emojidex/libemojidex/"
+@platforms = [
+  { :target => "arm", :arch => "armeabi"},
+  { :target => "arm", :arch => "armeabi-v7a"},
+  { :target => "arm64", :arch => "arm64-v8a"},
+  { :target => "x86", :arch => "x86"},
+  { :target => "x86_64", :arch => "x86_64"},
+  { :target => "mips", :arch => "mips"},
+]
+
+puts "== Remove old files"
+FileUtils.rm_rf("#{@build_dir}/natives")
+FileUtils.rm_rf("#{@build_dir}/libs")
+FileUtils.rm_rf("#{@build_dir}/jni")
+FileUtils.rm_rf("#{@build_dir}/tmp")
+
+puts "== Copying natives and overwrite ELF"
+for platform in @platforms do
+  src = "#{@natives_dir}/natives/lib/#{platform[:target]}"
+  dest = "#{@build_dir}/natives/lib/#{platform[:target]}"
+  if File.exists? src
+    FileUtils.mkdir_p(dest)
+    FileUtils.cp_r(Dir["#{src}/*.so"].collect{|f| File.expand_path(f)}, "#{dest}/", {remove_destination: true})
+    `rpl -R -e .so.1.1 "_1_1.so" "#{dest}/libcrypto.so"`
+    `rpl -R -e .so.1.1 "_1_1.so" "#{dest}/libssl.so"`
+    `rpl -R -e .so.1.1 "_1_1.so" "#{dest}/libcurl.so"`
+    `rpl -R -e .so.2 "_2.so" "#{dest}/libmsgpackc.so"`
+    File.rename("#{dest}/libcrypto.so", "#{dest}/libcrypto_1_1.so")
+    File.rename("#{dest}/libssl.so", "#{dest}/libssl_1_1.so")
+    File.rename("#{dest}/libmsgpackc.so", "#{dest}/libmsgpackc_2.so")
+  end
+end
 
 puts "== Copying NDK build files and modifying variables"
 FileUtils.cp_r("#{@source_dir}/interfaces/android/jni", @build_dir, {remove_destination: true})
@@ -15,7 +46,7 @@ txt = File.read("#{@build_dir}/jni/Android.mk")
 
 # set source path
 txt.gsub!("$(OR_INCLUDE_PATH)", "#{@source_dir}/src/ #{@source_dir}/vendor/rapidjson/include/ #{ENV["CRYSTAX_NDK"]}/sources/boost/1.59.0/include/  #{@natives_dir}/natives/include/")
-txt.gsub!("$(OR_LIB_PATH)", "#{@natives_dir}/natives/lib/")
+txt.gsub!("$(OR_LIB_PATH)", "#{@build_dir}/natives/lib/")
 
 cpp_files = Dir.glob("#{@source_dir}/src/**/*.cpp")
 cpp_files_string = ""
@@ -30,48 +61,16 @@ puts "== Creating Native Interface Java sources"
 puts "== Running NDK Build"
 `NDK_PROJECT_PATH=#{@build_dir} #{ENV["CRYSTAX_NDK"]}/ndk-build`
 
-puts "== copying natives"
-FileUtils.mkdir_p(@interface_dir)
-FileUtils.mkdir_p("#{@build_dir}/libs")
-
-if File.exists? "#{@natives_dir}/natives/lib/arm"
-  FileUtils.mkdir_p("#{@build_dir}/libs/armeabi")
-  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/arm/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/armeabi/", {remove_destination: true})
-end
-if File.exists? "#{@natives_dir}/natives/lib/arm64"
-  FileUtils.mkdir_p("#{@build_dir}/libs/arm64-v8a")
-  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/arm64/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/arm64-v8a/", {remove_destination: true})
-end
-if File.exists? "#{@natives_dir}/natives/lib/x86"
-  FileUtils.mkdir_p("#{@build_dir}/libs/x86")
-  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/x86/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/x86/", {remove_destination: true})
-end
-if File.exists? "#{@natives_dir}/natives/lib/x86_64"
-  FileUtils.mkdir_p("#{@build_dir}/libs/x86_64")
-  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/x86_64/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/x86_64/", {remove_destination: true})
-end
-if File.exists? "#{@natives_dir}/natives/lib/mips"
-  FileUtils.mkdir_p("#{@build_dir}/libs/mips")
-  FileUtils.cp_r(Dir["#{@natives_dir}/natives/lib/mips/*.so*"].collect{|f| File.expand_path(f)}, "#{@build_dir}/libs/mips/", {remove_destination: true})
-end
-
-puts "== for mac (copy the missing file)"
-FileUtils.cp("#{@natives_dir}/natives/lib/arm/libcurl.so", "#{@build_dir}/libs/armeabi/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/arm/libcurl.so"
-FileUtils.cp("#{@natives_dir}/natives/lib/arm64/libcurl.so", "#{@build_dir}/libs/arm64-v8a/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/arm64/libcurl.so"
-FileUtils.cp("#{@natives_dir}/natives/lib/x86/libcurl.so", "#{@build_dir}/libs/x86/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/x86/libcurl.so"
-FileUtils.cp("#{@natives_dir}/natives/lib/x86_64/libcurl.so", "#{@build_dir}/libs/x86_64/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/x86_64/libcurl.so"
-FileUtils.cp("#{@natives_dir}/natives/lib/mips/libcurl.so", "#{@build_dir}/libs/mips/libcurl.so") if File.exists? "#{@natives_dir}/natives/lib/mips/libcurl.so"
-
 puts "== Copying temporary natives for jar"
-Dir.chdir(@build_dir) do
-  tmp_dir = 'tmp';
-  FileUtils.rm_rf(tmp_dir);
-  Dir.glob('libs/**/*') do |filename|
-    tmp_filename = "#{tmp_dir}/#{filename}"
-    if FileTest.directory?(filename) then
-      FileUtils.mkdir_p(tmp_filename)
-      next
-    end
-    FileUtils.cp_r(filename, "#{tmp_filename}_", {remove_destination: true});
+FileUtils.mkdir_p("#{@build_dir}/tmp/lib/")
+for platform in @platforms do
+  src_natives = "#{@build_dir}/natives/lib/#{platform[:target]}"
+  src_libs = "#{@build_dir}/libs/#{platform[:arch]}"
+  dest = "#{@build_dir}/tmp/lib/#{platform[:arch]}"
+
+  if File.exists? src_libs
+    FileUtils.mkdir_p(dest)
+    FileUtils.cp_r(Dir.glob("#{src_natives}/*"), dest, {remove_destination: true})
+    FileUtils.cp_r(Dir.glob("#{src_libs}/*"), dest, {remove_destination: true})
   end
 end

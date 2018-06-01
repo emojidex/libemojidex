@@ -2,7 +2,7 @@
 
 %nspace Emojidex::Service::Search;
 
-%include "StringVector.i"
+%include "string_vector.i"
 
 // For java.
 %typemap(javaimports) Emojidex::Service::Search %{

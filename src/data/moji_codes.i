@@ -2,7 +2,7 @@
 
 %nspace Emojidex::Data::MojiCodes;
 
-%include "StringVector.i"
+%include "string_vector.i"
 %include "unordered_map_string_string.i"
 
 // For java.
