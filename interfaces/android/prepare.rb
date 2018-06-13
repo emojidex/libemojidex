@@ -5,15 +5,15 @@ require 'fileutils'
 
 @build_dir = ARGV[0] || Dir.pwd
 
-@build_api_level = 16
+@build_api_level_32 = 16
+@build_api_level_64 = 21
 @build_targets = ["arm", "arm64", "x86", "x86_64"] #, "mips"]
 
 puts "=== Preparing Android build dependencies"
 
 def init()
-  if @build_api_level < 21
-    @build_targets.delete "arm64"
-    @build_targets.delete "x86_64"
+  if @build_api_level_64 < 21
+    @build_targets.reject!{|value| value.include?('64')}
   end
 
   FileUtils.mkdir_p("#{@build_dir}") unless File.exists? "#{@build_dir}"
@@ -26,17 +26,18 @@ def load_include_path(arch)
 end
 
 def chain_env(arch)
+  api_level = arch.include?('64') ? @build_api_level_64 : @build_api_level_32
   case arch
   when "arm"
-    return "CC=\"#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm\" LD=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ld AR=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ar RANLIB=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ranlib STRIP=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-strip "
+    return "CC=\"#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{api_level}/arch-arm\" LD=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ld AR=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ar RANLIB=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-ranlib STRIP=#{@build_dir}/toolchains/arm/bin/arm-linux-androideabi-strip "
   when "x86"
-    return "CC=\"#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86\" LD=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ld AR=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86/bin/i686-linux-android-strip "
+    return "CC=\"#{@build_dir}/toolchains/x86/bin/i686-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{api_level}/arch-x86\" LD=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ld AR=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86/bin/i686-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86/bin/i686-linux-android-strip "
   when "mips"
-    return "CC=\"#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips\" LD=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ld AR=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ar RANLIB=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ranlib STRIP=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-strip "
+    return "CC=\"#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{api_level}/arch-mips\" LD=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ld AR=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ar RANLIB=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-ranlib STRIP=#{@build_dir}/toolchains/mips/bin/mipsel-linux-android-strip "
   when "arm64"
-    return "CC=\"#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64\" LD=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ld AR=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ar RANLIB=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-strip "
+    return "CC=\"#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{api_level}/arch-arm64\" LD=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ld AR=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ar RANLIB=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/arm64/bin/aarch64-linux-android-strip "
   when "x86_64"
-    return "CC=\"#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64\" LD=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ld AR=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-strip "
+    return "CC=\"#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-gcc --sysroot=$CRYSTAX_NDK/platforms/android-#{api_level}/arch-x86_64\" LD=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ld AR=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ar RANLIB=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-ranlib STRIP=#{@build_dir}/toolchains/x86_64/bin/x86_64-linux-android-strip "
   end
 end
 
@@ -80,7 +81,8 @@ def prepare_chains()
   puts "== Preparing Android NDK Build Chains"
   @build_targets.each do |target|
     puts "= #{target}..."
-    `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-#{@build_api_level} --arch=#{target} --install-dir=#{@build_dir}/toolchains/#{target}` unless Dir.exists?("#{@build_dir}/toolchains/#{target}")
+    api_level = target.include?('64') ? @build_api_level_64 : @build_api_level_32
+    `$CRYSTAX_NDK/build/tools/make-standalone-toolchain.sh --platform=android-#{api_level} --arch=#{target} --install-dir=#{@build_dir}/toolchains/#{target}` unless Dir.exists?("#{@build_dir}/toolchains/#{target}")
   end
 
   FileUtils.mkdir_p("#{@build_dir}/natives/lib")
@@ -116,33 +118,31 @@ def build_OpenSSL()
   if @build_targets.include? 'arm'
     puts '= Building for arm'
     `git clean -fdx`
-    `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm android-armeabi shared threads no-asm; make; make install`
+    `#{chain_env('arm')} ./Configure --prefix=#{@build_dir}/natives/arm/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level_32}/arch-arm android-armeabi shared threads no-asm; make; make install`
   end
 
   if @build_targets.include? 'x86'
     puts '= Building for x86'
     `git clean -fdx`
-    `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86 android-x86 shared threads no-asm; make; make install`
+    `#{chain_env('x86')} ./Configure --prefix=#{@build_dir}/natives/x86/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level_32}/arch-x86 android-x86 shared threads no-asm; make; make install`
   end
 
   if @build_targets.include? 'mips'
     puts '= Building for mips'
     `git clean -fdx`
-    `#{chain_env('mips')} ./Configure --prefix=#{@build_dir}/natives/mips/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-mips android-mips shared threads no-asm; make; make install`
+    `#{chain_env('mips')} ./Configure --prefix=#{@build_dir}/natives/mips/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level_32}/arch-mips android-mips shared threads no-asm; make; make install`
   end
 
-  if @build_api_level > 20
-    if @build_targets.include? 'arm64'
-      puts '= Building for arm64'
-      `git clean -fdx`
-      `#{chain_env('arm64')} ./Configure --prefix=#{@build_dir}/natives/arm64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-arm64 android64 shared threads no-asm; make; make install`
-    end
+  if @build_targets.include? 'arm64'
+    puts '= Building for arm64'
+    `git clean -fdx`
+    `#{chain_env('arm64')} ./Configure --prefix=#{@build_dir}/natives/arm64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level_64}/arch-arm64 android64 shared threads no-asm; make; make install`
+  end
 
-    if @build_targets.include? 'x86_64'
-      puts '= Building for x86_64'
-      `git clean -fdx`
-      `#{chain_env('x86_64')} ./Configure --prefix=#{@build_dir}/natives/x86_64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level}/arch-x86_64 android-x86 shared threads no-asm; make; make install`
-    end
+  if @build_targets.include? 'x86_64'
+    puts '= Building for x86_64'
+    `git clean -fdx`
+    `#{chain_env('x86_64')} ./Configure --prefix=#{@build_dir}/natives/x86_64/ --sysroot=$CRYSTAX_NDK/platforms/android-#{@build_api_level_64}/arch-x86_64 android-x86 shared threads no-asm; make; make install`
   end
 
   Dir.chdir @build_dir
@@ -189,20 +189,18 @@ def build_curl()
     `#{chain_env('mips')} LDFLAGS=\"-L#{@build_dir}/natives/lib/mips -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/mips \" ./configure --host=mips-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/mips --with-openssl-libraries=#{@build_dir}/natives/lib/mips --with-ssl --prefix=#{@build_dir}/natives/mips/ #{disable_lines} && make && make install`
   end
 
-  if @build_api_level > 20
-    if @build_targets.include? 'arm64'
-      puts '= Building for arm64'
-      `git clean -fdx`
-      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./buildconf`
-      `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
-    end
+  if @build_targets.include? 'arm64'
+    puts '= Building for arm64'
+    `git clean -fdx`
+    `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./buildconf`
+    `#{chain_env('arm64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/arm64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/arm64 \" ./configure --host=arm-linux-androideabi --with-openssl-includes=#{@build_dir}/natives/include/arm64 --with-openssl-libraries=#{@build_dir}/natives/lib/arm64 --with-ssl --prefix=#{@build_dir}/natives/arm64/ #{disable_lines} && make && make install`
+  end
 
-    if @build_targets.include? 'x86_64'
-      puts '= Building for x86_64'
-      `git clean -fdx`
-      `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./buildconf`
-      `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86_64 --with-openssl-libraries=#{@build_dir}/natives/lib/x86_64 --with-ssl --prefix=#{@build_dir}/natives/x86_64/ #{disable_lines} && make && make install`
-    end
+  if @build_targets.include? 'x86_64'
+    puts '= Building for x86_64'
+    `git clean -fdx`
+    `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./buildconf`
+    `#{chain_env('x86_64')} LDFLAGS=\"-L#{@build_dir}/natives/lib/x86_64 -lssl -lcrypto\" CFLAGS=\"-I#{@build_dir}/natives/include/x86_64 \" ./configure --host=x86-linux-android --with-openssl-includes=#{@build_dir}/natives/include/x86_64 --with-openssl-libraries=#{@build_dir}/natives/lib/x86_64 --with-ssl --prefix=#{@build_dir}/natives/x86_64/ #{disable_lines} && make && make install`
   end
 end
 
@@ -250,22 +248,20 @@ def build_msgpack()
     `#{chain_env('mips')} make install`
   end
 
-  if @build_api_level > 20
-    if @build_targets.include? 'arm64'
-      puts '= Building for arm64'
-      git.clean({force: true, d: true, x:true})
-      `#{chain_env('arm64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm64/ .`
-      `#{chain_env('arm64')} make`
-      `#{chain_env('arm64')} make install`
-    end
+  if @build_targets.include? 'arm64'
+    puts '= Building for arm64'
+    git.clean({force: true, d: true, x:true})
+    `#{chain_env('arm64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/arm64/ .`
+    `#{chain_env('arm64')} make`
+    `#{chain_env('arm64')} make install`
+  end
 
-    if @build_targets.include? 'x86_64'
-      puts '= Building for x86_64'
-      git.clean({force: true, d: true, x:true})
-      `#{chain_env('x86_64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86_64/ .`
-      `#{chain_env('x86_64')} make`
-      `#{chain_env('x86_64')} make install`
-    end
+  if @build_targets.include? 'x86_64'
+    puts '= Building for x86_64'
+    git.clean({force: true, d: true, x:true})
+    `#{chain_env('x86_64')} cmake -DMSGPACK_ENABLE_SHARED=ON -DMSGPACK_ENABLE_CXX=ON -DMSGPACK_BOOST=ON -DMSGPACK_CXX11=ON -DMSGPACK_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=#{@build_dir}/natives/x86_64/ .`
+    `#{chain_env('x86_64')} make`
+    `#{chain_env('x86_64')} make install`
   end
 end
 
