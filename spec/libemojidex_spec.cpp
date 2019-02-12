@@ -316,7 +316,7 @@ BOOST_AUTO_TEST_SUITE(service_indexes_suite)
 		BOOST_CHECK(ext.opts.getPage() == 1);
 		BOOST_CHECK_GT(ext.emoji.size(), 0);
 		BOOST_CHECK(ext.emoji["ninja"].category.compare("people") == 0);
-		BOOST_CHECK(ext.emoji["bunny boy"].category.compare("people") == 0);
+		BOOST_CHECK(ext.emoji["smiling face"].category.compare("faces") == 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(emoji_index) {
@@ -550,6 +550,9 @@ BOOST_AUTO_TEST_SUITE(service_user_suite)
 
 	// User following (followers is tested by hand on a premium account)
 	BOOST_AUTO_TEST_CASE(user_following) {
+		BOOST_TEST_MESSAGE("User following");
+		user.authorize("test", "1798909355d57c9a93e3b82d275594e7c7c000db05021138");
+
 		user.addFollowing("emojidex");
 		user.syncFollowing();
 		BOOST_CHECK(user.following.size() > 0);
@@ -573,6 +576,7 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(client_suite)
 	// Check that this client is for version 1 of the api
 	BOOST_AUTO_TEST_CASE(api_version) {
+		BOOST_TEST_MESSAGE("API version");
 		Emojidex::Client *client = new Emojidex::Client();
 		BOOST_CHECK_EQUAL(client->apiVersion(), 1);
 	}
