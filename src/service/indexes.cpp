@@ -2,6 +2,8 @@
 #include "transactor.h"
 #include "collector.h"
 
+#include <msgpack.hpp>
+
 using namespace std;
 using namespace Emojidex::Data;
 
@@ -33,14 +35,23 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
 	Emojidex::Service::Transactor transactor;
 	string response = is_logged_in(user) ?
-		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}) :
-		transactor.GET("moji_codes", {{"locale", locale}});
-	
+		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}, NULL, true) :
+		transactor.GET("moji_codes", {{"locale", locale}}, NULL, true);
+
+	fillMojiCodesFromMsgPack(response);
+
+	this->codes->locale = locale;
+
+	return *this->codes;
+}
+
+void Emojidex::Service::Indexes::fillMojiCodesFromJson(const std::string& src)
+{
 	rapidjson::Document d;
-	d.Parse(response.c_str());
+	d.Parse(src.c_str());
 
 	if (d.HasParseError())
-		return *this->codes;
+		return;
 
 	rapidjson::Value& ms = d["moji_string"];
 	this->codes->moji_string = ms.GetString();
@@ -53,10 +64,52 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 	for (rapidjson::Value::ConstMemberIterator item = mi.MemberBegin();
 			item != mi.MemberEnd(); item++)
 		this->codes->moji_index[item->name.GetString()] = item->value.GetString();
+}
 
-	this->codes->locale = locale;
+void Emojidex::Service::Indexes::fillMojiCodesFromMsgPack(const std::string& src)
+{
+	msgpack::object_handle oh = msgpack::unpack(src.data(), src.size());
+	msgpack::object root = oh.get();
 
-	return *this->codes;
+	if(root.type == msgpack::type::MAP)
+	{
+		auto m = root.as<std::map<std::string, msgpack::object>>();
+
+		if(m.count("moji_string") != 0)
+		{
+			const msgpack::object ms = m.at("moji_string");
+			if(ms.type == msgpack::type::STR)
+				this->codes->moji_string = ms.as<std::string>();
+		}
+
+		if(m.count("moji_array") != 0)
+		{
+			const msgpack::object ma = m.at("moji_array");
+			if(ma.type == msgpack::type::ARRAY)
+			{
+				for(unsigned int i = 0;  i < ma.via.array.size;  ++i)
+				{
+					auto value = ma.via.array.ptr[i];
+					if(value.type == msgpack::type::STR)
+					 this->codes->moji_array.push_back(value.as<std::string>());
+				}
+			}
+		}
+
+		if(m.count("moji_index") != 0)
+		{
+			const msgpack::object mi = m.at("moji_index");
+			if(mi.type == msgpack::type::MAP)
+			{
+				for(unsigned int i = 0;  i < mi.via.map.size;  ++i)
+				{
+					auto pair = mi.via.map.ptr[i];
+					if(pair.key.type == msgpack::type::STR && pair.val.type == msgpack::type::STR)
+						this->codes->moji_index[pair.key.as<std::string>()] = pair.val.as<std::string>();
+				}
+			}
+		}
+	}
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale, bool detailed)
