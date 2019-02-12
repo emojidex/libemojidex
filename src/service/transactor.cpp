@@ -2,6 +2,7 @@
 #include "settings.h"
 
 #include "../libemojidex.h"
+#include "../version.h"
 
 #include <curl/curl.h>
 
@@ -96,7 +97,7 @@ std::string Emojidex::Service::Transactor::request(const std::string& verb, cons
       headers = curl_slist_append(headers, "Accept: application/msgpack");
 
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, "libemojidex/1.0");
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, std::string("libemojidex/") + EMOJIDEX_VERSION);
 
 		curl_easy_setopt(curl, CURLOPT_URL, url_stream.str().c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeMemoryCallback);
