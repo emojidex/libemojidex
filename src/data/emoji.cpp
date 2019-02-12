@@ -277,6 +277,9 @@ void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)
 	for(unsigned int i = 0;  i < variants.via.array.size;  ++i)
 		this->variants.push_back(variants.via.array.ptr[i].as<std::string>());
 
+	if(m.count("checksums") != 0)
+		fillChecksumsFromMsgPack(&this->checksums, m["checksums"]);
+
 	if(m.count("customizations") != 0)
 		fillCombinationFromMsgPack(&this->customizations, m["customizations"]);
 
