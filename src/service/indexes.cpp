@@ -35,40 +35,10 @@ Emojidex::Data::MojiCodes Emojidex::Service::Indexes::mojiCodes(string locale)
 {
 	Emojidex::Service::Transactor transactor;
 	string response = is_logged_in(user) ?
-		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}, NULL, true) :
-		transactor.GET("moji_codes", {{"locale", locale}}, NULL, true);
+		transactor.GET("moji_codes", {{"locale", locale}, {"auth_token", user->auth_token}}) :
+		transactor.GET("moji_codes", {{"locale", locale}});
 
-	fillMojiCodesFromMsgPack(response);
-
-	this->codes->locale = locale;
-
-	return *this->codes;
-}
-
-void Emojidex::Service::Indexes::fillMojiCodesFromJson(const std::string& src)
-{
-	rapidjson::Document d;
-	d.Parse(src.c_str());
-
-	if (d.HasParseError())
-		return;
-
-	rapidjson::Value& ms = d["moji_string"];
-	this->codes->moji_string = ms.GetString();
-	
-	const rapidjson::Value& ma = d["moji_array"];
-	for (rapidjson::SizeType i = 0; i < ma.Size(); i++)
-		this->codes->moji_array.push_back(ma[i].GetString());
-
-	const rapidjson::Value& mi = d["moji_index"];
-	for (rapidjson::Value::ConstMemberIterator item = mi.MemberBegin();
-			item != mi.MemberEnd(); item++)
-		this->codes->moji_index[item->name.GetString()] = item->value.GetString();
-}
-
-void Emojidex::Service::Indexes::fillMojiCodesFromMsgPack(const std::string& src)
-{
-	msgpack::object_handle oh = msgpack::unpack(src.data(), src.size());
+	msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
 	msgpack::object root = oh.get();
 
 	if(root.type == msgpack::type::MAP)
@@ -110,6 +80,10 @@ void Emojidex::Service::Indexes::fillMojiCodesFromMsgPack(const std::string& src
 			}
 		}
 	}
+
+	this->codes->locale = locale;
+
+	return *this->codes;
 }
 
 Emojidex::Data::Collection Emojidex::Service::Indexes::utfEmoji(string locale, bool detailed)

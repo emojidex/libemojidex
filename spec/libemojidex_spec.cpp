@@ -210,9 +210,10 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
 			{"emoji_code", "zebra"}
 		});
-		rapidjson::Document doc;
-		doc.Parse(result.empty() ? "{}" : result.c_str());
-		const std::string status = doc.HasMember("status") ? doc["status"].GetString() : "";
+		const msgpack::object_handle oh = msgpack::unpack(result.data(), result.size());
+		const msgpack::object root = oh.get();
+		const auto m = root.as<std::map<std::string, std::string>>();
+		const std::string status = m.at("status");
 		BOOST_CHECK_NE(result.compare(""), 0);
 		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
 		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);
@@ -224,9 +225,10 @@ BOOST_AUTO_TEST_SUITE(service_transactor_suite)
 			{"auth_token", "1798909355d57c9a93e3b82d275594e7c7c000db05021138"},
 			{"emoji_code", "zebra"}
 		});
-		rapidjson::Document doc;
-		doc.Parse(result.empty() ? "{}" : result.c_str());
-		const std::string status = doc.HasMember("status") ? doc["status"].GetString() : "";
+		const msgpack::object_handle oh = msgpack::unpack(result.data(), result.size());
+		const msgpack::object root = oh.get();
+		const auto m = root.as<std::map<std::string, std::string>>();
+		const std::string status = m.at("status");
 		BOOST_CHECK_NE(result.compare(""), 0);
 		BOOST_CHECK_NE(status.compare("wrong authentication token"), 0);
 		BOOST_CHECK_NE(status.compare("emoji code is wrong"), 0);

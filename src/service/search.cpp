@@ -115,7 +115,7 @@ Emojidex::Data::Emoji Emojidex::Service::Search::find(std::string code, bool det
   
 	// Create emoji object.
 	Emojidex::Data::Emoji result;
-	result.fillFromJSONString(response);
+	result.fillFromMsgPackString(response);
 
 	return result;
 }

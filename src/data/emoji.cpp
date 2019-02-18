@@ -2,7 +2,6 @@
 
 #include <msgpack.hpp>
 
-//#define MSGPACK_OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0 && src[key].type == msgpack_type) dest = src[key].as<result_type>(); }
 #define MSGPACK_OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0) { const msgpack::object target = src.at(key); if(target.type == msgpack_type) dest = target.as<result_type>(); } }
 #define MSGPACK_OBJ2STR(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::STR, std::string)
 #define MSGPACK_OBJ2INT(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::POSITIVE_INTEGER, int)
@@ -184,7 +183,7 @@ Emojidex::Data::Emoji::Emoji()
 	this->r18 = false;
 }
 
-void Emojidex::Data::Emoji::fillFromJSONString(std::string json)
+void Emojidex::Data::Emoji::fillFromJSONString(const std::string& json)
 {
 	rapidjson::Document d;
 	d.Parse(json.c_str());
@@ -195,7 +194,7 @@ void Emojidex::Data::Emoji::fillFromJSONString(std::string json)
 	this->fillFromJSON(d);
 }
 
-void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
+void Emojidex::Data::Emoji::fillFromJSON(const rapidjson::Value& d)
 {
 	if(d.HasMember("error"))
 		return;
@@ -226,12 +225,12 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 	if (d.HasMember("r18") && d["r18"].IsBool())
 		this->r18 = d["r18"].GetBool();
 
-	rapidjson::Value& tags = d["tags"];
+	const rapidjson::Value& tags = d["tags"];
 	assert(tags.IsArray());
 	for (rapidjson::SizeType tag_i = 0; tag_i < tags.Size(); tag_i++)
 		this->tags.push_back(tags[tag_i].GetString());
 
-	rapidjson::Value& variants = d["variants"];
+	const rapidjson::Value& variants = d["variants"];
 	assert(variants.IsArray());
 	for (rapidjson::SizeType variant_i = 0; variant_i < variants.Size(); variant_i++)
 		this->variants.push_back(variants[variant_i].GetString());
@@ -244,6 +243,14 @@ void Emojidex::Data::Emoji::fillFromJSON(rapidjson::Value& d)
 
 	if(d.HasMember("combinations"))
 		fillCombinationFromJSON(&this->combinations, d["combinations"]);
+}
+
+void Emojidex::Data::Emoji::fillFromMsgPackString(const std::string& msgpack)
+{
+	const msgpack::object_handle oh = msgpack::unpack(msgpack.data(), msgpack.size());
+	const msgpack::object root = oh.get();
+
+	fillFromMsgPack(root);
 }
 
 void Emojidex::Data::Emoji::fillFromMsgPack(const msgpack::object& d)

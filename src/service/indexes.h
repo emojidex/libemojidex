@@ -15,9 +15,6 @@ namespace Emojidex {
 			Emojidex::Data::MojiCodes *codes;
 			const Emojidex::Service::User *user;
 
-			void fillMojiCodesFromJson(const std::string& src);
-			void fillMojiCodesFromMsgPack(const std::string& src);
-
 		public:
 			Indexes();
 			~Indexes();
