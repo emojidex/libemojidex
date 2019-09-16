@@ -19,7 +19,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getStaticCollection(str
 
 	Emojidex::Service::Transactor transactor;
 	string response = transactor.GET(name, {{"locale", locale},
-			{"detailed", TF(detailed)}}, NULL, true);
+			{"detailed", TF(detailed)}});
 
 	collect.mergeMsgPack(response);
 
@@ -39,7 +39,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getDynamicCollection(st
 	collect.opts.page(page);
 
 	Emojidex::Service::Transactor transactor;
-	string response = transactor.GET(collect.endpoint, collect.opts, NULL, true);
+	string response = transactor.GET(collect.endpoint, collect.opts);
 
 	collect.mergeMsgPack(response);
 
@@ -66,7 +66,7 @@ Emojidex::Data::Collection Emojidex::Service::Collector::getCollection(Emojidex:
 	Emojidex::Service::Transactor transactor;
 
 	string response = "";
-	response = transactor.GET(collect.endpoint, collect.opts, NULL, true);
+	response = transactor.GET(collect.endpoint, collect.opts);
 
 	collect.mergeMsgPack(response);
 

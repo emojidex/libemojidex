@@ -2,10 +2,15 @@
 #include "user.h"
 #include "transactor.h"
 #include "indexes.h"
-#include "rapidjson/document.h"
+#include "msgpack.hpp"
 
 using namespace Emojidex::Data;
 using namespace std;
+
+#define MSGPACK_OBJ2TYPE(dest, src, key, msgpack_type, result_type) { if(src.count(key) != 0) { const msgpack::object target = src.at(key); if(target.type == msgpack_type) dest = target.as<result_type>(); } }
+#define MSGPACK_OBJ2STR(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::STR, std::string)
+#define MSGPACK_OBJ2INT(dest, src, key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::POSITIVE_INTEGER, int)
+#define MSGPACK_OBJ2BOOLEAN(dest, src,key) MSGPACK_OBJ2TYPE(dest, src, key, msgpack::type::BOOLEAN, bool)
 
 Emojidex::Service::User::User()
 {
@@ -27,34 +32,44 @@ bool Emojidex::Service::User::authorize(string username, string token)
 	string response = transactor.GET("users/authenticate", {{"username", username}, 
 			{"token", token}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError()) {
+	if(root.type != msgpack::type::MAP)
+	{
 		this->status = FAILURE;
 		this->username = username;
 		this->auth_token = token;
 		return false;
 	}
-	
-	if (doc.IsObject() && doc.HasMember("auth_status")) {
-		string ret_status = doc["auth_status"].GetString();
-		if (ret_status.compare("verified") == 0) {
-			this->status = VERIFIED;
-			this->username = doc["auth_user"].GetString();
-			this->auth_token = doc["auth_token"].GetString();
-			this->pro = doc["pro"].GetBool();
-			this->premium = doc["premium"].GetBool();
-			this->r18 = doc["r18"].GetBool();
-			return true;
-		} else if (ret_status.compare("unverified") == 0) {
-			this->status = UNVERIFIED;
-			this->username = username;
-			this->auth_token = token;
-			return false;
-		}
+
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	std::string ret_status;
+	MSGPACK_OBJ2STR(ret_status, m, "auth_status");
+
+	if(ret_status.compare("verified") == 0)
+	{
+		this->status = VERIFIED;
+		MSGPACK_OBJ2STR(this->username, m, "auth_user");
+		MSGPACK_OBJ2STR(this->auth_token, m, "auth_token");
+		MSGPACK_OBJ2BOOLEAN(this->pro, m, "pro");
+		MSGPACK_OBJ2BOOLEAN(this->premium, m, "premium");
+		MSGPACK_OBJ2BOOLEAN(this->r18, m, "r18");
+		return true;
 	}
 
+	if(ret_status.compare("unverified") == 0)
+	{
+		this->status = UNVERIFIED;
+		this->username = username;
+		this->auth_token = token;
+		return false;
+	}
+
+	this->status = FAILURE;
+	this->username = username;
+	this->auth_token = token;
 	return false;
 }
 
@@ -70,7 +85,7 @@ bool Emojidex::Service::User::syncFavorites(bool detailed)
 	string response = transactor.GET("users/favorites", {{"auth_user", username}, 
 			{"auth_token", this->auth_token}, {"detailed", (detailed ? "true" : "false")}});
 
-	favorites.mergeJSON(response);
+	favorites.mergeMsgPack(response);
 
 	return true;
 }
@@ -82,21 +97,20 @@ bool Emojidex::Service::User::addFavorite(string code)
 	string response = transactor.POST("users/favorites", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("code")) { //Check to see if a code is actually present
-			Emojidex::Data::Emoji em;
-			em.fillFromJSONString(response);
-			this->favorites.add(em);
-			return true;
-		} else if (doc.HasMember("status")) {
-			return false;
-		}
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	if(m.count("code") != 0)	//Check to see if a code is actually present
+	{
+		Emojidex::Data::Emoji em;
+		em.fillFromMsgPack(root);
+		this->favorites.add(em);
+		return true;
 	}
 
 	return false;
@@ -109,19 +123,20 @@ bool Emojidex::Service::User::removeFavorite(string code)
 	string response = transactor.DELETE("users/favorites", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"emoji_code", Emojidex::escapeCode(code)}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("code")) { //Check to see if a code is actually present
-			this->favorites.remove(doc["code"].GetString());
-			return true;
-		} else if (doc.HasMember("status")) {
-			return false;
-		}
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	if(m.count("code") != 0)	//Check to see if a code is actually present
+	{
+		std::string code;
+		MSGPACK_OBJ2STR(code, m, "code");
+		this->favorites.remove(code);
+		return true;
 	}
 
 	return false;
@@ -132,37 +147,62 @@ std::vector<Emojidex::Service::HistoryItem> Emojidex::Service::User::syncHistory
 	if (page == 0)
 		page = this->history_page + 1;
 
-	std::vector<Emojidex::Service::HistoryItem> history_page;
+	std::vector<Emojidex::Service::HistoryItem> new_history_page;
 
 	Emojidex::Service::Transactor transactor;
 	std::string response = transactor.GET("users/history", {{"auth_token", this->auth_token}, 
 			{"limit", std::to_string(limit)}, {"page", std::to_string(page)}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
-		return history_page;
+	if(root.type != msgpack::type::MAP)
+		return new_history_page;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("meta")) { //Check to see if a meta node is present
-			this->history_total = doc["meta"]["total_count"].GetInt();
-			this->history_page = doc["meta"]["page"].GetInt();
-			for (rapidjson::SizeType i = 0; i < doc["history"].Size(); i++) {
-				history_page.push_back(Emojidex::Service::HistoryItem(
-							doc["history"][i]["emoji_code"].GetString(),
-							doc["history"][i]["times_used"].GetInt(),
-							doc["history"][i]["last_used"].GetString()));
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	if(m.count("meta") != 0)	//Check to see if a meta node is present
+	{
+		const msgpack::object meta_object = m.at("meta");
+		if(meta_object.type == msgpack::type::MAP)
+		{
+			const auto meta = meta_object.as<std::map<std::string, msgpack::object>>();
+			MSGPACK_OBJ2INT(this->history_total, meta, "total_count");
+			MSGPACK_OBJ2INT(this->history_page, meta, "page");
+		}
+
+		if(m.count("history") != 0)
+		{
+			const msgpack::object history_object = m.at("history");
+
+			if(history_object.type == msgpack::type::ARRAY)
+			{
+				for(size_t i = 0;  i < history_object.via.array.size;  ++i)
+				{
+					if(history_object.via.array.ptr[i].type == msgpack::type::MAP)
+					{
+						auto history = history_object.via.array.ptr[i].as<std::map<std::string, msgpack::object>>();
+						std::string emoji_code;
+						int times_used;
+						std::string last_used;
+
+						MSGPACK_OBJ2STR(emoji_code, history, "emoji_code");
+						MSGPACK_OBJ2INT(times_used, history, "times_used");
+						MSGPACK_OBJ2STR(last_used, history, "last_used");
+
+						new_history_page.push_back(
+							Emojidex::Service::HistoryItem(emoji_code, times_used, last_used)
+						);
+					}
+				}
 			}
-		} else if (doc.HasMember("status")) {
-			return history_page;
 		}
 	}
 
-	mergeHistoryPage(history_page);
+	mergeHistoryPage(new_history_page);
 	sortHistory();
 
-	return history_page;
+	return new_history_page;
 }
 
 void Emojidex::Service::User::mergeHistoryPage(std::vector<Emojidex::Service::HistoryItem> history_page)
@@ -203,29 +243,37 @@ bool Emojidex::Service::User::addHistory(string code)
 	std::string response = transactor.POST("users/history", {{"auth_token", this->auth_token}, 
 			{"emoji_code", Emojidex::escapeCode(code)}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("emoji_code")) { // Make sure we're dealing with a history item
-			std::string emoji_code = doc["emoji_code"].GetString();
-			history.insert(history.begin(), Emojidex::Service::HistoryItem(
-							emoji_code,
-							doc["times_used"].GetInt(),
-							doc["last_used"].GetString()));
-			for (unsigned int i = 1; i < history.size(); i++) {
-				if (history[i].emoji_code.compare(emoji_code) == 0) {
-					history.erase(history.begin() + i, history.begin() + i + 1);
-					break;
-				}
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	if(m.count("emoji_code") != 0)	// Make sure we're dealing with a history item
+	{
+		std::string emoji_code;
+		int times_used;
+		std::string last_used;
+		MSGPACK_OBJ2STR(emoji_code, m, "emoji_code");
+		MSGPACK_OBJ2INT(times_used, m, "times_used");
+		MSGPACK_OBJ2STR(last_used, m, "last_used");
+
+		for(auto it = history.begin();  it != history.end();  ++it)
+		{
+			if(it->emoji_code.compare(emoji_code) == 0)
+			{
+				history.erase(it);
+				break;
 			}
-			return true;
-		} else if (doc.HasMember("status")) {
-			return false; // Status lines indicate an error, so just return false
 		}
+
+		history.insert(
+			history.begin(),
+			Emojidex::Service::HistoryItem(emoji_code, times_used, last_used)
+		);
+		return true;
 	}
 
 	return false;
@@ -249,19 +297,31 @@ bool Emojidex::Service::User::syncFollowing()
 	string response = transactor.GET("users/following", {{"auth_user", username}, 
 			{"auth_token", this->auth_token}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
 	this->following.clear();
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
 
-	const rapidjson::Value& ua = doc["following"];
-	for (rapidjson::SizeType i = 0; i < ua.Size(); i++)
-		this->following.push_back(ua[i].GetString());
+	if(m.count("following") != 0)
+	{
+		const msgpack::object following_object = m.at("following");
+		if(following_object.type == msgpack::type::ARRAY)
+		{
+			for(size_t i = 0;  i < following_object.via.array.size;  ++i)
+			{
+				const msgpack::object& user = following_object.via.array.ptr[i];
+				if(user.type == msgpack::type::STR)
+					this->following.push_back(user.as<std::string>());
+			}
+		}
+		return true;
+	}
 
-	return true;
+	return false;
 }
 
 bool Emojidex::Service::User::addFollowing(string username)
@@ -271,19 +331,20 @@ bool Emojidex::Service::User::addFollowing(string username)
 	string response = transactor.POST("users/following", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"username", username}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("username")) { //Check to see if a code is actually present
-			this->following.push_back(doc["username"].GetString());
-			return true;
-		} else if (doc.HasMember("status")) {
-			return false;
-		}
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
+
+	if(m.count("username") != 0)	//Check to see if a code is actually present
+	{
+		std::string name;
+		MSGPACK_OBJ2STR(name, m, "username");
+		this->following.push_back(name);
+		return true;
 	}
 
 	return false;
@@ -296,27 +357,29 @@ bool Emojidex::Service::User::removeFollowing(string username)
 	string response = transactor.DELETE("users/following", {{"auth_user", username},
 			{"auth_token", this->auth_token}, {"username", username}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
-	if (doc.IsObject()) {
-		if (doc.HasMember("username")) { //Check to see if a code is actually present
-			if (username.compare(doc["username"].GetString()) != 0)
-				return false;
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
 
-			for (unsigned int i = 0; i < following.size(); i++) {
-				if (following[i].compare(username) == 0) {
-					this->following.erase(this->following.begin() + i);
-					return true;
-				}
-			}
+	if(m.count("username") != 0)	//Check to see if a code is actually present
+	{
+		std::string name;
+		MSGPACK_OBJ2STR(name, m, "username");
+
+		if(username.compare(name) != 0)
 			return false;
-		} else if (doc.HasMember("status")) {
+
+		const auto it = std::find(this->following.begin(), this->following.end(), username);
+		if(it == this->following.end())
 			return false;
-		}
+
+		this->following.erase(it);
+
+		return true;
 	}
 
 	return false;
@@ -329,17 +392,29 @@ bool Emojidex::Service::User::syncFollowers()
 	string response = transactor.GET("users/followers", {{"auth_user", username}, 
 			{"auth_token", this->auth_token}});
 
-	rapidjson::Document doc;
-	doc.Parse(response.c_str());
+	const msgpack::object_handle oh = msgpack::unpack(response.data(), response.size());
+	const msgpack::object root = oh.get();
 
-	if (doc.HasParseError())
+	if(root.type != msgpack::type::MAP)
 		return false;
 
 	this->followers.clear();
+	const auto m = root.as<std::map<std::string, msgpack::object>>();
 
-	const rapidjson::Value& ua = doc["followers"];
-	for (rapidjson::SizeType i = 0; i < ua.Size(); i++)
-		this->followers.push_back(ua[i].GetString());
+	if(m.count("followers") != 0)
+	{
+		const msgpack::object following_object = m.at("followers");
+		if(following_object.type == msgpack::type::ARRAY)
+		{
+			for(size_t i = 0;  i < following_object.via.array.size;  ++i)
+			{
+				const msgpack::object& user = following_object.via.array.ptr[i];
+				if(user.type == msgpack::type::STR)
+					this->followers.push_back(user.as<std::string>());
+			}
+		}
+		return true;
+	}
 
-	return true;
+	return false;
 }
